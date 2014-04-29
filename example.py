@@ -7,10 +7,10 @@
 # CS194, Spring 2014 - Stanford University
 
 from __future__ import unicode_literals
-import argparse, getpass
+import argparse, getpass, gzip
 
 # Default values for testing purposes
-UNAME_DEFAULT = 'nbreitweiser'
+UNAME_DEFAULT = ''
 # password should NOT be stored in this file
 
 from imapclient import IMAPClient
@@ -40,13 +40,25 @@ server.login(USERNAME, PASSWORD)
 select_info = server.select_folder('INBOX')
 print('%d messages in INBOX' % select_info['EXISTS'])
 
-messages = server.search(['NOT DELETED'])
-print("%d messages that aren't deleted" % len(messages))
+messages = server.search(['NOT DELETED','SINCE 1-Apr-2014' ])
+print("%d messages that aren't deleted since April 1" % len(messages))
 
 print()
 print("Messages:")
-response = server.fetch(messages, ['FLAGS', 'RFC822.SIZE'])
+response = server.fetch(messages, ['RFC822'])
 for msgid, data in response.iteritems():
-    print('   ID %d: %d bytes, flags=%s' % (msgid,
-                                            data['RFC822.SIZE'],
-                                            data['FLAGS']))
+    print('   ID %d:\nContents:\n %s\n' % (msgid,
+                                            data['RFC822']))
+
+print()
+print("Saving to disk...")
+
+# repr is more specific than string: http://satyajit.ranjeev.in/2012/03/14/python-repr-str.html
+file_contents = repr(response)
+
+# compression level 5 seems to be the most efficient for email: (http://soc.sty.nu/2013/10/best-zfs-compression-algorithm-for-email-3/)
+f = gzip.open('example_archive.txt.gz', 'wb', 5)
+f.write(file_contents)
+f.close()
+
+print("Finished saving to disk. Total size: 0")
