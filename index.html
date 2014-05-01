@@ -1,20 +1,28 @@
 <!doctype html>
-<html lang="en" ng-app="phonecatApp">
+<html lang="en" ng-app="sigmaApp">
 <head>
   <meta charset="utf-8">
   <title>Google Phone Gallery</title>
   <link rel="stylesheet" href="js/bower_components/bootstrap/dist/css/bootstrap.css">
   <link rel="stylesheet" href="css/app.css">
-  
+
   <script src="js/bower_components/angular/angular.js"></script>
   <script src="js/controllers.js"></script>
 </head>
-<body ng-controller="PhoneListCtrl">
+
+<body ng-controller="EmailListCtrl">
 
   <ul>
-    <li ng-repeat="phone in phones">
-      {{phone.name}}
-      <p>{{phone.snippet}}</p>
+    <li ng-repeat="email in emails">
+      <div class="list-email-from">
+        {{email.from}}
+      </div>
+      <div class="list-email-subject">
+        {{email.subject}}
+      </div>
+      <div class="list-email-message">
+        {{email.message}}
+      </div>
     </li>
   </ul>
 

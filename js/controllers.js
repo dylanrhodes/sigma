@@ -2,15 +2,18 @@
 
 /* Controllers */
 
-var phonecatApp = angular.module('phonecatApp', []);
+var sigmaApp = angular.module('sigmaApp', []);
 
-phonecatApp.controller('PhoneListCtrl', function($scope) {
-  $scope.phones = [
-    {'name': 'Nexus S',
-     'snippet': 'Fast just got faster with Nexus S.'},
-    {'name': 'Motorola XOOM™ with Wi-Fi',
-     'snippet': 'The Next, Next Generation tablet.'},
-    {'name': 'MOTOROLA XOOM™',
-     'snippet': 'The Next, Next Generation tablet.'}
+sigmaApp.controller('EmailListCtrl', function($scope) {
+  $scope.emails = [
+    {'from': 'Pippen Took',
+     'subject': 'New brews at the Green Dragon',
+ 	 'message': 'Hop-goblin 120: This fresh IPA will have you beggin\' for more. Grab a pint soon!'},
+    {'from': 'Gandalf the Grey',
+     'subject': 'About this adventure I mentioned...',
+ 	 'message': 'Dearest Bilbo, I truly think that you should reconsider your decision to pass up on this mission.'},
+    {'from': 'Pippen Took',
+     'subject': 'New brews at the Green Dragon',
+ 	 'message': 'Hop-goblin 120: This fresh IPA will have you beggin\' for more. Grab a pint soon!'},
   ];
 });
