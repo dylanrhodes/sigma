@@ -17,7 +17,7 @@
       {{category.name}}
     </div>
     <ul>
-      <li ng-repeat="email in emails">
+      <li ng-repeat="email in emails | filter:{category:category.id}">
         <div class="list-email-from">
           {{email.from}}
         </div>
