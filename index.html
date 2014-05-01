@@ -12,19 +12,26 @@
 
 <body ng-controller="EmailListCtrl">
 
-  <ul>
-    <li ng-repeat="email in emails">
-      <div class="list-email-from">
-        {{email.from}}
-      </div>
-      <div class="list-email-subject">
-        {{email.subject}}
-      </div>
-      <div class="list-email-message">
-        {{email.message}}
-      </div>
-    </li>
-  </ul>
+  <div ng-repeat="category in categories">
+    <div>
+      {{category.name}}
+    </div>
+    <ul>
+      <li ng-repeat="email in emails">
+        <div class="list-email-from">
+          {{email.from}}
+        </div>
+        <div class="list-email-subject">
+          {{email.subject}}
+        </div>
+        <div class="list-email-message">
+          {{email.message}}
+        </div>
+      </li>
+    </ul>  
+  </div>
+
+  
 
 </body>
 </html>

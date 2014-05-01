@@ -16,4 +16,13 @@ sigmaApp.controller('EmailListCtrl', function($scope) {
      'subject': 'New brews at the Green Dragon',
  	 'message': 'Hop-goblin 120: This fresh IPA will have you beggin\' for more. Grab a pint soon!'},
   ];
+
+  $scope.categories = [
+  	{'id' : 0,
+  	 'name' : 'Uncategorized',
+  	 'color' : '#424242'},
+  	{'id' : 1,
+  	 'name' : 'ASAP',
+  	 'color' : '#f00'},
+  ]
 });
