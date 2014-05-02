@@ -78,7 +78,7 @@ input[type="search"] {
 .one-box {
 	overflow: auto;
 	width: 100%;
-	height: 145px;
+	height: 144px;
 	border: 1px solid #eee;
 	border-left-style: solid;
 	border-left-width: 5px;
@@ -87,7 +87,7 @@ input[type="search"] {
 .two-box-1 {
 	position: absolute;
 	width: calc(50% - 14px);
-	height: 145px;
+	height: 144px;
 	border: 1px solid #eee;
 	border-left-style: solid;
 	border-left-width: 5px;
@@ -97,7 +97,7 @@ input[type="search"] {
 	position: absolute;
 	margin-left: calc(50% + 14px);
 	width: calc(50% - 14px);
-	height: 145px;
+	height: 144px;
 	border: 1px solid #eee;
 	border-left-style: solid;
 	border-left-width: 5px;
