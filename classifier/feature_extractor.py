@@ -21,9 +21,26 @@ def extract_body_features(msg, user_dict):
 
 	return output
 
-def extract_header_features(msg):
-	#words from subject
-	#sender's address
-	#additional recipients
-	#hasAttachment, attachmentType
+def extract_header_features(msg, user_contacts):
+	text = msg['subject']
+	words = preprocess(text)
+
+	output = {}
+
+	for word in words:
+		output[word] = 1
+
+	address = msg['from']
+	id = user_contacts[address]
+
+	if id == None:
+		id = -1
+
+	output[address] = id
+
+	#Features:
+	#-words from subject
+	#-sender's address
+	#-additional recipients
+	#-hasAttachment, attachmentType
 
