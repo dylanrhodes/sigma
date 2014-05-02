@@ -31,7 +31,7 @@
           <div ng-repeat="email in emails | filter:{category:category.id} | filter:search">
       		  <div class = "ind-email{{email.read}}">
       			 <div class = "from">{{email.from}}</div>
-      			 <div class = "sigma"><img src = "images/sigma.png" /></div>
+      			 <div class = "sigma"><img src = "{{email.sigma}}" /></div>
       			 <div class = "subject">{{email.subject}}</div>
       			 <div class = "snipit">{{email.message}}</div>
       		  </div>
