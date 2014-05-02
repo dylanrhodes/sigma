@@ -9,6 +9,8 @@
 
   <script type="text/javascript" charset="utf-8" src="js/libraries/jquery-1.11.0.min.js"></script>
   <script src="js/bower_components/angular/angular.js"></script>
+  <script src="js/libraries/angular-strap-2.0.2/dist/angular-strap.min.js"></script> 
+  <script src="js/libraries/angular-strap-2.0.2/dist/angular-strap.tpl.min.js"></script>
   <script src="js/controllers.js"></script>
   <script src="jquery.nicescroll.js"></script>
   <script>
@@ -22,7 +24,7 @@
 </head>
 
 <body ng-controller="EmailListCtrl">
-  <div class="container">
+  <div class="wrapper">
     <div class="control-bar">
       <div class="control-bar-title" ng-click="focusedCategory = ''">
         &Sigma;IGMA
@@ -34,68 +36,80 @@
       </div>
     </div>
     <div ng-repeat="category in categories | filter:{id:focusedCategory}" ng-init="$scope.focusedCategory = 0">
-      <div class = "row-fluid">
-      	<div class = "one-box" style = "border-color: {{category.color}};">
-          <div ng-repeat="email in emails | filter:{category:category.id} | filter:search">
-      		  <div class = "ind-email{{email.read}}">
-      			 <div class = "from">{{email.from}}</div>
-      			 <div class = "sigma"><img src = "{{email.sigma}}" /></div>
-      			 <div class = "subject">{{email.subject}}</div>
-      			 <div class = "snipit">{{email.message}}</div>
-      		  </div>
+    	<div class = "one-box category-box container-fluid" style = "border-color: {{category.color}};">
+        <div class = "ind-email{{email.read}} row" ng-repeat="email in emails | filter:{category:category.id} | filter:search">
+  			 <div class = "from col-xs-10 col-md-2">{{email.from}}</div>
+  			 <div class = "sigma col-xs-2 col-md-1"><img src = "{{email.sigma}}" /></div>
+         <div class = "col-xs-12 col-md-9">
+    			 <div class = "subject">{{email.subject}}</div>
+    			 <div class = "snipit">{{email.message}}</div>
           </div>
-      	</div>
+        </div>
     	</div>
     </div>
-	<div class = "row-fluid">
-		<div class = "two-box-1" style = "border-color: #1b6aa3;">
-			<div class = "ind-email">
-				<div class = "from">Fred Johnson</div>
-				<div class = "sigma"><img src = "images/sigma.png" /></div>
-				<div class = "subject">This is an example subject woooo it is super long</div>
-				<div class = "snipit">This is an example snipit woooo it is super super super super super super super super super super long</div>
-			</div>
-			<div class = "ind-email">
-				<div class = "from">Fred Johnson</div>
-				<div class = "sigma"></div>
-				<div class = "subject">This is an example subject woooo it is super long</div>
-				<div class = "snipit">This is an example snipit woooo it is super super super super super super super super super super long</div>
-			</div>
-			<div class = "ind-email">
-				<div class = "from">Fred Johnson</div>
-				<div class = "sigma"><img src = "images/sigma.png" /></div>
-				<div class = "subject">This is an example subject woooo it is super long</div>
-				<div class = "snipit">This is an example snipit woooo it is super super super super super super super super super super long</div>
-			</div>
-		</div>
-		<div class = "two-box-2" style = "border-color: #84cbc5;">
-			<div class = "ind-email">
-				<div class = "from">Fred Johnson</div>
-				<div class = "sigma"><img src = "images/sigma.png" /></div>
-				<div class = "subject">This is an example subject woooo it is super long</div>
-				<div class = "snipit">This is an example snipit woooo it is super super super super super super super super super super long</div>
-			</div>
-			<div class = "ind-email">
-				<div class = "from">Fred Johnson</div>
-				<div class = "sigma"></div>
-				<div class = "subject">This is an example subject woooo it is super long</div>
-				<div class = "snipit">This is an example snipit woooo it is super super super super super super super super super super long</div>
-			</div>
-			<div class = "ind-email">
-				<div class = "from">Fred Johnson</div>
-				<div class = "sigma"><img src = "images/sigma.png" /></div>
-				<div class = "subject">This is an example subject woooo it is super long</div>
-				<div class = "snipit">This is an example snipit woooo it is super super super super super super super super super super long</div>
-			</div>
-		</div>
-	</div>
+
+    <!-- this stuff hasn't been boostrapped yet -->
+  	<div class = "row-fluid">
+  		<div class = "two-box-1 category-box" style = "border-color: #1b6aa3;">
+  			<div class = "ind-email">
+  				<div class = "from">Fred Johnson</div>
+  				<div class = "sigma"><img src = "images/sigma.png" /></div>
+  				<div class = "subject">This is an example subject woooo it is super long</div>
+  				<div class = "snipit">This is an example snipit woooo it is super super super super super super super super super super long</div>
+  			</div>
+  			<div class = "ind-email">
+  				<div class = "from">Fred Johnson</div>
+  				<div class = "sigma"></div>
+  				<div class = "subject">This is an example subject woooo it is super long</div>
+  				<div class = "snipit">This is an example snipit woooo it is super super super super super super super super super super long</div>
+  			</div>
+  			<div class = "ind-email">
+  				<div class = "from">Fred Johnson</div>
+  				<div class = "sigma"><img src = "images/sigma.png" /></div>
+  				<div class = "subject">This is an example subject woooo it is super long</div>
+  				<div class = "snipit">This is an example snipit woooo it is super super super super super super super super super super long</div>
+  			</div>
+  		</div>
+  		<div class = "two-box-2 category-box" style = "border-color: #84cbc5;">
+  			<div class = "ind-email">
+  				<div class = "from">Fred Johnson</div>
+  				<div class = "sigma"><img src = "images/sigma.png" /></div>
+  				<div class = "subject">This is an example subject woooo it is super long</div>
+  				<div class = "snipit">This is an example snipit woooo it is super super super super super super super super super super long</div>
+  			</div>
+  			<div class = "ind-email">
+  				<div class = "from">Fred Johnson</div>
+  				<div class = "sigma"></div>
+  				<div class = "subject">This is an example subject woooo it is super long</div>
+  				<div class = "snipit">This is an example snipit woooo it is super super super super super super super super super super long</div>
+  			</div>
+  			<div class = "ind-email">
+          <div class = "from">Fred Johnson</div>
+          <div class = "sigma"><img src = "images/sigma.png" /></div>
+          <div class = "subject">This is an example subject woooo it is super long</div>
+          <div class = "snipit">This is an example snipit woooo it is super super super super super super super super super super long</div>
+        </div>
+        <div class = "ind-email">
+          <div class = "from">Fred Johnson</div>
+          <div class = "sigma"><img src = "images/sigma.png" /></div>
+          <div class = "subject">This is an example subject woooo it is super long</div>
+          <div class = "snipit">This is an example snipit woooo it is super super super super super super super super super super long</div>
+        </div>
+        <div class = "ind-email">
+          <div class = "from">Fred Johnson</div>
+          <div class = "sigma"><img src = "images/sigma.png" /></div>
+          <div class = "subject">This is an example subject woooo it is super long</div>
+          <div class = "snipit">This is an example snipit woooo it is super super super super super super super super super super long</div>
+        </div>
+  		</div>
+  	</div>
     <div class="category-bar">
       <div ng-repeat="category in categories" class="category {{category.class}} {{category.id == focusedCategory ? 'category-selected' : ''}}" style="background-color: {{category.color}};"ng-click="focusCategory(category.id)">
+        <span class="category-id">{{category.id}}</span>
         {{category.name}}
       </div>
     </div>
   </div>
-
 
 </body>
 </html>
