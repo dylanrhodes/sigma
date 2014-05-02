@@ -2,7 +2,7 @@
 <html lang="en" ng-app="sigmaApp">
 <head>
   <meta charset="utf-8">
-  <title>Google Phone Gallery</title>
+  <title>Sigma: your organized inbox.</title>
   <link rel="stylesheet" href="js/bower_components/bootstrap/dist/css/bootstrap.css">
   <link rel="stylesheet" href="css/app.css">
   <link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
@@ -14,20 +14,32 @@
 </head>
 
 <body ng-controller="EmailListCtrl">
-  <div ng-repeat="category in categories">
-    <div class = "row">
-	<div class = "one-box" style = "border-left-color: {{category.color}};">
-      <div ng-repeat="email in emails | filter:{category:category.id}">
-		<div class = "ind-email">
-			<div class = "from">{{email.from}}</div>
-			<div class = "sigma"><img src = "images/sigma.png" /></div>
-			<div class = "subject">{{email.subject}}</div>
-			<div class = "snipit">{{email.message}}</div>
-		</div>
+  <div class="container">
+    <div class="control-bar">
+      <div class="control-bar-title">
+        &Sigma;IGMA
       </div>
-	</div>
-	</div>
-</div>
+      <a href="#" class="compose-a control-bar-compose">
+      </a>
+      <div class="control-bar-search">
+        <input type="search" placeholder="Search" ng-model="search" />
+      </div>
+    </div>
+    <div ng-repeat="category in categories">
+      <div class = "row-fluid">
+      	<div class = "one-box" style = "border-left-color: {{category.color}};">
+          <div ng-repeat="email in emails | filter:{category:category.id} | filter:search">
+      		  <div class = "ind-email">
+      			 <div class = "from">{{email.from}}</div>
+      			 <div class = "sigma"><img src = "images/sigma.png" /></div>
+      			 <div class = "subject">{{email.subject}}</div>
+      			 <div class = "snipit">{{email.message}}</div>
+      		  </div>
+          </div>
+      	</div>
+    	</div>
+    </div>
+  </div>
 
 
 </body>

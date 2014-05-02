@@ -1,8 +1,70 @@
 /* app css stylesheet */
 
 body {
-  padding-top: 20px;
+  padding-top: 60px;
   font-family: 'Open Sans', sans-serif;
+}
+
+.container {
+	max-width: 1000px;
+	position: relative;
+}
+
+.control-bar {
+	position: fixed;
+	top: 0;
+	background: #fff;
+	background: rgba(255,255,255,0.9);
+	padding-top: 10px;
+	padding-bottom: 20px;
+	z-index: 10;
+	text-align: center;
+	width: 100%;
+	max-width: 1000px;
+}
+
+.control-bar-title {
+	position: absolute;
+	left: 0;
+	display: inline-block;
+	font-size:20px;
+	color:#424242;
+}
+
+.control-bar-search {
+	position: absolute;
+	right: 0;
+	display: inline-block;
+	margin-right: 30px;
+}
+
+input:focus {
+	outline: none;
+}
+
+input[type="search"] {
+	border: 1px solid #eee;
+	border-radius: 3px;
+	padding: 5px;
+	padding-left: 8px;
+}
+
+.control-bar-compose {
+	display: inline-block;
+	margin-top: -10px;
+}
+
+.compose-a {
+	background:url("../images/compose-icon.png");
+	width:82px;
+	height:35px;
+	background-size:100% auto;
+	background-repeat: no-repeat;
+	opacity:0.8;
+}
+
+.compose-a:hover {
+	opacity: 1.0;
 }
 
 .row {
