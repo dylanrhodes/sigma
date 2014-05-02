@@ -2,7 +2,7 @@
 
 /* Controllers */
 
-var sigmaApp = angular.module('sigmaApp', []);
+var sigmaApp = angular.module('sigmaApp', ['infinite-scroll']);
 
 sigmaApp.controller('EmailListCtrl', function($scope) {
   $scope.focusedCategory = "";
@@ -26,6 +26,36 @@ sigmaApp.controller('EmailListCtrl', function($scope) {
 	 'read': '',
 	 'sigma': 'images/sigma.png'},
     {'from': 'Pippen Took',
+     'subject': 'New brews at the Green Dragon',
+ 	 'message': 'Hop-goblin 120: This fresh IPA will have you beggin\' for more. Grab a pint soon!',
+ 	 'category': 1,
+	 'read': 'read',
+	 'sigma': 'images/sigma.png'},
+	 {'from': 'Pippen Took',
+     'subject': 'New brews at the Green Dragon',
+ 	 'message': 'Hop-goblin 120: This fresh IPA will have you beggin\' for more. Grab a pint soon!',
+ 	 'category': 1,
+	 'read': 'read',
+	 'sigma': 'images/sigma.png'},
+	 {'from': 'Pippen Took',
+     'subject': 'New brews at the Green Dragon',
+ 	 'message': 'Hop-goblin 120: This fresh IPA will have you beggin\' for more. Grab a pint soon!',
+ 	 'category': 1,
+	 'read': 'read',
+	 'sigma': 'images/sigma.png'},
+	 {'from': 'Pippen Took',
+     'subject': 'New brews at the Green Dragon',
+ 	 'message': 'Hop-goblin 120: This fresh IPA will have you beggin\' for more. Grab a pint soon!',
+ 	 'category': 1,
+	 'read': 'read',
+	 'sigma': 'images/sigma.png'},
+	 {'from': 'Pippen Took',
+     'subject': 'New brews at the Green Dragon',
+ 	 'message': 'Hop-goblin 120: This fresh IPA will have you beggin\' for more. Grab a pint soon!',
+ 	 'category': 1,
+	 'read': 'read',
+	 'sigma': 'images/sigma.png'},
+	 {'from': 'Pippen Took',
      'subject': 'New brews at the Green Dragon',
  	 'message': 'Hop-goblin 120: This fresh IPA will have you beggin\' for more. Grab a pint soon!',
  	 'category': 1,
