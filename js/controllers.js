@@ -5,6 +5,13 @@
 var sigmaApp = angular.module('sigmaApp', []);
 
 sigmaApp.controller('EmailListCtrl', function($scope) {
+  $scope.focusedCategory = "";
+
+  $scope.focusCategory = function(categoryId) {
+  	console.log($scope.focusedCategory, categoryId);
+  	$scope.focusedCategory = $scope.focusedCategory != categoryId ? categoryId : "";
+  }
+
   $scope.emails = [
     {'from': 'Pippen Took',
      'subject': 'New brews at the Green Dragon',
@@ -29,11 +36,11 @@ sigmaApp.controller('EmailListCtrl', function($scope) {
  	{'from': 'Pippen Took',
      'subject': 'New brews at the Green Dragon',
  	 'message': 'Hop-goblin 120: This fresh IPA will have you beggin\' for more. Grab a pint soon!',
- 	 'category': 0},
+ 	 'category': 6},
  	{'from': 'Pippen Took',
      'subject': 'New brews at the Green Dragon',
  	 'message': 'Hop-goblin 120: This fresh IPA will have you beggin\' for more. Grab a pint soon!',
- 	 'category': 0},
+ 	 'category': 6},
  	{'from': 'Pippen Took',
      'subject': 'New brews at the Green Dragon',
  	 'message': 'Hop-goblin 120: This fresh IPA will have you beggin\' for more. Grab a pint soon!',
@@ -45,23 +52,23 @@ sigmaApp.controller('EmailListCtrl', function($scope) {
   ];
 
   $scope.categories = [
-  	{'id' : 0,
+  	{'id' : 1,
   	 'name' : 'Uncategorized',
   	 'color' : '#808080',
   	 'class' : 'category-uncategorized'},
-  	{'id' : 1,
+  	{'id' : 2,
   	 'name' : 'ASAP',
   	 'color' : '#1b6aa3;',
   	 'class' : 'category-asap'},
-  	{'id' : 2,
+  	{'id' : 3,
   	 'name' : 'School',
   	 'color' : '#84cbc5;',
   	 'class' : 'category-school'},
-  	{'id' : 3,
+  	{'id' : 4,
   	 'name' : 'Work',
   	 'color' : '#f8d35e',
   	 'class' : 'category-work'},
-  	{'id' : 4,
+  	{'id' : 5,
   	 'name' : 'Later',
   	 'color' : '#f47264',
   	 'class' : 'category-later'}

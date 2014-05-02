@@ -16,7 +16,7 @@
 <body ng-controller="EmailListCtrl">
   <div class="container">
     <div class="control-bar">
-      <div class="control-bar-title">
+      <div class="control-bar-title" ng-click="focusedCategory = ''">
         &Sigma;IGMA
       </div>
       <a href="#" class="compose-a control-bar-compose">
@@ -25,9 +25,9 @@
         <input type="search" placeholder="Search" ng-model="search" />
       </div>
     </div>
-    <div ng-repeat="category in categories">
+    <div ng-repeat="category in categories | filter:{id:focusedCategory}" ng-init="$scope.focusedCategory = 0">
       <div class = "row-fluid">
-      	<div class = "one-box" style = "border-left-color: {{category.color}};">
+      	<div class = "one-box" style = "border-color: {{category.color}};">
           <div ng-repeat="email in emails | filter:{category:category.id} | filter:search">
       		  <div class = "ind-email">
       			 <div class = "from">{{email.from}}</div>
@@ -38,6 +38,11 @@
           </div>
       	</div>
     	</div>
+    </div>
+    <div class="category-bar">
+      <div ng-repeat="category in categories" class="category {{category.class}} {{category.id == focusedCategory ? 'category-selected' : ''}}" style="background-color: {{category.color}};"ng-click="focusCategory(category.id)">
+        {{category.name}}
+      </div>
     </div>
   </div>
 
