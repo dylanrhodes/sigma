@@ -29,7 +29,7 @@
       <div class = "row-fluid">
       	<div class = "one-box" style = "border-color: {{category.color}};">
           <div ng-repeat="email in emails | filter:{category:category.id} | filter:search">
-      		  <div class = "ind-email">
+      		  <div class = "ind-email{{email.read}}">
       			 <div class = "from">{{email.from}}</div>
       			 <div class = "sigma"><img src = "images/sigma.png" /></div>
       			 <div class = "subject">{{email.subject}}</div>
