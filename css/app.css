@@ -86,18 +86,22 @@ input[type="search"] {
 }
 .two-box-1 {
 	position: absolute;
-	width: calc(45% - 14px);
+	width: calc(50% - 14px);
 	height: 145px;
+	border: 1px solid #eee;
 	border-left-style: solid;
-	border-left-width: 8px;
+	border-left-width: 5px;
+	margin-bottom: 20px;
 }
 .two-box-2 {
 	position: absolute;
-	margin-left: calc(45% + 14px);
-	width: calc(45% - 28px);
+	margin-left: calc(50% + 14px);
+	width: calc(50% - 14px);
 	height: 145px;
+	border: 1px solid #eee;
 	border-left-style: solid;
-	border-left-width: 8px;
+	border-left-width: 5px;
+	margin-bottom: 20px;
 }
 .ind-emailread {
 	background-color: #f5f5f5;
