@@ -6,7 +6,7 @@ body {
 }
 
 .container {
-	max-width: 1000px;
+	max-width: 80%;
 	position: relative;
 	margin: 0 auto;
 }
@@ -21,7 +21,7 @@ body {
 	z-index: 10;
 	text-align: center;
 	width: 100%;
-	max-width: 1000px;
+	max-width: 80%;
 }
 
 .control-bar-title {
@@ -115,23 +115,26 @@ input[type="search"] {
 	border-bottom: 1px solid #d9d9d9;
 }
 .from {
+	position: relative;
 	font-weight: bold;
 	font-size: 120%;
 	color: #414141;
 	white-space: nowrap;
 	text-overflow:ellipsis;
-	position: absolute;
 	line-height:47px;
 	width: 180px;
+	display: inline-block;
 	margin: auto 12px;
+	width: 185px;
 }
 .sigma {
-	position: absolute;
-	margin-left: 187px;
-	margin-top: 8px;
+	position: relative;
+	width: 30px;
+	top: 7px;
+	display: inline-block;
 }
 .subject {
-	position: absolute;
+	position: relative;
 	font-size: 120%;
 	color: #898989;
 	overflow:hidden;
@@ -139,20 +142,21 @@ input[type="search"] {
 	text-overflow:ellipsis;
 	font-weight: 300;
 	display: inline-block;
-	width: calc(100% - 250px);
-	padding-left: 224px;
+	padding-left: 12px;
 	margin-top: 4px;
+	width: calc(90% - 215px);
 }
 .snipit {
-	position: absolute;
-	padding-left: 224px;
-	margin-top: 28px;
+	position: relative;
+	left: 260px;
+	top: -20px;
+	width: 200px;
 	color: #d8d8d8;
 	white-space: nowrap;
 	text-overflow:ellipsis;
 	overflow:hidden;
 	display: inline-block;
-	width: calc(100% - 250px);
+	width: calc(90% - 215px);
 	font-size: 75%
 }
 
