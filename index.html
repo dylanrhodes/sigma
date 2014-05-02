@@ -10,20 +10,9 @@
   <script type="text/javascript" charset="utf-8" src="js/libraries/jquery-1.11.0.min.js"></script>
   <script src="js/bower_components/angular/angular.js"></script>
   <script src="js/controllers.js"></script>
+   <script src="js/app.js"></script>
   <script src="jquery.nicescroll.js"></script>
   <script type='text/javascript' src='ng-infinite-scroll.js'></script>
-  <script>
-	var selected = "";
-	var oldColor = "";
-	$(document).ready(
-	  function() {  
-		$(".one-box").niceScroll({cursorcolor:"#8c8c8e", cursoropacitymin: .5});
-		$(".two-box-1").niceScroll({cursorcolor:"#8c8c8e", cursoropacitymin: .5});
-		$(".two-box-2").niceScroll({cursorcolor:"#8c8c8e", cursoropacitymin: .5});
-		
-	  }
-	);
-  </script>
 
 </head>
 
@@ -101,24 +90,5 @@
       </div>
     </div>
   </div>
-
-<script> 
-	$(document).on("click", ".ind-email", function() {
-		if (selected != "") {
-			selected.css("background-color", oldColor);
-		}
-		oldColor = $(this).css("background-color");
-		$(this).css("background-color", "#e9fcfb");
-		selected = $(this);
-	});
-	$(document).on("click", ".ind-emailread", function() {
-		if (selected != "") {
-			selected.css("background-color", oldColor);
-		}
-		oldColor = $(this).css("background-color");
-		$(this).css("background-color", "#e9fcfb");
-		selected = $(this);
-	});
-</script>
 </body>
 </html>
