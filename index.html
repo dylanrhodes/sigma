@@ -5,30 +5,26 @@
   <title>Google Phone Gallery</title>
   <link rel="stylesheet" href="js/bower_components/bootstrap/dist/css/bootstrap.css">
   <link rel="stylesheet" href="css/app.css">
-
+  <link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
+  
   <script src="js/bower_components/angular/angular.js"></script>
   <script src="js/controllers.js"></script>
 </head>
 
 <body ng-controller="EmailListCtrl">
-
   <div ng-repeat="category in categories">
-    <div>
-      {{category.name}}
-    </div>
-    <ul>
-      <li ng-repeat="email in emails | filter:{category:category.id}">
-        <div class="list-email-from">
-          {{email.from}}
-        </div>
-        <div class="list-email-subject">
-          {{email.subject}}
-        </div>
-        <div class="list-email-message">
-          {{email.message}}
-        </div>
-      </li>
-    </ul>  
+    <div class = "row">
+	<div class = "one-box" style = "border-left-color: {{category.color}};">
+      <div ng-repeat="email in emails | filter:{category:category.id}">
+		<div class = "ind-email">
+			<div class = "from">{{email.from}}</div>
+			<div class = "sigma"><img src = "images/sigma.png" /></div>
+			<div class = "subject">{{email.subject}}</div>
+			<div class = "snipit">{{email.message}}</div>
+		</div>
+      </div>
+	</div>
+	</div>
   </div>
 
   

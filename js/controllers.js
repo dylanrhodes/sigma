@@ -47,23 +47,23 @@ sigmaApp.controller('EmailListCtrl', function($scope) {
   $scope.categories = [
   	{'id' : 0,
   	 'name' : 'Uncategorized',
-  	 'color' : '#424242',
+  	 'color' : '#808080',
   	 'class' : 'category-uncategorized'},
   	{'id' : 1,
   	 'name' : 'ASAP',
-  	 'color' : '#f57364',
+  	 'color' : '#1b6aa3;',
   	 'class' : 'category-asap'},
   	{'id' : 2,
   	 'name' : 'School',
-  	 'color' : '#84ccc6',
+  	 'color' : '#84cbc5;',
   	 'class' : 'category-school'},
   	{'id' : 3,
   	 'name' : 'Work',
-  	 'color' : '#1a6aa3',
+  	 'color' : '#f8d35e',
   	 'class' : 'category-work'},
   	{'id' : 4,
   	 'name' : 'Later',
-  	 'color' : '#89e994',
+  	 'color' : '#f47264',
   	 'class' : 'category-later'}
   ]
 });
