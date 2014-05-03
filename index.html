@@ -31,64 +31,22 @@
         <input type="search" placeholder="Search" ng-model="search" />
       </div>
     </div>
-    <div ng-repeat="category in categories | filter:{id:focusedCategory}" ng-init="$scope.focusedCategory = 0">
-    	<div class = "one-box" style = "border-color: {{category.color}};">
+    <div ng-repeat="category in categories | filter:{id:focusedCategory}" ng-init="$scope.focusedCategory = 0" class = "{{category.split ? 'two-box' : 'one-box'}}" style = "border-color: {{category.color}};">
+    	
         <div class="row ind-email {{email.read ? 'read' : ''}}" ng-repeat="email in emails | filter:{category:category.id} | filter:search | limitTo:6">
-         <div class = "from col-md-2 col-sm-3">{{email.from}}</div>
-         <div class = "sigma col-md-1 col-sm-1 hidden-xs">
+         <div class = "{{category.split ? 'from col-md-4 col-sm-4' : 'from col-md-2 col-sm-3'}}">{{email.from}}</div>
+         <div class = "{{category.split ? 'hidden' : 'sigma col-md-1 col-sm-1 hidden-xs'}}">
           <img src="images/sigma.png" ng-class="email.sigma ? '' : 'hidden'" />
           <!-- conditionally show the sigma img if the email has the sigma flag on -->
          </div>
-  			 <div class = "col-md-9 col-sm-8 col-xs-12">
+  			 <div class = "{{category.split ? 'col-md-8 col-sm-8 col-xs-12' : 'col-md-9 col-sm-8 col-xs-12'}}">
           <div class="subject">{{email.subject}}</div>
   			  <div class = "snipit">{{email.message}}</div>
          </div>
         </div>
-    	</div>
+    	
     </div>
 	
-	<div class = "row-fluid">
-		<div class = "two-box-1" style = "border-color: #1b6aa3;">
-			<div class = "ind-email">
-				<div class = "from">Fred Johnson</div>
-				<div class = "sigma"><img src = "images/sigma.png" /></div>
-				<div class = "subject">This is an example subject woooo it is super long</div>
-				<div class = "snipit">This is an example snipit woooo it is super super super super super super super super super super long</div>
-			</div>
-			<div class = "ind-email">
-				<div class = "from">Fred Johnson</div>
-				<div class = "sigma"></div>
-				<div class = "subject">This is an example subject woooo it is super long</div>
-				<div class = "snipit">This is an example snipit woooo it is super super super super super super super super super super long</div>
-			</div>
-			<div class = "ind-email">
-				<div class = "from">Fred Johnson</div>
-				<div class = "sigma"><img src = "images/sigma.png" /></div>
-				<div class = "subject">This is an example subject woooo it is super long</div>
-				<div class = "snipit">This is an example snipit woooo it is super super super super super super super super super super long</div>
-			</div>
-		</div>
-		<div class = "two-box-2" style = "border-color: #84cbc5;">
-			<div class = "ind-email">
-				<div class = "from">Fred Johnson</div>
-				<div class = "sigma"><img src = "images/sigma.png" /></div>
-				<div class = "subject">This is an example subject woooo it is super long</div>
-				<div class = "snipit">This is an example snipit woooo it is super super super super super super super super super super long</div>
-			</div>
-			<div class = "ind-email">
-				<div class = "from">Fred Johnson</div>
-				<div class = "sigma"></div>
-				<div class = "subject">This is an example subject woooo it is super long</div>
-				<div class = "snipit">This is an example snipit woooo it is super super super super super super super super super super long</div>
-			</div>
-			<div class = "ind-email">
-				<div class = "from">Fred Johnson</div>
-				<div class = "sigma"><img src = "images/sigma.png" /></div>
-				<div class = "subject">This is an example subject woooo it is super long</div>
-				<div class = "snipit">This is an example snipit woooo it is super super super super super super super super super super long</div>
-			</div>
-		</div>
-	</div>
     <div class="category-bar">
       <div ng-repeat="category in categories" class="category {{category.class}} {{category.id == focusedCategory ? 'category-selected' : ''}}" style="background-color: {{category.color}};"ng-click="focusCategory(category.id)">
         {{category.name}}
