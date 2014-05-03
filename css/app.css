@@ -218,14 +218,13 @@ input[type="search"] {
 .category-bar {
 	position:fixed;
 	width:100%;
-	max-width:1000px;
 	bottom: 0;
 	text-align: center;
 }
 
 .category-bar .category {
 	display:inline-block;
-	width:17%;
+	width:19%;
 	padding:4px;
 	margin-right:1px;
 	color:#fff;

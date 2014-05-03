@@ -47,11 +47,10 @@
         </div>
     	
     </div>
-	
-    <div class="category-bar">
-      <div ng-repeat="category in categories" class="category {{category.class}} {{category.id == focusedCategory ? 'category-selected' : ''}}" style="background-color: {{category.color}};"ng-click="focusCategory(category.id)">
-        {{category.name}}
-      </div>
+  </div>
+  <div class="category-bar">
+    <div ng-repeat="category in categories" class="category {{category.class}} {{category.id == focusedCategory ? 'category-selected' : ''}}" style="background-color: {{category.color}};"ng-click="focusCategory(category.id)">
+      {{category.name}}
     </div>
   </div>
 </body>
