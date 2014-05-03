@@ -60,11 +60,12 @@ input:focus {
 }
 
 input[type="search"] {
+	display:inline-block;
 	border: 1px solid #eee;
 	border-radius: 3px;
 	padding: 5px;
 	padding-left: 8px;
-	width: 100%;
+	width: calc(100%-25px);
 }
 
 .control-bar-compose {
@@ -82,6 +83,15 @@ input[type="search"] {
 }
 
 .compose-a:hover {
+	opacity: 1.0;
+}
+
+.settings-a {
+	padding-left: 8px;
+	opacity:0.8;
+}
+
+.settings-a:hover {
 	opacity: 1.0;
 }
 

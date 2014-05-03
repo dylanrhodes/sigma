@@ -29,6 +29,7 @@
       </div>
       <div class="control-bar-search col-sm-4 col-xs-12">
         <input type="search" placeholder="Search" ng-model="search" />
+		<a href="#" class="settings-a"><img src = "images/gear.png" /></a>
       </div>
     </div>
     <div ng-repeat="category in categories | filter:{id:focusedCategory}" ng-init="$scope.focusedCategory = 0" class = "{{category.split ? 'two-box' : 'one-box'}}" style = "border-color: {{category.color}};">
