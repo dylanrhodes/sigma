@@ -29,7 +29,6 @@
       </div>
       <div class="control-bar-search col-sm-4 col-xs-12">
         <input type="search" placeholder="Search" ng-model="search" />
-		<a href="#" class="settings-a"><img src = "images/gear.png" /></a>
       </div>
     </div>
     <div ng-repeat="category in categories | filter:{id:focusedCategory}" ng-init="$scope.focusedCategory = 0" class = "{{category.split ? 'two-box' : 'one-box'}}" style = "border-color: {{category.color}};">
@@ -50,7 +49,7 @@
   </div>
   <div class="category-bar">
     <div ng-repeat="category in categories" class="category {{category.class}} {{category.id == focusedCategory ? 'category-selected' : ''}}" style="background-color: {{category.color}};"ng-click="focusCategory(category.id)">
-      {{category.name}}
+      <span class="category-id">{{category.id}}</span> {{category.name}}
     </div>
   </div>
 </body>

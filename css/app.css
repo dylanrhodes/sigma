@@ -233,6 +233,11 @@ input[type="search"] {
 	cursor:pointer;
 }
 
+.category-id {
+	color: rgba(255,255,255,0.75);
+	font-weight: bold;
+}
+
 .category-bar .category:hover,
 .category-bar .category-selected {
 	opacity: 1.0;
