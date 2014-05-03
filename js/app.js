@@ -2,9 +2,9 @@ var selected = "";
 var oldColor = "";
 $(document).ready(
   function() {  
-	$(".one-box").niceScroll({cursorcolor:"#8c8c8e", cursoropacitymin: .5});
-	$(".two-box-1").niceScroll({cursorcolor:"#8c8c8e", cursoropacitymin: .5});
-	$(".two-box-2").niceScroll({cursorcolor:"#8c8c8e", cursoropacitymin: .5});
+	$(".one-box").niceScroll({cursorcolor:"#8c8c8e", cursoropacitymin: .5, cursorwidth: 8});
+	$(".two-box-1").niceScroll({cursorcolor:"#8c8c8e", cursoropacitymin: .5, cursorwidth: 8});
+	$(".two-box-2").niceScroll({cursorcolor:"#8c8c8e", cursoropacitymin: .5, cursorwidth: 8});
 	
   }
 );
