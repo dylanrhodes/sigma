@@ -14,11 +14,3 @@ $(document).on("click", ".ind-email", function() {
 	$(this).css("background-color", "#e9fcfb");
 	selected = $(this);
 });
-$(document).on("click", ".ind-emailread", function() {
-	if (selected != "") {
-		selected.css("background-color", oldColor);
-	}
-	oldColor = $(this).css("background-color");
-	$(this).css("background-color", "#e9fcfb");
-	selected = $(this);
-});
