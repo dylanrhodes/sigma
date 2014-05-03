@@ -19,24 +19,30 @@
 </head>
 
 <body ng-controller="EmailListCtrl">
-  <div class="container">
-    <div class="control-bar">
-      <div class="control-bar-title" ng-click="focusedCategory = ''">
+  <div class="wrapper container-fluid">
+    <div class="control-bar row">
+      <div class="control-bar-title col-sm-4 hidden-xs" ng-click="focusedCategory = ''">
         &Sigma;IGMA
       </div>
-      <a href="#" class="compose-a control-bar-compose">
-      </a>
-      <div class="control-bar-search">
+      <div class="control-bar-compose col-sm-4 hidden-xs">
+        <a href="#" class="compose-a"></a>
+      </div>
+      <div class="control-bar-search col-sm-4 col-xs-12">
         <input type="search" placeholder="Search" ng-model="search" />
       </div>
     </div>
     <div ng-repeat="category in categories | filter:{id:focusedCategory}" ng-init="$scope.focusedCategory = 0">
-    	<div class = "one-box container-fluid" style = "border-color: {{category.color}};">
+    	<div class = "one-box" style = "border-color: {{category.color}};">
         <div class="row ind-email {{email.read ? 'read' : ''}}" ng-repeat="email in emails | filter:{category:category.id} | filter:search | limitTo:6">
-         <div class = "from col-md-2 col-sm-10">{{email.from}}</div>
-         <div class = "sigma col-md-1 hidden-sm"><img src = "{{email.sigma}}" /></div>
-  			 <div class = "subject col-md-7">{{email.subject}}</div>
-  			 <div class = "snipit col-md-12">{{email.message}}</div>
+         <div class = "from col-md-2 col-sm-3">{{email.from}}</div>
+         <div class = "sigma col-md-1 col-sm-1 hidden-xs">
+          <img src="images/sigma.png" ng-class="email.sigma ? '' : 'hidden'" />
+          <!-- conditionally show the sigma img if the email has the sigma flag on -->
+         </div>
+  			 <div class = "col-md-9 col-sm-8 col-xs-12">
+          <div class="subject">{{email.subject}}</div>
+  			  <div class = "snipit">{{email.message}}</div>
+         </div>
         </div>
     	</div>
     </div>
