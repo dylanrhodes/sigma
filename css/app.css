@@ -70,9 +70,9 @@ input[type="search"] {
 }
 
 .row {
-	width: 90%;
+	/*width: 90%;
 	height: 145px;
-	margin: 22px auto;
+	margin: 22px auto;*/
 }
 .one-box {
 	overflow: auto;
@@ -102,70 +102,69 @@ input[type="search"] {
 	border-left-width: 5px;
 	margin-bottom: 164px;
 }
-.ind-emailread {
-	background-color: #f5f5f5;
-	padding-left: 12px;
-	height: 47px;
+.ind-email {
+	/*padding-left: 12px;
+	height: 47px;*/
 	border-bottom: 1px solid #d9d9d9;
 	-moz-user-select: none; 
 	-khtml-user-select: none; 
 	-webkit-user-select: none; 
 	-o-user-select: none; 
 }
-.ind-email {
-	padding-left: 12px;
-	height: 47px;
-	border-bottom: 1px solid #d9d9d9;
-	-moz-user-select: none; 
-	-khtml-user-select: none; 
-	-webkit-user-select: none; 
-	-o-user-select: none; 
+.read {
+	background-color: #f5f5f5;
 }
 .from {
-	position: relative;
 	font-weight: bold;
 	font-size: 120%;
 	color: #414141;
 	white-space: nowrap;
 	text-overflow:ellipsis;
+	/*position: relative;
 	line-height:47px;
 	display: inline-block;
 	margin: auto 12px;
-	width: 185px;
+	width: 185px;*/
 	cursor:default;
 }
 .sigma {
-	position: relative;
-	width: 30px;
+	text-align: right;
+	padding-right: 0px;
+	/*width: 20px;*/
+	/*position: relative;
 	top: 7px;
-	display: inline-block;
+	display: inline-block;*/
+}
+.sigma img {
+	width: 15px;
 }
 .subject {
-	position: relative;
 	font-size: 120%;
 	color: #898989;
 	overflow:hidden;
 	white-space: nowrap;
 	text-overflow:ellipsis;
 	font-weight: 300;
+	cursor:default;
+	/*position: relative;	
 	display: inline-block;
 	padding-left: 12px;
 	margin-top: 4px;
 	width: calc(90% - 215px);
-	cursor:default;
+	cursor:default;*/
 }
 .snipit {
-	position: relative;
-	left: 260px;
-	top: -20px;
-	width: 200px;
+	/*position: relative;*/
+	/*left: 260px;*/
+	/*top: -20px;*/
+	/*width: 200px;*/
 	color: #d8d8d8;
 	white-space: nowrap;
 	text-overflow:ellipsis;
 	overflow:hidden;
-	display: inline-block;
+/*	display: inline-block;
 	width: calc(90% - 215px);
-	font-size: 75%;
+*/	font-size: 75%;
 	cursor:default;
 }
 
