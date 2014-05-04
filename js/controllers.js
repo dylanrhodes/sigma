@@ -6,7 +6,7 @@ var sigmaApp = angular.module('sigmaApp', ['infinite-scroll']);
 
 sigmaApp.controller('EmailListCtrl', function($scope, Reddit) {
   $scope.reddit = new Reddit();
-  $scope.reddit.nextPage(0);
+  $scope.reddit.nextPage();
   $scope.focusedCategory = "";
   $scope.sigma_img_tag = "<img src='images/sigma.png' />";
 
@@ -14,107 +14,23 @@ sigmaApp.controller('EmailListCtrl', function($scope, Reddit) {
   	console.log($scope.focusedCategory, categoryId);
   	$scope.focusedCategory = $scope.focusedCategory != categoryId ? categoryId : "";
   }
-
-  $scope.emails = [
-    {'from': 'Pippen Took',
-     'subject': 'New brews at the Green Dragon',
- 	 'message': 'Hop-goblin 120: This fresh IPA will have you beggin\' for more. Grab a pint soon!',
- 	 'category': 1,
-	 'read': 1,
-	 'sigma': 0},
-    {'from': 'Gandalf the Grey',
-     'subject': 'About this adventure I mentioned...',
- 	 'message': 'Dearest Bilbo, I truly think that you should reconsider your decision to pass up on this mission.',
- 	 'category': 2,
-	 'read': 0,
-	 'sigma': 1},
-    {'from': 'Pippen Took',
-     'subject': 'New brews at the Green Dragon',
- 	 'message': 'Hop-goblin 120: This fresh IPA will have you beggin\' for more. Grab a pint soon!',
- 	 'category': 1,
-	 'read': 1,
-	 'sigma': 1},
-	 {'from': 'Pippen Took',
-     'subject': 'New brews at the Green Dragon',
- 	 'message': 'Hop-goblin 120: This fresh IPA will have you beggin\' for more. Grab a pint soon!',
- 	 'category': 1,
-	 'read': 1,
-	 'sigma': 1},
-	 {'from': 'Pippen Took',
-     'subject': 'New brews at the Green Dragon',
- 	 'message': 'Hop-goblin 120: This fresh IPA will have you beggin\' for more. Grab a pint soon!',
- 	 'category': 1,
-	 'read': 1,
-	 'sigma': 1},
-	 {'from': 'Pippen Took',
-     'subject': 'New brews at the Green Dragon',
- 	 'message': 'Hop-goblin 120: This fresh IPA will have you beggin\' for more. Grab a pint soon!',
- 	 'category': 1,
-	 'read': 1,
-	 'sigma': 1},
-	 {'from': 'Pippen Took',
-     'subject': 'New brews at the Green Dragon',
- 	 'message': 'Hop-goblin 120: This fresh IPA will have you beggin\' for more. Grab a pint soon!',
- 	 'category': 1,
-	 'read': 1,
-	 'sigma': 1},
-	 {'from': 'Pippen Took',
-     'subject': 'New brews at the Green Dragon',
- 	 'message': 'Hop-goblin 120: This fresh IPA will have you beggin\' for more. Grab a pint soon!',
- 	 'category': 1,
-	 'read': 1,
-	 'sigma': 1},
-	 {'from': 'Pippen Took',
-     'subject': 'New brews at the Green Dragon',
- 	 'message': 'Hop-goblin 120: This fresh IPA will have you beggin\' for more. Grab a pint soon!',
- 	 'category': 1,
-	 'read': 1,
-	 'sigma': 1},
-	 {'from': 'Pippen Took',
-     'subject': 'New brews at the Green Dragon',
- 	 'message': 'Hop-goblin 120: This fresh IPA will have you beggin\' for more. Grab a pint soon!',
- 	 'category': 1,
-	 'read': 1,
-	 'sigma': 1},
- 	{'from': 'Pippen Took',
-     'subject': 'New brews at the Green Dragon',
- 	 'message': 'Hop-goblin 120: This fresh IPA will have you beggin\' for more. Grab a pint soon!',
- 	 'category': 3,
-	 'read': 0,
-	 'sigma': 0},
- 	{'from': 'Pippen Took',
-     'subject': 'New brews at the Green Dragon',
- 	 'message': 'Hop-goblin 120: This fresh IPA will have you beggin\' for more. Grab a pint soon!',
- 	 'category': 4,
-	 'read': 1,
-	 'sigma': 0},
- 	{'from': 'Pippen Took',
-     'subject': 'New brews at the Green Dragon',
- 	 'message': 'Hop-goblin 120: This fresh IPA will have you beggin\' for more. Grab a pint soon!',
- 	 'category': 6,
-	 'read': 1,
-	 'sigma': 0},
- 	{'from': 'Pippen Took',
-     'subject': 'New brews at the Green Dragon',
- 	 'message': 'Hop-goblin 120: This fresh IPA will have you beggin\' for more. Grab a pint soon!',
- 	 'category': 6,
-	 'read': 1,
-	 'sigma': 1},
- 	{'from': 'Pippen Took',
-     'subject': 'New brews at the Green Dragon',
- 	 'message': 'Hop-goblin 120: This fresh IPA will have you beggin\' for more. Grab a pint soon!',
- 	 'category': 5,
-	 'read': 1,
-	 'sigma': 1},
- 	{'from': 'Pippen Took',
-     'subject': 'New brews at the Green Dragon',
- 	 'message': 'Hop-goblin 120: This fresh IPA will have you beggin\' for more. Grab a pint soon!',
- 	 'category': 4,
-	 'read': 1,
-	 'sigma': 0}
-  ];
-
-  $scope.categories = [
+  jQuery(function($) {
+	  $('.one-box').bind('scroll', function() {
+		  if($(this).scrollTop() + $(this).innerHeight() >= this.scrollHeight - 40) {
+		  	  var id = $(this).attr('id');
+			  $scope.reddit.nextSmallPage(parseInt(id));
+		  }
+	  })
+   });
+   jQuery(function($) {
+	  $('.two-box').bind('scroll', function() {
+		  if($(this).scrollTop() + $(this).innerHeight() >= this.scrollHeight - 40) {
+		  	  var id = $(this).attr('id');
+			  $scope.reddit.nextSmallPage(parseInt(id));
+		  }
+	  })
+   });
+   $scope.categories = [
   	{'id' : 1,
   	 'name' : 'Uncategorized',
   	 'color' : '#808080',
@@ -140,7 +56,7 @@ sigmaApp.controller('EmailListCtrl', function($scope, Reddit) {
   	 'color' : '#f47264',
   	 'class' : 'category-later',
 	 'split' : 0}
-  ]
+  ];
 });
 
 sigmaApp.factory('Reddit', function($http) {
@@ -148,13 +64,35 @@ sigmaApp.factory('Reddit', function($http) {
     this.items = [];
     this.busy = false;
     this.after = '';
+	this.next = 1;
   };
 
-  Reddit.prototype.nextPage = function(category) {
+  Reddit.prototype.nextPage = function() {
     if (this.busy) return;
     this.busy = true;
-
-    var url = "http://api.reddit.com/hot?after=" + this.after + "&jsonp=JSON_CALLBACK";
+    var url = "http://api.reddit.com/hot?after=" + this.after + "&limit=50&jsonp=JSON_CALLBACK";
+    $http.jsonp(url).success(function(data) {
+      var items = data.data.children;
+      for (var i = 0; i < items.length; i++) {
+		items[i].data.from = items[i].data.author;
+		items[i].data.subject = items[i].data.title;
+		items[i].data.message = items[i].data.url;
+		items[i].data.category = this.next;
+		if (this.next == 5) this.next = 1;
+		else this.next++;
+		items[i].data.read = Math.round(Math.random());
+		items[i].data.sigma = Math.round(Math.random());
+        this.items.push(items[i].data);
+      }
+      this.after = "t3_" + this.items[this.items.length - 1].id;
+      this.busy = false;
+    }.bind(this));
+  };
+  
+  Reddit.prototype.nextSmallPage = function(category) {
+    if (this.busy) return;
+    this.busy = true;
+    var url = "http://api.reddit.com/hot?after=" + this.after + "&limit=3&jsonp=JSON_CALLBACK";
     $http.jsonp(url).success(function(data) {
       var items = data.data.children;
       for (var i = 0; i < items.length; i++) {

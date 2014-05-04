@@ -32,20 +32,19 @@
         <input type="search" placeholder="Search" ng-model="search" />
       </div>
     </div>
-    <div ng-repeat="category in categories | filter:{id:focusedCategory}" ng-init="$scope.focusedCategory = 0" class = "{{category.split ? 'two-box' : 'one-box'}}" style = "border-color: {{category.color}};">
+    <div ng-repeat="category in categories | filter:{id:focusedCategory}" ng-init="$scope.focusedCategory = 0" class = "{{category.split ? 'two-box' : 'one-box'}}" style = "border-color: {{category.color}};" id="{{category.id}}">
     	
-        <div class="row ind-email {{email.read ? 'read' : ''}}" ng-repeat="email in reddit.items | filter:{category:category.id} | filter:search | limitTo:6">
-         <div class = "{{category.split ? 'from col-md-4 col-sm-4' : 'from col-md-2 col-sm-3'}}">{{email.from}}</div>
+        <div class="row ind-email {{email.read ? 'read' : ''}}" ng-repeat="email in reddit.items | filter:{category:category.id} | filter:search">
+         <div class = "{{category.split ? 'from col-md-4 col-sm-4' : 'from col-md-2 col-sm-3'}} nopadding">{{email.from}}</div>
          <div class = "{{category.split ? 'hidden' : 'sigma col-md-1 col-sm-1 hidden-xs'}}">
           <img src="images/sigma.png" ng-class="email.sigma ? '' : 'hidden'" />
           <!-- conditionally show the sigma img if the email has the sigma flag on -->
          </div>
-  			 <div class = "{{category.split ? 'col-md-8 col-sm-8 col-xs-12' : 'col-md-9 col-sm-8 col-xs-12'}}">
+  			 <div class = "{{category.split ? 'col-md-8 col-sm-8 col-xs-12' : 'col-md-9 col-sm-8 col-xs-12'}} lopadding">
           <div class="subject">{{email.subject}}</div>
   			  <div class = "snipit">{{email.message}}</div>
          </div>
         </div>
-    	<button style="float: right;" ng-click='reddit.nextPage(category.id)'>more</button>
     </div>
   </div>
   <div class="category-bar">

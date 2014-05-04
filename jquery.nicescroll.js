@@ -2040,7 +2040,7 @@
       if(e.preventManipulation) e.preventManipulation();  //IE10
       e.cancelBubble = true;
       e.cancel = true;
-      e.returnValue = false;
+      e.preventDefault();
       return false;
     };
 

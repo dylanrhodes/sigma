@@ -13,6 +13,7 @@ body {
 	max-width: 1000px;
 	position: relative;
  	text-align: left;
+	margin-bottom: 40px;
 }
 
 .control-bar {
@@ -144,6 +145,17 @@ input[type="search"] {
 	border-left-width: 5px;
 	margin-bottom: 164px;
 }
+
+.lopadding {
+	right-padding: 10px !important;
+	margin: 0px !important;
+}
+
+.nopadding {
+	padding-right: 0 !important;
+	margin: 0 !important;
+}
+
 .ind-email {
 	/*padding-left: 12px;
 	height: 47px;*/

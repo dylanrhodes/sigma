@@ -6,6 +6,7 @@ $(document).ready(
 	$(".two-box").niceScroll({cursorcolor:"#8c8c8e", cursoropacitymin: .5, cursorwidth: 8});
   }
 );
+
 $(document).on("click", ".ind-email", function() {
 	if (selected != "") {
 		selected.css("background-color", oldColor);
