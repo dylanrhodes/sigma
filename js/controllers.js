@@ -2,7 +2,7 @@
 
 /* Controllers */
 
-var sigmaApp = angular.module('sigmaApp', ['infinite-scroll']);
+var sigmaApp = angular.module('sigmaApp', ['ngScrollbar']);
 
 sigmaApp.controller('EmailListCtrl', function($scope, Reddit) {
   $scope.reddit = new Reddit();

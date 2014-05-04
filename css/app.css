@@ -260,3 +260,37 @@ button.loadMore {
 .category-bar .category-selected {
 	opacity: 1.0;
 }
+
+.one-box::-webkit-scrollbar-track {
+	-webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+	border-radius: 10px;
+	background-color: #F5F5F5;
+}
+
+.one-box::-webkit-scrollbar {
+	width: 6px;
+	background-color: #F5F5F5;
+}
+
+.one-box::-webkit-scrollbar-thumb {
+	border-radius: 10px;
+	-webkit-box-shadow: inset 0 0 6px rgba(0,0,0,.3);
+	background-color: #AFAFAF;
+}
+
+.two-box::-webkit-scrollbar-track {
+	-webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+	border-radius: 10px;
+	background-color: #F5F5F5;
+}
+
+.two-box::-webkit-scrollbar {
+	width: 6px;
+	background-color: #F5F5F5;
+}
+
+.two-box::-webkit-scrollbar-thumb {
+	border-radius: 10px;
+	-webkit-box-shadow: inset 0 0 6px rgba(0,0,0,.3);
+	background-color: #AFAFAF;
+}
