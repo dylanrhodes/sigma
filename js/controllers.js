@@ -14,22 +14,25 @@ sigmaApp.controller('EmailListCtrl', function($scope, Reddit) {
   	console.log($scope.focusedCategory, categoryId);
   	$scope.focusedCategory = $scope.focusedCategory != categoryId ? categoryId : "";
   }
-  jQuery(function($) {
-	  $('.one-box').bind('scroll', function() {
-		  if($(this).scrollTop() + $(this).innerHeight() >= this.scrollHeight - 40) {
-		  	  var id = $(this).attr('id');
-			  $scope.reddit.nextSmallPage(parseInt(id));
-		  }
-	  })
-   });
-   jQuery(function($) {
-	  $('.two-box').bind('scroll', function() {
-		  if($(this).scrollTop() + $(this).innerHeight() >= this.scrollHeight - 40) {
-		  	  var id = $(this).attr('id');
-			  $scope.reddit.nextSmallPage(parseInt(id));
-		  }
-	  })
-   });
+  $scope.addMore = function(categoryId) {
+	$scope.reddit.nextSmallPage(categoryId);
+  }
+  // jQuery(function($) {
+	  // $('.one-box').bind('scroll', function() {
+		  // if($(this).scrollTop() + $(this).innerHeight() >= this.scrollHeight - 40) {
+		  	  // var id = $(this).attr('id');
+			  // $scope.reddit.nextSmallPage(parseInt(id));
+		  // }
+	  // })
+   // });
+   // jQuery(function($) {
+	  // $('.two-box').bind('scroll', function() {
+		  // if($(this).scrollTop() + $(this).innerHeight() >= this.scrollHeight - 40) {
+		  	  // var id = $(this).attr('id');
+			  // $scope.reddit.nextSmallPage(parseInt(id));
+		  // }
+	  // })
+   // });
    $scope.categories = [
   	{'id' : 1,
   	 'name' : 'Uncategorized',
@@ -92,7 +95,7 @@ sigmaApp.factory('Reddit', function($http) {
   Reddit.prototype.nextSmallPage = function(category) {
     if (this.busy) return;
     this.busy = true;
-    var url = "http://api.reddit.com/hot?after=" + this.after + "&limit=3&jsonp=JSON_CALLBACK";
+    var url = "http://api.reddit.com/hot?after=" + this.after + "&limit=10&jsonp=JSON_CALLBACK";
     $http.jsonp(url).success(function(data) {
       var items = data.data.children;
       for (var i = 0; i < items.length; i++) {
