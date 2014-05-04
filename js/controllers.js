@@ -43,7 +43,7 @@ sigmaApp.controller('EmailListCtrl', function($scope, Reddit) {
   }
   
   $scope.categorize = function(categoryId, emailId) {
-	console.log("Email id: " + emailId + " updated to category: " + categoryId);
+	if(emailId != -1) console.log("Email id: " + emailId + " updated to category: " + categoryId);
   }
   
   
@@ -101,6 +101,11 @@ sigmaApp.controller('EmailListCtrl', function($scope, Reddit) {
 		$(this).css("background-color", "#e9fcfb");
 		$scope.selected = $(this);
 		$scope.selectedId = $(this).attr('id');
+		$('.category-bar').children().each(function(i) {
+			var cat = parseInt($scope.selected.parent().attr('id'));
+			if ((i+1) != cat) $(this).css('opacity', .4);
+			else $(this).css('opacity', 1);
+		});
 	});
 	$(document).on("click", ".category", function(e) {
 		e.stopPropagation();
@@ -111,6 +116,9 @@ sigmaApp.controller('EmailListCtrl', function($scope, Reddit) {
 		}
 		$scope.selected = "";
 		$scope.selectedId = -1;
+		$('.category-bar').children().each(function(i) {
+			$(this).css('opacity', .8);
+		});
 	});
 	$(document).delegate('.one-box', 'click', function (e) {
 		var offset = $(this).offset();
