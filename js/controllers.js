@@ -60,8 +60,9 @@ sigmaApp.controller('EmailListCtrl', function($scope, Reddit) {
 					temp.css("background-color", "#e9fcfb");
 					$scope.selected = temp;
 					$scope.selectedId = temp.attr('id');
-					if(temp.position().top < 0) {
-						temp.parent().scrollTop(temp.parent().scrollTop() + temp.position().top);
+					var top = temp.position().top - temp.parent().position().top;
+					if(top < 0) {
+						temp.parent().scrollTop(temp.parent().scrollTop() + top);
 					}
 				}
 			}
@@ -78,8 +79,9 @@ sigmaApp.controller('EmailListCtrl', function($scope, Reddit) {
 					temp.css("background-color", "#e9fcfb");
 					$scope.selected = temp;
 					$scope.selectedId = temp.attr('id');
-					if(temp.position().top >= temp.parent().height()) {	
-						var dif = temp.position().top - temp.parent().height();
+					var top = temp.position().top - temp.parent().position().top;
+					if(top >= temp.parent().height()) {	
+						var dif = top - temp.parent().height();
 						temp.parent().scrollTop(temp.parent().scrollTop() + temp.height() + dif);
 					}
 				}
