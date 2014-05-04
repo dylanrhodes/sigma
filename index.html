@@ -22,7 +22,7 @@
 <body ng-controller="EmailListCtrl">
   <div class="wrapper container-fluid">
     <div class="control-bar row">
-      <div class="control-bar-title col-sm-4 hidden-xs" ng-click="focusedCategory = ''">
+      <div class="control-bar-title col-sm-4 hidden-xs" ng-click="focusCategory('', 0)">
         &Sigma;IGMA
       </div>
       <div class="control-bar-compose col-sm-4 hidden-xs">
@@ -49,7 +49,7 @@
     </div>
   </div>
   <div class="category-bar">
-    <div ng-repeat="category in categories" class="category {{category.class}} {{category.id == focusedCategory ? 'category-selected' : ''}}" style="background-color: {{category.color}};"ng-click="focusCategory(category.id)">
+    <div ng-repeat="category in categories" class="category {{category.class}} {{category.id == focusedCategory ? 'category-selected' : ''}}" style="background-color: {{category.color}};"ng-click="focusCategory(category.id, category.split)">
       <span class="category-id">{{category.id}}</span> {{category.name}}
     </div>
   </div>

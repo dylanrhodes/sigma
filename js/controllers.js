@@ -8,15 +8,53 @@ sigmaApp.controller('EmailListCtrl', function($scope, Reddit) {
   $scope.reddit = new Reddit();
   $scope.reddit.nextPage();
   $scope.focusedCategory = "";
+  $scope.focusedSize = -1;
+  $scope.oldWidth = 0;
   $scope.sigma_img_tag = "<img src='images/sigma.png' />";
 
-  $scope.focusCategory = function(categoryId) {
-  	console.log($scope.focusedCategory, categoryId);
-  	$scope.focusedCategory = $scope.focusedCategory != categoryId ? categoryId : "";
+  $scope.focusCategory = function(categoryId, size) {
+	if ($scope.focusedCategory != "" || $scope.focusedCategory == categoryId) {
+		$('#' + $scope.focusedCategory).height(210);
+		if ($scope.focusedSize == 1) $('#' + $scope.focusedCategory).width($scope.oldWidth);
+		$scope.focusedCategory = "";
+		$scope.focusedSize = -1;
+	}
+	else {
+		$scope.reddit.nextSmallPage(categoryId);
+		var newHeight = $( window ).height() - 100;
+		$('#' + categoryId).height(newHeight);
+		if (size == 1) {
+			$scope.oldWidth = $('#' + categoryId).width();
+			$('#' + categoryId).width($('.one-box').width());
+		}
+		console.log($scope.focusedCategory, categoryId);
+		$scope.focusedCategory = categoryId;
+		$scope.focusedSize = size;
+	}
   }
   $scope.addMore = function(categoryId) {
 	$scope.reddit.nextSmallPage(categoryId);
   }
+  jQuery(function($) {
+	$(document).delegate('.one-box', 'click', function (e) {
+		var offset = $(this).offset();
+		if ((e.pageX - offset.left) <= 5) {
+			var id = $(this).attr('id');
+			$scope.focusCategory(parseInt(id), 0);
+			$scope.$apply();
+		}
+	});
+  });
+  jQuery(function($) {
+	$(document).delegate('.two-box', 'click', function (e) {
+		var offset = $(this).offset();
+		if ((e.pageX - offset.left) <= 5) {
+			var id = $(this).attr('id');
+			$scope.focusCategory(parseInt(id), 1);
+			$scope.$apply();
+		}
+	});
+  });
   // jQuery(function($) {
 	  // $('.one-box').bind('scroll', function() {
 		  // if($(this).scrollTop() + $(this).innerHeight() >= this.scrollHeight - 40) {
