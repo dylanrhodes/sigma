@@ -34,7 +34,7 @@
     </div>
     <div ng-repeat="category in categories | filter:{id:focusedCategory}" ng-init="$scope.focusedCategory = 0" class = "{{category.split ? 'two-box' : 'one-box'}}" style = "border-color: {{category.color}};" id="{{category.id}}">
     	
-        <div class="row ind-email {{email.read ? 'read' : ''}}" ng-repeat="email in reddit.items | filter:{category:category.id} | filter:search">
+        <div class="row ind-email {{email.read ? 'read' : ''}}" id = "{{email.id}}" ng-repeat="email in reddit.items | filter:{category:category.id} | filter:search">
          <div class = "{{category.split ? 'from col-md-4 col-sm-4' : 'from col-md-2 col-sm-3'}} nopadding">{{email.from}}</div>
          <div class = "{{category.split ? 'hidden' : 'sigma col-md-1 col-sm-1 hidden-xs'}}">
           <img src="images/sigma.png" ng-class="email.sigma ? '' : 'hidden'" />
@@ -49,7 +49,7 @@
     </div>
   </div>
   <div class="category-bar">
-    <div ng-repeat="category in categories" class="category {{category.class}} {{category.id == focusedCategory ? 'category-selected' : ''}}" style="background-color: {{category.color}};"ng-click="focusCategory(category.id, category.split)">
+    <div ng-repeat="category in categories" class="category {{category.class}} {{category.id == focusedCategory ? 'category-selected' : ''}}" style="background-color: {{category.color}};"ng-click="categorize(category.id, selectedId)">
       <span class="category-id">{{category.id}}</span> {{category.name}}
     </div>
   </div>

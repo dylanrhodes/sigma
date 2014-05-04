@@ -10,6 +10,10 @@ sigmaApp.controller('EmailListCtrl', function($scope, Reddit) {
   $scope.focusedCategory = "";
   $scope.focusedSize = -1;
   $scope.oldWidth = 0;
+  $scope.selected = "";
+  $scope.selectedId = -1;
+  $scope.numCat = 5;
+  $scope.oldColor = "";
   $scope.sigma_img_tag = "<img src='images/sigma.png' />";
 
   $scope.focusCategory = function(categoryId, size) {
@@ -32,10 +36,54 @@ sigmaApp.controller('EmailListCtrl', function($scope, Reddit) {
 		$scope.focusedSize = size;
 	}
   }
+  
   $scope.addMore = function(categoryId) {
 	$scope.reddit.nextSmallPage(categoryId);
   }
+  
+  $scope.categorize = function(categoryId, emailId) {
+	console.log("Email id: " + emailId + " updated to category: " + categoryId);
+  }
+  
+  
   jQuery(function($) {
+	$(document).keydown(function(e){
+		if (e.keyCode == 37) { 
+		   alert( "left pressed" );
+		   return false;
+		}
+		if (e.keyCode == 38) { 
+		   e.preventDefault(); //up
+		   return false;
+		}
+		if (e.keyCode == 40) { //down
+		   e.preventDefault();
+		}
+		if (e.keyCode >= 49 && e.keyCode < 49 + $scope.numCat) {
+		   var cat = e.keyCode - 48;
+		   $scope.categorize(cat, $scope.selectedId);
+		}
+	});
+	$(document).on("click", ".ind-email", function(e) {
+		e.stopPropagation();
+		if ($scope.selected != "") {
+			$scope.selected.css("background-color", $scope.oldColor);
+		}
+		$scope.oldColor = $(this).css("background-color");
+		$(this).css("background-color", "#e9fcfb");
+		$scope.selected = $(this);
+		$scope.selectedId = $(this).attr('id');
+	});
+	$(document).on("click", ".category", function(e) {
+		e.stopPropagation();
+	});
+	$(document).click(function() {
+		if ($scope.selected != "") {
+			$scope.selected.css("background-color", oldColor);
+		}
+		$scope.selected = "";
+		$scope.selectedId = -1;
+	});
 	$(document).delegate('.one-box', 'click', function (e) {
 		var offset = $(this).offset();
 		if ((e.pageX - offset.left) <= 5) {
@@ -44,8 +92,6 @@ sigmaApp.controller('EmailListCtrl', function($scope, Reddit) {
 			$scope.$apply();
 		}
 	});
-  });
-  jQuery(function($) {
 	$(document).delegate('.two-box', 'click', function (e) {
 		var offset = $(this).offset();
 		if ((e.pageX - offset.left) <= 5) {
