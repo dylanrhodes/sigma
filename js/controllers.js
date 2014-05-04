@@ -4,7 +4,9 @@
 
 var sigmaApp = angular.module('sigmaApp', ['infinite-scroll']);
 
-sigmaApp.controller('EmailListCtrl', function($scope) {
+sigmaApp.controller('EmailListCtrl', function($scope, Reddit) {
+  $scope.reddit = new Reddit();
+  $scope.reddit.nextPage(0);
   $scope.focusedCategory = "";
   $scope.sigma_img_tag = "<img src='images/sigma.png' />";
 
@@ -139,4 +141,36 @@ sigmaApp.controller('EmailListCtrl', function($scope) {
   	 'class' : 'category-later',
 	 'split' : 0}
   ]
+});
+
+sigmaApp.factory('Reddit', function($http) {
+  var Reddit = function() {
+    this.items = [];
+    this.busy = false;
+    this.after = '';
+  };
+
+  Reddit.prototype.nextPage = function(category) {
+    if (this.busy) return;
+    this.busy = true;
+
+    var url = "http://api.reddit.com/hot?after=" + this.after + "&jsonp=JSON_CALLBACK";
+    $http.jsonp(url).success(function(data) {
+      var items = data.data.children;
+      for (var i = 0; i < items.length; i++) {
+		items[i].data.from = items[i].data.author;
+		items[i].data.subject = items[i].data.title;
+		items[i].data.message = items[i].data.url;
+		if (category == 0) items[i].data.category = Math.floor(Math.random() * 6) + 1;
+		else items[i].data.category = category;
+		items[i].data.read = Math.round(Math.random());
+		items[i].data.sigma = Math.round(Math.random());
+        this.items.push(items[i].data);
+      }
+      this.after = "t3_" + this.items[this.items.length - 1].id;
+      this.busy = false;
+    }.bind(this));
+  };
+
+  return Reddit;
 });

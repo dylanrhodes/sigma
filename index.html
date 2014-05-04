@@ -34,7 +34,7 @@
     </div>
     <div ng-repeat="category in categories | filter:{id:focusedCategory}" ng-init="$scope.focusedCategory = 0" class = "{{category.split ? 'two-box' : 'one-box'}}" style = "border-color: {{category.color}};">
     	
-        <div class="row ind-email {{email.read ? 'read' : ''}}" ng-repeat="email in emails | filter:{category:category.id} | filter:search | limitTo:6">
+        <div class="row ind-email {{email.read ? 'read' : ''}}" ng-repeat="email in reddit.items | filter:{category:category.id} | filter:search | limitTo:6">
          <div class = "{{category.split ? 'from col-md-4 col-sm-4' : 'from col-md-2 col-sm-3'}}">{{email.from}}</div>
          <div class = "{{category.split ? 'hidden' : 'sigma col-md-1 col-sm-1 hidden-xs'}}">
           <img src="images/sigma.png" ng-class="email.sigma ? '' : 'hidden'" />
@@ -45,7 +45,7 @@
   			  <div class = "snipit">{{email.message}}</div>
          </div>
         </div>
-    	
+    	<button style="float: right;" ng-click='reddit.nextPage(category.id)'>more</button>
     </div>
   </div>
   <div class="category-bar">
