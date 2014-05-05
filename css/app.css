@@ -232,6 +232,10 @@ button.loadMore {
 	cursor:default;
 }
 
+.date {
+	color: #424242;
+}
+
 
 .category-bar {
 	position:fixed;

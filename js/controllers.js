@@ -182,27 +182,32 @@ sigmaApp.controller('EmailListCtrl', function($scope, Reddit) {
   	 'name' : 'Uncategorized',
   	 'color' : '#808080',
   	 'class' : 'category-uncategorized',
-	 'split' : 1},
+	 'split' : 1,
+	 'unread' : 10},
   	{'id' : 2,
   	 'name' : 'ASAP',
   	 'color' : '#1b6aa3;',
   	 'class' : 'category-asap',
-	 'split' : 1},
+	 'split' : 1,
+	 'unread' : 2},
   	{'id' : 3,
   	 'name' : 'School',
   	 'color' : '#84cbc5;',
   	 'class' : 'category-school',
-	 'split' : 0},
+	 'split' : 0,
+	 'unread' : 3},
   	{'id' : 4,
   	 'name' : 'Work',
   	 'color' : '#f8d35e',
   	 'class' : 'category-work',
-	 'split' : 0},
+	 'split' : 0,
+	 'unread' : 0},
   	{'id' : 5,
   	 'name' : 'Later',
   	 'color' : '#f47264',
   	 'class' : 'category-later',
-	 'split' : 0}
+	 'split' : 0,
+	 'unread' : 5}
   ];
 });
 
@@ -224,6 +229,9 @@ sigmaApp.factory('Reddit', function($http) {
 		items[i].data.from = items[i].data.author;
 		items[i].data.subject = items[i].data.title;
 		items[i].data.message = items[i].data.url;
+		var utcSeconds = items[i].data.created_utc;
+		var day = moment.unix(utcSeconds);
+		items[i].data.date = day.fromNow();
 		items[i].data.category = this.next;
 		if (this.next == 5) this.next = 1;
 		else this.next++;
@@ -246,6 +254,9 @@ sigmaApp.factory('Reddit', function($http) {
 		items[i].data.from = items[i].data.author;
 		items[i].data.subject = items[i].data.title;
 		items[i].data.message = items[i].data.url;
+		var utcSeconds = items[i].data.created_utc;
+		var day = moment.unix(utcSeconds);
+		items[i].data.date = day.fromNow();
 		if (category == 0) items[i].data.category = Math.floor(Math.random() * 6) + 1;
 		else items[i].data.category = category;
 		items[i].data.read = Math.round(Math.random());

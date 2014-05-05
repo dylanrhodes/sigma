@@ -14,7 +14,7 @@
   <script src="js/libraries/angular-strap-2.0.2/dist/angular-strap.tpl.min.js"></script>
   <script src="js/controllers.js"></script>
    <script src="js/app.js"></script>
-  <script src="jquery.nicescroll.js"></script>
+  <script src="moment.min.js"></script>
 
 </head>
 
@@ -41,7 +41,7 @@
          </div>
   			 <div class = "{{category.split ? 'col-md-8 col-sm-8 col-xs-12' : 'col-md-9 col-sm-8 col-xs-12'}} lopadding">
           <div class="subject">{{email.subject}}</div>
-  			  <div class = "snipit">{{email.message}}</div>
+  			  <div class = "snipit"><span class = "date">{{email.date}}</span> - {{email.message}}</div>
          </div>
         </div>
 		<button class = "btn btn-default loadMore" ng-click = "addMore(category.id)">Load 10 More</a>
