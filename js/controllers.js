@@ -43,7 +43,10 @@ sigmaApp.controller('EmailListCtrl', function($scope, Reddit) {
   }
   
   $scope.categorize = function(categoryId, emailId) {
-	if(emailId != -1) console.log("Email id: " + emailId + " updated to category: " + categoryId);
+    $.map($scope.reddit.items, function(obj, index) {
+      if(obj.id == emailId)
+        obj.category = categoryId;
+    });
   }
   
   
