@@ -7,8 +7,10 @@ for both body and header classifiers
 '''
 
 def extract_body_features(msg, user_dict):
-	text = extract_body_text(msg)
-	words = preprocess(text)
+	#text = preprocess.extract_body_text(msg)
+	test = 'this is a test banana'
+
+	words = preprocess.preprocess(text)
 
 	counts = Counter(words)
 
@@ -17,13 +19,16 @@ def extract_body_features(msg, user_dict):
 	output = {}
 
 	for word, count in counts:
-		output[user_dict[word][1]] = count * log(N / user_dict[word][2])
+		entry = user_dict[word]
+
+		if entry != None:
+			output[entry[1]] = count * log(N / entry[2])
 
 	return output
 
 def extract_header_features(msg, user_contacts):
 	text = msg['subject']
-	words = preprocess(text)
+	words = preprocesss.preprocess(text)
 
 	output = {}
 

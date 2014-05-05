@@ -108,5 +108,3 @@ def stem_words(text):
 
 def remove_stop_words(text):
 	return [w for w in text if not w in filter_words]
-
-read_mbox(sys.argv[1])
