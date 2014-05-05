@@ -43,6 +43,21 @@ sigmaApp.controller('EmailListCtrl', function($scope, Reddit) {
   }
   
   $scope.categorize = function(categoryId, emailId) {
+    //move to next element before categorizing
+	var temp = $scope.selected.next();
+	var cl = temp.attr("class");
+	if (typeof cl !== 'undefined' && cl !== false) {
+		$scope.selected.css("background-color", $scope.oldColor);
+		$scope.oldColor = temp.css("background-color");
+		temp.css("background-color", "#e9fcfb");
+		$scope.selected = temp;
+		$scope.selectedId = temp.attr('id');
+		var top = temp.position().top - temp.parent().position().top;
+		if(top >= temp.parent().height()) {	
+			var dif = top - temp.parent().height();
+			temp.parent().scrollTop(temp.parent().scrollTop() + temp.height() + dif);
+		}
+	}
     console.log(categoryId, emailId);
     $.map($scope.reddit.items, function(obj, index) {
       if(obj.id == emailId) {
