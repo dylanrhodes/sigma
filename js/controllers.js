@@ -55,7 +55,7 @@ sigmaApp.controller('EmailListCtrl', function($scope, Reddit) {
 				var temp = $scope.selected.prev();
 				var cl = temp.attr("class");
 				if (typeof cl !== 'undefined' && cl !== false) {
-					$scope.selected.css("background-color", oldColor);
+					$scope.selected.css("background-color", $scope.oldColor);
 					$scope.oldColor = temp.css("background-color");
 					temp.css("background-color", "#e9fcfb");
 					$scope.selected = temp;
@@ -74,7 +74,7 @@ sigmaApp.controller('EmailListCtrl', function($scope, Reddit) {
 				var temp = $scope.selected.next();
 				var cl = temp.attr("class");
 				if (typeof cl !== 'undefined' && cl !== false) {
-					$scope.selected.css("background-color", oldColor);
+					$scope.selected.css("background-color", $scope.oldColor);
 					$scope.oldColor = temp.css("background-color");
 					temp.css("background-color", "#e9fcfb");
 					$scope.selected = temp;
@@ -107,18 +107,13 @@ sigmaApp.controller('EmailListCtrl', function($scope, Reddit) {
 			else $(this).css('opacity', 1);
 		});
 	});
-	$(document).on("dblclick", ".ind-email", function(e) {
-		e.stopPropagation();
-		var elem = $(this).find(".snipit");
-		var url = elem.html();
-		window.open(url);
-	});
+	
 	$(document).on("click", ".category", function(e) {
 		e.stopPropagation();
 	});
 	$(document).click(function() {
 		if ($scope.selected != "") {
-			$scope.selected.css("background-color", oldColor);
+			$scope.selected.css("background-color", $scope.oldColor);
 		}
 		$scope.selected = "";
 		$scope.selectedId = -1;
