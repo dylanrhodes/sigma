@@ -115,7 +115,7 @@ button.loadMore {
 	height: 210px;
 	border: 1px solid #eee;
 	border-left-style: solid;
-	border-left-width: 5px;
+	border-left-width: 7px;
 	margin-bottom: 20px;
 }
 .two-box {
@@ -126,7 +126,7 @@ button.loadMore {
 	height: 210px;
 	border: 1px solid #eee;
 	border-left-style: solid;
-	border-left-width: 5px;
+	border-left-width: 7px;
 	margin-bottom: 20px;
 }
 .two-box:nth-child(odd){
@@ -242,12 +242,12 @@ button.loadMore {
 
 .category-bar .category {
 	display:inline-block;
-	width:19%;
+	width:20%;
 	padding:4px;
 	margin-right:0px;
 	color:#fff;
 	font-size:16px;
-	opacity: 0.8;
+	opacity: .95;
 	cursor:pointer;
 }
 

@@ -123,7 +123,7 @@ sigmaApp.controller('EmailListCtrl', function($scope, Reddit) {
 	});
 	$(document).delegate('.one-box', 'click', function (e) {
 		var offset = $(this).offset();
-		if ((e.pageX - offset.left) <= 5) {
+		if ((e.pageX - offset.left) <= 7) {
 			var id = $(this).attr('id');
 			$scope.focusCategory(parseInt(id), 0);
 			$scope.$apply();
