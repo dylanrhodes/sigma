@@ -1,5 +1,6 @@
 import preprocess
 from collections import Counter
+from math import log
 
 '''
 Provides functions to extract feature vectors from emails
@@ -7,41 +8,45 @@ for both body and header classifiers
 '''
 
 def extract_body_features(msg, user_dict):
-	#text = preprocess.extract_body_text(msg)
-	test = 'this is a test banana'
+	text = preprocess.extract_body_text(msg)
 
 	words = preprocess.preprocess(text)
 
 	counts = Counter(words)
 
-	N = user_dict['total_user_mail']
+	N = user_dict['TOTAL_NUM_MESSAGES']
 
 	output = {}
 
-	for word, count in counts:
-		entry = user_dict[word]
+	for word in counts:
+		count = counts[word]
 
-		if entry != None:
-			output[entry[1]] = count * log(N / entry[2])
+		try:
+			entry = user_dict[word]
+			output[entry[0]] = count * log((N*1.0) / entry[1])
+		except KeyError:
+			pass	
 
 	return output
 
 def extract_header_features(msg, user_contacts):
 	text = msg['subject']
-	words = preprocesss.preprocess(text)
+	words = preprocess.preprocess(text)
 
 	output = {}
 
 	for word in words:
 		output[word] = 1
 
-	address = msg['from']
-	id = user_contacts[address]
+	address = msg['from'].lower()
+	
+	try:
+		id = user_contacts[address]
+		output[id] = 1
+	except KeyError:
+		pass
 
-	if id == None:
-		id = -1
-
-	output[address] = id
+	return output
 
 	#Features:
 	#-words from subject
