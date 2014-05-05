@@ -43,10 +43,15 @@ sigmaApp.controller('EmailListCtrl', function($scope, Reddit) {
   }
   
   $scope.categorize = function(categoryId, emailId) {
+    console.log(categoryId, emailId);
     $.map($scope.reddit.items, function(obj, index) {
-      if(obj.id == emailId)
+      if(obj.id == emailId) {
+        console.log("match!");
         obj.category = categoryId;
+        console.log(obj.category, categoryId);
+      }
     });
+    $scope.$apply();
   }
   
   
@@ -106,7 +111,7 @@ sigmaApp.controller('EmailListCtrl', function($scope, Reddit) {
 		$scope.selectedId = $(this).attr('id');
 		$('.category-bar').children().each(function(i) {
 			var cat = parseInt($scope.selected.parent().attr('id'));
-			if ((i+1) != cat) $(this).css('opacity', .4);
+			if ((i+1) != cat) $(this).css('opacity', .6);
 			else $(this).css('opacity', 1);
 		});
 	});

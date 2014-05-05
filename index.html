@@ -48,7 +48,7 @@
     </div>
   </div>
   <div class="category-bar">
-    <div ng-repeat="category in categories" class="category {{category.class}} {{category.id == focusedCategory ? 'category-selected' : ''}}" style="background-color: {{category.color}};"ng-click="categorize(category.id, selectedId)">
+    <div ng-repeat="category in categories" class="category {{category.class}} {{category.id == focusedCategory ? 'category-selected' : ''}}" style="background-color: {{category.color}};" ng-click="categorize(category.id, selectedId)">
       <span class="category-id">{{category.id}}</span> {{category.name}}
     </div>
   </div>
