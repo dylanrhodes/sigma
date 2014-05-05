@@ -107,6 +107,12 @@ sigmaApp.controller('EmailListCtrl', function($scope, Reddit) {
 			else $(this).css('opacity', 1);
 		});
 	});
+	$(document).on("dblclick", ".ind-email", function(e) {
+		e.stopPropagation();
+		var elem = $(this).find(".snipit");
+		var url = elem.html();
+		window.open(url);
+	});
 	$(document).on("click", ".category", function(e) {
 		e.stopPropagation();
 	});
