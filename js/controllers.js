@@ -78,6 +78,9 @@ sigmaApp.controller('EmailListCtrl', function($scope, Reddit) {
 				var cl = temp.attr("class");
 				if (typeof cl !== 'undefined' && cl !== false) {
 					
+          if(selectedIds.indexOf(temp.attr('id')) >= 0) { // unselecting
+            // selectedIds.            
+          }
 					$scope.selected = temp;
 
           if(e.shiftKey) {
@@ -145,11 +148,8 @@ sigmaApp.controller('EmailListCtrl', function($scope, Reddit) {
 		e.stopPropagation();
 	});
 	$(document).click(function() {
-		if ($scope.selected != "") {
-			$scope.selected.css("background-color", $scope.oldColor);
-		}
 		$scope.selected = "";
-		$scope.selectedId = -1;
+		$scope.selectedId = [];
 		$('.category-bar').children().each(function(i) {
 			$(this).css('opacity', .8);
 		});
