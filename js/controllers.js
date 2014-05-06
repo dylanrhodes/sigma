@@ -109,6 +109,7 @@ sigmaApp.controller('EmailListCtrl', function($scope, Reddit) {
 			if ($scope.selectedCat == $scope.numCat) $scope.selectedCat = 1;
 			else $scope.selectedCat++;
 			temp = $("#" + $scope.selectedCat).children(".ind-email").first();
+			$scope.selected = temp;
 			$scope.selectedIds = [temp.attr('id')];
 			$scope.$apply();
 		}
