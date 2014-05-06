@@ -198,6 +198,7 @@ sigmaApp.controller('EmailListCtrl', function($scope, Reddit) {
     $scope.$apply();
 	});
 	$(document).delegate('.one-box', 'click', function (e) {
+		e.stopPropagation();
 		var offset = $(this).offset();
 		if ((e.pageX - offset.left) <= 7) {
 			var id = $(this).attr('id');
@@ -206,6 +207,7 @@ sigmaApp.controller('EmailListCtrl', function($scope, Reddit) {
 		}
 	});
 	$(document).delegate('.two-box', 'click', function (e) {
+		e.stopPropagation();
 		var offset = $(this).offset();
 		if ((e.pageX - offset.left) <= 5) {
 			var id = $(this).attr('id');
