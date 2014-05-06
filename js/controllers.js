@@ -149,7 +149,7 @@ sigmaApp.controller('EmailListCtrl', function($scope, Reddit) {
 	});
 	$(document).click(function() {
 		$scope.selected = "";
-		$scope.selectedId = [];
+		$scope.selectedIds = [];
 		$('.category-bar').children().each(function(i) {
 			$(this).css('opacity', .8);
 		});
