@@ -47,7 +47,7 @@
 		<button class = "btn btn-default loadMore" ng-click = "addMore(category.id)">Load 10 More</a>
     </div>
   </div>
-  <div class="category-bar">
+  <div class="category-bar {{ selectedId == -1 ? 'hidden' : ''  }}">
     <div ng-repeat="category in categories" class="category {{category.class}} {{category.id == focusedCategory ? 'category-selected' : ''}}" style="background-color: {{category.color}};" ng-click="categorize(category.id, selectedId)">
       <span class="category-id">{{category.id}}</span> {{category.name}}
     </div>
