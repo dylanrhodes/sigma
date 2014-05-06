@@ -46,7 +46,6 @@ sigmaApp.controller('EmailListCtrl', function($scope, Reddit) {
   $scope.reddit.nextPage();
   $scope.focusedCategory = "";
   $scope.focusedSize = -1;
-  $scope.oldWidth = 0;
   $scope.selected = "";
   $scope.selectedId = -1;
   $scope.selectedIds = [];
@@ -68,7 +67,6 @@ sigmaApp.controller('EmailListCtrl', function($scope, Reddit) {
 		var newHeight = $( window ).height() - 100;
 		$('#' + categoryId).height(newHeight);
 		if (size == 1) {
-			$scope.oldWidth = $('#' + categoryId).width();
 			$('#' + categoryId).width($('.one-box').width());
 		}
 		console.log($scope.focusedCategory, categoryId);
