@@ -130,7 +130,7 @@ sigmaApp.controller('EmailListCtrl', function($scope, Reddit) {
             $scope.selectedIds = [temp.attr('id')];
           }
 
-					var top = temp.position().top - temp.parent().position().top;
+					var top = temp.position().top;
 					if(top < 0) {
 						temp.parent().scrollTop(temp.parent().scrollTop() + top);
 					}
@@ -152,7 +152,7 @@ sigmaApp.controller('EmailListCtrl', function($scope, Reddit) {
             $scope.selectedIds = [temp.attr('id')];
           }
 
-					var top = temp.position().top - temp.parent().position().top;
+					var top = temp.position().top;
 					if(top >= temp.parent().height()) {	
 						var dif = top - temp.parent().height();
 						temp.parent().scrollTop(temp.parent().scrollTop() + temp.height() + dif);
