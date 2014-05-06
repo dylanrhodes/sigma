@@ -58,7 +58,7 @@ sigmaApp.controller('EmailListCtrl', function($scope, Reddit) {
   $scope.focusCategory = function(categoryId, size) {
 	if ($scope.focusedCategory != "" || $scope.focusedCategory == categoryId) {
 		$('#' + $scope.focusedCategory).height(42*$scope.categories[$scope.focusedCategory-1]['emails']);
-		if ($scope.focusedSize == 1) $('#' + $scope.focusedCategory).width($scope.oldWidth);
+		if ($scope.focusedSize == 1) $('#' + $scope.focusedCategory).css('width', '49%');
 		$scope.focusedCategory = "";
 		$scope.focusedSize = -1;
 	}
