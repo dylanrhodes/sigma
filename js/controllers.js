@@ -58,8 +58,12 @@ sigmaApp.controller('EmailListCtrl', function($scope, Reddit) {
 	if ($scope.focusedCategory != "" || $scope.focusedCategory == categoryId) {
 		$('#' + $scope.focusedCategory).height(42*$scope.categories[$scope.focusedCategory-1]['emails']);
 		if ($scope.focusedSize == 1) $('#' + $scope.focusedCategory).css('width', '49%');
+		var temp = $scope.focusedCategory;
 		$scope.focusedCategory = "";
 		$scope.focusedSize = -1;
+		$scope.$apply();
+		var level = $("#" + temp).offset().top - 52; //subtract header size
+		window.scrollTo(0, level);
 	}
 	else {
 		$scope.reddit.nextSmallPage(categoryId);
@@ -72,6 +76,7 @@ sigmaApp.controller('EmailListCtrl', function($scope, Reddit) {
 		console.log($scope.focusedCategory, categoryId);
 		$scope.focusedCategory = categoryId;
 		$scope.focusedSize = size;
+		window.scrollTo(0, 0);
 	}
   }
   
