@@ -71,18 +71,14 @@ sigmaApp.controller('EmailListCtrl', function($scope, Reddit) {
   
   jQuery(function($) {
 	$(document).keydown(function(e){
-		if (e.keyCode == 38) { //up
+		if (e.keyCode == 38) { //down
 			if ($scope.selected != "") {
-				e.preventDefault(); 
+				e.preventDefault();
 				var temp = $scope.selected.prev();
 				var cl = temp.attr("class");
 				if (typeof cl !== 'undefined' && cl !== false) {
-					
-          if(selectedIds.indexOf(temp.attr('id')) >= 0) { // unselecting
-            // selectedIds.            
-          }
 					$scope.selected = temp;
-
+					
           if(e.shiftKey) {
             $scope.selectedIds.push(temp.attr('id'));
           } else {
@@ -96,7 +92,6 @@ sigmaApp.controller('EmailListCtrl', function($scope, Reddit) {
 				}
 			}
       $scope.$apply();
-		   return false;
 		}
 		if (e.keyCode == 40) { //down
 			if ($scope.selected != "") {
@@ -172,23 +167,15 @@ sigmaApp.controller('EmailListCtrl', function($scope, Reddit) {
 			$scope.$apply();
 		}
 	});
+	$('.one-box').bind('scroll', function() {
+		  var newTop = $(this).scrollTop() + 5;
+		  $(this).children(".unread").css({top: newTop, position:'absolute'});
+	  });
+	  $('.two-box').bind('scroll', function() {
+		  var newTop = $(this).scrollTop() + 5;
+		  $(this).children(".unread").css({top: newTop, position:'absolute'});
+	  });
   });
-  // jQuery(function($) {
-	  // $('.one-box').bind('scroll', function() {
-		  // if($(this).scrollTop() + $(this).innerHeight() >= this.scrollHeight - 40) {
-		  	  // var id = $(this).attr('id');
-			  // $scope.reddit.nextSmallPage(parseInt(id));
-		  // }
-	  // })
-   // });
-   // jQuery(function($) {
-	  // $('.two-box').bind('scroll', function() {
-		  // if($(this).scrollTop() + $(this).innerHeight() >= this.scrollHeight - 40) {
-		  	  // var id = $(this).attr('id');
-			  // $scope.reddit.nextSmallPage(parseInt(id));
-		  // }
-	  // })
-   // });
    $scope.categories = [
   	{'id' : 1,
   	 'name' : 'Uncategorized',
