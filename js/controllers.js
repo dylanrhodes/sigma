@@ -12,6 +12,7 @@ sigmaApp.controller('EmailListCtrl', function($scope, Reddit) {
   $scope.oldWidth = 0;
   $scope.selected = "";
   $scope.selectedId = -1;
+  $scope.selectedIds = [];
   $scope.numCat = 5;
   $scope.oldColor = "";
   $scope.sigma_img_tag = "<img src='images/sigma.png' />";
@@ -42,30 +43,28 @@ sigmaApp.controller('EmailListCtrl', function($scope, Reddit) {
 	$scope.reddit.nextSmallPage(categoryId);
   }
   
-  $scope.categorize = function(categoryId, emailId) {
+  $scope.categorize = function(categoryId, emailIds) {
     //move to next element before categorizing
 	var temp = $scope.selected.next();
 	var cl = temp.attr("class");
 	if (typeof cl !== 'undefined' && cl !== false) {
-		$scope.selected.css("background-color", $scope.oldColor);
-		$scope.oldColor = temp.css("background-color");
-		temp.css("background-color", "#e9fcfb");
 		$scope.selected = temp;
-		$scope.selectedId = temp.attr('id');
+		$scope.selectedIds = [temp.attr('id')];
 		var top = temp.position().top - temp.parent().position().top;
 		if(top >= temp.parent().height()) {	
 			var dif = top - temp.parent().height();
 			temp.parent().scrollTop(temp.parent().scrollTop() + temp.height() + dif);
 		}
 	}
-    console.log(categoryId, emailId);
-    $.map($scope.reddit.items, function(obj, index) {
-      if(obj.id == emailId) {
-        console.log("match!");
-        obj.category = categoryId;
-        console.log(obj.category, categoryId);
-      }
+
+    $.each(emailIds, function(i, id) {
+      $.map($scope.reddit.items, function(obj, index) {
+        if(obj.id == id)
+          obj.category = categoryId;
+      });
     });
+
+    
     $scope.$apply();
   }
   
@@ -78,11 +77,15 @@ sigmaApp.controller('EmailListCtrl', function($scope, Reddit) {
 				var temp = $scope.selected.prev();
 				var cl = temp.attr("class");
 				if (typeof cl !== 'undefined' && cl !== false) {
-					$scope.selected.css("background-color", $scope.oldColor);
-					$scope.oldColor = temp.css("background-color");
-					temp.css("background-color", "#e9fcfb");
+					
 					$scope.selected = temp;
-					$scope.selectedId = temp.attr('id');
+
+          if(e.shiftKey) {
+            $scope.selectedIds.push(temp.attr('id'));
+          } else {
+            $scope.selectedIds = [temp.attr('id')];
+          }
+
 					var top = temp.position().top - temp.parent().position().top;
 					if(top < 0) {
 						temp.parent().scrollTop(temp.parent().scrollTop() + top);
@@ -98,11 +101,14 @@ sigmaApp.controller('EmailListCtrl', function($scope, Reddit) {
 				var temp = $scope.selected.next();
 				var cl = temp.attr("class");
 				if (typeof cl !== 'undefined' && cl !== false) {
-					$scope.selected.css("background-color", $scope.oldColor);
-					$scope.oldColor = temp.css("background-color");
-					temp.css("background-color", "#e9fcfb");
 					$scope.selected = temp;
-					$scope.selectedId = temp.attr('id');
+					
+          if(e.shiftKey) {
+            $scope.selectedIds.push(temp.attr('id'));
+          } else {
+            $scope.selectedIds = [temp.attr('id')];
+          }
+
 					var top = temp.position().top - temp.parent().position().top;
 					if(top >= temp.parent().height()) {	
 						var dif = top - temp.parent().height();
@@ -114,18 +120,19 @@ sigmaApp.controller('EmailListCtrl', function($scope, Reddit) {
 		}
 		if (e.keyCode >= 49 && e.keyCode < 49 + $scope.numCat) {
 		   var cat = e.keyCode - 48;
-		   $scope.categorize(cat, $scope.selectedId);
+         $scope.categorize(cat, $scope.selectedIds);
 		}
 	});
 	$(document).on("click", ".ind-email", function(e) {
 		e.stopPropagation();
-		if ($scope.selected != "") {
-			$scope.selected.css("background-color", $scope.oldColor);
-		}
-		$scope.oldColor = $(this).css("background-color");
-		$(this).css("background-color", "#e9fcfb");
+		
 		$scope.selected = $(this);
-		$scope.selectedId = $(this).attr('id');
+    if(e.shiftKey) {
+      $scope.selectedIds.push($(this).attr('id'));
+    } else {
+      $scope.selectedIds = [$(this).attr('id')];
+    }
+
 		$('.category-bar').children().each(function(i) {
 			var cat = parseInt($scope.selected.parent().attr('id'));
 			if ((i+1) != cat) $(this).css('opacity', .6);

@@ -172,9 +172,15 @@ button.loadMore {
 	-o-user-select: none; 
 	padding-bottom:2px;
 }
+
 .read {
 	background-color: #f5f5f5;
 }
+
+.selected-email {
+	background: #e9fcfb;
+}
+
 .from {
 	font-weight: bold;
 	font-size: 17px;
@@ -246,9 +252,9 @@ button.loadMore {
 
 .category-bar .category {
 	display:inline-block;
-	width:20%;
+	width:18.5%;
 	padding:4px;
-	margin-right:0px;
+	margin-right:1px;
 	color:#fff;
 	font-size:16px;
 	opacity: .95;
