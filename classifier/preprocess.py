@@ -28,7 +28,7 @@ def read_mbox(filename):
 		print(preprocess(text))
 
 def extract_body_text(msg):
-	body = None
+	body = ''
 	charset = None
 
 	if msg.is_multipart():
@@ -36,18 +36,19 @@ def extract_body_text(msg):
 			if part.is_multipart():
 				for subpart in part.walk():
 					if subpart.get_content_type() == 'text/plain':
-						body = subpart.get_payload(decode=True)
+						text = subpart.get_payload(decode=True)
 						charset = get_charset(subpart)
+						body = body + text.decode(charset)
 			elif part.get_content_type() == 'text/plain':
-				body = part.get_payload(decode=True)
+				text = part.get_payload(decode=True)
 				charset = get_charset(part)
+				body = body + text.decode(charset)
 	else:
 		body = msg.get_payload(decode=True)
 		charset = get_charset(msg)
+		body = body.decode(charset)
 
-	body = body.decode(charset)
-
-	return body
+	return re.sub(r'(?m)^\*.*\n?', '', body)
 
 def get_charset(msg, default="ascii"):
 	if msg.get_content_charset():
@@ -87,10 +88,14 @@ def preprocess(text):
 	text = text.lower()
 	text = text.split()
 
+	for word in text:
+		if len(word) > 15 or len(word) < 3:
+			text.remove(word)
+
 	text = remove_stop_words(text)
 	text = stem_words(text)
 
-	return text
+	return ' '.join(text)
 
 	#remove number-only words
 	#remove especially common/uncommon words

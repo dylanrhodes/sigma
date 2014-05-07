@@ -1,13 +1,47 @@
 import cPickle as pickle
+import os
+import numpy
 
 '''
 Retrieves stored classification data for a given user
 '''
 
-#Dummy implementation; should store and retrieve from files,
-#caching some commonly used ones (how large are models in memory?)
 def retrieve_models(username):
-	return None
+	path = "./"+username+"/models/"
+
+	body_vec = retrieve_object(path+"body_vec.pk1")
+	body_model = retrieve_object(path+"body_model.pk1")
+	head_vec = retrieve_object(path+"head_vec.pk1")
+	head_model = retrieve_object(path+"head_model.pk1")
+
+	return body_vec, body_model, head_vec, head_model
+
+def retrieve_data(username):
+	path = "./"+username+"/data/"
+
+	train_x = retrieve_object(path+"train_x.pk1")
+	train_y = retrieve_object(path+"train_y.pk1")
+	body_x = retrieve_object(path+"body_x.pk1")
+	body_y = retrieve_object(path+"body_y.pk1")
+	head_x = retrieve_object(path+"head_x.pk1")
+	head_y = retrieve_object(path+"head_y.pk1")
+
+	if body_y == []:
+		body_y = numpy.array(body_y)
+	if head_y == []:
+		head_y = numpy.array(head_y)
+
+	return train_x, train_y, body_x, body_y, head_x, head_y
+
+def retrieve_object(filename):
+	try:
+		curr_file = open(filename)
+		contents = pickle.load(curr_file)
+		curr_file.close()
+
+		return contents
+	except IOError:
+		return []
 
 def retrieve_vocabulary(username):
 	try:
