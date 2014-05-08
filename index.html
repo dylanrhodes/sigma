@@ -31,20 +31,39 @@
         <input type="search" placeholder="Search" ng-model="search" />
       </div>
     </div>
-    <div ng-repeat="category in categories | filter:{id:focusedCategory}" ng-init="$scope.focusedCategory = 0" class = "{{category.split ? 'two-box' : 'one-box'}}" style = "height: {{category.emails*42}}px; border-color: {{category.color}};" id="{{category.id}}">
-    	<div class="unread {{category.unread ? '' : 'hidden'}}" style = "background-color: {{category.color}};">{{category.unread}}</div>
-        <div class="row ind-email {{email.read ? 'read' : ''}} {{ selectedIds.indexOf(email.id) >= 0 ? 'selected-email' : '' }}" id = "{{email.id}}" ng-repeat="email in reddit.items | filter:{category:category.id} | filter:search">
-         <div class = "{{category.split ? 'from col-md-4 col-sm-4' : 'from col-md-2 col-sm-3'}} nopadding">{{email.from}}</div>
-         <div class = "{{category.split ? 'hidden' : 'sigma col-md-1 col-sm-1 hidden-xs'}}">
-          <img src="images/sigma.png" ng-class="email.sigma ? '' : 'hidden'" />
-          <!-- conditionally show the sigma img if the email has the sigma flag on -->
-         </div>
-  			 <div class = "{{category.split ? 'col-md-8 col-sm-8 col-xs-12' : 'col-md-9 col-sm-8 col-xs-12'}} lopadding">
-          <div class="subject">{{email.subject}}</div>
-  			  <div class = "snipit"><span class = "date">{{email.date}}</span> - {{email.message}}</div>
-         </div>
+    <div class="view-area row">
+      <div class="inbox {{viewingId == -1 ? 'col-xs-12' : 'col-xs-4' }}">
+        <div ng-repeat="category in categories | filter:{id:focusedCategory}" ng-init="$scope.focusedCategory = 0" class = "{{category.split ? 'two-box' : 'one-box'}}" style = "height: {{category.emails*42}}px; border-color: {{category.color}};" id="{{category.id}}">
+        	<div class="unread {{category.unread ? '' : 'hidden'}}" style = "background-color: {{category.color}};">{{category.unread}}</div>
+            <div class="row ind-email {{email.read ? 'read' : ''}} {{ selectedIds.indexOf(email.id) >= 0 ? 'selected-email' : '' }}" id = "{{email.id}}" ng-repeat="email in reddit.items | filter:{category:category.id} | filter:search">
+             <div class = "{{category.split ? 'from col-md-4 col-sm-4' : 'from col-md-2 col-sm-3'}} nopadding">{{email.from}}</div>
+             <div class = "{{category.split ? 'hidden' : 'sigma col-md-1 col-sm-1 hidden-xs'}}">
+              <img src="images/sigma.png" ng-class="email.sigma ? '' : 'hidden'" />
+             </div>
+      			 <div class = "{{category.split ? 'col-md-8 col-sm-8 col-xs-12' : 'col-md-9 col-sm-8 col-xs-12'}} lopadding">
+              <div class="subject">{{email.subject}}</div>
+      			  <div class = "snipit"><span class = "date">{{email.date}}</span> - {{email.message}}</div>
+             </div>
+            </div>
+    		    <button class = "btn btn-default loadMore" ng-click = "addMore(category.id)">Load 10 More</button>
         </div>
-		<button class = "btn btn-default loadMore" ng-click = "addMore(category.id)">Load 10 More</a>
+      </div>
+      <div class="message-view {{viewingEmail ? 'col-xs-8' : 'hidden'}}">
+        <div class="message-subject">
+          {{viewingEmail.subject}}
+        </div>
+        <div class="message-from">
+          {{viewingEmail.from}}
+        </div>
+        <div class="message-date">
+          <span class="date">
+            {{viewingEmail.date}}
+          </span>
+        </div>
+        <div class="message-body">
+          {{viewingEmail.message}}
+        </div>
+      </div>
     </div>
   </div>
   <div class="category-bar {{ selectedIds.length == 0 ? 'hidden' : ''  }}">
