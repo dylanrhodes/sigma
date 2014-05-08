@@ -137,7 +137,7 @@ sigmaApp.controller('EmailListCtrl', function($scope, Reddit) {
 			$scope.selectedIds = [temp.attr('id')];
 			$scope.$apply();
 			$("#" + $scope.selectedCat).scrollTop(0);
-			var level = $("#" + $scope.selectedCat).offset().top - 52; //subtract header size
+			var level = $("#" + $scope.selectedCat).offset().top - $('.control-bar').outerHeight(); //subtract header size
 			window.scrollTo(0, level);
 		}
 		if (e.keyCode == 38) { //down
