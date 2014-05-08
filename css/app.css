@@ -37,14 +37,15 @@ body {
 }
 
 .control-bar-title {
-	/*position: absolute;
-	left: 0;
-	display: inline-block;*/
 	text-align: left;
 	font-size:20px;
 	color:#424242;
 	cursor:pointer;
 	padding-left:0px;
+}
+
+.control-bar-title img {
+	height:40px;
 }
 
 .control-bar-search {
