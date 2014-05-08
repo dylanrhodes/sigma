@@ -132,7 +132,7 @@ button.loadMore {
 	border-left-width: 7px;
 	margin-bottom: 20px;
 }
-.two-box:nth-child(odd){
+.two-box:nth-child(even){
 	margin-right:0;
 }
 .unread {
