@@ -112,10 +112,20 @@ sigmaApp.controller('EmailListCtrl', function($scope, Reddit) {
   
   jQuery(function($) {
 	$(document).keydown(function(e){
-		if (e.keyCode == 9 && $scope.selectedCat != -1) {
+		if (e.keyCode == 9) {
 			e.preventDefault();
-			if ($scope.selectedCat == $scope.numCat) $scope.selectedCat = 1;
-			else $scope.selectedCat++;
+      if(! e.shiftKey) {
+        if ($scope.selectedCat == -1 || $scope.selectedCat == $scope.numCat) 
+          $scope.selectedCat = 1;
+        else 
+          $scope.selectedCat ++;
+      } else {
+        if ($scope.selectedCat == -1 || $scope.selectedCat == 1) 
+          $scope.selectedCat = $scope.numCat;
+        else 
+          $scope.selectedCat --;
+      }
+			
 			temp = $("#" + $scope.selectedCat).children(".ind-email").first();
 			$scope.selected = temp;
 			$scope.selectedIds = [temp.attr('id')];
