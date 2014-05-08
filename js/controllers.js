@@ -68,7 +68,7 @@ sigmaApp.controller('EmailListCtrl', function($scope, Reddit) {
     $scope.viewingEmail = null;
     $scope.viewingId = -1;
 		$scope.$apply();
-		var level = $("#" + temp).offset().top - 52; //subtract header size
+		var level = $("#" + temp).offset().top - $('.control-bar').outerHeight(); //subtract header size
 		window.scrollTo(0, level);
 	}
 	else {
