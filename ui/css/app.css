@@ -37,14 +37,15 @@ body {
 }
 
 .control-bar-title {
-	/*position: absolute;
-	left: 0;
-	display: inline-block;*/
 	text-align: left;
 	font-size:20px;
 	color:#424242;
 	cursor:pointer;
 	padding-left:0px;
+}
+
+.control-bar-title img {
+	height: 25px;
 }
 
 .control-bar-search {
@@ -131,7 +132,7 @@ button.loadMore {
 	border-left-width: 7px;
 	margin-bottom: 20px;
 }
-.two-box:nth-child(odd){
+.two-box:nth-child(even){
 	margin-right:0;
 }
 .unread {
@@ -318,4 +319,9 @@ button.loadMore {
 	border-radius: 10px;
 	-webkit-box-shadow: inset 0 0 6px rgba(0,0,0,.3);
 	background-color: #AFAFAF;
+}
+
+
+.message-view {
+	border: 1px solid #eee;
 }

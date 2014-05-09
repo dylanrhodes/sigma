@@ -54,6 +54,10 @@ sigmaApp.controller('EmailListCtrl', function($scope, Reddit) {
   $scope.oldColor = "";
   $scope.sigma_img_tag = "<img src='images/sigma.png' />";
 
+  $scope.viewingId = -1;
+
+  $scope.emailsById = {};
+
   $scope.focusCategory = function(categoryId, size) {
 	if ($scope.focusedCategory != "" || $scope.focusedCategory == categoryId) {
 		$('#' + $scope.focusedCategory).height(42*$scope.categories[$scope.focusedCategory-1]['emails']);
@@ -61,8 +65,10 @@ sigmaApp.controller('EmailListCtrl', function($scope, Reddit) {
 		var temp = $scope.focusedCategory;
 		$scope.focusedCategory = "";
 		$scope.focusedSize = -1;
+    $scope.viewingEmail = null;
+    $scope.viewingId = -1;
 		$scope.$apply();
-		var level = $("#" + temp).offset().top - 52; //subtract header size
+		var level = $("#" + temp).offset().top - $('.control-bar').outerHeight(); //subtract header size
 		window.scrollTo(0, level);
 	}
 	else {
@@ -97,7 +103,7 @@ sigmaApp.controller('EmailListCtrl', function($scope, Reddit) {
 			temp.parent().scrollTop(temp.parent().scrollTop() + temp.height() + dif);
 		}
 	}
-
+  console.log($scope.reddit.items);
     $.each(emailIds, function(i, id) {
       $.map($scope.reddit.items, function(obj, index) {
         if(obj.id == id)
@@ -112,16 +118,26 @@ sigmaApp.controller('EmailListCtrl', function($scope, Reddit) {
   
   jQuery(function($) {
 	$(document).keydown(function(e){
-		if (e.keyCode == 9 && $scope.selectedCat != -1) {
+		if (e.keyCode == 9) {
 			e.preventDefault();
-			if ($scope.selectedCat == $scope.numCat) $scope.selectedCat = 1;
-			else $scope.selectedCat++;
+      if(! e.shiftKey) {
+        if ($scope.selectedCat == -1 || $scope.selectedCat == $scope.numCat) 
+          $scope.selectedCat = 1;
+        else 
+          $scope.selectedCat ++;
+      } else {
+        if ($scope.selectedCat == -1 || $scope.selectedCat == 1) 
+          $scope.selectedCat = $scope.numCat;
+        else 
+          $scope.selectedCat --;
+      }
+			
 			temp = $("#" + $scope.selectedCat).children(".ind-email").first();
 			$scope.selected = temp;
 			$scope.selectedIds = [temp.attr('id')];
 			$scope.$apply();
 			$("#" + $scope.selectedCat).scrollTop(0);
-			var level = $("#" + $scope.selectedCat).offset().top - 52; //subtract header size
+			var level = $("#" + $scope.selectedCat).offset().top - $('.control-bar').outerHeight(); //subtract header size
 			window.scrollTo(0, level);
 		}
 		if (e.keyCode == 38) { //down
@@ -177,6 +193,19 @@ sigmaApp.controller('EmailListCtrl', function($scope, Reddit) {
 	$(document).on("click", ".ind-email", function(e) {
 		e.stopPropagation();
 		
+    if($scope.selectedIds.indexOf($(this).attr('id')) >= 0 && !e.shiftKey) {
+      $scope.viewingId = $(this).attr('id');
+      $scope.viewingEmail = null;
+      $.map($scope.reddit.items, function(obj) {
+        console.log(obj.id);
+        if(obj.id == $scope.viewingId)
+          $scope.viewingEmail = obj;
+      });
+    
+      console.log($scope.viewingEmail);
+      $scope.$apply();
+    }
+
 		$scope.selected = $(this);
     if(e.shiftKey) {
       $scope.selectedIds.push($(this).attr('id'));
@@ -190,6 +219,7 @@ sigmaApp.controller('EmailListCtrl', function($scope, Reddit) {
 			if ((i+1) != cat) $(this).css('opacity', .6);
 			else $(this).css('opacity', 1);
 		});
+
     $scope.$apply();
 	});
 	
