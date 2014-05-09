@@ -3,18 +3,18 @@
 <head>
   <meta charset="utf-8">
   <title>Sigma: your organized inbox.</title>
-  <link rel="shortcut icon" type="image/x-icon" href="favicon.ico">
-  <link rel="stylesheet" href="css/libraries/bootstrap.css">
-  <link rel="stylesheet" href="css/app.css">
+  <link rel="shortcut icon" type="image/x-icon" href="{{ url_for('static', filename='favicon.ico') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/libraries/bootstrap.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/app.css') }}">
   <link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
 
-  <script type="text/javascript" charset="utf-8" src="js/libraries/jquery-1.11.0.min.js"></script>
-  <script src="js/bower_components/angular/angular.js"></script>
-  <script src="js/libraries/angular-strap-2.0.2/dist/angular-strap.min.js"></script> 
-  <script src="js/libraries/angular-strap-2.0.2/dist/angular-strap.tpl.min.js"></script>
-  <script src="js/controllers.js"></script>
-   <script src="js/app.js"></script>
-  <script src="moment.min.js"></script>
+  <script type="text/javascript" charset="utf-8" src="{{ url_for('static', filename='js/libraries/jquery-1.11.0.min.js') }}"></script>
+  <script src="{{ url_for('static', filename='js/bower_components/angular/angular.js') }}"></script>
+  <script src="{{ url_for('static', filename='js/libraries/angular-strap-2.0.2/dist/angular-strap.min.js') }}"></script>
+  <script src="{{ url_for('static', filename='js/libraries/angular-strap-2.0.2/dist/angular-strap.tpl.min.js') }}"></script>
+  <script src="{{ url_for('static', filename='js/controllers.js') }}"></script>
+  <script src="{{ url_for('static', filename='js/app.js') }}"></script>
+  <script src="{{ url_for('static', filename='moment.min.js') }}"></script>
 
 </head>
 
@@ -22,7 +22,7 @@
   <div class="wrapper container-fluid">
     <div class="control-bar row">
       <div class="control-bar-title col-sm-4 hidden-xs" ng-click="focusCategory('', 0)">
-        <img src="images/logo-1.png" />
+        <img src="{{ url_for('static', filename='images/logo-1.png') }}" />
       </div>
       <div class="control-bar-compose col-sm-4 hidden-xs">
         <a href="#" class="compose-a"></a>
@@ -32,13 +32,16 @@
       </div>
     </div>
     <div class="view-area row">
+{% raw %}
       <div class="inbox {{viewingId == -1 ? 'col-xs-12' : 'col-xs-4' }}">
         <div ng-repeat="category in categories | filter:{id:focusedCategory}" ng-init="$scope.focusedCategory = 0" class = "{{category.split ? 'two-box' : 'one-box'}}" style = "height: {{category.emails*42}}px; border-color: {{category.color}};" id="{{category.id}}">
         	<div class="unread {{category.unread ? '' : 'hidden'}}" style = "background-color: {{category.color}};">{{category.unread}}</div>
             <div class="row ind-email {{email.read ? 'read' : ''}} {{ selectedIds.indexOf(email.id) >= 0 ? 'selected-email' : '' }}" id = "{{email.id}}" ng-repeat="email in reddit.items | filter:{category:category.id} | filter:search">
              <div class = "{{category.split ? 'from col-md-4 col-sm-4' : 'from col-md-2 col-sm-3'}} nopadding">{{email.from}}</div>
              <div class = "{{category.split ? 'hidden' : 'sigma col-md-1 col-sm-1 hidden-xs'}}">
-              <img src="images/sigma.png" ng-class="email.sigma ? '' : 'hidden'" />
+{% endraw %}
+            <img src="{{ url_for('static', filename='images/sigma.png') }}" ng-class="email.sigma ? '' : 'hidden'" />
+{% raw %}
              </div>
       			 <div class = "{{category.split ? 'col-md-8 col-sm-8 col-xs-12' : 'col-md-9 col-sm-8 col-xs-12'}} lopadding">
               <div class="subject">{{email.subject}}</div>
@@ -72,4 +75,5 @@
     </div>
   </div>
 </body>
+{% endraw %}
 </html>

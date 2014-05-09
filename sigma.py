@@ -15,12 +15,7 @@ app.config.from_pyfile('config/sigma.cfg')
 # routes
 @app.route('/')
 def show_index():
-    return render_template('portfolio/index.html')
-
-@app.route('/american-mind')
-def show_vis():
-    return render_template('portfolio/retweet_network.html')
-
+    return render_template('index.html')
 # main
 if __name__ == '__main__':
     app.run()
