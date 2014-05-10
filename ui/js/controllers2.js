@@ -10,37 +10,37 @@ sigmaApp.controller('EmailListCtrl', function($scope, Reddit) {
   	 'name' : 'Uncategorized',
   	 'color' : '#808080',
   	 'class' : 'category-uncategorized',
-	 'split' : 0,
+	 'split' : 1,
 	 'unread' : 10,
-	 'emails' : 3},
+	 'emails' : 6},
   	{'id' : 2,
   	 'name' : 'ASAP',
   	 'color' : '#1b6aa3;',
   	 'class' : 'category-asap',
-	 'split' : 0,
+	 'split' : 1,
 	 'unread' : 2,
-	 'emails' : 10},
+	 'emails' : 6},
   	{'id' : 3,
   	 'name' : 'School',
   	 'color' : '#84cbc5;',
   	 'class' : 'category-school',
 	 'split' : 1,
 	 'unread' : 3,
-	 'emails' : 7},
+	 'emails' : 4},
   	{'id' : 4,
   	 'name' : 'Work',
   	 'color' : '#f8d35e',
   	 'class' : 'category-work',
 	 'split' : 1,
 	 'unread' : 0,
-	 'emails' : 7},
+	 'emails' : 4},
   	{'id' : 5,
   	 'name' : 'Later',
   	 'color' : '#f47264',
   	 'class' : 'category-later',
 	 'split' : 0,
 	 'unread' : 5,
-	 'emails' : 4}
+	 'emails' : 7}
   ];
   $scope.reddit = new Reddit();
   $scope.reddit.nextPage();
@@ -139,12 +139,6 @@ sigmaApp.controller('EmailListCtrl', function($scope, Reddit) {
 			$("#" + $scope.selectedCat).scrollTop(0);
 			var level = $("#" + $scope.selectedCat).offset().top - $('.control-bar').outerHeight(); //subtract header size
 			window.scrollTo(0, level);
-			$('.category-bar').children().each(function(i) {
-				var cat = parseInt($scope.selected.parent().attr('id'));
-				$scope.selectedCat = cat;
-				if ((i+1) != cat) $(this).css('opacity', .6);
-				else $(this).css('opacity', 1);
-			});
 		}
 		if (e.keyCode == 38) { //down
 			if ($scope.selected != "") {
