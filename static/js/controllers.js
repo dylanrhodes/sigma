@@ -139,6 +139,12 @@ sigmaApp.controller('EmailListCtrl', function($scope, Reddit) {
 			$("#" + $scope.selectedCat).scrollTop(0);
 			var level = $("#" + $scope.selectedCat).offset().top - $('.control-bar').outerHeight(); //subtract header size
 			window.scrollTo(0, level);
+			$('.category-bar').children().each(function(i) {
+				var cat = parseInt($scope.selected.parent().attr('id'));
+				$scope.selectedCat = cat;
+				if ((i+1) != cat) $(this).css('opacity', .6);
+				else $(this).css('opacity', 1);
+			});
 		}
 		if (e.keyCode == 38) { //down
 			if ($scope.selected != "") {
