@@ -5,6 +5,7 @@
 var sigmaApp = angular.module('sigmaApp', []);
 
 sigmaApp.controller('EmailListCtrl', function($scope, Reddit) {
+  $scope.colors = ['#808080', '#1b6aa3', '#84cbc5', '#f8d35e', '#f47264', '#85e491', '#bd80b9', '#f9b588'];
   $scope.categories = [
   	{'id' : 1,
   	 'name' : 'Uncategorized',
@@ -15,14 +16,14 @@ sigmaApp.controller('EmailListCtrl', function($scope, Reddit) {
 	 'emails' : 3},
   	{'id' : 2,
   	 'name' : 'ASAP',
-  	 'color' : '#1b6aa3;',
+  	 'color' : '#1b6aa3',
   	 'class' : 'category-asap',
 	 'split' : 0,
 	 'unread' : 2,
 	 'emails' : 10},
   	{'id' : 3,
   	 'name' : 'School',
-  	 'color' : '#84cbc5;',
+  	 'color' : '#84cbc5',
   	 'class' : 'category-school',
 	 'split' : 1,
 	 'unread' : 3,
@@ -57,6 +58,83 @@ sigmaApp.controller('EmailListCtrl', function($scope, Reddit) {
   $scope.viewingId = -1;
 
   $scope.emailsById = {};
+  
+	$scope.init = function() {
+		for (var i = 1; i <= $scope.numCat; i++) {
+			$('#cat' + i).attr('class', 'cat-bar');
+			$('#num' + i).attr('class', 'num-bar');
+			$('#split' + i).attr('class', 'split-check');
+			var color = $('#cat' + i).css('border-color');
+			var height = 8 * $('#num' + i).val();
+			var split = $('#split' + i).prop("checked");
+			if (split) $('#prev' + i).css('width', '35%');
+			else $('#prev' + i).css('width', '72%');
+			$('#prev' + i).css('height', height + 'px');
+			$('#prev' + i).css('border-color', color);
+			$('#prev' + i).css('display', 'inline-block');
+			$('#prev' + i).attr('class', 'prev');
+		}
+		for (var i = $scope.numCat + 1; i <= 8; i++) {
+			$('#cat' + i).attr('class', 'hidden');
+			$('#cat' + i).val("");
+			$('#split' + i).attr('class', 'hidden');
+			$('#split' + i).prop("checked", false);
+			$('#num' + i).attr('class', 'hidden');
+			$('#num' + i).val(5);
+			$('#prev' + i).attr('display', 'hidden');
+		}
+	}
+	$scope.AddCat = function() {
+		if ($scope.numCat != 8) {
+			if ($scope.numCat == 7) $('#addcat').attr('class', 'hidden');
+			$scope.numCat++;
+			$('#cat' + $scope.numCat).attr('class', 'cat-bar');
+			$('#num' + $scope.numCat).attr('class', 'num-bar');
+			$('#split' + $scope.numCat).attr('class', 'split-check');
+		}
+		$scope.init();
+	}
+	
+	$scope.save = function() {
+		var num = $scope.numCat;
+		$scope.categories = [];
+		for (var i = 1; i <= num; i++) {
+			var name = $('#cat' + i).val();
+			if (name != "") {
+				var emails = $('#num' + i).val();
+				var split = 0;
+				if ($('#split' + i).prop("checked")) {
+					split = 1;
+				} 
+				var unread = Math.floor(Math.random() * 11);
+				var temp = {};
+				temp['id'] = i;
+				temp['name'] = name;
+				temp['color'] = $scope.colors[i-1];
+				temp['class'] = 'category-' + name;
+				temp['split'] = split;
+				temp['unread'] = unread;
+				temp['emails'] = emails;
+				$scope.categories.push(temp);
+			}
+		}
+		$scope.numCat = $scope.categories.length;
+		$scope.$apply();
+		$('.wrapper').attr('class', 'wrapper container-fluid');
+		$('.wrapper2').attr('class', 'wrapper2 container-fluid hidden');
+	}
+	
+	$scope.settings = function() {
+		$('.wrapper').attr('class', 'wrapper container-fluid hidden');
+		$('.wrapper2').attr('class', 'wrapper2 container-fluid');
+		for (var i = 1; i <= $scope.numCat; i++) {
+			$('#cat' + i).val($scope.categories[i-1]['name']);
+			$('#num' + i).val($scope.categories[i-1]['emails']);
+			if ($scope.categories[i-1]['split']) $('#split' + i).prop("checked", true);
+			else $('#split' + i).prop("checked", false);
+		}
+		$scope.init();
+	}
 
   $scope.focusCategory = function(categoryId, size) {
 	if ($scope.focusedCategory != "" || $scope.focusedCategory == categoryId) {
@@ -65,8 +143,8 @@ sigmaApp.controller('EmailListCtrl', function($scope, Reddit) {
 		var temp = $scope.focusedCategory;
 		$scope.focusedCategory = "";
 		$scope.focusedSize = -1;
-    $scope.viewingEmail = null;
-    $scope.viewingId = -1;
+		$scope.viewingEmail = null;
+		$scope.viewingId = -1;
 		$scope.$apply();
 		var level = $("#" + temp).offset().top - $('.control-bar').outerHeight(); //subtract header size
 		window.scrollTo(0, level);
@@ -92,31 +170,46 @@ sigmaApp.controller('EmailListCtrl', function($scope, Reddit) {
   
   $scope.categorize = function(categoryId, emailIds) {
     //move to next element before categorizing
-	var temp = $scope.selected.next();
-	var cl = temp.attr("class");
-	if (typeof cl !== 'undefined' && cl !== false) {
-		$scope.selected = temp;
-		$scope.selectedIds = [temp.attr('id')];
-		var top = temp.position().top - temp.parent().position().top;
-		if(top >= temp.parent().height()) {	
-			var dif = top - temp.parent().height();
-			temp.parent().scrollTop(temp.parent().scrollTop() + temp.height() + dif);
+	if ($scope.selected != "") {
+		var temp = $scope.selected.next();
+		var cl = temp.attr("class");
+		if (typeof cl !== 'undefined' && cl !== false) {
+			$scope.selected = temp;
+			$scope.selectedIds = [temp.attr('id')];
+			var top = temp.position().top - temp.parent().position().top;
+			if(top >= temp.parent().height()) {	
+				var dif = top - temp.parent().height();
+				temp.parent().scrollTop(temp.parent().scrollTop() + temp.height() + dif);
+			}
 		}
-	}
-  console.log($scope.reddit.items);
-    $.each(emailIds, function(i, id) {
-      $.map($scope.reddit.items, function(obj, index) {
-        if(obj.id == id)
-          obj.category = categoryId;
-      });
-    });
+	  console.log($scope.reddit.items);
+		$.each(emailIds, function(i, id) {
+		  $.map($scope.reddit.items, function(obj, index) {
+			if(obj.id == id)
+			  obj.category = categoryId;
+		  });
+		});
 
-    
-    $scope.$apply();
+		
+		$scope.$apply();
+	}
   }
   
   
   jQuery(function($) {
+	$(document).ready(function(){
+		$(document.body).on('keyup', '.num-bar', function() {
+			if (!isNaN($(this).val())) {
+				var num = parseInt($(this).val());
+				if (num != 0 && !isNaN(num)) {
+					$scope.init();
+				}
+			}
+		});
+		$(document.body).on('click', '.split-check' ,function(){
+			$scope.init();
+		});
+	});
 	$(document).keydown(function(e){
 		if (e.keyCode == 9) {
 			e.preventDefault();
