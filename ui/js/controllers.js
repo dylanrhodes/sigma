@@ -119,7 +119,9 @@ sigmaApp.controller('EmailListCtrl', function($scope, Reddit) {
 			}
 		}
 		$scope.numCat = $scope.categories.length;
+		var percentage = 92.5/$scope.numCat;
 		$scope.$apply();
+		$('.category').css('width', percentage + '%');
 		$('.wrapper').attr('class', 'wrapper container-fluid');
 		$('.wrapper2').attr('class', 'wrapper2 container-fluid hidden');
 	}
