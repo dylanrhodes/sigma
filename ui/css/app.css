@@ -438,3 +438,13 @@ a:active.save {
 .preview {
 	padding-top: 10px;
 }
+
+.settings-title {
+	text-align:center;
+	border-bottom: 1px solid #808080;
+	margin-bottom: 20px;
+}
+
+.category-select {
+	text-align:center;
+}
