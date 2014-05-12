@@ -18,7 +18,7 @@ h3.num-title {
 	/*max-width: 80%;*/
 	display: inline-block;
 	width: calc(100% - 40px);
-	max-width: 1000px;
+	max-width: 1100px;
 	position: relative;
  	text-align: left;
 	margin-bottom: 40px;
@@ -28,7 +28,7 @@ h3.num-title {
 	/*max-width: 80%;*/
 	display: inline-block;
 	width: calc(100% - 40px);
-	max-width: 1000px;
+	max-width: 1100px;
 	position: relative;
  	text-align: left;
 	margin-bottom: 40px;
@@ -44,7 +44,7 @@ h3.num-title {
 	z-index: 10;
 	text-align: center;
 	width: calc(100% - 40px);
-	max-width: 1000px;
+	max-width: 1100px;
 }
 
 .control-bar.row {
@@ -59,7 +59,7 @@ h3.num-title {
 	font-size:20px;
 	color:#424242;
 	cursor:pointer;
-	padding-left:0px;
+	padding-left:1%;
 }
 
 .control-bar-title img {
@@ -85,7 +85,7 @@ input[type="search"] {
 	border-radius: 3px;
 	padding: 5px;
 	padding-left: 8px;
-	width: 100%;
+	width: 110%;
 }
 
 .control-bar-compose {
