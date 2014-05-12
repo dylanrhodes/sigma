@@ -144,7 +144,8 @@ button.loadMore {
 	border-left-width: 7px;
 	margin-bottom: 20px;
 }
-.two-box {
+
+.two-box-1 {
 	position: relative;
 	overflow: auto;
 	width: 49%;
@@ -156,9 +157,19 @@ button.loadMore {
 	border-left-width: 7px;
 	margin-bottom: 20px;
 }
-.two-box:nth-child(even){
-	margin-right:0;
+
+.two-box-2 {
+	position: relative;
+	overflow: auto;
+	width: 49%;
+	display: inline-block;
+	height: 210px;
+	border: 1px solid #eee;
+	border-left-style: solid;
+	border-left-width: 7px;
+	margin-bottom: 20px;
 }
+
 .unread {
 	position:absolute;
 	text-align: center;
@@ -171,25 +182,6 @@ button.loadMore {
 	right: 5px;
 	z-index: 5;
 	
-}
-.two-box-1 {
-	position: absolute;
-	width: calc(50% - 14px);
-	height: 144px;
-	border: 1px solid #eee;
-	border-left-style: solid;
-	border-left-width: 5px;
-	margin-bottom: 164px;
-}
-.two-box-2 {
-	position: absolute;
-	margin-left: calc(50% + 14px);
-	width: calc(50% - 14px);
-	height: 144px;
-	border: 1px solid #eee;
-	border-left-style: solid;
-	border-left-width: 5px;
-	margin-bottom: 164px;
 }
 
 .lopadding {
@@ -328,18 +320,35 @@ button.loadMore {
 	background-color: #AFAFAF;
 }
 
-.two-box::-webkit-scrollbar-track {
+.two-box-1::-webkit-scrollbar-track {
 	-webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
 	border-radius: 10px;
 	background-color: #F5F5F5;
 }
 
-.two-box::-webkit-scrollbar {
+.two-box-1::-webkit-scrollbar {
 	width: 6px;
 	background-color: #F5F5F5;
 }
 
-.two-box::-webkit-scrollbar-thumb {
+.two-box-1::-webkit-scrollbar-thumb {
+	border-radius: 10px;
+	-webkit-box-shadow: inset 0 0 6px rgba(0,0,0,.3);
+	background-color: #AFAFAF;
+}
+
+.two-box-2::-webkit-scrollbar-track {
+	-webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+	border-radius: 10px;
+	background-color: #F5F5F5;
+}
+
+.two-box-2::-webkit-scrollbar {
+	width: 6px;
+	background-color: #F5F5F5;
+}
+
+.two-box-2::-webkit-scrollbar-thumb {
 	border-radius: 10px;
 	-webkit-box-shadow: inset 0 0 6px rgba(0,0,0,.3);
 	background-color: #AFAFAF;
@@ -449,4 +458,10 @@ a:active.save {
 
 .category-select {
 	text-align:center;
+}
+
+.removecat {
+	cursor:pointer;
+	margin-right: 5px;
+	color: #808080;
 }

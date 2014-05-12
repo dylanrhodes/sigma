@@ -36,14 +36,11 @@
     </div>
     <div class="view-area row">
       <div class="inbox {{viewingId == -1 ? 'col-xs-12' : 'col-xs-4' }}">
-        <div ng-repeat="category in categories | filter:{id:focusedCategory}" ng-init="$scope.focusedCategory = 0" class = "{{category.split ? 'two-box' : 'one-box'}}" style = "height: {{category.emails*42}}px; border-color: {{category.color}};" id="{{category.id}}">
+        <div ng-repeat="category in categories | filter:{id:focusedCategory}" ng-init="$scope.focusedCategory = 0" ng-class = "category.splitCat" style = "height: {{category.emails*42}}px; border-color: {{category.color}};" id="{{category.id}}">
         	<div class="unread {{category.unread ? '' : 'hidden'}}" style = "background-color: {{category.color}};">{{category.unread}}</div>
             <div class="row ind-email {{email.read ? 'read' : ''}} {{ selectedIds.indexOf(email.id) >= 0 ? 'selected-email' : '' }}" id = "{{email.id}}" ng-repeat="email in filterEmails = (reddit.items | filter:{category:category.id} | filter:search)">
              <div class = "{{category.split ? 'from col-md-4 col-sm-4' : 'from col-md-2 col-sm-3'}} nopadding">{{email.from}}</div>
-             <div class = "{{category.split ? 'hidden' : 'sigma col-md-1 col-sm-1 hidden-xs'}}">
-              <img src="images/sigma.png" ng-class="email.sigma ? '' : 'hidden'" />
-             </div>
-      			 <div class = "{{category.split ? 'col-md-8 col-sm-8 col-xs-12' : 'col-md-9 col-sm-8 col-xs-12'}} lopadding">
+      			 <div class = "{{category.split ? 'col-md-8 col-sm-8 col-xs-12' : 'col-md-10 col-sm-9 col-xs-12'}} lopadding">
               <div class="subject">{{email.subject}}</div>
       			  <div class = "snipit"><span class = "date">{{email.date}}</span> - {{email.message}}</div>
              </div>
@@ -86,14 +83,14 @@
 		<div class = "row">
 			<div class="category-select col-sm-5 col-xs-8">
 				<h3>Category</h3>
-				<input id="cat1" class = "cat-bar" type="text" value="Other" style = "border-color: #808080;" />
-				<input id="cat2" class = "cat-bar" type="text" placeholder="Urgent" style = "border-color: #1b6aa3;" />
-				<input id="cat3" class = "cat-bar" type="text" style = "border-color: #84cbc5;" />
-				<input id="cat4" class = "cat-bar" type="text" style = "border-color: #f8d35e;" />
-				<input id="cat5" class = "cat-bar" type="text" style = "border-color: #f47264;" />
-				<input id="cat6" class = "cat-bar" type="text" style = "border-color: #85e491;" />
-				<input id="cat7" class = "hidden" type="text" style = "border-color: #bd80b9;" />
-				<input id="cat8" class = "hidden" type="text" style = "border-color: #f9b588;" />
+				<div><a id="rc1" class="removecat" ng-click="RemoveCat(1)" style="visibility:hidden" >x</a><input id="cat1" class = "cat-bar" type="text" value="Other" style = "border-color: #808080;" /></div>
+				<div><a id="rc2" class="removecat" ng-click="RemoveCat(2)" >x</a><input id="cat2" class = "cat-bar" type="text" placeholder="Urgent" style = "border-color: #1b6aa3;" /></div>
+				<div><a id="rc3" class="removecat" ng-click="RemoveCat(3)" >x</a><input id="cat3" class = "cat-bar" type="text" style = "border-color: #84cbc5;" /></div>
+				<div><a id="rc4" class="removecat" ng-click="RemoveCat(4)" >x</a><input id="cat4" class = "cat-bar" type="text" style = "border-color: #f8d35e;" /></div>
+				<div><a id="rc5" class="removecat" ng-click="RemoveCat(5)" >x</a><input id="cat5" class = "cat-bar" type="text" style = "border-color: #f47264;" /></div>
+				<div><a id="rc6" class="removecat" ng-click="RemoveCat(6)" >x</a><input id="cat6" class = "cat-bar" type="text" style = "border-color: #85e491;" /></div>
+				<div><a id="rc7" class="hidden" ng-click="RemoveCat(7)" >x</a><input id="cat7" class = "hidden" type="text" style = "border-color: #bd80b9;" /></div>
+				<div><a id="rc8" class="hidden" ng-click="RemoveCat(8)" >x</a><input id="cat8" class = "hidden" type="text" style = "border-color: #f9b588;" /></div>
 				<div><a id="addcat" ng-click="AddCat()">+ Add Category</a></div>
 			</div>
 			<div class="num-select col-sm-2 col-xs-2">
@@ -123,14 +120,14 @@
 			<div class="preview-main col-sm-4 hidden-xs">
 				<h3>Preview</h3>
 				<div class = "preview">
-					<div id="prev1" style = "display:none;"></div>
-					<div id="prev2" style = "display:none;"></div>
-					<div id="prev3" style = "display:none;"></div>
-					<div id="prev4" style = "display:none;"></div>
-					<div id="prev5" style = "display:none;"></div>
-					<div id="prev6" style = "display:none;"></div>
-					<div id="prev7" style = "display:none;"></div>
-					<div id="prev8" style = "display:none;"></div>
+					<div id="prev1" style = "display:inline-block;"></div>
+					<div id="prev2" style = "display:inline-block;"></div>
+					<div id="prev3" style = "display:inline-block;"></div>
+					<div id="prev4" style = "display:inline-block;"></div>
+					<div id="prev5" style = "display:inline-block;"></div>
+					<div id="prev6" style = "display:inline-block;"></div>
+					<div id="prev7" style = "display:inline-block;"></div>
+					<div id="prev8" style = "display:inline-block;"></div>
 				</div>
 			</div>
 		</div>
