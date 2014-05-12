@@ -12,7 +12,6 @@ sigmaApp.controller('EmailListCtrl', function($scope, Reddit) {
   	 'color' : '#808080',
   	 'class' : 'category-uncategorized',
 	 'split' : 0,
-	 'splitCat' : 'one-box',
 	 'unread' : 10,
 	 'emails' : 3},
   	{'id' : 2,
@@ -20,7 +19,6 @@ sigmaApp.controller('EmailListCtrl', function($scope, Reddit) {
   	 'color' : '#1b6aa3',
   	 'class' : 'category-asap',
 	 'split' : 0,
-	 'splitCat' : 'one-box',
 	 'unread' : 2,
 	 'emails' : 10},
   	{'id' : 3,
@@ -28,7 +26,6 @@ sigmaApp.controller('EmailListCtrl', function($scope, Reddit) {
   	 'color' : '#84cbc5',
   	 'class' : 'category-school',
 	 'split' : 1,
-	 'splitCat' : 'two-box-1',
 	 'unread' : 3,
 	 'emails' : 7},
   	{'id' : 4,
@@ -36,7 +33,6 @@ sigmaApp.controller('EmailListCtrl', function($scope, Reddit) {
   	 'color' : '#f8d35e',
   	 'class' : 'category-work',
 	 'split' : 1,
-	 'splitCat' : 'two-box-2',
 	 'unread' : 0,
 	 'emails' : 7},
   	{'id' : 5,
@@ -44,7 +40,6 @@ sigmaApp.controller('EmailListCtrl', function($scope, Reddit) {
   	 'color' : '#f47264',
   	 'class' : 'category-later',
 	 'split' : 0,
-	 'splitCat' : 'one-box',
 	 'unread' : 5,
 	 'emails' : 4}
   ];
@@ -63,8 +58,6 @@ sigmaApp.controller('EmailListCtrl', function($scope, Reddit) {
   $scope.viewingId = -1;
 
   $scope.emailsById = {};
-  
-  $scope.sc = 0;
   
 	$scope.init = function() {
 		for (var i = 1; i <= $scope.numCat; i++) {
@@ -138,17 +131,6 @@ sigmaApp.controller('EmailListCtrl', function($scope, Reddit) {
 				temp['color'] = $scope.colors[i-1];
 				temp['class'] = 'category-' + name;
 				temp['split'] = split;
-				if (split) {
-					if ($scope.sc == 0) {
-						$scope.sc = 1;
-						temp['splitCat'] = 'two-box-1';
-					}
-					else {
-						$scope.sc = 0;
-						temp['splitCat'] = 'two-box-2';
-					}
-				}
-				else temp['splitCat'] = 'one-box';
 				temp['unread'] = unread;
 				temp['emails'] = emails;
 				names.push(name);
@@ -179,7 +161,7 @@ sigmaApp.controller('EmailListCtrl', function($scope, Reddit) {
   $scope.focusCategory = function(categoryId, size) {
 	if ($scope.focusedCategory != "" || $scope.focusedCategory == categoryId) {
 		$('#' + $scope.focusedCategory).height(42*$scope.categories[$scope.focusedCategory-1]['emails']);
-		if ($scope.focusedSize == 1) $('#' + $scope.focusedCategory).css('width', '49%');
+		if ($scope.focusedSize == 1) $('#' + $scope.focusedCategory).css('width', '48%');
 		var temp = $scope.focusedCategory;
 		$scope.focusedCategory = "";
 		$scope.focusedSize = -1;
@@ -342,6 +324,7 @@ sigmaApp.controller('EmailListCtrl', function($scope, Reddit) {
       });
     
       console.log($scope.viewingEmail);
+      $scope.$apply();
     }
 
 		$scope.selected = $(this);
@@ -370,6 +353,7 @@ sigmaApp.controller('EmailListCtrl', function($scope, Reddit) {
 		$('.category-bar').children().each(function(i) {
 			$(this).css('opacity', .8);
 		});
+
     $scope.$apply();
 	});
 	$(document).delegate('.one-box', 'click', function (e) {
@@ -381,16 +365,7 @@ sigmaApp.controller('EmailListCtrl', function($scope, Reddit) {
 			$scope.$apply();
 		}
 	});
-	$(document).delegate('.two-box-1', 'click', function (e) {
-		e.stopPropagation();
-		var offset = $(this).offset();
-		if ((e.pageX - offset.left) <= 5) {
-			var id = $(this).attr('id');
-			$scope.focusCategory(parseInt(id), 1);
-			$scope.$apply();
-		}
-	});
-	$(document).delegate('.two-box-2', 'click', function (e) {
+	$(document).delegate('.two-box', 'click', function (e) {
 		e.stopPropagation();
 		var offset = $(this).offset();
 		if ((e.pageX - offset.left) <= 5) {
@@ -403,11 +378,7 @@ sigmaApp.controller('EmailListCtrl', function($scope, Reddit) {
 		  var newTop = $(this).scrollTop() + 5;
 		  $(this).children(".unread").css({top: newTop, position:'absolute'});
 	  });
-	  $('.two-box-1').bind('scroll', function() {
-		  var newTop = $(this).scrollTop() + 5;
-		  $(this).children(".unread").css({top: newTop, position:'absolute'});
-	  });
-	  $('.two-box-2').bind('scroll', function() {
+	  $('.two-box').bind('scroll', function() {
 		  var newTop = $(this).scrollTop() + 5;
 		  $(this).children(".unread").css({top: newTop, position:'absolute'});
 	  });
