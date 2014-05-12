@@ -38,7 +38,7 @@
       <div class="inbox {{viewingId == -1 ? 'col-xs-12' : 'col-xs-4' }}">
         <div ng-repeat="category in categories | filter:{id:focusedCategory}" ng-init="$scope.focusedCategory = 0" class = "{{category.split ? 'two-box' : 'one-box'}}" style = "height: {{category.emails*42}}px; border-color: {{category.color}};" id="{{category.id}}">
         	<div class="unread {{category.unread ? '' : 'hidden'}}" style = "background-color: {{category.color}};">{{category.unread}}</div>
-            <div class="row ind-email {{email.read ? 'read' : ''}} {{ selectedIds.indexOf(email.id) >= 0 ? 'selected-email' : '' }}" id = "{{email.id}}" ng-repeat="email in reddit.items | filter:{category:category.id} | filter:search">
+            <div class="row ind-email {{email.read ? 'read' : ''}} {{ selectedIds.indexOf(email.id) >= 0 ? 'selected-email' : '' }}" id = "{{email.id}}" ng-repeat="email in filterEmails = (reddit.items | filter:{category:category.id} | filter:search)">
              <div class = "{{category.split ? 'from col-md-4 col-sm-4' : 'from col-md-2 col-sm-3'}} nopadding">{{email.from}}</div>
              <div class = "{{category.split ? 'hidden' : 'sigma col-md-1 col-sm-1 hidden-xs'}}">
               <img src="images/sigma.png" ng-class="email.sigma ? '' : 'hidden'" />
@@ -48,7 +48,7 @@
       			  <div class = "snipit"><span class = "date">{{email.date}}</span> - {{email.message}}</div>
              </div>
             </div>
-    		    <button class = "btn btn-default loadMore" ng-click = "addMore(category.id)">Load 10 More</button>
+    		    <button class = "btn btn-default loadMore" ng-hide = "!filterEmails.length" ng-click = "addMore(category.id)">Load 10 More</button>
         </div>
       </div>
       <div class="message-view {{viewingEmail ? 'col-xs-8' : 'hidden'}}">
