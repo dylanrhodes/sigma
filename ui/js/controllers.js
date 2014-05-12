@@ -86,6 +86,7 @@ sigmaApp.controller('EmailListCtrl', function($scope, Reddit) {
 			$('#rc' + i).attr('class', 'hidden');
 		}
 	}
+	
 	$scope.AddCat = function() {
 		if ($scope.numCat != 8) {
 			if ($scope.numCat == 7) $('#addcat').attr('class', 'hidden');
@@ -97,6 +98,7 @@ sigmaApp.controller('EmailListCtrl', function($scope, Reddit) {
 		}
 		$scope.init();
 	}
+	
 	$scope.RemoveCat = function(num) {
 		var temp = [];
 		for (var j = 0; j < num-1; j++) {
@@ -204,7 +206,7 @@ sigmaApp.controller('EmailListCtrl', function($scope, Reddit) {
 				temp.parent().scrollTop(temp.parent().scrollTop() + temp.height() + dif);
 			}
 		}
-	  console.log($scope.reddit.items);
+		console.log($scope.reddit.items);
 		$.each(emailIds, function(i, id) {
 		  $.map($scope.reddit.items, function(obj, index) {
 			if(obj.id == id)
@@ -232,20 +234,21 @@ sigmaApp.controller('EmailListCtrl', function($scope, Reddit) {
 			$scope.init();
 		});
 	});
+	
 	$(document).keydown(function(e){
 		if (e.keyCode == 9) {
 			e.preventDefault();
-      if(! e.shiftKey) {
-        if ($scope.selectedCat == -1 || $scope.selectedCat == $scope.numCat) 
-          $scope.selectedCat = 1;
-        else 
-          $scope.selectedCat ++;
-      } else {
-        if ($scope.selectedCat == -1 || $scope.selectedCat == 1) 
-          $scope.selectedCat = $scope.numCat;
-        else 
-          $scope.selectedCat --;
-      }
+			if(! e.shiftKey) {
+				if ($scope.selectedCat == -1 || $scope.selectedCat == $scope.numCat) 
+				  $scope.selectedCat = 1;
+				else 
+				  $scope.selectedCat ++;
+			} else {
+				if ($scope.selectedCat == -1 || $scope.selectedCat == 1) 
+				  $scope.selectedCat = $scope.numCat;
+				else 
+				  $scope.selectedCat --;
+			}
 			
 			temp = $("#" + $scope.selectedCat).children(".ind-email").first();
 			$scope.selected = temp;
@@ -281,7 +284,7 @@ sigmaApp.controller('EmailListCtrl', function($scope, Reddit) {
 					}
 				}
 			}
-      $scope.$apply();
+			$scope.$apply();
 		}
 		if (e.keyCode == 40) { //down
 			if ($scope.selected != "") {
@@ -304,35 +307,36 @@ sigmaApp.controller('EmailListCtrl', function($scope, Reddit) {
 					}
 				}
 			}
-      $scope.$apply();
+			$scope.$apply();
 		}
 		if (e.keyCode >= 49 && e.keyCode < 49 + $scope.numCat) {
 		   var cat = e.keyCode - 48;
          $scope.categorize(cat, $scope.selectedIds);
 		}
 	});
+	
 	$(document).on("click", ".ind-email", function(e) {
 		e.stopPropagation();
 		
-    if($scope.selectedIds.indexOf($(this).attr('id')) >= 0 && !e.shiftKey) {
-      $scope.viewingId = $(this).attr('id');
-      $scope.viewingEmail = null;
-      $.map($scope.reddit.items, function(obj) {
-        console.log(obj.id);
-        if(obj.id == $scope.viewingId)
-          $scope.viewingEmail = obj;
-      });
-    
-      console.log($scope.viewingEmail);
-      $scope.$apply();
-    }
+		if($scope.selectedIds.indexOf($(this).attr('id')) >= 0 && !e.shiftKey) {
+		  $scope.viewingId = $(this).attr('id');
+		  $scope.viewingEmail = null;
+		  $.map($scope.reddit.items, function(obj) {
+			console.log(obj.id);
+			if(obj.id == $scope.viewingId)
+			  $scope.viewingEmail = obj;
+		  });
+		
+		  console.log($scope.viewingEmail);
+		  $scope.$apply();
+		}
 
-		$scope.selected = $(this);
-    if(e.shiftKey) {
-      $scope.selectedIds.push($(this).attr('id'));
-    } else {
-      $scope.selectedIds = [$(this).attr('id')];
-    }
+			$scope.selected = $(this);
+		if(e.shiftKey) {
+		  $scope.selectedIds.push($(this).attr('id'));
+		} else {
+		  $scope.selectedIds = [$(this).attr('id')];
+		}
 
 		$('.category-bar').children().each(function(i) {
 			var cat = parseInt($scope.selected.parent().attr('id'));
@@ -341,12 +345,13 @@ sigmaApp.controller('EmailListCtrl', function($scope, Reddit) {
 			else $(this).css('opacity', 1);
 		});
 
-    $scope.$apply();
+		$scope.$apply();
 	});
 	
 	$(document).on("click", ".category", function(e) {
 		e.stopPropagation();
 	});
+	
 	$(document).click(function() {
 		$scope.selected = "";
 		$scope.selectedIds = [];
@@ -354,8 +359,9 @@ sigmaApp.controller('EmailListCtrl', function($scope, Reddit) {
 			$(this).css('opacity', .8);
 		});
 
-    $scope.$apply();
+		$scope.$apply();
 	});
+	
 	$(document).delegate('.one-box', 'click', function (e) {
 		e.stopPropagation();
 		var offset = $(this).offset();
@@ -365,6 +371,7 @@ sigmaApp.controller('EmailListCtrl', function($scope, Reddit) {
 			$scope.$apply();
 		}
 	});
+	
 	$(document).delegate('.two-box', 'click', function (e) {
 		e.stopPropagation();
 		var offset = $(this).offset();
@@ -374,14 +381,16 @@ sigmaApp.controller('EmailListCtrl', function($scope, Reddit) {
 			$scope.$apply();
 		}
 	});
+	
 	$('.one-box').bind('scroll', function() {
 		  var newTop = $(this).scrollTop() + 5;
 		  $(this).children(".unread").css({top: newTop, position:'absolute'});
-	  });
-	  $('.two-box').bind('scroll', function() {
+	});
+	  
+	$('.two-box').bind('scroll', function() {
 		  var newTop = $(this).scrollTop() + 5;
 		  $(this).children(".unread").css({top: newTop, position:'absolute'});
-	  });
+    });
   });
    
 });
