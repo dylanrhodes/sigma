@@ -138,10 +138,10 @@ button.loadMore {
 	position: relative;
 	overflow: auto;
 	width: 98%;
-	margin-left: 1%;
-	margin-right: 1%;
+	margin: 0 1%;
 	height: 210px;
 	border: 1px solid #eee;
+	border-right: 2px solid #eee;
 	border-left-style: solid;
 	border-left-width: 7px;
 	margin-bottom: 20px;
@@ -151,14 +151,13 @@ button.loadMore {
 	position: relative;
 	overflow: auto;
 	width: 48%;
-	margin-right: 1%;
-	margin-left: 1%;
+	margin: 0 1% 20px 1%;
 	display: inline-block;
 	height: 210px;
 	border: 1px solid #eee;
+	border-right: 2px solid #eee;
 	border-left-style: solid;
 	border-left-width: 7px;
-	margin-bottom: 20px;
 }
 
 .unread {
