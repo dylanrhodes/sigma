@@ -6,11 +6,29 @@ body {
   text-align: center;
 }
 
+h3 {
+	color: #424242;
+}
+
+h3.num-title {
+	text-align: center;
+}
+
 .wrapper {
 	/*max-width: 80%;*/
 	display: inline-block;
 	width: calc(100% - 40px);
-	max-width: 1000px;
+	max-width: 1100px;
+	position: relative;
+ 	text-align: left;
+	margin-bottom: 40px;
+}
+
+.wrapper2 {
+	/*max-width: 80%;*/
+	display: inline-block;
+	width: calc(100% - 40px);
+	max-width: 1100px;
 	position: relative;
  	text-align: left;
 	margin-bottom: 40px;
@@ -26,12 +44,12 @@ body {
 	z-index: 10;
 	text-align: center;
 	width: calc(100% - 40px);
-	max-width: 1000px;
+	max-width: 1100px;
 }
 
 .control-bar.row {
-	margin-left: -15px;
-	margin-right: -15px;	
+	margin-left: -12px;
+	margin-right: -12px;	
 	padding-left: 15px;
 	padding-right: 15px;
 }
@@ -41,7 +59,7 @@ body {
 	font-size:20px;
 	color:#424242;
 	cursor:pointer;
-	padding-left:0px;
+	padding-left:1%;
 }
 
 .control-bar-title img {
@@ -67,7 +85,7 @@ input[type="search"] {
 	border-radius: 3px;
 	padding: 5px;
 	padding-left: 8px;
-	width: 100%;
+	width: 110%;
 }
 
 .control-bar-compose {
@@ -88,9 +106,15 @@ input[type="search"] {
 	opacity: 1.0;
 }
 
+.control-bar-settings {
+	padding-top: 3px;
+	cursor:pointer;
+}
+
 .settings-a {
 	padding-left: 8px;
 	opacity:0.8;
+	float:right;
 }
 
 .settings-a:hover {
@@ -113,28 +137,29 @@ button.loadMore {
 .one-box {
 	position: relative;
 	overflow: auto;
-	width: 100%;
+	width: 98%;
+	margin: 0 1%;
 	height: 210px;
 	border: 1px solid #eee;
+	border-right: 2px solid #eee;
 	border-left-style: solid;
 	border-left-width: 7px;
 	margin-bottom: 20px;
 }
+
 .two-box {
 	position: relative;
 	overflow: auto;
-	width: 49%;
-	margin-right: 2%;
+	width: 48%;
+	margin: 0 1% 20px 1%;
 	display: inline-block;
 	height: 210px;
 	border: 1px solid #eee;
+	border-right: 2px solid #eee;
 	border-left-style: solid;
 	border-left-width: 7px;
-	margin-bottom: 20px;
 }
-.two-box:nth-child(even){
-	margin-right:0;
-}
+
 .unread {
 	position:absolute;
 	text-align: center;
@@ -147,25 +172,6 @@ button.loadMore {
 	right: 5px;
 	z-index: 5;
 	
-}
-.two-box-1 {
-	position: absolute;
-	width: calc(50% - 14px);
-	height: 144px;
-	border: 1px solid #eee;
-	border-left-style: solid;
-	border-left-width: 5px;
-	margin-bottom: 164px;
-}
-.two-box-2 {
-	position: absolute;
-	margin-left: calc(50% + 14px);
-	width: calc(50% - 14px);
-	height: 144px;
-	border: 1px solid #eee;
-	border-left-style: solid;
-	border-left-width: 5px;
-	margin-bottom: 164px;
 }
 
 .lopadding {
@@ -324,4 +330,111 @@ button.loadMore {
 
 .message-view {
 	border: 1px solid #eee;
+}
+
+.preview-main {
+	text-align:center;
+}
+
+/*CSS for settings.html*/
+
+input[type="text"] {
+	text-align: center;
+	display:inline-block;
+	border: 1px solid #eee;
+	border-radius: 3px;
+	padding: 5px;
+	padding-left: 8px;
+	width: 85%;
+}
+
+input[type="text"].num-bar {
+	width: 25%;
+	display:block;
+}
+
+input[type='checkbox'] {
+    -webkit-appearance:none;
+    width:15px;
+    height:15px;
+    background:white;
+    border-radius:5px;
+    border:2px solid #555;
+	display: block;
+	margin: 0 auto 37px auto;
+}
+input[type='checkbox']:checked {
+    background: #1b6aa3;
+}
+
+.num-bar {
+	margin: 20px auto;
+}
+
+.cat-bar {
+	margin: 10px 0;
+}
+
+
+.split-select {
+	text-align: center;
+}
+
+.split-checks {
+	padding-top: 18px;
+}
+
+a.save {
+	padding: 10px 20px;
+	font-weight: bold;
+	background: white;
+	color: #1b6aa3;
+	border:2px solid #1b6aa3;
+}
+
+a:hover.save {
+	background: #1b6aa3;
+	color: white;
+	text-decoration:none;
+}
+
+a:visited.save {
+	text-decoration:none;
+}
+
+a:active.save {
+	background: #1b6aa3;
+	color: white;
+	text-decoration:none;
+}
+
+.bottom {
+	text-align: center;
+	padding-top: 40px;
+}
+
+.prev {
+	display: inline-block;
+	border:2px solid #000;
+}
+
+.preview {
+	padding-top: 10px;
+}
+
+.settings-title {
+	text-align:center;
+	border-bottom: 1px solid #eee;
+	padding-bottom: 5px;
+	margin-bottom: 10px;
+}
+
+.category-select {
+	text-align:center;
+}
+
+.removecat {
+	cursor:pointer;
+	margin-right: 5px;
+	color: #808080;
 }
