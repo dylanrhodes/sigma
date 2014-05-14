@@ -428,6 +428,12 @@ sigmaApp.factory('Emails', function($http) {
 			email.message = "PLACEHOLDER!!!";
 			email.id = email.id.toString();
 			email.read = 1;
+			var from = email.from.replace(/"/g, "");
+			var start = from.indexOf("<");
+			var end = from.indexOf(">");
+			email.fromEmail = from.substring(start + 1, end);
+			email.fromName = "";
+			if (start != 0) email.fromName = from.substring(0, start-1);
 			this.arr.unshift(email);
 		}
 	  }
