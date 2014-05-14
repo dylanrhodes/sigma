@@ -4,6 +4,7 @@
 
 from __future__ import unicode_literals
 import argparse, getpass
+import redis
 
 # Default values for testing purposes
 UNAME_DEFAULT = ''
@@ -37,6 +38,7 @@ server.login(USERNAME, PASSWORD)
 select_info = server.select_folder('INBOX')
 messages = server.search(['NOT DELETED','SINCE 1-Apr-2014' ])
 
+rServer = redis.Redis("localhost")
 parser = HeaderParser()
 print("Messages:")
 response = server.fetch(messages, ['RFC822'])
