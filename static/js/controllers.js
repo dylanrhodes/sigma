@@ -4,7 +4,7 @@
 
 var sigmaApp = angular.module('sigmaApp', []);
 
-sigmaApp.controller('EmailListCtrl', function($scope, Emails) {
+sigmaApp.controller('EmailListCtrl', function($scope, Reddit) {
   $scope.colors = ['#808080', '#1b6aa3', '#84cbc5', '#f8d35e', '#f47264', '#85e491', '#bd80b9', '#f9b588'];
   $scope.categories = [
   	{'id' : 1,
@@ -43,8 +43,8 @@ sigmaApp.controller('EmailListCtrl', function($scope, Emails) {
 	 'unread' : 5,
 	 'emails' : 4}
   ];
-  $scope.emails = new Emails();
-  $scope.emails.init();
+  $scope.reddit = new Reddit();
+  $scope.reddit.nextPage();
   $scope.focusedCategory = "";
   $scope.focusedSize = -1;
   $scope.selected = "";
@@ -184,7 +184,7 @@ sigmaApp.controller('EmailListCtrl', function($scope, Emails) {
 		window.scrollTo(0, level);
 	}
 	else {
-		$scope.emails.nextByCategory(categoryId);
+		$scope.reddit.nextSmallPage(categoryId);
 		$scope.$apply();
 		var newHeight = $( window ).height() - 100;
 		$('#' + categoryId).height(newHeight);
@@ -199,7 +199,7 @@ sigmaApp.controller('EmailListCtrl', function($scope, Emails) {
   }
   
   $scope.addMore = function(categoryId) {
-	$scope.emails.nextByCategory(categoryId);
+	$scope.reddit.nextSmallPage(categoryId);
   }
   
   $scope.categorize = function(categoryId, emailIds) {
@@ -216,9 +216,9 @@ sigmaApp.controller('EmailListCtrl', function($scope, Emails) {
 				temp.parent().scrollTop(temp.parent().scrollTop() + temp.height() + dif);
 			}
 		}
-		console.log($scope.emails.arr);
+		console.log($scope.reddit.items);
 		$.each(emailIds, function(i, id) {
-		  $.map($scope.emails.arr, function(obj, index) {
+		  $.map($scope.reddit.items, function(obj, index) {
 			if(obj.id == id)
 			  obj.category = categoryId;
 		  });
@@ -331,7 +331,7 @@ sigmaApp.controller('EmailListCtrl', function($scope, Emails) {
 		if($scope.selectedIds.indexOf($(this).attr('id')) >= 0 && !e.shiftKey) {
 		  $scope.viewingId = $(this).attr('id');
 		  $scope.viewingEmail = null;
-		  $.map($scope.emails.arr, function(obj) {
+		  $.map($scope.reddit.items, function(obj) {
 			console.log(obj.id);
 			if(obj.id == $scope.viewingId)
 			  $scope.viewingEmail = obj;
@@ -405,36 +405,40 @@ sigmaApp.controller('EmailListCtrl', function($scope, Emails) {
    
 });
 
-sigmaApp.factory('Emails', function($http) {
-  var Emails = function() {
-    this.arr = [];
+sigmaApp.factory('Reddit', function($http) {
+  var Reddit = function() {
+    this.items = [];
     this.busy = false;
     this.after = '';
 	this.next = 1;
   };
 
-  Emails.prototype.init = function() {
+  Reddit.prototype.nextPage = function() {
     if (this.busy) return;
     this.busy = true;
-    var url = "http://sigma.jmvldz.com/get_emails";
-    $http.get(url).success(function(data) {
-	  var emails = data;
-	  for (var key in emails) {
-		if(emails.hasOwnProperty(key)) {
-			var email = emails[key];
-			var day = moment(email.date, "ddd, DD MMM YYYY HH:mm:ss ZZ");
-			email.date = day.fromNow();
-			email.category = 1;
-			email.message = "PLACEHOLDER!!!";
-			email.unread = 0;
-			this.arr.push(email);
-		}
-	  }
+    var url = "http://api.reddit.com/hot?after=" + this.after + "&limit=50&jsonp=JSON_CALLBACK";
+    $http.jsonp(url).success(function(data) {
+      var items = data.data.children;
+      for (var i = 0; i < items.length; i++) {
+		items[i].data.from = items[i].data.author;
+		items[i].data.subject = items[i].data.title;
+		items[i].data.message = items[i].data.url;
+		var utcSeconds = items[i].data.created_utc;
+		var day = moment.unix(utcSeconds);
+		items[i].data.date = day.fromNow();
+		items[i].data.category = this.next;
+		if (this.next == 5) this.next = 1;
+		else this.next++;
+		items[i].data.read = Math.round(Math.random());
+		items[i].data.sigma = Math.round(Math.random());
+        this.items.push(items[i].data);
+      }
+      this.after = "t3_" + this.items[this.items.length - 1].id;
       this.busy = false;
     }.bind(this));
   };
   
-  Emails.prototype.nextByCategory = function(category) {
+  Reddit.prototype.nextSmallPage = function(category) {
     if (this.busy) return;
     this.busy = true;
     var url = "http://api.reddit.com/hot?after=" + this.after + "&limit=10&jsonp=JSON_CALLBACK";
@@ -451,12 +455,12 @@ sigmaApp.factory('Emails', function($http) {
 		else items[i].data.category = category;
 		items[i].data.read = Math.round(Math.random());
 		items[i].data.sigma = Math.round(Math.random());
-        this.arr.push(items[i].data);
+        this.items.push(items[i].data);
       }
-      this.after = "t3_" + this.arr[this.arr.length - 1].id;
+      this.after = "t3_" + this.items[this.items.length - 1].id;
       this.busy = false;
     }.bind(this));
   };
 
-  return Emails;
+  return Reddit;
 });
