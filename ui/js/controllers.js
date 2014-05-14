@@ -416,18 +416,19 @@ sigmaApp.factory('Emails', function($http) {
   Emails.prototype.init = function() {
     if (this.busy) return;
     this.busy = true;
-    var url = "http://sigma.jmvldz.com/get_emails";
-    $http.get(url).success(function(data) {
-	  var emails = data;
-	  for (var key in emails) {
-		if(emails.hasOwnProperty(key)) {
-			var email = emails[key];
+    var url = "http://sigma.jmvldz.com/get_emails?callback=JSON_CALLBACK";
+    $http.jsonp(url).success(function(data) {
+	  console.log("SUCCESS");
+	  for (var key in data) {
+		if(data.hasOwnProperty(key)) {
+			var email = data[key];
 			var day = moment(email.date, "ddd, DD MMM YYYY HH:mm:ss ZZ");
 			email.date = day.fromNow();
 			email.category = 1;
 			email.message = "PLACEHOLDER!!!";
-			email.unread = 0;
-			this.arr.push(email);
+			email.id = email.id.toString();
+			email.read = 1;
+			this.arr.unshift(email);
 		}
 	  }
       this.busy = false;
