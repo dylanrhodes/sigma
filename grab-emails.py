@@ -47,7 +47,7 @@ for msgid, data in response.iteritems():
              'date': msg['Date'], 'cc': msg['CC'], 'category': 0, 'read': False}
              #'message': msg.get_payload()}
     emailJSON = json.dumps(email, sort_keys=True, indent=4, separators=(',', ': '))
-    category = 0
+    category = 1
     rServer.zadd("mail:exxonvaldeez:inbox", emailJSON, msgid)
     rServer.sadd("mail:exxonvaldeez:%s" % str(category), msgid)
     #print msg.keys()
