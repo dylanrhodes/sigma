@@ -44,8 +44,8 @@ for msgid, data in response.iteritems():
     emailUTF8 = data['RFC822'].encode('utf-8')
     msg = parser.parsestr(emailUTF8)
     email = {'id': msgid, 'from': msg['From'], 'to': msg['To'], 'subject': msg['Subject'],
-             'date': msg['Date'], 'cc': msg['CC'], 'category': 0, 'read': False,
-             'message': msg.get_payload()}
+             'date': msg['Date'], 'cc': msg['CC'], 'category': 0, 'read': False}
+             #'message': msg.get_payload()}
     emailJSON = json.dumps(email, sort_keys=True, indent=4, separators=(',', ': '))
     category = 0
     rServer.zadd("mail:exxonvaldeez:inbox", emailJSON, msgid)
