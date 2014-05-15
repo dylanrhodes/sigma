@@ -3,7 +3,7 @@
 # CS194, Spring 2014 - Stanford University
 
 from __future__ import unicode_literals
-#import getpass
+import getpass
 import argparse
 import redis
 import json
@@ -20,15 +20,15 @@ args = parser.parse_args()
 UNAME_DEFAULT = 'exxonvaldeez@gmail.com'
 HOST = 'imap.gmail.com'
 USERNAME = UNAME_DEFAULT
-#if args.username:
-#    USERNAME = args.username
-#if len(USERNAME) <= 0:
-#   USERNAME = raw_input("Please enter the username for your Gmail account: ");
+if args.username:
+    USERNAME = args.username
+if len(USERNAME) <= 0:
+   USERNAME = raw_input("Please enter the username for your Gmail account: ");
 PASSWORD = 'caOfdFiU0nzzsjx9LBnt'
-#if args.password:
-#    PASSWORD = args.password
-#else:
-#    PASSWORD = getpass.getpass("Please enter the password for the account {}@gmail.com: ".format(USERNAME));
+if args.password:
+    PASSWORD = args.password
+else:
+    PASSWORD = getpass.getpass("Please enter the password for the account {}@gmail.com: ".format(USERNAME));
 ssl = True
 
 server = IMAPClient(HOST, use_uid=True, ssl=ssl)
@@ -43,16 +43,12 @@ response = server.fetch(messages, ['RFC822'])
 for msgid, data in response.iteritems():
     emailUTF8 = data['RFC822'].encode('utf-8')
     msg = parser.parsestr(emailUTF8)
+    category = 3
     email = {'id': msgid, 'from': msg['From'], 'to': msg['To'], 'subject': msg['Subject'],
-             'date': msg['Date'], 'cc': msg['CC'], 'category': 0, 'read': False}
-             #'message': msg.get_payload()}
+             'date': msg['Date'], 'cc': msg['CC'], 'category': category, 'read': False,
+             'message': msg.get_payload(), 'predicted': False, 'categorized': True} # TODO update this to False
     emailJSON = json.dumps(email, sort_keys=True, indent=4, separators=(',', ': '))
-    category = 1
     rServer.zadd("mail:exxonvaldeez:inbox", emailJSON, msgid)
     rServer.sadd("mail:exxonvaldeez:%s" % str(category), msgid)
     #print msg.keys()
-    #print msg['From']
-    #print msg['To']
-    #print msg['Subject']
-    #print msg.get_payload() # Print message body
 

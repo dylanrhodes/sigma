@@ -1,6 +1,8 @@
 import cPickle as pickle
-import os
+#import os
 import numpy
+import redis
+import json
 
 '''
 Retrieves stored classification data for a given user
@@ -15,6 +17,29 @@ def retrieve_models(username):
 	head_model = retrieve_object(path+"head_model.pk1")
 
 	return body_vec, body_model, head_vec, head_model
+
+# TODO username MUST be only first part of email address <name> not
+# <name>@<host>
+def retreive_data_db(username):
+    rServer = redis.Redis("localhost")
+    mail = rServer.zrevrangebyscore('mail:%s:inbox' % username, "+inf", "-inf")
+    # TODO do these need to be numpy arrays?
+    train_x = []
+    train_y = []
+    for email in mail:
+        pMail = json.loads(email)
+        if pMail['categorized']:
+            train_x.append(pMail)
+            train_y.append(pMail['category'])
+
+    body_x = []
+    body_y = []
+    body_y = numpy.array(body_y)
+    head_x = []
+    head_y = []
+    head_y = numpy.array(head_y)
+
+    return train_x, train_y, body_x, body_y, head_x, head_y
 
 def retrieve_data(username):
 	path = "./"+username+"/data/"
