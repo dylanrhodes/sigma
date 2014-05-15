@@ -172,6 +172,7 @@ sigmaApp.controller('EmailListCtrl', function($scope, Emails) {
 
   $scope.focusCategory = function(categoryId, size) {
 	if ($scope.focusedCategory != "" || $scope.focusedCategory == categoryId) {
+	  	$scope.viewingEmail = null;
 		$('#' + $scope.focusedCategory).height(42*$scope.categories[$scope.focusedCategory-1]['emails']);
 		if ($scope.focusedSize == 1) $('#' + $scope.focusedCategory).css('width', '48%');
 		var temp = $scope.focusedCategory;
@@ -188,10 +189,14 @@ sigmaApp.controller('EmailListCtrl', function($scope, Emails) {
 		$scope.$apply();
 		var newHeight = $( window ).height() - 100;
 		$('#' + categoryId).height(newHeight);
-		if (size == 1) {
-			$('#' + categoryId).width($('.one-box').width());
+		if($scope.viewingEmail) {
+			// $('#' + categoryId).width('100%');
 		}
-		console.log($scope.focusedCategory, categoryId);
+		else if (size == 1) {
+			$('#' + categoryId).width($('.one-box').width());
+		} else {
+
+		}
 		$scope.focusedCategory = categoryId;
 		$scope.focusedSize = size;
 		window.scrollTo(0, 0);
@@ -216,7 +221,6 @@ sigmaApp.controller('EmailListCtrl', function($scope, Emails) {
 				temp.parent().scrollTop(temp.parent().scrollTop() + temp.height() + dif);
 			}
 		}
-		console.log($scope.emails.arr);
 		$.each(emailIds, function(i, id) {
 		  $.map($scope.emails.arr, function(obj, index) {
 			if(obj.id == id)
@@ -333,11 +337,12 @@ sigmaApp.controller('EmailListCtrl', function($scope, Emails) {
 		  $scope.viewingEmail = null;
 		  $.map($scope.emails.arr, function(obj) {
 			console.log(obj.id);
-			if(obj.id == $scope.viewingId)
+			if(obj.id == $scope.viewingId) {
 			  $scope.viewingEmail = obj;
+			  $scope.focusCategory($scope.viewingEmail.category, 0);
+			}
 		  });
 		
-		  console.log($scope.viewingEmail);
 		  $scope.$apply();
 		}
 
