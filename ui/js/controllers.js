@@ -250,6 +250,14 @@ sigmaApp.controller('EmailListCtrl', function($scope, Emails) {
 	$(document).keydown(function(e){
 		if (e.keyCode == 9) {
 			e.preventDefault();
+			if($scope.selected && $scope.selected != "") {
+				$.map($scope.emails.arr, function(e) {
+					if(e.id == $scope.selected.attr('id')) {
+						console.log("1");
+						$scope.selectedCat = e.category;
+					}
+				})
+			}
 			if(! e.shiftKey) {
 				if ($scope.selectedCat == -1 || $scope.selectedCat == $scope.numCat) 
 				  $scope.selectedCat = 1;
@@ -262,7 +270,8 @@ sigmaApp.controller('EmailListCtrl', function($scope, Emails) {
 				  $scope.selectedCat --;
 			}
 			
-			temp = $("#" + $scope.selectedCat).children(".ind-email").first();
+			temp = $("#" + $scope.selectedCat).find(".ind-email").first();
+			console.log($("#" + $scope.selectedCat).find(".ind-email"));
 			$scope.selected = temp;
 			$scope.selectedIds = [temp.attr('id')];
 			$scope.$apply();

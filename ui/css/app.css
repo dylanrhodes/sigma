@@ -143,12 +143,16 @@ button.loadMore {
 	overflow: auto;
 	width: 98%;
 	margin: 0 1%;
-	height: 210px;
+	/*height: 210px;*/
 	border: 1px solid #eee;
 	/*border-right: 2px solid #eee;*/
 	border-left-style: solid;
 	/*border-left-width: 7px;*/
 	margin-bottom: 10px;
+}
+
+.emails-area {
+	overflow: scroll;
 }
 
 .two-box {
@@ -157,7 +161,7 @@ button.loadMore {
 	width: 48%;
 	margin: 0 1% 10px 1%;
 	display: inline-block;
-	height: 210px;
+	/*height: 210px;*/
 	border: 1px solid #eee;
 	/*border-right: 2px solid #eee;*/
 	border-left-style: solid;
