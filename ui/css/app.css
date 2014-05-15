@@ -25,7 +25,11 @@ h3.num-title {
 	max-width: 1100px;
 	position: relative;
  	text-align: left;
-	margin-bottom: 40px;
+	/*margin-bottom: 40px;*/
+}
+
+.inbox {
+	margin-bottom: 20px;
 }
 
 .wrapper2 {
@@ -194,6 +198,7 @@ button.loadMore {
 .lopadding {
 	right-padding: 10px !important;
 	margin: 0px !important;
+	padding-left: 10px;
 }
 
 .nopadding {
@@ -234,7 +239,13 @@ button.loadMore {
 	margin: auto 12px;
 	width: 185px;*/
 	cursor:default;
+	padding-left: 10px;
 }
+
+.email-open .from {
+	padding-top: 0px;
+}
+
 .sigma {
 	text-align: right;
 	padding-right: 0px;
@@ -288,6 +299,7 @@ button.loadMore {
 	bottom: 0;
 	text-align: center;
 	z-index: 99;
+	background: #fff;
 }
 
 .category-bar .category {
@@ -348,6 +360,28 @@ button.loadMore {
 
 .message-view {
 	border: 1px solid #eee;
+	overflow: scroll;
+	padding: 10px;
+}
+
+.message-subject {
+	font-size: 27px;
+	padding-bottom: 10px;
+}
+
+.message-from {
+	font-weight: bold;
+}
+
+.message-date {
+	font-style: italic;
+	padding-bottom: 10px;
+}
+
+.message-body {
+	white-space: pre-line;
+	/*height: 100%;
+	overflow: scroll;*/
 }
 
 .preview-main {

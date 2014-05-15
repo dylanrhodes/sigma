@@ -34,7 +34,7 @@
         <a class="settings-a" ng-click="settings()"><img src = "images/gear.png" /></a>
       </div>
     </div>
-    <div class="view-area row">
+    <div class="view-area row {{viewingEmail ? 'email-open' : ''}}">
       <div class="inbox {{viewingEmail ? 'col-xs-4' : 'col-xs-12' }}">
         <div ng-repeat="category in categories | filter: { id: viewingEmail ? viewingEmail.category : focusedCategory }" ng-init="$scope.focusedCategory = 0" class = "{{viewingEmail || focusedCategory != '' ? 'one-box' : category.split ? 'two-box' : 'one-box'}}" style = "border-color: {{category.color}};" id="{{category.id}}">
         	<div class="category-header" style = "background-color: {{category.color}};">
@@ -46,14 +46,14 @@
 	             <div class = "{{viewingEmail ? 'col-xs-12' : category.split ? 'col-md-4 col-sm-4' : 'from col-md-2 col-sm-3'}} nopadding from">{{email.from}}</div>
 	      			 <div class = "{{viewingEmail ? 'col-xs-12' : category.split ? 'col-md-8 col-sm-8 col-xs-12' : 'col-md-10 col-sm-9 col-xs-12'}} lopadding">
 	              <div class="subject">{{email.subject}}</div>
-	      			  <div class = "snipit"><span class = "date">{{email.date}}</span> - {{email.message}}</div>
+	      			  <div class = "snipit"><span class = "date">{{email.date}}</span> - {{email.snippet}}</div>
 	             </div>
 	            </div>
 	    		    <button class = "btn btn-default loadMore" ng-hide = "!filterEmails.length" ng-click = "addMore(category.id)">Load 10 More</button>
 	    	</div>
         </div>
       </div>
-      <div class="message-view {{viewingEmail ? 'col-xs-8' : 'hidden'}}">
+      <div class="message-view {{viewingEmail ? 'col-xs-8' : 'hidden'}}" style="height: {{ windowHeight - 93}}px; border-color: {{viewingEmail ? categories[viewingEmail.category - 1].color : '#ddd' }}">
         <div class="message-subject">
           {{viewingEmail.subject}}
         </div>
