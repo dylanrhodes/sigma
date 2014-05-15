@@ -28,6 +28,7 @@ def retreive_data_db(username):
     train_y = []
     for email in mail:
         pMail = json.loads(email)
+        pMail['precedence'] = "None"
         if pMail['categorized']:
             train_x.append(pMail)
             train_y.append(pMail['category'])
