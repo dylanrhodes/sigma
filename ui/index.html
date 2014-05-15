@@ -36,7 +36,7 @@
     </div>
     <div class="view-area row">
       <div class="inbox {{viewingEmail ? 'col-xs-4' : 'col-xs-12' }}">
-        <div ng-repeat="category in categories | filter: { id: viewingEmail ? viewingEmail.category : focusedCategory }" ng-init="$scope.focusedCategory = 0" class = "{{viewingEmail ? 'one-box' : category.split ? 'two-box' : 'one-box'}}" style = "height: {{viewingEmail ? windowHeight - 100 : category.emails*42}}px; border-color: {{category.color}};" id="{{category.id}}">
+        <div ng-repeat="category in categories | filter: { id: viewingEmail ? viewingEmail.category : focusedCategory }" ng-init="$scope.focusedCategory = 0" class = "{{viewingEmail ? 'one-box' : category.split ? 'two-box' : 'one-box'}}" style = "height: {{viewingEmail || focusedCategory == category.id ? windowHeight - 100 : category.emails*42}}px; border-color: {{category.color}};" id="{{category.id}}">
         	<div class="unread {{category.unread ? '' : 'hidden'}}" style = "background-color: {{category.color}};">{{category.unread}}</div>
             <div class="row ind-email {{email.read ? 'read' : ''}} {{ selectedIds.indexOf(email.id) >= 0 ? 'selected-email' : '' }}" id = "{{email.id}}" ng-repeat="email in filterEmails = (emails.arr | filter:{category:category.id} | filter:search)">
              <div class = "{{viewingEmail ? 'col-xs-12' : category.split ? 'col-md-4 col-sm-4' : 'from col-md-2 col-sm-3'}} nopadding from">{{email.from}}</div>

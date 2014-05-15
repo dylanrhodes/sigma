@@ -185,37 +185,12 @@ sigmaApp.controller('EmailListCtrl', function($scope, Emails) {
 		$scope.init();
 	}
 
-  $scope.focusCategory = function(categoryId, size) {
-	if ($scope.focusedCategory != "" || $scope.focusedCategory == categoryId) {
-	  	$scope.viewingEmail = null;
-		$('#' + $scope.focusedCategory).height(42*$scope.categories[$scope.focusedCategory-1]['emails']);
-		if ($scope.focusedSize == 1) $('#' + $scope.focusedCategory).css('width', '48%');
-		var temp = $scope.focusedCategory;
-		$scope.focusedCategory = "";
-		$scope.focusedSize = -1;
-		$scope.viewingEmail = null;
-		// $scope.viewingId = -1;
-		$scope.$apply();
-		var level = $("#" + temp).offset().top - $('.control-bar').outerHeight(); //subtract header size
-		window.scrollTo(0, level);
-	}
-	else {
-		$scope.emails.nextByCategory(categoryId);
-		$scope.$apply();
-		var newHeight = $( window ).height() - 100;
-		$('#' + categoryId).height(newHeight);
-		if($scope.viewingEmail) {
-			// $('#' + categoryId).width('100%');
-		}
-		else if (size == 1) {
-			$('#' + categoryId).width($('.one-box').width());
-		} else {
-
-		}
-		$scope.focusedCategory = categoryId;
-		$scope.focusedSize = size;
-		window.scrollTo(0, 0);
-	}
+  $scope.focusCategory = function(categoryId) {
+  	$scope.viewingEmail = null;
+  	$scope.focusedCategory = categoryId;
+  	if(categoryId && categoryId != ''){
+  		$scope.emails.nextByCategory(categoryId);
+  	}
   }
   
   $scope.addMore = function(categoryId) {
@@ -232,6 +207,14 @@ sigmaApp.controller('EmailListCtrl', function($scope, Emails) {
 	    //move to next element before categorizing
 		var temp = $scope.selected.next();
 		var cl = temp.attr("class");
+		
+		$.each($scope.selectedIds, function(i, id) {
+		  $.map($scope.emails.arr, function(obj, index) {
+			if(obj.id == id)
+			  obj.category = categoryId;
+		  });
+		});
+
 		if (typeof cl !== 'undefined' && cl !== false) {
 			$scope.selected = temp;
 			$scope.selectedIds = [temp.attr('id')];
@@ -241,13 +224,6 @@ sigmaApp.controller('EmailListCtrl', function($scope, Emails) {
 				temp.parent().scrollTop(temp.parent().scrollTop() + temp.height() + dif);
 			}
 		}
-		$.each($scope.selectedIds, function(i, id) {
-		  $.map($scope.emails.arr, function(obj, index) {
-			if(obj.id == id)
-			  obj.category = categoryId;
-		  });
-		});
-
 		
 		// $scope.$apply();
 	}
