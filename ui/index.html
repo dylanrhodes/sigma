@@ -36,7 +36,7 @@
     </div>
     <div class="view-area row">
       <div class="inbox {{viewingEmail ? 'col-xs-4' : 'col-xs-12' }}">
-        <div ng-repeat="category in categories | filter: { id: viewingEmail ? viewingEmail.category : focusedCategory }" ng-init="$scope.focusedCategory = 0" class = "{{viewingEmail ? 'one-box' : category.split ? 'two-box' : 'one-box'}}" style = "height: {{viewingEmail || focusedCategory == category.id ? windowHeight - 100 : category.emails*42 + catHeaderHeight()}}px; border-color: {{category.color}};" id="{{category.id}}">
+        <div ng-repeat="category in categories | filter: { id: viewingEmail ? viewingEmail.category : focusedCategory }" ng-init="$scope.focusedCategory = 0" class = "{{viewingEmail || focusedCategory != '' ? 'one-box' : category.split ? 'two-box' : 'one-box'}}" style = "height: {{viewingEmail || focusedCategory == category.id ? windowHeight - 100 : category.emails*42 + catHeaderHeight()}}px; border-color: {{category.color}};" id="{{category.id}}">
         	<div class="category-header" style = "background-color: {{category.color}};">
         		{{category.name}}
         	</div>

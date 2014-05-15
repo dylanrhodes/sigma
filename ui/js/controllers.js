@@ -59,6 +59,7 @@ sigmaApp.controller('EmailListCtrl', function($scope, Emails) {
 
   $scope.emailsById = {};
   $scope.windowHeight = $(window).height();
+  $scope.boxWidth = null;
   $scope.catHeaderHeight = function() { return $(".category-header").height() + 11 };
   
 	$scope.init = function() {
@@ -364,7 +365,7 @@ sigmaApp.controller('EmailListCtrl', function($scope, Emails) {
 */
 		$scope.$apply();
 	});
-
+/*
 	$(".category-header").click(function(e) {
 		e.stopPropagation();
 		console.log("header");
@@ -372,7 +373,7 @@ sigmaApp.controller('EmailListCtrl', function($scope, Emails) {
 		$scope.focusCategory(parseInt(id), 0);
 		$scope.$apply();
 	})
-	
+*/	
 	$(document).on("click", ".category", function(e) {
 		e.stopPropagation();
 	});
@@ -386,13 +387,13 @@ sigmaApp.controller('EmailListCtrl', function($scope, Emails) {
 
 		$scope.$apply();
 	});
-	/*
+	
 	$(document).delegate('.one-box', 'click', function (e) {
 		e.stopPropagation();
 		var offset = $(this).offset();
-		if ((e.pageX - offset.left) <= 7) {
+		if ((e.pageY - offset.top) <= 50) {
 			var id = $(this).attr('id');
-			$scope.focusCategory(parseInt(id), 0);
+			$scope.focusCategory(parseInt(id));
 			$scope.$apply();
 		}
 	});
@@ -400,13 +401,15 @@ sigmaApp.controller('EmailListCtrl', function($scope, Emails) {
 	$(document).delegate('.two-box', 'click', function (e) {
 		e.stopPropagation();
 		var offset = $(this).offset();
-		if ((e.pageX - offset.left) <= 5) {
+		if($scope.boxWidth == null)
+			$scope.boxWidth = $(".one-box").width();
+		if ((e.pageY - offset.top) <= 50) {
 			var id = $(this).attr('id');
-			$scope.focusCategory(parseInt(id), 1);
+			$scope.focusCategory(parseInt(id));
 			$scope.$apply();
 		}
 	});
-	*/
+	
 	$('.one-box').on('scroll', function() {
 		  var newTop = $(this).scrollTop() + 5;
 		  $(this).children(".unread").css({top: newTop, position:'absolute'});
