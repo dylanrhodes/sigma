@@ -206,6 +206,8 @@ sigmaApp.controller('EmailListCtrl', function($scope, Emails) {
 	if ($scope.selected != "") {
 	    //move to next element before categorizing
 		var temp = $scope.selected.next();
+		while(temp && $scope.selectedIds.indexOf(temp.attr('id')) >= 0)
+			temp = temp.next();
 		var cl = temp.attr("class");
 		
 		$.each($scope.selectedIds, function(i, id) {
@@ -223,9 +225,7 @@ sigmaApp.controller('EmailListCtrl', function($scope, Emails) {
 				var dif = top - temp.parent().height();
 				temp.parent().scrollTop(temp.parent().scrollTop() + temp.height() + dif);
 			}
-		}
-		
-		// $scope.$apply();
+		}		
 	}
   }
   
