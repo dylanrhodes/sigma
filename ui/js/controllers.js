@@ -46,7 +46,6 @@ sigmaApp.controller('EmailListCtrl', function($scope, Emails) {
   $scope.emails = new Emails();
   $scope.emails.init();
   $scope.focusedCategory = "";
-  $scope.focusedSize = -1;
   $scope.selected = "";
   $scope.selectedId = -1;
   $scope.selectedIds = [];
@@ -342,7 +341,7 @@ sigmaApp.controller('EmailListCtrl', function($scope, Emails) {
 		
 		if($scope.selectedIds.indexOf($(this).attr('id')) >= 0 && !e.shiftKey) {
 			// They have clicked on a highlighted message (e.g. double-clicked) to open
-		  $scope.viewingEmail = null;
+		  $scope.focusCategory('');
 		  var target_id = $(this).attr('id');
 		  // TODO replace this search with a direct hash look-up
 		  $.map($scope.emails.arr, function(obj) {
@@ -364,14 +363,6 @@ sigmaApp.controller('EmailListCtrl', function($scope, Emails) {
 			} else {
 			  $scope.selectedIds = [$(this).attr('id')];
 			}
-/*
-		$('.category-bar').children().each(function(i) {
-			var cat = parseInt($scope.selected.parent().attr('id'));
-			$scope.selectedCat = cat;
-			if ((i+1) != cat) $(this).css('opacity', .6);
-			else $(this).css('opacity', 1);
-		});
-*/
 		$scope.$apply();
 	});
 /*

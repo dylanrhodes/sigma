@@ -21,7 +21,7 @@
 <body ng-controller="EmailListCtrl">
   <div class="wrapper container-fluid">
     <div class="control-bar row">
-      <div class="control-bar-title col-sm-4 hidden-xs" ng-click="focusCategory('', 0)">
+      <div class="control-bar-title col-sm-4 hidden-xs" ng-click="focusCategory('')">
         <img src="images/logo-1.png" />
       </div>
       <div class="control-bar-compose col-sm-4 hidden-xs">
@@ -36,7 +36,7 @@
     </div>
     <div class="view-area row {{viewingEmail ? 'email-open' : ''}}">
       <div class="inbox {{viewingEmail ? 'col-xs-4' : 'col-xs-12' }}">
-        <div ng-repeat="category in categories | filter: { id: viewingEmail ? viewingEmail.category : focusedCategory }" ng-init="$scope.focusedCategory = 0" class = "{{viewingEmail || focusedCategory != '' ? 'one-box' : category.split ? 'two-box' : 'one-box'}}" style = "border-color: {{category.color}};" id="{{category.id}}">
+        <div ng-repeat="category in categories" ng-init="$scope.focusedCategory = 0" class = "{{viewingEmail || focusedCategory != '' ? 'one-box' : category.split ? 'two-box' : 'one-box'}} {{ viewingEmail && viewingEmail.category != category.id ? 'hidden' : '' }} {{ focusedCategory && focusedCategory != '' && focusedCategory != category.id ? 'hidden' : '' }}" style = "border-color: {{category.color}};" id="{{category.id}}">
         	<div class="category-header" style = "background-color: {{category.color}};">
         		{{category.name}}
         	</div>
