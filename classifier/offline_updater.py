@@ -17,7 +17,7 @@ to update each users' classifiers, vocabularies, and contacts
 '''
 
 def retrain_models(username):
-	train_x, train_y, body_x, body_y, head_x, head_y = model_retriever.retrieve_data(username)
+	train_x, train_y, body_x, body_y, head_x, head_y = model_retriever.retrieve_data_db(username)
 
 	b_train_x = []
 	b_train_y = numpy.concatenate([body_y, train_y])
