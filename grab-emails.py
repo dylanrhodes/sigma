@@ -3,22 +3,21 @@
 # CS194, Spring 2014 - Stanford University
 
 from __future__ import unicode_literals
-from utils import sanitize
+#from utils import sanitize
 import getpass
 import argparse
-import redis
+#import redis
 import json
 import re
 
 from imapclient import IMAPClient
-from email.parser import HeaderParser
+from email.parser import Parser
 
 def extract_body_text(msg):
     body = ''
     charset = None
 
     if msg.is_multipart():
-        print part.get_content_type()
         for part in msg.walk():
             if part.is_multipart():
                 for subpart in part.walk():
@@ -72,18 +71,17 @@ select_info = server.select_folder('INBOX', readonly=True)
 messages = server.search(['NOT DELETED','SINCE 1-Apr-2014' ])
 
 rServer = redis.Redis("localhost")
-parser = HeaderParser()
+parser = Parser()
 response = server.fetch(messages, ['RFC822'])
 for msgid, data in response.iteritems():
     emailUTF8 = data['RFC822'].encode('utf-8')
     msg = parser.parsestr(emailUTF8)
     #msg = sanitize.sanitize(msg)
     category = 3
-    #body = extract_body_text(msg)
-   # print body
+    body = extract_body_text(msg)
     email = {'id': msgid, 'from': msg['From'], 'to': msg['To'], 'subject': msg['Subject'],
              'date': msg['Date'], 'cc': msg['CC'], 'category': category, 'read': False,
-             'message': msg.get_payload(), 'predicted': False, 'categorized': True} # TODO update this to False
+             'message': body, 'predicted': False, 'categorized': True} # TODO update this to False
     emailJSON = json.dumps(email, sort_keys=True, indent=4, separators=(',', ': '))
     rServer.zadd("mail:exxonvaldeez:inbox", emailJSON, msgid)
     rServer.sadd("mail:exxonvaldeez:%s" % str(category), msgid)
