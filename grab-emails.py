@@ -6,35 +6,26 @@ from __future__ import unicode_literals
 #from utils import sanitize
 import getpass
 import argparse
-#import redis
+import redis
 import json
-import re
 
 from imapclient import IMAPClient
 from email.parser import Parser
 
-def extract_body_text(msg):
+def extract_body(msg):
+    print msg['Subject']
     body = ''
     charset = None
-
-    if msg.is_multipart():
-        for part in msg.walk():
-            if part.is_multipart():
-                for subpart in part.walk():
-                    if subpart.get_content_type() == 'text/plain':
-                        text = subpart.get_payload(decode=True)
-                        charset = get_charset(subpart)
-                        body = body + text.decode(charset)
-            elif part.get_content_type() == 'text/plain':
-                text = part.get_payload(decode=True)
-                charset = get_charset(part)
-                body = body + text.decode(charset)
-    else:
-        body = msg.get_payload(decode=True)
-        charset = get_charset(msg)
-        body = body.decode(charset)
-
-    return re.sub(r'(?m)^\*.*\n?', '', body)
+    for part in msg.walk():
+        #if part.is_multipart():
+        #    for subpart in part.walk():
+        #        if subpart.get_content_type() == 'text/plain':
+        #            continue
+        if part.get_content_type() == 'text/plain' and not part.is_multipart():
+            text = part.get_payload(decode=True)
+            charset = get_charset(part)
+            body += text.decode(charset)
+    return body
 
 def get_charset(msg, default="ascii"):
     if msg.get_content_charset():
@@ -78,7 +69,7 @@ for msgid, data in response.iteritems():
     msg = parser.parsestr(emailUTF8)
     #msg = sanitize.sanitize(msg)
     category = 3
-    body = extract_body_text(msg)
+    body = extract_body(msg)
     email = {'id': msgid, 'from': msg['From'], 'to': msg['To'], 'subject': msg['Subject'],
              'date': msg['Date'], 'cc': msg['CC'], 'category': category, 'read': False,
              'message': body, 'predicted': False, 'categorized': True} # TODO update this to False
