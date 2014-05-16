@@ -39,7 +39,8 @@ def send_recent_email_json():
     import redis
     rServer = redis.Redis("localhost")
     #mail = rServer.zrevrangebyscore("mail:exxonvaldeez:inbox", "+inf", "-inf", 0, 10)
-    mail = rServer.zrevrangebyscore("mail:Davinci135:inbox", "+inf", "-inf")
+    mail = rServer.zrevrangebyscore("mail:exxonvaldeez:inbox", "+inf", "-inf")
+    #print mail
     parsedMail = {}
     for email in mail:
         pMail = json.loads(email)
@@ -48,8 +49,11 @@ def send_recent_email_json():
 
 @app.route('/categorize_email', methods=["POST"])
 def categorize_email():
-    print request.data
-    return 200
+    email = json.loads(request.data)
+    print email['id']
+    # TODO Update email in inbox
+    # TODO Update category table
+    return "Success"
 
 
 # main

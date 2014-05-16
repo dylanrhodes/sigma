@@ -24,6 +24,7 @@
       <div class="control-bar-title col-sm-4 hidden-xs" ng-click="focusCategory('')">
         <img src="{{ url_for('static', filename='images/logo-1.png') }}" />
       </div>
+{% raw %}
       <div class="control-bar-compose col-sm-4 hidden-xs">
         <a href="#" class="compose-a"></a>
 		 <a href="#" class="reply-a {{viewingEmail ? '' : 'hidden'}}" ng-click="compose(viewingEmail)"></a>
@@ -31,6 +32,7 @@
       <div class="control-bar-search col-sm-3 col-xs-11">
         <input type="search" placeholder="Search" ng-model="search" />
       </div>
+{% endraw %}
 	  <div class="control-bar-settings col-sm-1 hidden-xs">
         <a class="settings-a" ng-click="settings()"><img src = "{{ url_for('static', filename='images/gear.png') }}" /></a>
       </div>
