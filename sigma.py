@@ -46,6 +46,11 @@ def send_recent_email_json():
         parsedMail[pMail['id']] = pMail
     return jsonify(parsedMail)
 
+@app.route('/categorize_email', methods=["POST"])
+def categorize_email():
+    print request.data
+    return 200
+
 
 # main
 if __name__ == '__main__':

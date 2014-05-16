@@ -35,7 +35,7 @@ def batch_update(username, filename):
 	retrain_models(username)
 
 def retrain_models(username):
-	train_x, train_y, body_x, body_y, head_x, head_y = model_retriever.retrieve_data(username)
+	train_x, train_y, body_x, body_y, head_x, head_y = model_retriever.retrieve_data_db(username)
 
 	b_train_x = []
 	b_train_y = numpy.concatenate([body_y, train_y])
@@ -59,6 +59,8 @@ def retrain_models(username):
 
 	body_model.fit(b_train_x, b_train_y)
 	head_model.fit(h_train_x, h_train_y)
+
+        print("Finished training models for "+username+"...")
 
 	store_models(username, body_vec, body_model, head_vec, head_model)
 

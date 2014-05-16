@@ -13,7 +13,6 @@ from imapclient import IMAPClient
 from email.parser import Parser
 
 def extract_body(msg):
-    print msg['Subject']
     body = ''
     charset = None
     for part in msg.walk():
@@ -64,11 +63,14 @@ messages = server.search(['NOT DELETED','SINCE 1-Apr-2014' ])
 rServer = redis.Redis("localhost")
 parser = Parser()
 response = server.fetch(messages, ['RFC822'])
+switchCategory = 0
 for msgid, data in response.iteritems():
     emailUTF8 = data['RFC822'].encode('utf-8')
     msg = parser.parsestr(emailUTF8)
     #msg = sanitize.sanitize(msg)
     category = 3
+    if switchCategory > 5:
+        category = 2
     body = extract_body(msg)
     email = {'id': msgid, 'from': msg['From'], 'to': msg['To'], 'subject': msg['Subject'],
              'date': msg['Date'], 'cc': msg['CC'], 'category': category, 'read': False,
@@ -76,5 +78,7 @@ for msgid, data in response.iteritems():
     emailJSON = json.dumps(email, sort_keys=True, indent=4, separators=(',', ': '))
     rServer.zadd("mail:exxonvaldeez:inbox", emailJSON, msgid)
     rServer.sadd("mail:exxonvaldeez:%s" % str(category), msgid)
+
+    switchCategory += 1
     #print msg.keys()
 
