@@ -442,6 +442,12 @@ sigmaApp.factory('Emails', function($http) {
 			email.fromEmail = from.substring(start + 1, end);
 			email.fromName = "";
 			if (start != 0) email.fromName = from.substring(0, start-1);
+			if (email.subject.indexOf("=?utf-8?Q?") > -1) {
+				email.subject = decodeURIComponent(email.subject.replace(/=/g,'%'));
+			}
+			if (email.fromName.indexOf("=?utf-8?Q?") > -1) {
+				email.fromName = decodeURIComponent(email.fromName.replace(/=/g,'%'));
+			}
 			this.arr.unshift(email);
 		}
 	  }
