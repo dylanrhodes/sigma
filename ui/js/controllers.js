@@ -197,7 +197,12 @@ sigmaApp.controller('EmailListCtrl', function($scope, Emails) {
 
 		/* can be optionally passed in an email object as the first argument */
 		if(arguments.length > 0) {
-			console.log(arguments[0]);
+			// console.log(arguments[0]);
+			$("#compose-subject").val("Re: " + arguments[0].subject);
+			$("#compose-to").val(arguments[0].from);
+			$("#compose-body").val("\n\n---------------------------------\nOn "
+				+ arguments[0].true_date + ", " + arguments[0].from
+				+ " wrote:\n\n" + arguments[0].message);
 		}
 	}
 
@@ -463,6 +468,7 @@ sigmaApp.factory('Emails', function($http) {
 		if(data.hasOwnProperty(key)) {
 			var email = data[key];
 			var day = moment(email.date, "ddd, DD MMM YYYY HH:mm:ss ZZ");
+			email.true_date = day.format('MMMM Do YYYY, h:mm:ssa');;
 			email.date = day.fromNow();
 			email.category = 1;
 			// email.message = "PLACEHOLDER!!!";
