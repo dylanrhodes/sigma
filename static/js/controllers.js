@@ -219,8 +219,17 @@ sigmaApp.controller('EmailListCtrl', function($scope, Emails) {
 		console.log($scope.emails.arr);
 		$.each(emailIds, function(i, id) {
 		  $.map($scope.emails.arr, function(obj, index) {
-			if(obj.id == id)
+			if(obj.id == id) {
+			  var elem = {"id" : id, "category" : categoryId};
+			  $http({
+					method: 'POST',
+					url: '/categorize_email',
+					data: elem
+				})
+				.success(function() {console.log("Successfully pushed category change");})
+				.error(function() {console.log("Didn't successfully pushed category change");});
 			  obj.category = categoryId;
+			 }
 		  });
 		});
 
