@@ -3,13 +3,47 @@
 # CS194, Spring 2014 - Stanford University
 
 from __future__ import unicode_literals
+from utils import sanitize
 import getpass
 import argparse
 import redis
 import json
+import re
 
 from imapclient import IMAPClient
 from email.parser import HeaderParser
+
+def extract_body_text(msg):
+    body = ''
+    charset = None
+
+    if msg.is_multipart():
+        print part.get_content_type()
+        for part in msg.walk():
+            if part.is_multipart():
+                for subpart in part.walk():
+                    if subpart.get_content_type() == 'text/plain':
+                        text = subpart.get_payload(decode=True)
+                        charset = get_charset(subpart)
+                        body = body + text.decode(charset)
+            elif part.get_content_type() == 'text/plain':
+                text = part.get_payload(decode=True)
+                charset = get_charset(part)
+                body = body + text.decode(charset)
+    else:
+        body = msg.get_payload(decode=True)
+        charset = get_charset(msg)
+        body = body.decode(charset)
+
+    return re.sub(r'(?m)^\*.*\n?', '', body)
+
+def get_charset(msg, default="ascii"):
+    if msg.get_content_charset():
+        return msg.get_content_charset()
+    elif msg.get_charset():
+        return msg.get_charset()
+
+    return default
 
 parser = argparse.ArgumentParser()
 parser.add_argument("-u", "--username", help="The username for the desired account")
@@ -43,7 +77,10 @@ response = server.fetch(messages, ['RFC822'])
 for msgid, data in response.iteritems():
     emailUTF8 = data['RFC822'].encode('utf-8')
     msg = parser.parsestr(emailUTF8)
+    #msg = sanitize.sanitize(msg)
     category = 3
+    #body = extract_body_text(msg)
+   # print body
     email = {'id': msgid, 'from': msg['From'], 'to': msg['To'], 'subject': msg['Subject'],
              'date': msg['Date'], 'cc': msg['CC'], 'category': category, 'read': False,
              'message': msg.get_payload(), 'predicted': False, 'categorized': True} # TODO update this to False
