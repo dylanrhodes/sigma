@@ -6,35 +6,25 @@ from __future__ import unicode_literals
 #from utils import sanitize
 import getpass
 import argparse
-#import redis
+import redis
 import json
-import re
 
 from imapclient import IMAPClient
 from email.parser import Parser
 
-def extract_body_text(msg):
+def extract_body(msg):
     body = ''
     charset = None
-
-    if msg.is_multipart():
-        for part in msg.walk():
-            if part.is_multipart():
-                for subpart in part.walk():
-                    if subpart.get_content_type() == 'text/plain':
-                        text = subpart.get_payload(decode=True)
-                        charset = get_charset(subpart)
-                        body = body + text.decode(charset)
-            elif part.get_content_type() == 'text/plain':
-                text = part.get_payload(decode=True)
-                charset = get_charset(part)
-                body = body + text.decode(charset)
-    else:
-        body = msg.get_payload(decode=True)
-        charset = get_charset(msg)
-        body = body.decode(charset)
-
-    return re.sub(r'(?m)^\*.*\n?', '', body)
+    for part in msg.walk():
+        #if part.is_multipart():
+        #    for subpart in part.walk():
+        #        if subpart.get_content_type() == 'text/plain':
+        #            continue
+        if part.get_content_type() == 'text/plain' and not part.is_multipart():
+            text = part.get_payload(decode=True)
+            charset = get_charset(part)
+            body += text.decode(charset)
+    return body
 
 def get_charset(msg, default="ascii"):
     if msg.get_content_charset():
@@ -70,12 +60,15 @@ messages = server.search(['NOT DELETED','SINCE 1-Apr-2014' ])
 rServer = redis.Redis("localhost")
 parser = Parser()
 response = server.fetch(messages, ['RFC822'])
+switchCategory = 0
 for msgid, data in response.iteritems():
     emailUTF8 = data['RFC822'].encode('utf-8')
     msg = parser.parsestr(emailUTF8)
     #msg = sanitize.sanitize(msg)
     category = 3
-    body = extract_body_text(msg)
+    if switchCategory > 5:
+        category = 2
+    body = extract_body(msg)
     email = {'id': msgid, 'from': msg['From'], 'to': msg['To'], 'subject': msg['Subject'],
              'date': msg['Date'], 'cc': msg['CC'], 'category': category, 'read': False,
              'message': body, 'predicted': False, 'categorized': True} # TODO update this to False
@@ -83,5 +76,6 @@ for msgid, data in response.iteritems():
     rServer.zadd("mail:exxonvaldeez:inbox", emailJSON, msgid)
     rServer.sadd("mail:exxonvaldeez:%s" % str(category), msgid)
 
+    switchCategory += 1
     #print msg.keys()
 

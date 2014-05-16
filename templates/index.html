@@ -43,7 +43,7 @@
              <div class = "{{category.split ? 'from col-md-4 col-sm-4' : 'from col-md-2 col-sm-3'}} nopadding">{{email.fromName == '' ? email.fromEmail : email.fromName}}</div>
       			 <div class = "{{category.split ? 'col-md-8 col-sm-8 col-xs-12' : 'col-md-10 col-sm-9 col-xs-12'}} lopadding">
               <div class="subject">{{email.subject}}</div>
-      			  <div class = "snipit"><span class = "date">{{email.date}}</span> - {{email.message}}</div>
+      			  <div class = "snipit"><span class = "date">{{email.date}}</span> - {{email.snipit}}</div>
              </div>
             </div>
     		    <button class = "btn btn-default loadMore" ng-hide = "!filterEmails.length" ng-click = "addMore(category.id)">Load 10 More</button>

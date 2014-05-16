@@ -43,6 +43,8 @@ def retrain_models(username):
 	body_model.fit(b_train_x, b_train_y)
 	head_model.fit(h_train_x, h_train_y)
 
+        print("Finished training models for "+username+"...")
+
 	store_models(username, body_vec, body_model, head_vec, head_model)
 
 def store_object(object, filename):

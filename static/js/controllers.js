@@ -4,7 +4,7 @@
 
 var sigmaApp = angular.module('sigmaApp', []);
 
-sigmaApp.controller('EmailListCtrl', function($scope, Emails) {
+sigmaApp.controller('EmailListCtrl', function($scope, $http, Emails) {
   $scope.colors = ['#808080', '#1b6aa3', '#84cbc5', '#f8d35e', '#f47264', '#85e491', '#bd80b9', '#f9b588'];
   $scope.categories = [
   	{'id' : 1,
@@ -58,7 +58,7 @@ sigmaApp.controller('EmailListCtrl', function($scope, Emails) {
   $scope.viewingId = -1;
 
   $scope.emailsById = {};
-  
+
 	$scope.init = function() {
 		for (var i = 1; i <= $scope.numCat; i++) {
 			$('#cat' + i).attr('class', 'cat-bar');
@@ -86,7 +86,7 @@ sigmaApp.controller('EmailListCtrl', function($scope, Emails) {
 			$('#rc' + i).attr('class', 'hidden');
 		}
 	}
-	
+
 	$scope.AddCat = function() {
 		if ($scope.numCat != 8) {
 			if ($scope.numCat == 7) $('#addcat').attr('class', 'hidden');
@@ -98,7 +98,7 @@ sigmaApp.controller('EmailListCtrl', function($scope, Emails) {
 		}
 		$scope.init();
 	}
-	
+
 	$scope.RemoveCat = function(num) {
 		var temp = [];
 		for (var j = 0; j < num-1; j++) {
@@ -112,7 +112,7 @@ sigmaApp.controller('EmailListCtrl', function($scope, Emails) {
 		$scope.settings();
 		$scope.init();
 	}
-	
+
 	$scope.save = function() {
 		var num = $scope.numCat;
 		var copy = $scope.categories;
@@ -125,7 +125,7 @@ sigmaApp.controller('EmailListCtrl', function($scope, Emails) {
 				var split = 0;
 				if ($('#split' + i).prop("checked")) {
 					split = 1;
-				} 
+				}
 				var unread = Math.floor(Math.random() * 11);
 				var temp = {};
 				temp['id'] = i;
@@ -146,18 +146,18 @@ sigmaApp.controller('EmailListCtrl', function($scope, Emails) {
 		$('.category').css('width', percentage + '%');
 		$('.wrapper').attr('class', 'wrapper container-fluid');
 		$('.wrapper2').attr('class', 'wrapper2 container-fluid hidden');
-		
+
 		$('.one-box').on('scroll', function() {
 		  var newTop = $(this).scrollTop() + 5;
 		  $(this).children(".unread").css({top: newTop, position:'absolute'});
 		});
-		  
+
 		$('.two-box').on('scroll', function() {
 			  var newTop = $(this).scrollTop() + 5;
 			  $(this).children(".unread").css({top: newTop, position:'absolute'});
 		});
 	}
-	
+
 	$scope.settings = function() {
 		$('.wrapper').attr('class', 'wrapper container-fluid hidden');
 		$('.wrapper2').attr('class', 'wrapper2 container-fluid');
@@ -197,11 +197,11 @@ sigmaApp.controller('EmailListCtrl', function($scope, Emails) {
 		window.scrollTo(0, 0);
 	}
   }
-  
+
   $scope.addMore = function(categoryId) {
 	$scope.emails.nextByCategory(categoryId);
   }
-  
+
   $scope.categorize = function(categoryId, emailIds) {
     //move to next element before categorizing
 	if ($scope.selected != "") {
@@ -211,7 +211,7 @@ sigmaApp.controller('EmailListCtrl', function($scope, Emails) {
 			$scope.selected = temp;
 			$scope.selectedIds = [temp.attr('id')];
 			var top = temp.position().top - temp.parent().position().top;
-			if(top >= temp.parent().height()) {	
+			if(top >= temp.parent().height()) {
 				var dif = top - temp.parent().height();
 				temp.parent().scrollTop(temp.parent().scrollTop() + temp.height() + dif);
 			}
@@ -219,17 +219,26 @@ sigmaApp.controller('EmailListCtrl', function($scope, Emails) {
 		console.log($scope.emails.arr);
 		$.each(emailIds, function(i, id) {
 		  $.map($scope.emails.arr, function(obj, index) {
-			if(obj.id == id)
+			if(obj.id == id) {
+			  var elem = {"id" : id, "category" : categoryId};
+			  $http({
+					method: 'POST',
+					url: '/categorize_email',
+					data: elem
+				})
+				.success(function() {console.log("Successfully pushed category change");})
+				.error(function() {console.log("Didn't successfully pushed category change");});
 			  obj.category = categoryId;
+			 }
 		  });
 		});
 
-		
+
 		$scope.$apply();
 	}
   }
-  
-  
+
+
   jQuery(function($) {
 	$(document).ready(function(){
 		$(document.body).on('keyup', '.num-bar', function() {
@@ -244,22 +253,22 @@ sigmaApp.controller('EmailListCtrl', function($scope, Emails) {
 			$scope.init();
 		});
 	});
-	
+
 	$(document).keydown(function(e){
 		if (e.keyCode == 9) {
 			e.preventDefault();
 			if(! e.shiftKey) {
-				if ($scope.selectedCat == -1 || $scope.selectedCat == $scope.numCat) 
+				if ($scope.selectedCat == -1 || $scope.selectedCat == $scope.numCat)
 				  $scope.selectedCat = 1;
-				else 
+				else
 				  $scope.selectedCat ++;
 			} else {
-				if ($scope.selectedCat == -1 || $scope.selectedCat == 1) 
+				if ($scope.selectedCat == -1 || $scope.selectedCat == 1)
 				  $scope.selectedCat = $scope.numCat;
-				else 
+				else
 				  $scope.selectedCat --;
 			}
-			
+
 			temp = $("#" + $scope.selectedCat).children(".ind-email").first();
 			$scope.selected = temp;
 			$scope.selectedIds = [temp.attr('id')];
@@ -281,7 +290,7 @@ sigmaApp.controller('EmailListCtrl', function($scope, Emails) {
 				var cl = temp.attr("class");
 				if (typeof cl !== 'undefined' && cl !== false) {
 					$scope.selected = temp;
-					
+
           if(e.shiftKey) {
             $scope.selectedIds.push(temp.attr('id'));
           } else {
@@ -303,7 +312,7 @@ sigmaApp.controller('EmailListCtrl', function($scope, Emails) {
 				var cl = temp.attr("class");
 				if (typeof cl !== 'undefined' && cl !== false) {
 					$scope.selected = temp;
-					
+
           if(e.shiftKey) {
             $scope.selectedIds.push(temp.attr('id'));
           } else {
@@ -311,7 +320,7 @@ sigmaApp.controller('EmailListCtrl', function($scope, Emails) {
           }
 
 					var top = temp.position().top;
-					if(top >= temp.parent().height()) {	
+					if(top >= temp.parent().height()) {
 						var dif = top - temp.parent().height();
 						temp.parent().scrollTop(temp.parent().scrollTop() + temp.height() + dif);
 					}
@@ -324,10 +333,10 @@ sigmaApp.controller('EmailListCtrl', function($scope, Emails) {
          $scope.categorize(cat, $scope.selectedIds);
 		}
 	});
-	
+
 	$(document).on("click", ".ind-email", function(e) {
 		e.stopPropagation();
-		
+
 		if($scope.selectedIds.indexOf($(this).attr('id')) >= 0 && !e.shiftKey) {
 		  $scope.viewingId = $(this).attr('id');
 		  $scope.viewingEmail = null;
@@ -336,7 +345,7 @@ sigmaApp.controller('EmailListCtrl', function($scope, Emails) {
 			if(obj.id == $scope.viewingId)
 			  $scope.viewingEmail = obj;
 		  });
-		
+
 		  console.log($scope.viewingEmail);
 		  $scope.$apply();
 		}
@@ -357,11 +366,11 @@ sigmaApp.controller('EmailListCtrl', function($scope, Emails) {
 
 		$scope.$apply();
 	});
-	
+
 	$(document).on("click", ".category", function(e) {
 		e.stopPropagation();
 	});
-	
+
 	$(document).click(function() {
 		$scope.selected = "";
 		$scope.selectedIds = [];
@@ -371,7 +380,7 @@ sigmaApp.controller('EmailListCtrl', function($scope, Emails) {
 
 		$scope.$apply();
 	});
-	
+
 	$(document).delegate('.one-box', 'click', function (e) {
 		e.stopPropagation();
 		var offset = $(this).offset();
@@ -381,7 +390,7 @@ sigmaApp.controller('EmailListCtrl', function($scope, Emails) {
 			$scope.$apply();
 		}
 	});
-	
+
 	$(document).delegate('.two-box', 'click', function (e) {
 		e.stopPropagation();
 		var offset = $(this).offset();
@@ -391,18 +400,18 @@ sigmaApp.controller('EmailListCtrl', function($scope, Emails) {
 			$scope.$apply();
 		}
 	});
-	
+
 	$('.one-box').on('scroll', function() {
 		  var newTop = $(this).scrollTop() + 5;
 		  $(this).children(".unread").css({top: newTop, position:'absolute'});
 	});
-	  
+
 	$('.two-box').on('scroll', function() {
 		  var newTop = $(this).scrollTop() + 5;
 		  $(this).children(".unread").css({top: newTop, position:'absolute'});
     });
   });
-   
+
 });
 
 sigmaApp.factory('Emails', function($http) {
@@ -425,7 +434,7 @@ sigmaApp.factory('Emails', function($http) {
 			var day = moment(email.date, "ddd, DD MMM YYYY HH:mm:ss ZZ");
 			email.date = day.fromNow();
 			email.category = 1;
-			email.message = "PLACEHOLDER!!!";
+			email.snipit = email.message.substr(0, 200);
 			email.id = email.id.toString();
 			email.read = 1;
 			var from = email.from.replace(/"/g, "");
@@ -440,7 +449,7 @@ sigmaApp.factory('Emails', function($http) {
       this.busy = false;
     }.bind(this));
   };
-  
+
   Emails.prototype.nextByCategory = function(category) {
     if (this.busy) return;
     this.busy = true;
