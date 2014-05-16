@@ -1,5 +1,4 @@
 import cPickle as pickle
-#import os
 import numpy
 import redis
 import json
@@ -20,7 +19,7 @@ def retrieve_models(username):
 
 # TODO username MUST be only first part of email address <name> not
 # <name>@<host>
-def retreive_data_db(username):
+def retrieve_data_db(username):
     rServer = redis.Redis("localhost")
     mail = rServer.zrevrangebyscore('mail:%s:inbox' % username, "+inf", "-inf")
     # TODO do these need to be numpy arrays?
@@ -36,6 +35,7 @@ def retreive_data_db(username):
     body_x = []
     body_y = []
     body_y = numpy.array(body_y)
+
     head_x = []
     head_y = []
     head_y = numpy.array(head_y)
@@ -68,24 +68,3 @@ def retrieve_object(filename):
 		return contents
 	except IOError:
 		return []
-
-def retrieve_vocabulary(username):
-	try:
-		vocab_file = open('./'+username+'/vocab.pk1')
-		vocab = pickle.load(vocab_file)
-		vocab_file.close()
-	except IOError:
-		vocab = {'TOTAL_NUM_MESSAGES' : 0,
-					'TOTAL_NUM_WORDS' : 0}
-
-	return vocab
-
-def retrieve_contacts(username):
-	try:
-		contact_file = open('./'+username+'/contacts.pk1')
-		contacts = pickle.load(contact_file)
-		contact_file.close()
-	except IOError:
-		contacts = {'TOTAL_NUM_CONTACTS' : 0}
-
-	return contacts

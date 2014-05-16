@@ -39,7 +39,7 @@ def send_recent_email_json():
     import redis
     rServer = redis.Redis("localhost")
     #mail = rServer.zrevrangebyscore("mail:exxonvaldeez:inbox", "+inf", "-inf", 0, 10)
-    mail = rServer.zrevrangebyscore("mail:exxonvaldeez:inbox", "+inf", "-inf")
+    mail = rServer.zrevrangebyscore("mail:Davinci135:inbox", "+inf", "-inf")
     parsedMail = {}
     for email in mail:
         pMail = json.loads(email)

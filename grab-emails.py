@@ -53,15 +53,12 @@ args = parser.parse_args()
 UNAME_DEFAULT = 'exxonvaldeez@gmail.com'
 HOST = 'imap.gmail.com'
 USERNAME = UNAME_DEFAULT
-if args.username:
-    USERNAME = args.username
-if len(USERNAME) <= 0:
-   USERNAME = raw_input("Please enter the username for your Gmail account: ");
-PASSWORD = 'caOfdFiU0nzzsjx9LBnt'
+
 if args.password:
     PASSWORD = args.password
 else:
     PASSWORD = getpass.getpass("Please enter the password for the account {}@gmail.com: ".format(USERNAME));
+
 ssl = True
 
 server = IMAPClient(HOST, use_uid=True, ssl=ssl)
@@ -85,5 +82,6 @@ for msgid, data in response.iteritems():
     emailJSON = json.dumps(email, sort_keys=True, indent=4, separators=(',', ': '))
     rServer.zadd("mail:exxonvaldeez:inbox", emailJSON, msgid)
     rServer.sadd("mail:exxonvaldeez:%s" % str(category), msgid)
+
     #print msg.keys()
 

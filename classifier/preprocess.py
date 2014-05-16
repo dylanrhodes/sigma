@@ -88,6 +88,8 @@ def preprocess(text):
 	text = text.lower()
 	text = text.split()
 
+	#TODO: perform spellchecking
+
 	for word in text:
 		if len(word) > 15 or len(word) < 3:
 			text.remove(word)
@@ -96,10 +98,6 @@ def preprocess(text):
 	text = stem_words(text)
 
 	return ' '.join(text)
-
-	#remove number-only words
-	#remove especially common/uncommon words
-	#perform spellchecking
 
 def stem_words(text):
 	stemmer = stem.porter.PorterStemmer()
