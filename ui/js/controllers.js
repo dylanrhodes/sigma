@@ -428,6 +428,14 @@ sigmaApp.factory('Emails', function($http) {
 			email.message = "PLACEHOLDER!!!";
 			email.id = email.id.toString();
 			email.read = 1;
+			if (email.subject.indexOf("=?utf-8?Q?") > -1) {
+				email.subject = email.subject.substring(10).replace(/=/g,'%');
+				if (email.subject.indexOf("?") > -1) email.subject = email.subject.substring(0, email.subject.indexOf("?"));
+				email.subject = decodeURIComponent(email.subject);
+			}
+			// if (email.fromName.indexOf("=?utf-8?Q?") > -1) {
+				// email.fromName = decodeURIComponent(email.fromName.substring(10).replace(/=/g,'%'));
+			// }
 			this.arr.unshift(email);
 		}
 	  }
