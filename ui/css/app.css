@@ -195,16 +195,16 @@ button.loadMore {
 .unread {
 	position:absolute;
 	text-align: center;
-	line-height: 18px;
+	line-height: 16px;
 	border-radius: 50%;
 	color: #fff;
-	width: 18px;
-	height: 18px;
-	top: 2px;
-	right: 2px;
+	width: 16px;
+	height: 16px;
+	top: 3px;
+	right: 3px;
 	z-index: 5;
 	background: #fff;
-	font-size: 12px;
+	font-size: 10px;
 }
 
 .lopadding {
