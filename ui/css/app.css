@@ -156,7 +156,7 @@ button.loadMore {
 }
 
 .emails-area {
-	overflow: scroll;
+	overflow: auto;
 }
 
 .two-box {
@@ -173,10 +173,10 @@ button.loadMore {
 }
 
 .category-header {
-	padding: 5px;
-	padding-left: 10px;
+	padding: 3px;
+	padding-left: 8px;
 	color: #fff;
-	font-size: 14px;
+	font-size: 12px;
 	cursor: pointer;
 	/*font-weight: bold;*/
 }
@@ -189,8 +189,8 @@ button.loadMore {
 	color: #fff;
 	width: 20px;
 	height: 20px;
-	top: 5px;
-	right: 5px;
+	top: 1px;
+	right: 1px;
 	z-index: 5;
 	background: #fff;
 }
@@ -323,23 +323,26 @@ button.loadMore {
 	opacity: 1.0 !important;
 }
 
-.one-box::-webkit-scrollbar-track {
+.emails-area::-webkit-scrollbar-track,
+.message-view::-webkit-scrollbar-track {
 	-webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
 	border-radius: 10px;
 	background-color: #F5F5F5;
 }
 
-.one-box::-webkit-scrollbar {
+.emails-area::-webkit-scrollbar,
+.message-view::-webkit-scrollbar {
 	width: 6px;
 	background-color: #F5F5F5;
 }
 
-.one-box::-webkit-scrollbar-thumb {
+.emails-area::-webkit-scrollbar-thumb,
+.message-view::-webkit-scrollbar-thumb {
 	border-radius: 10px;
 	-webkit-box-shadow: inset 0 0 6px rgba(0,0,0,.3);
 	background-color: #AFAFAF;
 }
-
+/*
 .two-box::-webkit-scrollbar-track {
 	-webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
 	border-radius: 10px;
@@ -356,11 +359,14 @@ button.loadMore {
 	-webkit-box-shadow: inset 0 0 6px rgba(0,0,0,.3);
 	background-color: #AFAFAF;
 }
-
+*/
 
 .message-view {
 	border: 1px solid #eee;
-	overflow: scroll;
+	/*overflow-x: hidden;*/
+	/*overflow-y: scroll;*/
+	/*overflow: scroll;*/
+	overflow: auto;
 	padding: 10px;
 }
 

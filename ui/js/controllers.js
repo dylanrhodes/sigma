@@ -163,15 +163,16 @@ sigmaApp.controller('EmailListCtrl', function($scope, Emails) {
 		$('.wrapper').attr('class', 'wrapper container-fluid');
 		$('.wrapper2').attr('class', 'wrapper2 container-fluid hidden');
 		
-		$('.one-box').on('scroll', function() {
+		$('.emails-area').on('scroll', function() {
 		  var newTop = $(this).scrollTop() + 5;
 		  $(this).children(".unread").css({top: newTop, position:'absolute'});
 		});
-		  
+		  /*
 		$('.two-box').on('scroll', function() {
 			  var newTop = $(this).scrollTop() + 5;
 			  $(this).children(".unread").css({top: newTop, position:'absolute'});
 		});
+*/
 	}
 	
 	$scope.settings = function() {
@@ -352,7 +353,7 @@ sigmaApp.controller('EmailListCtrl', function($scope, Emails) {
 
 		  $scope.selectedIds = [];
 		  $scope.selected = null;
-		
+
 		  $scope.$apply();
 		  return;
 		}
@@ -410,15 +411,16 @@ sigmaApp.controller('EmailListCtrl', function($scope, Emails) {
 		}
 	});
 	
-	$('.one-box').on('scroll', function() {
+	$('.emails-area').on('scroll', function() {
 		  var newTop = $(this).scrollTop() + 5;
 		  $(this).children(".unread").css({top: newTop, position:'absolute'});
 	});
-	  
+	  /*
 	$('.two-box').on('scroll', function() {
 		  var newTop = $(this).scrollTop() + 5;
 		  $(this).children(".unread").css({top: newTop, position:'absolute'});
     });
+*/
   });
    
 });
