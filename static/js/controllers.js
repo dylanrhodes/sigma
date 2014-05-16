@@ -443,10 +443,14 @@ sigmaApp.factory('Emails', function($http) {
 			email.fromName = "";
 			if (start != 0) email.fromName = from.substring(0, start-1);
 			if (email.subject.indexOf("=?utf-8?Q?") > -1) {
-				email.subject = decodeURIComponent(email.subject.substring(10).replace(/=/g,'%'));
+				email.subject = email.subject.substring(10).replace(/=/g,'%');
+				if (email.subject.indexOf("?") > -1) email.subject = email.subject.substring(0, email.subject.indexOf("?"));
+				email.subject = decodeURIComponent(email.subject);
 			}
 			if (email.fromName.indexOf("=?utf-8?Q?") > -1) {
-				email.fromName = decodeURIComponent(email.fromName.substring(10).replace(/=/g,'%'));
+				email.fromName = email.fromName.substring(10).replace(/=/g,'%');
+				if (email.fromName.indexOf("?") > -1) email.fromName = email.fromName.substring(0, email.fromName.indexOf("?"));
+				email.fromName = decodeURIComponent(email.fromName);
 			}
 			this.arr.unshift(email);
 		}
