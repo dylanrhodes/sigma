@@ -425,6 +425,16 @@ input[type="text"], textarea {
 	width: 100%;
 }
 
+input[type="text"].cat-bar {
+	text-align: center;
+	display:inline-block;
+	border: 1px solid #eee;
+	border-radius: 3px;
+	padding: 5px;
+	padding-left: 8px;
+	width: 85%;
+}
+
 input[type="text"].num-bar {
 	width: 25%;
 	display:block;
