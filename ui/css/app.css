@@ -100,15 +100,26 @@ input[type="search"] {
 	margin-top: -10px;
 }
 
+
 .compose-a {
-	display:inline-block;
 	background:url("../images/compose-icon.png");
+}
+
+.reply-a {
+	background:url("../images/compose-icon.png");
+}
+
+
+.compose-a,
+.reply-a {
+	display:inline-block;
 	width:82px;
 	height:35px;
 	background-size:100% auto;
 	background-repeat: no-repeat;
 	opacity:0.8;
 }
+
 
 .compose-a:hover {
 	opacity: 1.0;
@@ -174,7 +185,7 @@ button.loadMore {
 
 .category-header {
 	padding: 3px;
-	padding-left: 8px;
+	padding-left: 10px;
 	color: #fff;
 	font-size: 12px;
 	cursor: pointer;

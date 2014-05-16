@@ -196,19 +196,22 @@ sigmaApp.controller('EmailListCtrl', function($scope, Emails) {
 		$scope.focusedCategory = '';
 
 		/* can be optionally passed in an email object as the first argument */
-		// if(arguments.length > 0) {
-		// 	console.log(arguments[0]);
-		// }
+		if(arguments.length > 0) {
+			console.log(arguments[0]);
+		}
 	}
 
   $scope.focusCategory = function(categoryId) {
   	$scope.viewingEmail = null;
   	$scope.composingEmail = false;
-  	console.log($scope.composingEmail);
-  	$scope.focusedCategory = categoryId;
-  	if(categoryId && categoryId != ''){
-  		$scope.emails.nextByCategory(categoryId);
-  	}
+  	if($scope.focusedCategory == categoryId)
+  		$scope.focusedCategory = '';
+  	else {
+	  	$scope.focusedCategory = categoryId;
+	  	if(categoryId && categoryId != ''){
+	  		$scope.emails.nextByCategory(categoryId);
+	  	}
+	}
   }
   
   $scope.addMore = function(categoryId) {
