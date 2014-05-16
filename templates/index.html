@@ -21,11 +21,12 @@
 <body ng-controller="EmailListCtrl">
   <div class="wrapper container-fluid">
     <div class="control-bar row">
-      <div class="control-bar-title col-sm-4 hidden-xs" ng-click="focusCategory('', 0)">
+      <div class="control-bar-title col-sm-4 hidden-xs" ng-click="focusCategory('')">
         <img src="{{ url_for('static', filename='images/logo-1.png') }}" />
       </div>
       <div class="control-bar-compose col-sm-4 hidden-xs">
         <a href="#" class="compose-a"></a>
+		 <a href="#" class="reply-a {{viewingEmail ? '' : 'hidden'}}" ng-click="compose(viewingEmail)"></a>
       </div>
       <div class="control-bar-search col-sm-3 col-xs-11">
         <input type="search" placeholder="Search" ng-model="search" />
@@ -34,22 +35,27 @@
         <a class="settings-a" ng-click="settings()"><img src = "{{ url_for('static', filename='images/gear.png') }}" /></a>
       </div>
     </div>
-    <div class="view-area row">
 {% raw %}
-      <div class="inbox {{viewingId == -1 ? 'col-xs-12' : 'col-xs-4' }}">
-        <div ng-repeat="category in categories | filter:{id:focusedCategory}" ng-init="$scope.focusedCategory = 0" class = "{{category.split ? 'two-box' : 'one-box'}}" style = "height: {{category.emails*42}}px; border-color: {{category.color}};" id="{{category.id}}">
-        	<div class="unread {{category.unread ? '' : 'hidden'}}" style = "background-color: {{category.color}};">{{category.unread}}</div>
-            <div class="row ind-email {{email.read ? 'read' : ''}} {{ selectedIds.indexOf(email.id) >= 0 ? 'selected-email' : '' }}" id = "{{email.id}}" ng-repeat="email in filterEmails = (emails.arr | filter:{category:category.id} | filter:search)">
-             <div class = "{{category.split ? 'from col-md-4 col-sm-4' : 'from col-md-2 col-sm-3'}} nopadding">{{email.fromName == '' ? email.fromEmail : email.fromName}}</div>
-      			 <div class = "{{category.split ? 'col-md-8 col-sm-8 col-xs-12' : 'col-md-10 col-sm-9 col-xs-12'}} lopadding">
-              <div class="subject">{{email.subject}}</div>
-      			  <div class = "snipit"><span class = "date">{{email.date}}</span> - {{email.snipit}}</div>
-             </div>
-            </div>
-    		    <button class = "btn btn-default loadMore" ng-hide = "!filterEmails.length" ng-click = "addMore(category.id)">Load 10 More</button>
+     <div class="view-area row {{viewingEmail ? 'email-open' : ''}}">
+      <div class="inbox {{viewingEmail || composingEmail ? 'col-xs-4' : 'col-xs-12' }}">
+        <div ng-repeat="category in categories" ng-init="$scope.focusedCategory = 0" class = "{{viewingEmail || focusedCategory != '' || composingEmail ? 'one-box' : category.split ? 'two-box' : 'one-box'}} {{ viewingEmail && viewingEmail.category != category.id ? 'hidden' : '' }} {{ focusedCategory && focusedCategory != '' && focusedCategory != category.id ? 'hidden' : '' }}" style = "border-color: {{category.color}};" id="{{category.id}}">
+        	<div class="category-header" style = "background-color: {{category.color}};">
+        		{{category.name}}
+        	</div>
+        	<div class="unread {{category.unread ? '' : 'hidden'}}" style = "color: {{category.color}};">{{category.unread}}</div>
+        	<div class="emails-area" style = "height: {{viewingEmail || focusedCategory == category.id ? windowHeight - 121 : category.emails*42}}px;">
+	            <div class="row ind-email {{email.read ? 'read' : ''}} {{ selectedIds.indexOf(email.id) >= 0 ? 'selected-email' : '' }}" id = "{{email.id}}" ng-repeat="email in filterEmails = (emails.arr | filter:{category:category.id} | filter:search)">
+	             <div class = "{{viewingEmail ? 'col-xs-12' : category.split ? 'col-md-4 col-sm-4' : 'from col-md-2 col-sm-3'}} nopadding from">{{email.from}}</div>
+	      			 <div class = "{{viewingEmail ? 'col-xs-12' : category.split ? 'col-md-8 col-sm-8 col-xs-12' : 'col-md-10 col-sm-9 col-xs-12'}} lopadding">
+	              <div class="subject">{{email.subject}}</div>
+	      			  <div class = "snipit"><span class = "date">{{email.date}}</span> - {{email.snippet}}</div>
+	             </div>
+	            </div>
+	    		    <button class = "btn btn-default loadMore" ng-hide = "!filterEmails.length" ng-click = "addMore(category.id)">Load 10 More</button>
+	    	</div>
         </div>
       </div>
-      <div class="message-view {{viewingEmail ? 'col-xs-8' : 'hidden'}}">
+      <div class="message-view {{viewingEmail ? 'col-xs-8' : 'hidden'}}" style="height: {{ windowHeight - 96}}px; border-color: {{viewingEmail ? categories[viewingEmail.category - 1].color : '#ddd' }}">
         <div class="message-subject">
           {{viewingEmail.subject}}
         </div>
@@ -65,10 +71,23 @@
           {{viewingEmail.message}}
         </div>
       </div>
+
+      <div class="compose-view {{composingEmail ? 'col-xs-8' : 'hidden'}}" style="height: {{ windowHeight - 96}}px;">
+        <div class="message-subject">
+          <input type="text" id="compose-subject" placeholder="Subject" />
+        </div>
+        <div class="message-to">
+          <input type="text" id="compose-to" placeholder="To" />
+        </div>
+        <div class="message-body">
+          <textarea id="compose-body" placeholder="Message" style="height: {{ windowHeight - 230}}px;"
+          ></textarea>
+        </div>
+      </div>
     </div>
   </div>
-  <div class="category-bar {{ selectedIds.length == 0 ? 'hidden' : ''  }}">
-    <div ng-repeat="category in categories" class="category {{category.class}} {{category.id == focusedCategory ? 'category-selected' : ''}}" style="background-color: {{category.color}};" ng-click="categorize(category.id, selectedIds)">
+  <div class="category-bar {{ selectedIds.length > 0 || viewingEmail ? '' : 'hidden' }}">
+    <div ng-repeat="category in categories" class="category {{category.class}} {{categoryIsSelected(category.id) ? 'category-selected' : ''}}" style="background-color: {{category.color}};" ng-click="categorize(category.id)">
       <span class="category-id">{{category.id}}</span> {{category.name}}
     </div>
   </div>
