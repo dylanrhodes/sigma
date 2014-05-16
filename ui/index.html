@@ -25,7 +25,8 @@
         <img src="images/logo-1.png" />
       </div>
       <div class="control-bar-compose col-sm-4 hidden-xs">
-        <a href="#" class="compose-a"></a>
+        <a href="#" class="compose-a" ng-click="compose()"></a>
+        <!-- <a href="#" class="reply-a" ng-click="compose(viewingEmail)"></a> -->
       </div>
       <div class="control-bar-search col-sm-3 col-xs-11">
         <input type="search" placeholder="Search" ng-model="search" />
@@ -35,8 +36,8 @@
       </div>
     </div>
     <div class="view-area row {{viewingEmail ? 'email-open' : ''}}">
-      <div class="inbox {{viewingEmail ? 'col-xs-4' : 'col-xs-12' }}">
-        <div ng-repeat="category in categories" ng-init="$scope.focusedCategory = 0" class = "{{viewingEmail || focusedCategory != '' ? 'one-box' : category.split ? 'two-box' : 'one-box'}} {{ viewingEmail && viewingEmail.category != category.id ? 'hidden' : '' }} {{ focusedCategory && focusedCategory != '' && focusedCategory != category.id ? 'hidden' : '' }}" style = "border-color: {{category.color}};" id="{{category.id}}">
+      <div class="inbox {{viewingEmail || composingEmail ? 'col-xs-4' : 'col-xs-12' }}">
+        <div ng-repeat="category in categories" ng-init="$scope.focusedCategory = 0" class = "{{viewingEmail || focusedCategory != '' || composingEmail ? 'one-box' : category.split ? 'two-box' : 'one-box'}} {{ viewingEmail && viewingEmail.category != category.id ? 'hidden' : '' }} {{ focusedCategory && focusedCategory != '' && focusedCategory != category.id ? 'hidden' : '' }}" style = "border-color: {{category.color}};" id="{{category.id}}">
         	<div class="category-header" style = "background-color: {{category.color}};">
         		{{category.name}}
         	</div>
@@ -67,6 +68,18 @@
         </div>
         <div class="message-body">
           {{viewingEmail.message}}
+        </div>
+      </div>
+
+      <div class="compose-view {{composingEmail ? 'col-xs-8' : 'hidden'}}" style="height: {{ windowHeight - 96}}px;">
+        <div class="message-subject">
+          <input type="text" id="compose-subject" placeholder="Subject" />
+        </div>
+        <div class="message-to">
+          <input type="text" id="compose-to" placeholder="To" />
+        </div>
+        <div class="message-body">
+          <textarea id="compose-body" placeholder="Message"></textarea>
         </div>
       </div>
     </div>

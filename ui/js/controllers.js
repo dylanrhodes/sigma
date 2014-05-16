@@ -53,6 +53,9 @@ sigmaApp.controller('EmailListCtrl', function($scope, Emails) {
   $scope.numCat = $scope.categories.length;
   $scope.oldColor = "";
   $scope.sigma_img_tag = "<img src='images/sigma.png' />";
+  $scope.composingEmail = false;
+
+  $scope.user = { email : "skywalker@sigma.com" }
 
   // $scope.viewingId = -1;
 
@@ -187,8 +190,21 @@ sigmaApp.controller('EmailListCtrl', function($scope, Emails) {
 		$scope.init();
 	}
 
+	$scope.compose = function() {
+		$scope.composingEmail = true;
+		$scope.viewingEmail = null;
+		$scope.focusedCategory = '';
+
+		/* can be optionally passed in an email object as the first argument */
+		// if(arguments.length > 0) {
+		// 	console.log(arguments[0]);
+		// }
+	}
+
   $scope.focusCategory = function(categoryId) {
   	$scope.viewingEmail = null;
+  	$scope.composingEmail = false;
+  	console.log($scope.composingEmail);
   	$scope.focusedCategory = categoryId;
   	if(categoryId && categoryId != ''){
   		$scope.emails.nextByCategory(categoryId);
@@ -348,6 +364,7 @@ sigmaApp.controller('EmailListCtrl', function($scope, Emails) {
 		  $.map($scope.emails.arr, function(obj) {
 			if(obj.id == target_id) {
 			  $scope.viewingEmail = obj;
+			  obj.read = 1;
 			}
 		  });
 

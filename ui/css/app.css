@@ -184,15 +184,16 @@ button.loadMore {
 .unread {
 	position:absolute;
 	text-align: center;
-	line-height: 20px;
+	line-height: 18px;
 	border-radius: 50%;
 	color: #fff;
-	width: 20px;
-	height: 20px;
-	top: 1px;
-	right: 1px;
+	width: 18px;
+	height: 18px;
+	top: 2px;
+	right: 2px;
 	z-index: 5;
 	background: #fff;
+	font-size: 12px;
 }
 
 .lopadding {
@@ -361,13 +362,20 @@ button.loadMore {
 }
 */
 
-.message-view {
+.message-view,
+.compose-view {
 	border: 1px solid #eee;
 	/*overflow-x: hidden;*/
 	/*overflow-y: scroll;*/
 	/*overflow: scroll;*/
 	overflow: auto;
 	padding: 10px;
+}
+
+.compose-view input[type="text"],
+.compose-view textarea {
+	text-align: left;
+	outline: none;
 }
 
 .message-subject {
@@ -396,14 +404,14 @@ button.loadMore {
 
 /*CSS for settings.html*/
 
-input[type="text"] {
+input[type="text"], textarea {
 	text-align: center;
 	display:inline-block;
 	border: 1px solid #eee;
 	border-radius: 3px;
 	padding: 5px;
 	padding-left: 8px;
-	width: 85%;
+	width: 100%;
 }
 
 input[type="text"].num-bar {
