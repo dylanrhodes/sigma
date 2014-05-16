@@ -44,7 +44,7 @@
         	<div class="unread {{category.unread ? '' : 'hidden'}}" style = "color: {{category.color}};">{{category.unread}}</div>
         	<div class="emails-area" style = "height: {{viewingEmail || focusedCategory == category.id ? windowHeight - 121 : category.emails*42}}px;">
 	            <div class="row ind-email {{email.read ? 'read' : ''}} {{ selectedIds.indexOf(email.id) >= 0 ? 'selected-email' : '' }}" id = "{{email.id}}" ng-repeat="email in filterEmails = (emails.arr | filter:{category:category.id} | filter:search)">
-	             <div class = "{{viewingEmail ? 'col-xs-12' : category.split ? 'col-md-4 col-sm-4' : 'from col-md-2 col-sm-3'}} nopadding from">{{email.from}}</div>
+	             <div class = "{{viewingEmail ? 'col-xs-12' : category.split ? 'col-md-4 col-sm-4' : 'from col-md-2 col-sm-3'}} nopadding from">{{email.fromName == '' ? email.fromEmail : email.fromName}}</div>
 	      			 <div class = "{{viewingEmail ? 'col-xs-12' : category.split ? 'col-md-8 col-sm-8 col-xs-12' : 'col-md-10 col-sm-9 col-xs-12'}} lopadding">
 	              <div class="subject">{{email.subject}}</div>
 	      			  <div class = "snipit"><span class = "date">{{email.date}}</span> - {{email.snippet}}</div>

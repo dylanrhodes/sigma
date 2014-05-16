@@ -463,18 +463,31 @@ sigmaApp.factory('Emails', function($http) {
     this.busy = true;
     var url = "http://sigma.jmvldz.com/get_emails?callback=JSON_CALLBACK";
     $http.jsonp(url).success(function(data) {
-	  // console.log("SUCCESS");
+	  console.log("SUCCESS");
 	  for (var key in data) {
 		if(data.hasOwnProperty(key)) {
 			var email = data[key];
 			var day = moment(email.date, "ddd, DD MMM YYYY HH:mm:ss ZZ");
-			email.true_date = day.format('MMMM Do YYYY, h:mm:ssa');;
 			email.date = day.fromNow();
-			email.category = 1;
-			// email.message = "PLACEHOLDER!!!";
 			email.snippet = email.message.substr(0, 200);
 			email.id = email.id.toString();
 			email.read = 1;
+			var from = email.from.replace(/"/g, "");
+			var start = from.indexOf("<");
+			var end = from.indexOf(">");
+			email.fromEmail = from.substring(start + 1, end);
+			email.fromName = "";
+			if (start != 0) email.fromName = from.substring(0, start-1);
+			if (email.subject.indexOf("=?utf-8?Q?") > -1) {
+				email.subject = email.subject.substring(10).replace(/=/g,'%');
+				if (email.subject.indexOf("?") > -1) email.subject = email.subject.substring(0, email.subject.indexOf("?"));
+				email.subject = decodeURIComponent(email.subject);
+			}
+			if (email.fromName.indexOf("=?utf-8?Q?") > -1) {
+				email.fromName = email.fromName.substring(10).replace(/=/g,'%');
+				if (email.fromName.indexOf("?") > -1) email.fromName = email.fromName.substring(0, email.fromName.indexOf("?"));
+				email.fromName = decodeURIComponent(email.fromName);
+			}
 			this.arr.unshift(email);
 		}
 	  }
