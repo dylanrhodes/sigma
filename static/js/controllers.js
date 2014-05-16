@@ -469,7 +469,7 @@ sigmaApp.factory('Emails', function($http) {
 			var email = data[key];
 			var day = moment(email.date, "ddd, DD MMM YYYY HH:mm:ss ZZ");
 			email.date = day.fromNow();
-			email.snipit = email.message.substr(0, 200);
+			email.snippet = email.message.substr(0, 200);
 			email.id = email.id.toString();
 			email.read = 1;
 			var from = email.from.replace(/"/g, "");
