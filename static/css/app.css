@@ -159,7 +159,7 @@ button.loadMore {
 	width: 98%;
 	margin: 0 1%;
 	/*height: 210px;*/
-	border: 1px solid #eee;
+	border: 2px solid #eee;
 	/*border-right: 2px solid #eee;*/
 	border-left-style: solid;
 	/*border-left-width: 7px;*/
@@ -177,7 +177,7 @@ button.loadMore {
 	margin: 0 1% 10px 1%;
 	display: inline-block;
 	/*height: 210px;*/
-	border: 1px solid #eee;
+	border: 2px solid #eee;
 	/*border-right: 2px solid #eee;*/
 	border-left-style: solid;
 	/*border-left-width: 7px;*/
@@ -375,12 +375,15 @@ button.loadMore {
 
 .message-view,
 .compose-view {
-	border: 1px solid #eee;
+	border: 2px solid #eee;
 	/*overflow-x: hidden;*/
 	/*overflow-y: scroll;*/
 	/*overflow: scroll;*/
+	width: 100%;
 	overflow: auto;
-	padding: 10px;
+	padding: 0 20px;
+	margin-right: 1%;
+	margin-left: -2%;
 }
 
 .compose-view input[type="text"],
@@ -390,8 +393,8 @@ button.loadMore {
 }
 
 .message-subject {
-	font-size: 27px;
-	padding-bottom: 10px;
+	font-weight: bold;
+	font-size: 22px;
 }
 
 .message-from {
@@ -405,6 +408,7 @@ button.loadMore {
 
 .message-body {
 	white-space: pre-line;
+	word-break: break-all;
 	/*height: 100%;
 	overflow: scroll;*/
 }

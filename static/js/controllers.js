@@ -283,40 +283,42 @@ sigmaApp.controller('EmailListCtrl', function($scope, Emails) {
 	$(document).keydown(function(e){
 		if (e.keyCode == 9) {
 			e.preventDefault();
-			if($scope.selected && $scope.selected != "") {
-				$.map($scope.emails.arr, function(e) {
-					if(e.id == $scope.selected.attr('id')) {
-						console.log("1");
-						$scope.selectedCat = e.category;
-					}
-				})
+			if (viewingEmail == null) {
+				if($scope.selected && $scope.selected != "") {
+					$.map($scope.emails.arr, function(e) {
+						if(e.id == $scope.selected.attr('id')) {
+							console.log("1");
+							$scope.selectedCat = e.category;
+						}
+					})
+				}
+				if(! e.shiftKey) {
+					if ($scope.selectedCat == -1 || $scope.selectedCat == $scope.numCat) 
+					  $scope.selectedCat = 1;
+					else 
+					  $scope.selectedCat ++;
+				} else {
+					if ($scope.selectedCat == -1 || $scope.selectedCat == 1) 
+					  $scope.selectedCat = $scope.numCat;
+					else 
+					  $scope.selectedCat --;
+				}
+				
+				temp = $("#" + $scope.selectedCat).find(".ind-email").first();
+				console.log($("#" + $scope.selectedCat).find(".ind-email"));
+				$scope.selected = temp;
+				$scope.selectedIds = [temp.attr('id')];
+				$scope.$apply();
+				$("#" + $scope.selectedCat).scrollTop(0);
+				var level = $("#" + $scope.selectedCat).offset().top - $('.control-bar').outerHeight(); //subtract header size
+				window.scrollTo(0, level);
+				$('.category-bar').children().each(function(i) {
+					var cat = parseInt($scope.selected.parent().attr('id'));
+					$scope.selectedCat = cat;
+					// if ((i+1) != cat) $(this).css('opacity', .6);
+					// else $(this).css('opacity', 1);
+				});
 			}
-			if(! e.shiftKey) {
-				if ($scope.selectedCat == -1 || $scope.selectedCat == $scope.numCat) 
-				  $scope.selectedCat = 1;
-				else 
-				  $scope.selectedCat ++;
-			} else {
-				if ($scope.selectedCat == -1 || $scope.selectedCat == 1) 
-				  $scope.selectedCat = $scope.numCat;
-				else 
-				  $scope.selectedCat --;
-			}
-			
-			temp = $("#" + $scope.selectedCat).find(".ind-email").first();
-			console.log($("#" + $scope.selectedCat).find(".ind-email"));
-			$scope.selected = temp;
-			$scope.selectedIds = [temp.attr('id')];
-			$scope.$apply();
-			$("#" + $scope.selectedCat).scrollTop(0);
-			var level = $("#" + $scope.selectedCat).offset().top - $('.control-bar').outerHeight(); //subtract header size
-			window.scrollTo(0, level);
-			$('.category-bar').children().each(function(i) {
-				var cat = parseInt($scope.selected.parent().attr('id'));
-				$scope.selectedCat = cat;
-				// if ((i+1) != cat) $(this).css('opacity', .6);
-				// else $(this).css('opacity', 1);
-			});
 		}
 		if (e.keyCode == 38) { //down
 			if ($scope.selected != "") {
@@ -336,6 +338,19 @@ sigmaApp.controller('EmailListCtrl', function($scope, Emails) {
 					if(top < 0) {
 						temp.parent().scrollTop(temp.parent().scrollTop() + top);
 					}
+					if ($scope.viewingEmail != null) {
+						 var target_id = temp.attr('id');
+						  // TODO replace this search with a direct hash look-up
+						  $.map($scope.emails.arr, function(obj) {
+							if(obj.id == target_id) {
+							  $scope.viewingEmail = obj;
+							  obj.read = 1;
+							}
+						  });
+
+						  $scope.selectedIds = [target_id];
+						  $scope.selected = temp;
+					}
 				}
 			}
 			$scope.$apply();
@@ -348,16 +363,29 @@ sigmaApp.controller('EmailListCtrl', function($scope, Emails) {
 				if (typeof cl !== 'undefined' && cl !== false) {
 					$scope.selected = temp;
 					
-          if(e.shiftKey) {
-            $scope.selectedIds.push(temp.attr('id'));
-          } else {
-            $scope.selectedIds = [temp.attr('id')];
-          }
+					  if(e.shiftKey) {
+						$scope.selectedIds.push(temp.attr('id'));
+					  } else {
+						$scope.selectedIds = [temp.attr('id')];
+					  }
 
 					var top = temp.position().top;
 					if(top >= temp.parent().height()) {	
 						var dif = top - temp.parent().height();
 						temp.parent().scrollTop(temp.parent().scrollTop() + temp.height() + dif);
+					}
+					if ($scope.viewingEmail != null) {
+						 var target_id = temp.attr('id');
+						  // TODO replace this search with a direct hash look-up
+						  $.map($scope.emails.arr, function(obj) {
+							if(obj.id == target_id) {
+							  $scope.viewingEmail = obj;
+							  obj.read = 1;
+							}
+						  });
+
+						  $scope.selectedIds = [target_id];
+						  $scope.selected = temp;
 					}
 				}
 			}
@@ -385,18 +413,32 @@ sigmaApp.controller('EmailListCtrl', function($scope, Emails) {
 			}
 		  });
 
-		  $scope.selectedIds = [];
-		  $scope.selected = null;
+		  $scope.selectedIds = [target_id];
+		  $scope.selected = $(this);
 
 		  $scope.$apply();
 		  return;
 		}
+		
 
 			$scope.selected = $(this);
 			if(e.shiftKey) {
 			  $scope.selectedIds.push($(this).attr('id'));
 			} else {
 			  $scope.selectedIds = [$(this).attr('id')];
+			}
+			if ($scope.viewingEmail != null) {
+				 var target_id = $(this).attr('id');
+				  // TODO replace this search with a direct hash look-up
+				  $.map($scope.emails.arr, function(obj) {
+					if(obj.id == target_id) {
+					  $scope.viewingEmail = obj;
+					  obj.read = 1;
+					}
+				  });
+
+				  $scope.selectedIds = [target_id];
+				  $scope.selected = $(this);
 			}
 		$scope.$apply();
 	});

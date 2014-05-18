@@ -40,7 +40,7 @@
 {% raw %}
      <div class="view-area row {{viewingEmail ? 'email-open' : ''}}">
       <div class="inbox {{viewingEmail || composingEmail ? 'col-xs-4' : 'col-xs-12' }}">
-        <div ng-repeat="category in categories" ng-init="$scope.focusedCategory = 0" class = "{{viewingEmail || focusedCategory != '' || composingEmail ? 'one-box' : category.split ? 'two-box' : 'one-box'}} {{ viewingEmail && viewingEmail.category != category.id ? 'hidden' : '' }} {{ focusedCategory && focusedCategory != '' && focusedCategory != category.id ? 'hidden' : '' }}" style = "border-color: {{category.color}};" id="{{category.id}}">
+        <div ng-repeat="category in categories" ng-init="$scope.focusedCategory = 0" class = "{{viewingEmail || focusedCategory != '' || composingEmail ? 'one-box' : category.split ? 'two-box' : 'one-box'}} {{ viewingEmail && viewingEmail.category != category.id ? 'hidden' : '' }} {{ focusedCategory && focusedCategory != '' && focusedCategory != category.id ? 'hidden' : '' }}" style = "{{viewingEmail ? 'margin-right: 0;' : ''}} border-color: {{category.color}};" id="{{category.id}}">
         	<div class="category-header" style = "background-color: {{category.color}};">
         		{{category.name}}
         	</div>
@@ -49,16 +49,17 @@
 	            <div class="row ind-email {{email.read ? 'read' : ''}} {{ selectedIds.indexOf(email.id) >= 0 ? 'selected-email' : '' }}" id = "{{email.id}}" ng-repeat="email in filterEmails = (emails.arr | filter:{category:category.id} | filter:search)">
 	             <div class = "{{viewingEmail ? 'col-xs-12' : category.split ? 'col-md-4 col-sm-4' : 'from col-md-2 col-sm-3'}} nopadding from">{{email.fromName == '' ? email.fromEmail : email.fromName}}</div>
 	      			 <div class = "{{viewingEmail ? 'col-xs-12' : category.split ? 'col-md-8 col-sm-8 col-xs-12' : 'col-md-10 col-sm-9 col-xs-12'}} lopadding">
-	              <div class="subject">{{email.subject}}</div>
-	      			  <div class = "snipit"><span class = "date">{{email.date}}</span> - {{email.snippet}}</div>
+	              <div class="subject" style="{{viewingEmail ? 'font-size: 100%' : ''}}">{{email.subject}}</div>
+	      			  <div class = "snipit" style="{{viewingEmail ? 'font-size: 70%' : ''}}"><span class = "date">{{email.date}}</span> - {{email.snippet}}</div>
 	             </div>
 	            </div>
 	    		    <button class = "btn btn-default loadMore" ng-hide = "!filterEmails.length" ng-click = "addMore(category.id)">Load 10 More</button>
 	    	</div>
         </div>
       </div>
-      <div class="message-view {{viewingEmail ? 'col-xs-8' : 'hidden'}}" style="height: {{ windowHeight - 96}}px; border-color: {{viewingEmail ? categories[viewingEmail.category - 1].color : '#ddd' }}">
-        <div class="message-subject">
+      <div class="message-container {{viewingEmail ? 'col-xs-8' : 'hidden'}}">
+        <div class="message-view" style="height: {{ windowHeight - 94}}px; border-color: {{viewingEmail ? categories[viewingEmail.category - 1].color : '#ddd' }}">
+		<div class="message-subject">
           {{viewingEmail.subject}}
         </div>
         <div class="message-from">
@@ -72,6 +73,7 @@
         <div class="message-body">
           {{viewingEmail.message}}
         </div>
+		</div>
       </div>
 
       <div class="compose-view {{composingEmail ? 'col-xs-8' : 'hidden'}}" style="height: {{ windowHeight - 96}}px;">
