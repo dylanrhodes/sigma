@@ -8,6 +8,7 @@ body {
   padding-top: 60px;
   font-family: 'Open Sans', sans-serif;
   text-align: center;
+  color: #424242;
 }
 
 a {
@@ -431,6 +432,7 @@ button.loadMore {
 }
 
 .message-subject {
+	color: #424242;
 	padding: 10px 20px;
 	font-size: 22px;
 }
