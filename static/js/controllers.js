@@ -529,6 +529,12 @@ sigmaApp.factory('Emails', function($http) {
 			email.fromEmail = from.substring(start + 1, end);
 			email.fromName = "";
 			if (start != 0) email.fromName = from.substring(0, start-1);
+			var to = email.to.replace(/"/g, "");
+			var start = to.indexOf("<");
+			var end = to.indexOf(">");
+			email.toEmail = to.substring(start + 1, end);
+			email.toName = "";
+			if (start != 0) email.toName = to.substring(0, start-1);
 			if (email.subject.indexOf("=?utf-8?Q?") > -1) {
 				email.subject = email.subject.substring(10).replace(/=/g,'%');
 				if (email.subject.indexOf("?") > -1) email.subject = email.subject.substring(0, email.subject.indexOf("?"));

@@ -26,8 +26,7 @@
       </div>
 {% raw %}
       <div class="control-bar-compose col-sm-4 hidden-xs">
-        <a href="#" class="compose-a"></a>
-		 <a href="#" class="reply-a {{viewingEmail ? '' : 'hidden'}}" ng-click="compose(viewingEmail)"></a>
+        <a href="#" class="compose-a" ng-click="compose()"></a>
       </div>
       <div class="control-bar-search col-sm-3 col-xs-11">
         <input type="search" placeholder="Search" ng-model="search" />
@@ -39,8 +38,8 @@
     </div>
 {% raw %}
      <div class="view-area row {{viewingEmail ? 'email-open' : ''}}">
-      <div class="inbox {{viewingEmail || composingEmail ? 'col-xs-4' : 'col-xs-12' }}">
-        <div ng-repeat="category in categories" ng-init="$scope.focusedCategory = 0" class = "{{viewingEmail || focusedCategory != '' || composingEmail ? 'one-box' : category.split ? 'two-box' : 'one-box'}} {{ viewingEmail && viewingEmail.category != category.id ? 'hidden' : '' }} {{ focusedCategory && focusedCategory != '' && focusedCategory != category.id ? 'hidden' : '' }}" style = "{{viewingEmail ? 'margin-right: 0;' : ''}} border-color: {{category.color}};" id="{{category.id}}">
+      <div class="inbox {{viewingEmail || composingEmail ? 'col-xs-4' : 'col-xs-12' }} {{viewingEmail || composingEmail ? 'bootpadding-right' : ''}}">
+        <div ng-repeat="category in categories" ng-init="$scope.focusedCategory = 0" class = "{{viewingEmail || focusedCategory != '' || composingEmail ? 'one-box' : category.split ? 'two-box' : 'one-box'}} {{ viewingEmail && viewingEmail.category != category.id ? 'hidden' : '' }} {{ focusedCategory && focusedCategory != '' && focusedCategory != category.id ? 'hidden' : '' }}" style = "border-color: {{category.color}};" id="{{category.id}}">
         	<div class="category-header" style = "background-color: {{category.color}};">
         		{{category.name}}
         	</div>
@@ -59,31 +58,45 @@
       </div>
       <div class="message-container {{viewingEmail ? 'col-xs-8' : 'hidden'}}">
         <div class="message-view" style="height: {{ windowHeight - 94}}px; border-color: {{viewingEmail ? categories[viewingEmail.category - 1].color : '#ddd' }}">
-		<div class="message-subject">
-          {{viewingEmail.subject}}
-        </div>
-        <div class="message-from">
-          {{viewingEmail.from}}
-        </div>
-        <div class="message-date">
-          <span class="date">
-            {{viewingEmail.date}}
-          </span>
-        </div>
-        <div class="message-body">
-          {{viewingEmail.message}}
-        </div>
+			<div class="row message-header">
+				<div class="message-subject col-xs-10">
+				  {{viewingEmail.subject}}
+				</div>
+				<div class="message-buttons col-xs-2">
+{% endraw %}
+					<img class="email-button" src = "{{ url_for('static', filename='images/trash-email.png') }}" border="0" ng-click="categorize(-1)" /><img class="email-button" src = "{{ url_for('static', filename='images/close-email.png') }}" border="0" ng-click="focusCategory('')" />
+{% raw %}				
+				</div>
+			</div>
+			<div class="row message-header-2">
+				<div class="message-from col-xs-8">
+				  {{viewingEmail.fromName == '' ? viewingEmail.fromEmail : viewingEmail.fromName}}
+{% endraw %}
+					<img src = "{{ url_for('static', filename='images/arrow.png') }}" style="margin: 0 2px" />
+{% raw %}
+					<span style="font-weight: normal" >me</span>
+				</div>
+				<div class="message-date-reply col-xs-4">
+					{{viewingEmail.date}}
+{% endraw %}
+					<img class="email-button" src = "{{ url_for('static', filename='images/reply.png') }}" style="margin-left: 10px" ng-click="compose(viewingEmail)" />
+{% raw %}
+				</div>
+			</div>
+			<div class="message-body">
+			  {{viewingEmail.message}}
+			</div>
 		</div>
       </div>
-
-      <div class="compose-view {{composingEmail ? 'col-xs-8' : 'hidden'}}" style="height: {{ windowHeight - 96}}px;">
-        <div class="message-subject">
+	  <div class="compose-container {{composingEmail ? 'col-xs-8' : 'hidden'}}">
+      <div class="compose-view" style="height: {{windowHeight - 94}}px;">
+        <div class="compose-subject">
           <input type="text" id="compose-subject" placeholder="Subject" />
         </div>
-        <div class="message-to">
+        <div class="compose-to">
           <input type="text" id="compose-to" placeholder="To" />
         </div>
-        <div class="message-body">
+        <div class="compose-body">
           <textarea id="compose-body" placeholder="Message" style="height: {{ windowHeight - 230}}px;"
           ></textarea>
         </div>

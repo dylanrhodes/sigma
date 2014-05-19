@@ -50,7 +50,7 @@ def send_recent_email_json():
 @app.route('/categorize_email', methods=["POST"])
 def categorize_email():
     email = json.loads(request.data)
-    print email['id']
+    # print email['id']
     # TODO Update email in inbox
     # TODO Update category table
     return "Success"

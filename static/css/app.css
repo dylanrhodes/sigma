@@ -1,5 +1,9 @@
 /* app css stylesheet */
 
+textarea {
+    resize: none;
+}
+
 body {
   padding-top: 60px;
   font-family: 'Open Sans', sans-serif;
@@ -218,6 +222,9 @@ button.loadMore {
 	margin: 0 !important;
 }
 
+.bootpadding-right {
+	padding-right: 0 !important;
+}
 .ind-email {
 	/*padding-left: 12px;
 	height: 47px;*/
@@ -336,20 +343,23 @@ button.loadMore {
 }
 
 .emails-area::-webkit-scrollbar-track,
-.message-view::-webkit-scrollbar-track {
+.message-view::-webkit-scrollbar-track,
+.compose-body::-webkit-scrollbar-track {
 	-webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
 	border-radius: 10px;
 	background-color: #F5F5F5;
 }
 
 .emails-area::-webkit-scrollbar,
-.message-view::-webkit-scrollbar {
+.message-view::-webkit-scrollbar,
+.compose-body::-webkit-scrollbar {
 	width: 6px;
 	background-color: #F5F5F5;
 }
 
 .emails-area::-webkit-scrollbar-thumb,
-.message-view::-webkit-scrollbar-thumb {
+.message-view::-webkit-scrollbar-thumb,
+.compose-body::-webkit-scrollbar-thumb {
 	border-radius: 10px;
 	-webkit-box-shadow: inset 0 0 6px rgba(0,0,0,.3);
 	background-color: #AFAFAF;
@@ -373,17 +383,34 @@ button.loadMore {
 }
 */
 
+.email-button {
+	opacity: 0.8;
+	cursor:pointer;
+}
+
+.email-button:hover {
+	opacity: 1;
+}
+
+
+.message-container {
+	padding-left: 0 !important;
+	padding-right: 2% !important;
+}
+
+.compose-container {
+	padding-left: 0 !important;
+	padding-right: 2% !important;
+}
+
 .message-view,
 .compose-view {
 	border: 2px solid #eee;
 	/*overflow-x: hidden;*/
 	/*overflow-y: scroll;*/
 	/*overflow: scroll;*/
-	width: 100%;
 	overflow: auto;
-	padding: 0 20px;
-	margin-right: 1%;
-	margin-left: -2%;
+	margin-left: 2%;
 }
 
 .compose-view input[type="text"],
@@ -392,23 +419,57 @@ button.loadMore {
 	outline: none;
 }
 
+.message-header {
+	border-bottom: 1px solid #eee;
+}
+
 .message-subject {
+	padding: 10px 20px;
 	font-weight: bold;
 	font-size: 22px;
 }
 
+.message-buttons {
+	padding: 10px 20px;
+	text-align: right;
+}
+
 .message-from {
+	padding: 12px 20px;
 	font-weight: bold;
 }
 
-.message-date {
+.message-date-reply {
+	text-align: right;
+	padding: 7px 20px;
 	font-style: italic;
-	padding-bottom: 10px;
+}
+
+.message-date {
+	padding-right: 5px;
 }
 
 .message-body {
+	padding: 0 40px;
 	white-space: pre-line;
-	word-break: break-all;
+	word-break: break-word;
+	/*height: 100%;
+	overflow: scroll;*/
+}
+
+.compose-subject {
+	padding: 5px 20px;
+	font-size: 27px;
+}
+
+.compose-to {
+	padding: 5px 20px;
+}
+
+.compose-body {
+	padding: 0 20px;
+	white-space: pre-line;
+	word-break: break-word;
 	/*height: 100%;
 	overflow: scroll;*/
 }
