@@ -56,6 +56,7 @@ sigmaApp.controller('EmailListCtrl', function($scope, Emails) {
   $scope.composingEmail = false;
 
   $scope.user = { email : "skywalker@sigma.com" }
+  $scope.cc = false;
 
   // $scope.viewingId = -1;
 
@@ -63,6 +64,16 @@ sigmaApp.controller('EmailListCtrl', function($scope, Emails) {
   $scope.windowHeight = $(window).height();
   $scope.boxWidth = null;
   $scope.catHeaderHeight = function() { return $(".category-header").height() + 11 };
+  $scope.addCc = function() { 
+	if (!$scope.cc) {
+		$('.cc-button').attr('class', 'hidden');
+		$('#compose-cc').attr('class', 'compose-cc');
+		$('#compose-bcc').attr('class', 'compose-bcc');
+		var height = $('#compose-body').height() - 40;
+		$('#compose-body').css('height', height + 'px');
+		$scope.cc = true;
+	}
+  };
   
 	$scope.init = function() {
 		for (var i = 1; i <= $scope.numCat; i++) {
@@ -283,7 +294,7 @@ sigmaApp.controller('EmailListCtrl', function($scope, Emails) {
 	$(document).keydown(function(e){
 		if (e.keyCode == 9) {
 			e.preventDefault();
-			if (viewingEmail == null) {
+			if ($scope.viewingEmail == null) {
 				if($scope.selected && $scope.selected != "") {
 					$.map($scope.emails.arr, function(e) {
 						if(e.id == $scope.selected.attr('id')) {

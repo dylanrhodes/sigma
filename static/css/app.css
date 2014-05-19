@@ -1,5 +1,9 @@
 /* app css stylesheet */
 
+textarea {
+    resize: none;
+}
+
 body {
   padding-top: 60px;
   font-family: 'Open Sans', sans-serif;
@@ -221,6 +225,9 @@ button.loadMore {
 .bootpadding-right {
 	padding-right: 0 !important;
 }
+.bootpadding {
+	padding: 0;
+}
 .ind-email {
 	/*padding-left: 12px;
 	height: 47px;*/
@@ -339,20 +346,23 @@ button.loadMore {
 }
 
 .emails-area::-webkit-scrollbar-track,
-.message-view::-webkit-scrollbar-track {
+.message-view::-webkit-scrollbar-track,
+#compose-body::-webkit-scrollbar-track {
 	-webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
 	border-radius: 10px;
 	background-color: #F5F5F5;
 }
 
 .emails-area::-webkit-scrollbar,
-.message-view::-webkit-scrollbar {
+.message-view::-webkit-scrollbar,
+#compose-body::-webkit-scrollbar {
 	width: 6px;
 	background-color: #F5F5F5;
 }
 
 .emails-area::-webkit-scrollbar-thumb,
-.message-view::-webkit-scrollbar-thumb {
+.message-view::-webkit-scrollbar-thumb,
+#compose-body::-webkit-scrollbar-thumb {
 	border-radius: 10px;
 	-webkit-box-shadow: inset 0 0 6px rgba(0,0,0,.3);
 	background-color: #AFAFAF;
@@ -416,14 +426,23 @@ button.loadMore {
 	border-bottom: 1px solid #eee;
 }
 
+.compose-header {
+	border-bottom: 1px solid #eee;
+}
+
 .message-subject {
 	padding: 10px 20px;
-	font-weight: bold;
 	font-size: 22px;
 }
 
 .message-buttons {
 	padding: 10px 20px;
+	text-align: right;
+}
+
+.compose-buttons {
+	padding-top: 15px;
+	padding-right: 25px;
 	text-align: right;
 }
 
@@ -451,20 +470,72 @@ button.loadMore {
 }
 
 .compose-subject {
-	padding: 5px 20px;
+	padding-top: 5px;
+	padding-bottom: 5px;
+	padding-left: 20px;
 	font-size: 27px;
 }
 
+#compose-subject,
+#compose-to,
+#compose-cc,
+#compose-bcc {
+	border-width:0px;
+	border:none;
+}
+
 .compose-to {
-	padding: 5px 20px;
+	padding: 5px 20px 0px 20px;
+}
+
+.compose-bcc {
+	margin-bottom: 5px;
 }
 
 .compose-body {
-	padding: 0 20px;
+	padding: 0 40px;
 	white-space: pre-line;
 	word-break: break-word;
 	/*height: 100%;
 	overflow: scroll;*/
+}
+
+.compose-footer {
+	margin: -6px 40px 0 40px;
+	height: 40px;
+	background: #f5f5f5;
+	border: 1px solid #eee;
+}
+
+.send {
+	cursor: pointer;
+	width: 80px;
+	height: 100%;
+	padding: 0;
+	margin: 0;
+	background: #1b6aa3;
+	color: white;
+	font-weight: bold;
+	text-align: center;
+	line-height: 40px;
+}
+
+.footer-buttons {
+	padding-top: 8px;
+	text-align: right;
+}
+
+.cc-button {
+	padding: 10px 30px 0px 30px;
+	text-align: right;
+	cursor: pointer;
+	color: #b8b8b8;
+	-webkit-touch-callout: none;
+	-webkit-user-select: none;
+	-khtml-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
 }
 
 .preview-main {
@@ -481,6 +552,9 @@ input[type="text"], textarea {
 	padding: 5px;
 	padding-left: 8px;
 	width: 100%;
+	-moz-border-radius: 0px;
+	-webkit-border-radius: 0px;
+	border-radius: 0px;
 }
 
 input[type="text"].cat-bar {
