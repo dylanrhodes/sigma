@@ -97,11 +97,11 @@
           <input type="text" id="compose-to" placeholder="To" />
         </div>
         <div class="compose-body">
-          <textarea id="compose-body" placeholder="Message" style="height: {{ windowHeight - 230}}px;"
-          ></textarea>
+          <textarea id="compose-body" placeholder="Message" style="height: {{ windowHeight - 230}}px;"></textarea>
         </div>
       </div>
     </div>
+  </div>
   </div>
   <div class="category-bar {{ selectedIds.length > 0 || viewingEmail ? '' : 'hidden' }}">
     <div ng-repeat="category in categories" class="category {{category.class}} {{categoryIsSelected(category.id) ? 'category-selected' : ''}}" style="background-color: {{category.color}};" ng-click="categorize(category.id)">
