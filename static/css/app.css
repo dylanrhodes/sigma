@@ -508,6 +508,7 @@ button.loadMore {
 }
 
 .send {
+	opacity: 0.8;
 	cursor: pointer;
 	width: 80px;
 	height: 100%;
@@ -518,6 +519,10 @@ button.loadMore {
 	font-weight: bold;
 	text-align: center;
 	line-height: 40px;
+}
+
+.send:hover {
+	opacity: 1;
 }
 
 .footer-buttons {
