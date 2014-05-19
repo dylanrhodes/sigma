@@ -356,6 +356,7 @@ sigmaApp.controller('EmailListCtrl', function($scope, Emails) {
 							if(obj.id == target_id) {
 							  $scope.viewingEmail = obj;
 							  obj.read = 1;
+							  $('.message-body').html(obj.message);
 							}
 						  });
 
@@ -392,6 +393,7 @@ sigmaApp.controller('EmailListCtrl', function($scope, Emails) {
 							if(obj.id == target_id) {
 							  $scope.viewingEmail = obj;
 							  obj.read = 1;
+							  $('.message-body').html(obj.message);
 							}
 						  });
 
@@ -421,6 +423,7 @@ sigmaApp.controller('EmailListCtrl', function($scope, Emails) {
 			if(obj.id == target_id) {
 			  $scope.viewingEmail = obj;
 			  obj.read = 1;
+			  $('.message-body').html(obj.message);
 			}
 		  });
 
@@ -445,6 +448,7 @@ sigmaApp.controller('EmailListCtrl', function($scope, Emails) {
 					if(obj.id == target_id) {
 					  $scope.viewingEmail = obj;
 					  obj.read = 1;
+					  $('.message-body').html(obj.message);
 					}
 				  });
 
@@ -556,6 +560,7 @@ sigmaApp.factory('Emails', function($http) {
 				if (email.fromName.indexOf("?") > -1) email.fromName = email.fromName.substring(0, email.fromName.indexOf("?"));
 				email.fromName = decodeURIComponent(email.fromName);
 			}
+			email.message = Autolinker.link(email.message, { truncate: 50 });
 			this.arr.unshift(email);
 		}
 	  }
