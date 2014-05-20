@@ -51,7 +51,11 @@ coverage.xml
 docs/_build/
 
 .htpasswd
+
 python_env/lib/site.py
 
 # Greg's stuff
 python_env/
+
+mac_env/
+
