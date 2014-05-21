@@ -49,12 +49,32 @@ def send_recent_email_json():
 
 @app.route('/categorize_email', methods=["POST"])
 def categorize_email():
+    # TODO get username
     email = json.loads(request.data)
-    # print email['id']
-    # TODO Update email in inbox
-    # TODO Update category table
+    import redis
+    rServer = redis.Redis("localhost")
+    mail = rServer.zrevrangebyscore("mail:exxonvaldeez:inbox", email['id'], email['id'])
+    pMail = json.loads(mail[0])
+    pMail['category'] = email['category']
+    pMail['categorized'] = True
+    emailJSON = json.dumps(pMail, sort_keys=True, indent=4, separators=(',', ': '))
+    rServer.zremrangebyscore("mail:exxonvaldeez:inbox", email['id'], email['id'])
+    rServer.zadd("mail:exxonvaldeez:inbox", emailJSON, email['id'])
     return "Success"
 
+@app.route('/mark_as_read', methods=["POST"])
+def mark_email_read():
+    # TODO get username
+    email = json.loads(request.data)
+    import redis
+    rServer = redis.Redis("localhost")
+    mail = rServer.zrevrangebyscore("mail:exxonvaldeez:inbox", email['id'], email['id'])
+    pMail = json.loads(mail[0])
+    pMail['read'] = True
+    emailJSON = json.dumps(pMail, sort_keys=True, indent=4, separators=(',', ': '))
+    rServer.zremrangebyscore("mail:exxonvaldeez:inbox", email['id'], email['id'])
+    rServer.zadd("mail:exxonvaldeez:inbox", emailJSON, email['id'])
+    return "Success"
 
 # main
 if __name__ == '__main__':
