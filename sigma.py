@@ -3,12 +3,14 @@
 
 # imports
 import json
-import redis
-from flask import Flask, render_template, jsonify
-#from flask import request
-
 from functools import wraps
+
+from flask import Flask, render_template, jsonify
 from flask import request, current_app
+from flask.ext.login import LoginManager
+
+from app.db import db
+from app.forms import LoginForm
 
 def jsonp(func):
     """Wraps JSONified output for JSONP requests."""
@@ -28,19 +30,30 @@ def jsonp(func):
 app = Flask(__name__)
 app.config.from_pyfile('config/sigma.cfg')
 
-rServer = redis.Redis("localhost")
+# database, login manager
+lm = LoginManager()
+lm.init_app(app)
+
+#@lm.user_load
+#def load_user(userid):
+#    return User.get(userid)
 
 # routes
 @app.route('/')
 def show_index():
     return render_template('index.html')
 
+@app.route('/login', methods=['GET', 'POST'])
+def login():
+    form = LoginForm()
+    return render_template("login.html", form=form)
+
 @app.route('/get_emails')
 @jsonp
 def get_recent_email():
     # get emails from database
-    #mail = rServer.zrevrangebyscore("mail:exxonvaldeez:inbox", "+inf", "-inf", 0, 10)
-    mail = rServer.zrevrangebyscore("mail:exxonvaldeez:inbox", "+inf", "-inf")
+    #mail = db.zrevrangebyscore("mail:exxonvaldeez:inbox", "+inf", "-inf", 0, 10)
+    mail = db.zrevrangebyscore("mail:exxonvaldeez:inbox", "+inf", "-inf")
     #print mail
     parsedMail = {}
     for email in mail:
@@ -53,32 +66,31 @@ def get_recent_email():
 def get_category_unread():
     # TODO get username
     # TODO test this
-    category = json.loads(request.data)['category']
-    mail = rServer.smembers("mail:exxonvaldeez:%s" % category)
+    category = request.args.get('category')
+    mail = db.smembers("mail:exxonvaldeez:%s" % category)
     unread = 0
     for emailID in mail:
-        emailObj = rServer.zrevrangebyscore("mail:exxonvaldeez:inbox", emailID, emailID)
+        emailObj = db.zrevrangebyscore("mail:exxonvaldeez:inbox", emailID, emailID)
         pMail = json.loads(emailObj[0])
         if not pMail['read']:
             unread += 1
-    return jsonify(unread)
+    response = {'unread': unread}
+    return jsonify(response)
 
 @app.route('/categorize_email', methods=["POST"])
 def categorize_email():
     # TODO get username
     # TODO is this working?
     email = json.loads(request.data)
-    import redis
-    rServer = redis.Redis("localhost")
-    mail = rServer.zrevrangebyscore("mail:exxonvaldeez:inbox", email['id'], email['id'])
+    mail = db.zrevrangebyscore("mail:exxonvaldeez:inbox", email['id'], email['id'])
     pMail = json.loads(mail[0])
     oldCategory = pMail['category']
     pMail['category'] = email['category']
     pMail['categorized'] = True
     emailJSON = json.dumps(pMail, sort_keys=True, indent=4, separators=(',', ': '))
-    rServer.zremrangebyscore("mail:exxonvaldeez:inbox", email['id'], email['id'])
-    rServer.zadd("mail:exxonvaldeez:inbox", emailJSON, email['id'])
-    rServer.smove("mail:exxonvaldeez:%s" % oldCategory, "mail:exxonvaldeez:%s" % pMail['category'], email['id'])
+    db.zremrangebyscore("mail:exxonvaldeez:inbox", email['id'], email['id'])
+    db.zadd("mail:exxonvaldeez:inbox", emailJSON, email['id'])
+    db.smove("mail:exxonvaldeez:%s" % oldCategory, "mail:exxonvaldeez:%s" % pMail['category'], email['id'])
     return "Success"
 
 @app.route('/mark_as_read', methods=["POST"])
@@ -86,12 +98,12 @@ def mark_email_read():
     # TODO get username
     # TODO test this
     email = json.loads(request.data)
-    mail = rServer.zrevrangebyscore("mail:exxonvaldeez:inbox", email['id'], email['id'])
+    mail = db.zrevrangebyscore("mail:exxonvaldeez:inbox", email['id'], email['id'])
     pMail = json.loads(mail[0])
     pMail['read'] = True
     emailJSON = json.dumps(pMail, sort_keys=True, indent=4, separators=(',', ': '))
-    rServer.zremrangebyscore("mail:exxonvaldeez:inbox", email['id'], email['id'])
-    rServer.zadd("mail:exxonvaldeez:inbox", emailJSON, email['id'])
+    db.zremrangebyscore("mail:exxonvaldeez:inbox", email['id'], email['id'])
+    db.zadd("mail:exxonvaldeez:inbox", emailJSON, email['id'])
     return "Success"
 
 @app.route('/mark_as_unread', methods=["POST"])
@@ -99,12 +111,12 @@ def mark_email_unread():
     # TODO get username
     # TODO test this
     email = json.loads(request.data)
-    mail = rServer.zrevrangebyscore("mail:exxonvaldeez:inbox", email['id'], email['id'])
+    mail = db.zrevrangebyscore("mail:exxonvaldeez:inbox", email['id'], email['id'])
     pMail = json.loads(mail[0])
     pMail['read'] = False
     emailJSON = json.dumps(pMail, sort_keys=True, indent=4, separators=(',', ': '))
-    rServer.zremrangebyscore("mail:exxonvaldeez:inbox", email['id'], email['id'])
-    rServer.zadd("mail:exxonvaldeez:inbox", emailJSON, email['id'])
+    db.zremrangebyscore("mail:exxonvaldeez:inbox", email['id'], email['id'])
+    db.zadd("mail:exxonvaldeez:inbox", emailJSON, email['id'])
     return "Success"
 
 @app.route('/delete_category', methods=['POST'])
@@ -113,17 +125,17 @@ def delete_category():
     # TODO test this
     category = json.loads(request.data)['category']
     newCategory = 1
-    mail = rServer.smembers("mail:exxonvaldeez:%s" % category)
+    mail = db.smembers("mail:exxonvaldeez:%s" % category)
     for emailID in mail:
         # Move email in Redis
-        rServer.smove("mail:exxonvaldeez:%s" % category, "mail:exxonvaldeez:%s" % newCategory, emailID)
+        db.smove("mail:exxonvaldeez:%s" % category, "mail:exxonvaldeez:%s" % newCategory, emailID)
         # Change category in object
-        emailObj = rServer.zrevrangebyscore("mail:exxonvaldeez:inbox", emailID, emailID)
+        emailObj = db.zrevrangebyscore("mail:exxonvaldeez:inbox", emailID, emailID)
         pMail = json.loads(emailObj[0])
         pMail['category'] = newCategory
         emailJSON = json.dumps(pMail, sort_keys=True, indent=4, separators=(',', ': '))
-        rServer.zremrangebyscore("mail:exxonvaldeez:inbox", emailID, emailID)
-        rServer.zadd("mail:exxonvaldeez:inbox", emailJSON, emailID)
+        db.zremrangebyscore("mail:exxonvaldeez:inbox", emailID, emailID)
+        db.zadd("mail:exxonvaldeez:inbox", emailJSON, emailID)
 
 # main
 if __name__ == '__main__':
