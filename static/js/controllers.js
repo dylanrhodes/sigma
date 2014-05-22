@@ -595,7 +595,7 @@ sigmaApp.controller('EmailListCtrl', function($scope, $http, Emails) {
 
 });
 
-sigmaApp.factory('Emails', function($http) {
+sigmaApp.factory('Emails', function($scope, $http) {
   var Emails = function() {
     this.arr = [];
     this.busy = false;
