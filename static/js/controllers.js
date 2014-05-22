@@ -45,6 +45,9 @@ sigmaApp.controller('EmailListCtrl', function($scope, $http, Emails) {
   ];
   $scope.emails = new Emails();
   $scope.emails.init();
+  for (var i = 0; i < $scope.emails.unread.length; i++) {
+	$scope.categories[i].unread = $scope.emails.unread[i];
+  }
   $scope.focusedCategory = "";
   $scope.selected = "";
   $scope.selectedId = -1;
@@ -595,9 +598,10 @@ sigmaApp.controller('EmailListCtrl', function($scope, $http, Emails) {
 
 });
 
-sigmaApp.factory('Emails', function($scope, $http) {
+sigmaApp.factory('Emails', function($http) {
   var Emails = function() {
     this.arr = [];
+	this.unread = [];
     this.busy = false;
     this.after = '';
 	this.next = 1;
@@ -608,7 +612,7 @@ sigmaApp.factory('Emails', function($scope, $http) {
 		var cat = i+1;
 		var call = "http://sigma.jmvldz.com/get_category_unread?callback=JSON_CALLBACK&category=" + cat;
 		$http.jsonp(url).success(function(data) {
-			$scope.categories[i].unread = intval(data['unread']);
+			this.unread.push(intval(data['unread']));
 		}.bind(this));
 	}
     if (this.busy) return;
