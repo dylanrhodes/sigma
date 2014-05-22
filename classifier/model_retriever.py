@@ -8,7 +8,7 @@ Retrieves stored classification data for a given user
 '''
 
 def retrieve_models(username):
-	path = "./"+username+"/models/"
+	path = "./classifier/"+username+"/models/"
 
 	body_vec = retrieve_object(path+"body_vec.pk1")
 	body_model = retrieve_object(path+"body_model.pk1")
@@ -67,4 +67,5 @@ def retrieve_object(filename):
 
 		return contents
 	except IOError:
+		print "ERRORERROR"
 		return []
