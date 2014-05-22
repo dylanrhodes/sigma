@@ -274,6 +274,44 @@ sigmaApp.controller('EmailListCtrl', function($scope, $http, Emails) {
 		}
 	}
   }
+  
+  $scope.markRead = function(ru) {
+	if ($scope.selected != "") {
+	    //move to next element before categorizing
+		var temp = $scope.selected.next();
+		while(temp && $scope.selectedIds.indexOf(temp.attr('id')) >= 0)
+			temp = temp.next();
+		
+		$.each($scope.selectedIds, function(i, id) {
+		  $.map($scope.emails.arr, function(obj, index) {
+			if(obj.id == id) {
+			  if(ru == 1) {
+				  var elem = {"id" : id};
+				  $http({
+						method: 'POST',
+						url: '/mark_as_read',
+						data: elem
+					})
+					.success(function() {console.log("Successfully pushed read change");})
+					.error(function() {console.log("Didn't successfully push read change");});
+				  obj.read = 1;
+			  }
+			  else {
+				var elem = {"id" : id};
+				  $http({
+						method: 'POST',
+						url: '/mark_as_unread',
+						data: elem
+					})
+					.success(function() {console.log("Successfully pushed read change");})
+					.error(function() {console.log("Didn't successfully push read change");});
+				  obj.read = 2;
+			  }
+			 }
+		  });
+		});
+	}
+  }
 
 
   jQuery(function($) {
@@ -292,6 +330,14 @@ sigmaApp.controller('EmailListCtrl', function($scope, $http, Emails) {
 	});
 
 	$(document).keydown(function(e){
+		if (e.keyCod == 82) {
+			$scope.markRead(1);
+			$scope.$apply();
+		}
+		if (e.keyCod == 85) {
+			$scope.markRead(0);
+			$scope.$apply();
+		}
 		if (e.keyCode == 9) {
 			e.preventDefault();
 			if ($scope.viewingEmail == null) {
