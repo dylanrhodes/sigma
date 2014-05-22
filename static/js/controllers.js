@@ -620,7 +620,7 @@ sigmaApp.factory('Emails', function($http) {
 			var num = data['unread'];
 			this.unread.push(num);
 			console.log("jsonp call returned: " + num);
-		})
+		}.bind(this))
 		.error(function() {console.log("Couldn't get unread for " + cat);});
 	}
     if (this.busy) return;
