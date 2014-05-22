@@ -71,11 +71,7 @@
 			</div>
 			<div class="row message-header-2">
 				<div class="message-from col-xs-8">
-				  {{viewingEmail.fromName == '' ? viewingEmail.fromEmail : viewingEmail.fromName}}
-{% endraw %}
-					<img src = "{{ url_for('static', filename='images/arrow.png') }}" style="margin: 0 2px" />
-{% raw %}
-					<span style="font-weight: normal" >me</span>
+				  {{viewingEmail.from}}
 				</div>
 				<div class="message-date-reply col-xs-4">
 					{{viewingEmail.date}}
