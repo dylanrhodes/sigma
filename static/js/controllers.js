@@ -615,7 +615,6 @@ sigmaApp.factory('Emails', function($http) {
 			email.date = day.fromNow();
 			email.snippet = email.message.substr(0, 200);
 			email.id = email.id.toString();
-			email.read = 1;
 			var from = email.from.replace(/"/g, "");
 			var start = from.indexOf("<");
 			var end = from.indexOf(">");
