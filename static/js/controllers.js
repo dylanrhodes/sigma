@@ -613,6 +613,7 @@ sigmaApp.factory('Emails', function($http) {
 		if(data.hasOwnProperty(key)) {
 			var email = data[key];
 			var day = moment(email.date, "ddd, DD MMM YYYY HH:mm:ss ZZ");
+			email.true_date = day.format('MMMM Do YYYY, h:mm:ssa');;
 			email.date = day.fromNow();
 			email.snippet = email.message.substr(0, 200);
 			email.id = email.id.toString();
