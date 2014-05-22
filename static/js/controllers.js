@@ -278,7 +278,7 @@ sigmaApp.controller('EmailListCtrl', function($scope, $http, Emails) {
 		}
 	}
   }
-  
+
   $scope.markRead = function(ru) {
 	$scope.markUnread = true;
 	if ($scope.selected != "") {
@@ -286,7 +286,7 @@ sigmaApp.controller('EmailListCtrl', function($scope, $http, Emails) {
 		var temp = $scope.selected.next();
 		while(temp && $scope.selectedIds.indexOf(temp.attr('id')) >= 0)
 			temp = temp.next();
-		
+
 		$.each($scope.selectedIds, function(i, id) {
 		  $.map($scope.emails.arr, function(obj, index) {
 			if(obj.id == id) {
