@@ -5,9 +5,9 @@
 import json
 from functools import wraps
 
-from flask import Flask, render_template, jsonify
+from flask import Flask, render_template, jsonify, url_for, redirect
 from flask import request, current_app
-from flask.ext.login import LoginManager
+from flask.ext.login import LoginManager, login_user, logout_user, current_user, login_required
 
 from app.db import db
 from app.forms import LoginForm
@@ -36,24 +36,33 @@ lm = LoginManager()
 lm.init_app(app)
 lm.login_view = 'login'
 
-@lm.user_load
+@lm.user_loader
 def load_user(userid):
-    return User(userid)
+    return User(username=userid)
 
 # routes
 @app.route('/')
-def show_index():
+@login_required
+def index():
     return render_template('index.html')
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
+    if current_user is not None and current_user.is_authenticated():
+        return redirect(url_for('index'))
     form = LoginForm()
     if form.validate_on_submit():
-        pass
-    return render_template("login.html", form=form)
+        user = User(username=form.email.data, password=form.password.data)
+        if user.is_valid_login():
+            login_user(user)
+            return redirect(url_for('index'))
+        elif form.new_account.data:
+            print "create new account"
+    return render_template("login.html", form=form, title="Sign In")
 
 @app.route('/get_emails')
 @jsonp
+@login_required
 def get_recent_email():
     # get emails from database
     #mail = db.zrevrangebyscore("mail:exxonvaldeez:inbox", "+inf", "-inf", 0, 10)
@@ -67,6 +76,7 @@ def get_recent_email():
 
 @app.route('/get_category_unread')
 @jsonp
+@login_required
 def get_category_unread():
     # TODO get username
     # TODO test this
@@ -82,6 +92,7 @@ def get_category_unread():
     return jsonify(response)
 
 @app.route('/categorize_email', methods=["POST"])
+@login_required
 def categorize_email():
     # TODO get username
     # TODO is this working?
@@ -98,6 +109,7 @@ def categorize_email():
     return "Success"
 
 @app.route('/mark_as_read', methods=["POST"])
+@login_required
 def mark_email_read():
     # TODO get username
     # TODO test this
@@ -111,6 +123,7 @@ def mark_email_read():
     return "Success"
 
 @app.route('/mark_as_unread', methods=["POST"])
+@login_required
 def mark_email_unread():
     # TODO get username
     # TODO test this
@@ -124,6 +137,7 @@ def mark_email_unread():
     return "Success"
 
 @app.route('/delete_category', methods=['POST'])
+@login_required
 def delete_category():
     # TODO get username
     # TODO test this
