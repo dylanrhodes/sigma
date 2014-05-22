@@ -54,6 +54,7 @@ sigmaApp.controller('EmailListCtrl', function($scope, $http, Emails) {
   $scope.oldColor = "";
   $scope.sigma_img_tag = "<img src='images/sigma.png' />";
   $scope.composingEmail = false;
+  $scope.markUnread = false;
 
   $scope.user = { email : "skywalker@sigma.com" }
   $scope.cc = false;
@@ -276,6 +277,7 @@ sigmaApp.controller('EmailListCtrl', function($scope, $http, Emails) {
   }
   
   $scope.markRead = function(ru) {
+	$scope.markUnread = true;
 	if ($scope.selected != "") {
 	    //move to next element before categorizing
 		var temp = $scope.selected.next();
@@ -549,13 +551,12 @@ sigmaApp.controller('EmailListCtrl', function($scope, $http, Emails) {
 	});
 
 	$(document).click(function() {
-		$scope.selected = "";
-		$scope.selectedIds = [];
-		$('.category-bar').children().each(function(i) {
-			// $(this).css('opacity', .8);
-		});
-
-		$scope.$apply();
+		if ($scope.markUnread == false) {
+			$scope.selected = "";
+			$scope.selectedIds = [];
+			$scope.$apply();
+		}
+		$scope.markUnread = false;
 	});
 
 	$(document).delegate('.one-box', 'click', function (e) {
