@@ -604,6 +604,13 @@ sigmaApp.factory('Emails', function($http) {
   };
 
   Emails.prototype.init = function() {
+	for (var i = 0; i < $scope.categories.length; i++) {
+		var cat = i+1;
+		var call = "http://sigma.jmvldz.com/get_category_unread?callback=JSON_CALLBACK&category=" + cat;
+		$http.jsonp(url).success(function(data) {
+			$scope.categories[i].unread = intval(data['unread']);
+		}.bind(this));
+	}
     if (this.busy) return;
     this.busy = true;
     var url = "http://sigma.jmvldz.com/get_emails?callback=JSON_CALLBACK";
