@@ -43,7 +43,7 @@ sigmaApp.controller('EmailListCtrl', function($scope, $http, Emails) {
 	 'unread' : 5,
 	 'emails' : 4}
   ];
-  $scope.emails = new Emails();
+  $scope.emails = new Emails($scope.categories.length);
   $scope.emails.init();
   for (var i = 0; i < $scope.emails.unread.length; i++) {
 	$scope.categories[i].unread = $scope.emails.unread[i];
@@ -599,16 +599,17 @@ sigmaApp.controller('EmailListCtrl', function($scope, $http, Emails) {
 });
 
 sigmaApp.factory('Emails', function($http) {
-  var Emails = function() {
+  var Emails = function(length) {
     this.arr = [];
 	this.unread = [];
     this.busy = false;
     this.after = '';
 	this.next = 1;
+	this.length = length;
   };
 
   Emails.prototype.init = function() {
-	for (var i = 0; i < $scope.categories.length; i++) {
+	for (var i = 0; i < this.length; i++) {
 		var cat = i+1;
 		var call = "http://sigma.jmvldz.com/get_category_unread?callback=JSON_CALLBACK&category=" + cat;
 		$http.jsonp(url).success(function(data) {
