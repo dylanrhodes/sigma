@@ -613,7 +613,7 @@ sigmaApp.factory('Emails', function($http) {
 		var cat = i+1;
 		var call = "http://sigma.jmvldz.com/get_category_unread?callback=JSON_CALLBACK&category=" + cat;
 		$http.jsonp(call).success(function(data) {
-			this.unread.push(intval(data['unread']));
+			this.unread.push(data['unread']);
 		}.bind(this));
 	}
     if (this.busy) return;
