@@ -303,8 +303,8 @@ sigmaApp.controller('EmailListCtrl', function($scope, $http, Emails) {
 					})
 					.success(function() {console.log("Successfully pushed read change");})
 					.error(function() {console.log("Didn't successfully push read change");});
+				  if (obj.read != 1) $scope.emails.unread[obj.category-1]--;
 				  obj.read = 1;
-				  $scope.emails.unread[obj.category-1]--;
 			  }
 			  else {
 				var elem = {"id" : id};
@@ -315,8 +315,8 @@ sigmaApp.controller('EmailListCtrl', function($scope, $http, Emails) {
 					})
 					.success(function() {console.log("Successfully pushed read change");})
 					.error(function() {console.log("Didn't successfully push read change");});
+				  if (obj.read != 0) $scope.emails.unread[obj.category-1]++;
 				  obj.read = 0;
-				  $scope.emails.unread[obj.category-1]++;
 			  }
 			 }
 		  });
@@ -420,8 +420,9 @@ sigmaApp.controller('EmailListCtrl', function($scope, $http, Emails) {
 								})
 								.success(function() {console.log("Successfully pushed email read");})
 								.error(function() {console.log("Didn't successfully push email read");});
+							  if (obj.read != 1) $scope.emails.unread[obj.category-1]--;
 							  obj.read = 1;
-							  $scope.emails.unread[obj.category-1]--;
+							 
 							  $('.message-body').html(obj.message);
 							}
 						  });
@@ -466,8 +467,9 @@ sigmaApp.controller('EmailListCtrl', function($scope, $http, Emails) {
 								})
 								.success(function() {console.log("Successfully pushed email read");})
 								.error(function() {console.log("Didn't successfully push email read");});
+							  if (obj.read != 1) $scope.emails.unread[obj.category-1]--;
 							  obj.read = 1;
-							  $scope.emails.unread[obj.category-1]--;
+							  
 							  $('.message-body').html(obj.message);
 							}
 						  });
@@ -505,8 +507,8 @@ sigmaApp.controller('EmailListCtrl', function($scope, $http, Emails) {
 				})
 				.success(function() {console.log("Successfully pushed email read");})
 				.error(function() {console.log("Didn't successfully push email read");});
+			  if (obj.read != 1) $scope.emails.unread[obj.category-1]--;
 			  obj.read = 1;
-			  $scope.emails.unread[obj.category-1]--;
 			  $('.message-body').html(obj.message);
 			}
 		  });
@@ -539,8 +541,9 @@ sigmaApp.controller('EmailListCtrl', function($scope, $http, Emails) {
 						})
 						.success(function() {console.log("Successfully pushed email read");})
 						.error(function() {console.log("Didn't successfully push email read");});
+					  if (obj.read != 1) $scope.emails.unread[obj.category-1]--;
 					  obj.read = 1;
-					  $scope.emails.unread[obj.category-1]--;
+				
 					  $('.message-body').html(obj.message);
 					}
 				  });
