@@ -211,7 +211,7 @@ sigmaApp.controller('EmailListCtrl', function($scope, $http, Emails) {
 		if(arguments.length > 0) {
 			// console.log(arguments[0]);
 			$("#compose-subject").val("Re: " + arguments[0].subject);
-			$("#compose-to").val(arguments[0].from);
+			$("#compose-to").val(arguments[0].fromEmail);
 			$("#compose-body").val("\n\n---------------------------------\nOn "
 				+ arguments[0].true_date + ", " + arguments[0].from
 				+ " wrote:\n\n" + arguments[0].message);
