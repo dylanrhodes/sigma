@@ -11,6 +11,7 @@ from flask.ext.login import LoginManager
 
 from app.db import db
 from app.forms import LoginForm
+from app.models import User
 
 def jsonp(func):
     """Wraps JSONified output for JSONP requests."""
@@ -30,13 +31,14 @@ def jsonp(func):
 app = Flask(__name__)
 app.config.from_pyfile('config/sigma.cfg')
 
-# database, login manager
+# login manager
 lm = LoginManager()
 lm.init_app(app)
+lm.login_view = 'login'
 
-#@lm.user_load
-#def load_user(userid):
-#    return User.get(userid)
+@lm.user_load
+def load_user(userid):
+    return User(userid)
 
 # routes
 @app.route('/')
@@ -46,6 +48,8 @@ def show_index():
 @app.route('/login', methods=['GET', 'POST'])
 def login():
     form = LoginForm()
+    if form.validate_on_submit():
+        pass
     return render_template("login.html", form=form)
 
 @app.route('/get_emails')
