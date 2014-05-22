@@ -46,11 +46,6 @@ sigmaApp.controller('EmailListCtrl', function($scope, $http, Emails) {
   $scope.emails = new Emails($scope.categories.length);
   $scope.emails.init();
   console.log($scope.emails.unread.length);
-  for (var i = 0; i < $scope.emails.unread.length; i++) {
-	var cat = i + 1;
-	console.log("Category: " + cat + " Unread: " + $scope.emails.unread[i]);
-	$scope.categories[i].unread = $scope.emails.unread[i];
-  }
   $scope.focusedCategory = "";
   $scope.selected = "";
   $scope.selectedId = -1;
@@ -70,6 +65,11 @@ sigmaApp.controller('EmailListCtrl', function($scope, $http, Emails) {
   $scope.emailsById = {};
   $scope.windowHeight = $(window).height();
   $scope.boxWidth = null;
+  for (var i = 0; i < $scope.emails.unread.length; i++) {
+	var cat = i + 1;
+	console.log("Category: " + cat + " Unread: " + $scope.emails.unread[i]);
+	$scope.categories[i].unread = $scope.emails.unread[i];
+  }
   $scope.catHeaderHeight = function() { return $(".category-header").height() + 11 };
   $scope.addCc = function() {
 	if (!$scope.cc) {
@@ -616,8 +616,9 @@ sigmaApp.factory('Emails', function($http) {
 		var cat = i+1;
 		var call = "http://sigma.jmvldz.com/get_category_unread?callback=JSON_CALLBACK&category=" + cat;
 		$http.jsonp(call).success(function(data) {
-			console.log("jsonp call returned: " + data['unread']);
-			this.unread.push(data['unread']);
+			var num = data['unread'];
+			this.unread.push(num);
+			console.log("jsonp call returned: " + num);
 		})
 		.error(function() {console.log("Couldn't get unread for " + cat);});
 	}
