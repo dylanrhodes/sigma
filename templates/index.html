@@ -44,7 +44,7 @@
         	<div class="category-header" style = "background-color: {{category.color}};">
         		{{category.name}}
         	</div>
-        	<div class="unread {{category.unread ? '' : 'hidden'}}" style = "color: {{category.color}};">{{category.unread}}</div>
+        	<div class="unread {{emails.unread[category.id-1] ? '' : 'hidden'}}" style = "color: {{category.color}};">{{emails.unread[category.id-1]}}</div>
         	<div class="emails-area" style = "height: {{viewingEmail || focusedCategory == category.id ? windowHeight - 121 : category.emails*42}}px;">
 	            <div class="row ind-email {{email.read ? 'read' : ''}} {{ selectedIds.indexOf(email.id) >= 0 ? 'selected-email' : '' }}" id = "{{email.id}}" ng-repeat="email in filterEmails = (emails.arr | filter:{category:category.id} | filter:search)">
 	             <div class = "{{viewingEmail || composingEmail ? 'col-xs-12' : category.split ? 'col-md-4 col-sm-4' : 'from col-md-2 col-sm-3'}} nopadding from">{{email.fromName == '' ? email.fromEmail : email.fromName}}</div>

@@ -64,13 +64,13 @@ sigmaApp.controller('EmailListCtrl', function($scope, $http, Emails) {
   $scope.emailsById = {};
   $scope.windowHeight = $(window).height();
   $scope.boxWidth = null;
-  console.log($scope.emails.unread.length);
-  for (var i = 0; i < $scope.emails.unread.length; i++) {
-	var cat = i + 1;
-	console.log("Category: " + cat + " Unread: " + $scope.emails.unread[i]);
-	$scope.categories[i].unread = $scope.emails.unread[i];
-  }
-  $scope.$apply();
+  // console.log($scope.emails.unread.length);
+  // for (var i = 0; i < $scope.emails.unread.length; i++) {
+	// var cat = i + 1;
+	// console.log("Category: " + cat + " Unread: " + $scope.emails.unread[i]);
+	// $scope.categories[i].unread = $scope.emails.unread[i];
+  // }
+  // $scope.$apply();
   $scope.catHeaderHeight = function() { return $(".category-header").height() + 11 };
   $scope.addCc = function() {
 	if (!$scope.cc) {
