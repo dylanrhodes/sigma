@@ -305,7 +305,7 @@ sigmaApp.controller('EmailListCtrl', function($scope, $http, Emails) {
 					})
 					.success(function() {console.log("Successfully pushed read change");})
 					.error(function() {console.log("Didn't successfully push read change");});
-				  obj.read = 2;
+				  obj.read = 0;
 			  }
 			 }
 		  });
