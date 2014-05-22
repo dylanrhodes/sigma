@@ -355,6 +355,14 @@ sigmaApp.controller('EmailListCtrl', function($scope, $http, Emails) {
 						  $.map($scope.emails.arr, function(obj) {
 							if(obj.id == target_id) {
 							  $scope.viewingEmail = obj;
+							  var elem = {"id" : obj.id};
+							  $http({
+									method: 'POST',
+									url: '/mark_as_read',
+									data: elem
+								})
+								.success(function() {console.log("Successfully pushed email read");})
+								.error(function() {console.log("Didn't successfully push email read");});
 							  obj.read = 1;
 							  $('.message-body').html(obj.message);
 							}
@@ -392,6 +400,14 @@ sigmaApp.controller('EmailListCtrl', function($scope, $http, Emails) {
 						  $.map($scope.emails.arr, function(obj) {
 							if(obj.id == target_id) {
 							  $scope.viewingEmail = obj;
+							  var elem = {"id" : obj.id};
+							  $http({
+									method: 'POST',
+									url: '/mark_as_read',
+									data: elem
+								})
+								.success(function() {console.log("Successfully pushed email read");})
+								.error(function() {console.log("Didn't successfully push email read");});
 							  obj.read = 1;
 							  $('.message-body').html(obj.message);
 							}
@@ -422,6 +438,14 @@ sigmaApp.controller('EmailListCtrl', function($scope, $http, Emails) {
 		  $.map($scope.emails.arr, function(obj) {
 			if(obj.id == target_id) {
 			  $scope.viewingEmail = obj;
+			  var elem = {"id" : obj.id};
+			  $http({
+					method: 'POST',
+					url: '/mark_as_read',
+					data: elem
+				})
+				.success(function() {console.log("Successfully pushed email read");})
+				.error(function() {console.log("Didn't successfully push email read");});
 			  obj.read = 1;
 			  $('.message-body').html(obj.message);
 			}
@@ -447,6 +471,14 @@ sigmaApp.controller('EmailListCtrl', function($scope, $http, Emails) {
 				  $.map($scope.emails.arr, function(obj) {
 					if(obj.id == target_id) {
 					  $scope.viewingEmail = obj;
+					  var elem = {"id" : obj.id};
+					  $http({
+							method: 'POST',
+							url: '/mark_as_read',
+							data: elem
+						})
+						.success(function() {console.log("Successfully pushed email read");})
+						.error(function() {console.log("Didn't successfully push email read");});
 					  obj.read = 1;
 					  $('.message-body').html(obj.message);
 					}
