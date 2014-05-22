@@ -65,7 +65,7 @@
 				</div>
 				<div class="message-buttons col-xs-2">
 {% endraw %}
-					<img class="email-button" src = "{{ url_for('static', filename='images/trash-email.png') }}" border="0" ng-click="categorize(-1)" /><img class="email-button" src = "{{ url_for('static', filename='images/close-email.png') }}" border="0" ng-click="focusCategory('')" />
+					<img class="email-button" title="Mark as Unread" src = "{{ url_for('static', filename='images/mark-unread.png') }}" border="0" ng-click="markRead(0)" /><img class="email-button" title="Trash Email" src = "{{ url_for('static', filename='images/trash-email.png') }}" border="0" ng-click="categorize(-1)" /><img class="email-button" title="Close Email" src = "{{ url_for('static', filename='images/close-email.png') }}" border="0" ng-click="focusCategory('')" />
 {% raw %}				
 				</div>
 			</div>
