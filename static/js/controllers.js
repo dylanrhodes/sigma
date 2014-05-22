@@ -614,7 +614,7 @@ sigmaApp.factory('Emails', function($http) {
 		var call = "http://sigma.jmvldz.com/get_category_unread?callback=JSON_CALLBACK&category=" + cat;
 		$http.jsonp(url).success(function(data) {
 			this.unread.push(intval(data['unread']));
-		}
+		});
 	}
     if (this.busy) return;
     this.busy = true;
