@@ -330,11 +330,11 @@ sigmaApp.controller('EmailListCtrl', function($scope, $http, Emails) {
 	});
 
 	$(document).keydown(function(e){
-		if (e.keyCod == 82) {
+		if (e.keyCode == 82) {
 			$scope.markRead(1);
 			$scope.$apply();
 		}
-		if (e.keyCod == 85) {
+		if (e.keyCode == 85) {
 			$scope.markRead(0);
 			$scope.$apply();
 		}
