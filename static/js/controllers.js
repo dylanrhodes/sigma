@@ -83,14 +83,16 @@ sigmaApp.controller('EmailListCtrl', function($scope, $http, Emails) {
   // }
   // $scope.$apply();
   $scope.catHeaderHeight = function() { return $(".category-header").height() + 11 };
+  
   $scope.retrain = function() {
 	$http({
 		method: 'POST',
 		url: '/train_models',
 	})
 	.success(function() {console.log("Successfully trained models");})
-	.error(function() {console.log("Didn't successfully train models");};
+	.error(function() {console.log("Didn't successfully train models");});
   }
+  
   $scope.logout = function() {
 	console.log("Logging out");
   }
