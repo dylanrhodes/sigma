@@ -2,10 +2,10 @@ import re
 from db import db
 
 class User:
-    def __init__(self, username="", password=""):
-        addr = re.split('@', "exxonvaldeez@gmail.com")
+    def __init__(self, username="test@test.com", password="", loader=False):
+        addr = re.split('@', username)
         user = db.get("user:%s:login" % addr[0])
-        if not user == username:
+        if not user == username and loader:
             return None
         self.username = username
         self.user = addr[0]

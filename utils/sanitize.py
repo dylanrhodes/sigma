@@ -60,3 +60,26 @@ def sanitize(msg):
             msg.set_payload(payload)
     # Return the sanitised message
     return msg
+
+def extract_body(msg):
+    body = ''
+    charset = None
+    for part in msg.walk():
+        #if part.is_multipart():
+        #    for subpart in part.walk():
+        #        if subpart.get_content_type() == 'text/plain':
+        #            continue
+        if part.get_content_type() == 'text/plain' and not part.is_multipart():
+            text = part.get_payload(decode=True)
+            charset = get_charset(part)
+            body += text.decode(charset, 'ignore')
+    return body
+
+def get_charset(msg, default="ascii"):
+    if msg.get_content_charset():
+        return msg.get_content_charset()
+    elif msg.get_charset():
+        return msg.get_charset()
+
+    return default
+
