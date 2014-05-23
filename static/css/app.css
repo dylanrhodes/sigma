@@ -163,7 +163,7 @@ input[type="search"] {
 	width: 16px;
 	height: 16px;
 	top: 0px;
-	right: 0px;
+	left: 28px;
 	z-index: 5;
 	background: #B94846;
 	font-size: 10px;
