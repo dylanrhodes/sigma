@@ -80,7 +80,7 @@ h3.num-title {
 }
 
 .control-bar-search {
-	padding-right:-10px;
+	padding-right: 0px;
 	text-align: right;
 	padding-left: 0px;
 	/*position: absolute;
@@ -667,4 +667,5 @@ a:active.save {
 
 .retrain {
 	text-align: right;
+	margin-top: 38px;
 }

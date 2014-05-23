@@ -2,9 +2,16 @@
 
 /* Controllers */
 
-var sigmaApp = angular.module('sigmaApp', []);
+var sigmaApp = angular.module('sigmaApp', ['ngAnimate', 'ngSanitize', 'mgcrea.ngStrap']);
 
 sigmaApp.controller('EmailListCtrl', function($scope, $http, Emails) {
+
+  .config(function($asideProvider) {
+	angular.extend($asideProvider.defaults, {
+	  container: 'body',
+	  html: true
+	});
+  })
   $scope.colors = ['#808080', '#1b6aa3', '#84cbc5', '#f8d35e', '#f47264', '#85e491', '#bd80b9', '#f9b588'];
   $scope.categories = [
   	{'id' : 1,
@@ -79,6 +86,9 @@ sigmaApp.controller('EmailListCtrl', function($scope, $http, Emails) {
   $scope.catHeaderHeight = function() { return $(".category-header").height() + 11 };
   $scope.retrain = function() {
 	console.log("Retraining model");
+  }
+  $scope.logout = function() {
+	console.log("Logging out");
   }
   $scope.addCc = function() {
 	if (!$scope.cc) {
