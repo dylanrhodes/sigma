@@ -2,7 +2,7 @@
 
 /* Controllers */
 
-var sigmaApp = angular.module('sigmaApp', []);
+var sigmaApp = angular.module('sigmaApp', ['mgcrea.ngStrap']);
 
 sigmaApp.controller('EmailListCtrl', function($scope, $http, Emails) {
 
@@ -719,4 +719,11 @@ sigmaApp.factory('Emails', function($http) {
   };
 
   return Emails;
+})
+
+.config(function($asideProvider) {
+  angular.extend($asideProvider.defaults, {
+    container: 'body',
+    html: true
+  });
 });
