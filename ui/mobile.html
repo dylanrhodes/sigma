@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="en" ng-app="sigmaApp">
+<head>
+  <meta charset="utf-8">
+  <title>Sigma: your organized inbox.</title>
+  <link rel="shortcut icon" type="image/x-icon" href="favicon.ico">
+  <link rel="stylesheet" href="css/libraries/bootstrap.css">
+  <link rel="stylesheet" href="css/mobile-app.css">
+  <link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
+
+  <script type="text/javascript" charset="utf-8" src="js/libraries/jquery-1.11.0.min.js"></script>
+  <script src="js/bower_components/angular/angular.js"></script>
+  <script src="js/libraries/angular-strap-2.0.2/dist/angular-strap.min.js"></script> 
+  <script src="js/libraries/angular-strap-2.0.2/dist/angular-strap.tpl.min.js"></script>
+  <script src="js/mobile-controllers.js"></script>
+   <script src="js/app.js"></script>
+  <script src="moment.min.js"></script>
+  <script src="d3.js"></script>
+  <script src="fandle.js"></script>
+
+  <meta name="viewport" content="width=320 initial-scale=0.9 maximum-scale=1.0 user-scalable=0" />
+
+</head>
+
+<body ng-controller="EmailListCtrl">
+  <div class="wrapper container-fluid">
+    <div class="mobile-app-area row">
+    	<div class="sidebar col-xs-2">
+    		<div class="sidebar-item sidebar-compose {{showing == composeId ? 'sidebar-focused' : ''}}" ng-click="compose()" style = "height:{{windowHeight / (numCat + 3)}}px">
+    			+
+    		</div>
+    		<div class="sidebar-item sidebar-all {{focusedCategory == '' ? 'sidebar-focused' : ''}}" ng-click="categoryClick('')" style = "height:{{windowHeight / (numCat + 3)}}px">
+    			All
+    		</div>
+	        <div ng-repeat="category in categories" class="sidebar-item sidebar-category {{focusedCategory == category.id ? 'sidebar-focused' : ''}}" style = "background-color: {{category.color}}; height:{{windowHeight / (numCat + 3)}}px" ng-click="categoryClick(category.id)">
+	        	{{category.name}}
+	        </div>
+	        <div class="sidebar-item sidebar-settings {{showing == settingsId ? 'sidebar-focused' : ''}}" ng-click="settings()" style = "height:{{windowHeight / (numCat + 3)}}px">
+	        	Settings
+	        </div>
+		</div>
+		<div class="padding col-xs-2"></div>
+		<div class="view-area col-xs-10">
+			<div class="control-bar">
+		      <div class="control-bar-search">
+		        <input type="search" id="search" placeholder="Search" ng-model="search" />
+		      </div>
+		    </div>
+			<div class="inbox {{showingClass(inboxId)}}">
+				<div ng-repeat="email in dummyEmails" class="row ind-email {{email.read ? 'read' : ''}} {{showingEmail(email) ? '' : 'hidden'}}" id = "{{email.id}}" style="color: {{categories[email.category - 1].color}}">
+					<div class="col-xs-8 email-area" ng-click="viewing(email.id)">
+		             	<div class = "from">{{email.fromName == '' ? email.fromEmail : email.fromName}}</div>
+		             	<div class="subject">{{email.subject}}</div>
+		      			<div class = "snipit"><span class = "date">{{email.date}}</span> - {{email.snippet}}</div>
+		      		</div>
+		      		<div class="col-xs-4 fandle-area">
+	      				<div class="email-fandle" id="email-fandle-{{email.id}}" rel="{{email.id}}"></div>
+	      			</div>
+	            </div>
+			</div>
+			<div class="viewing showingClass(viewingId)">
+				<div class="viewing-from">{{viewingEmail.fromName}} <em>{{viewingEmail.fromEmail}}</em></div>
+				<div class="viewing-subject">{{viewingEmail.subject}}</div>
+				<div class="viewing-message">{{viewingEmail.message}}</div>
+			</div>
+			<div class="compose {{showingClass(composeId)}}">
+				Compose
+
+			</div>
+			<div class="settings {{showingClass(settingsId)}}">
+				Settings
+
+			</div>
+		</div>
+	</div>
+</div>
+</body>
+</html>
+
+
