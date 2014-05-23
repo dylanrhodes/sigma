@@ -19,6 +19,8 @@ parser = Parser()
 users = db.smembers("user:users")
 for user in users:
     print user
+    if user == "lukeknepper":
+        continue
     server = IMAPClient(HOST, use_uid=True, ssl=True)
     username = db.get("user:%s:login" % user)
     password = db.get("user:%s:password" % user)
