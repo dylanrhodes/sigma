@@ -37,7 +37,7 @@ for user in users:
                 'date': msg['Date'], 'cc': msg['CC'], 'read': False,
                 'message': body, 'predicted': True, 'categorized': True}
         # TODO fix this
-        email['category'] = classify(msg, 'exxonvaldeez')
+        email['category'] = int(classify(msg, 'exxonvaldeez'))
         emailJSON = json.dumps(email, sort_keys=True, indent=4, separators=(',', ': '))
         # TODO check for duplicates
         db.zadd("mail:%s:inbox" % user, emailJSON, msgid)
