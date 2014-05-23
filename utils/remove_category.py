@@ -1,10 +1,10 @@
 import redis
 
 db = redis.Redis("localhost")
-mail = db.smembers("mail:exxonvaldeez:2")
+mail = db.smembers("mail:gregrgreiner:2.0")
 for member in mail:
-    db.srem("mail:exxonvaldeez:2", member)
+    db.smove("mail:gregrgreiner:2.0", "mail:gregrgreiner:2", member)
 
-mail = db.smembers("mail:exxonvaldeez:3")
+mail = db.smembers("mail:gregrgreiner:3.0")
 for member in mail:
-    db.srem("mail:exxonvaldeez:3", member)
+    db.smove("mail:gregrgreiner:3.0", "mail:gregrgreiner:3", member)
