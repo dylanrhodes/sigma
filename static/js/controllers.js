@@ -715,3 +715,10 @@ sigmaApp.factory('Emails', function($http) {
 
   return Emails;
 });
+
+.config(function($asideProvider) {
+  angular.extend($asideProvider.defaults, {
+    container: 'body',
+    html: true
+  });
+})
