@@ -62,7 +62,7 @@ def sanitize(msg):
     return msg
 
 def extract_body(msg):
-    body = ''
+    body, rich_body = '', ''
     charset = None
     for part in msg.walk():
         #if part.is_multipart():
@@ -73,7 +73,15 @@ def extract_body(msg):
             text = part.get_payload(decode=True)
             charset = get_charset(part)
             body += text.decode(charset, 'ignore')
-    return body
+        elif part.get_content_type() == 'text/html' and not part.is_multipart():
+            text = part.get_payload(decode=True)
+            charset = get_charset(part)
+            rich_body += text.decode(charset, 'ignore')
+
+    if rich_body == '':
+        return body
+    else:
+        return rich_body
 
 def get_charset(msg, default="ascii"):
     if msg.get_content_charset():
@@ -82,4 +90,3 @@ def get_charset(msg, default="ascii"):
         return msg.get_charset()
 
     return default
-
