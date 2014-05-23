@@ -16,10 +16,10 @@ HOST = 'imap.gmail.com'
 server = IMAPClient(HOST, use_uid=True, ssl=True)
 
 parser = Parser()
-switchCategory = 0
 
 users = db.smembers("user:users")
 for user in users:
+    print user
     username = db.get("user:%s:login" % user)
     password = db.get("user:%s:password" % user)
     server.login(username, password)
@@ -32,14 +32,15 @@ for user in users:
         body = extract_body(msg)
         msg['message'] = body
         msg['Subject'] = ('NoSubj' if (msg['Subject']==None)  else msg['Subject'])
+        # TODO set unread
         email = {'id': msgid, 'from': msg['From'], 'to': msg['To'], 'subject': msg['Subject'],
                 'date': msg['Date'], 'cc': msg['CC'], 'read': False,
-                'message': body, 'predicted': True, 'categorized': True} # TODO update this to False
+                'message': body, 'predicted': True, 'categorized': True}
         # TODO fix this
         email['category'] = classify(msg, 'exxonvaldeez')
-        #print "subject: "+msg['Subject']
-        print "category: "+str(email['category'])
         emailJSON = json.dumps(email, sort_keys=True, indent=4, separators=(',', ': '))
+        # TODO check for duplicates
         db.zadd("mail:%s:inbox" % user, emailJSON, msgid)
         db.sadd("mail:%s:%s" % (user, email['category']), msgid)
+    server.logout()
 

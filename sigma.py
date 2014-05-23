@@ -6,7 +6,7 @@ from functools import wraps
 
 from flask import Flask, render_template, jsonify, url_for, redirect
 from flask import request, current_app
-from flask.ext.login import LoginManager, login_user, current_user, login_required
+from flask.ext.login import LoginManager, login_user, current_user, login_required, logout_user
 
 from app.db import db
 from app.forms import LoginForm
@@ -66,6 +66,11 @@ def login():
             db.getset("user:%s:trained" % user.user, "false")
             return redirect(url_for('index'))
     return render_template("login.html", form=form, title="Sign In")
+
+@app.route('/logout')
+def logout():
+    logout_user()
+    return redirect(url_for('index'))
 
 @app.route('/get_emails')
 @jsonp
