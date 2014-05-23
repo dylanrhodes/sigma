@@ -690,7 +690,7 @@ sigmaApp.factory('Emails', function($http) {
 				if (email.fromName.indexOf("?") > -1) email.fromName = email.fromName.substring(0, email.fromName.indexOf("?"));
 				email.fromName = decodeURIComponent(email.fromName);
 			}
-			email.message = Autolinker.link(email.message, { truncate: 50 });
+			//email.message = Autolinker.link(email.message, { truncate: 50 });
 			this.arr.unshift(email);
 		}
 	  }
