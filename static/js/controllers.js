@@ -421,7 +421,7 @@ sigmaApp.controller('EmailListCtrl', function($scope, $http, Emails) {
 
 					var top = temp.position().top;
 					if(top < 0) {
-						temp.parent().scrollTop(temp.parent().scrollTop() + top);
+						temp.parent().scrollTop(temp.parent().scrollTop() + top - 25);
 					}
 					if ($scope.viewingEmail != null) {
 						 var target_id = temp.attr('id');
@@ -468,7 +468,7 @@ sigmaApp.controller('EmailListCtrl', function($scope, $http, Emails) {
 					var top = temp.position().top;
 					if(top >= temp.parent().height()) {
 						var dif = top - temp.parent().height();
-						temp.parent().scrollTop(temp.parent().scrollTop() + temp.height() + dif);
+						temp.parent().scrollTop(temp.parent().scrollTop() + temp.height() + dif - 25);
 					}
 					if ($scope.viewingEmail != null) {
 						 var target_id = temp.attr('id');
