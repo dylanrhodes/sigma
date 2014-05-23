@@ -25,9 +25,10 @@ for user in users:
     server.login(username, password)
     select_info = server.select_folder('INBOX', readonly=True)
     messages = server.search(['NOT DELETED','SINCE 30-Apr-2014' ])
-    response = server.fetch(messages, ['RFC822'])
+    response = server.fetch(messages, ['RFC822', 'FLAGS'])
     for msgid, data in response.iteritems():
         # check for duplicates
+        #print data['FLAGS']
         duplicate = db.zrangebyscore("mail:%s:inbox" % user, msgid, msgid)
         if duplicate:
             continue
