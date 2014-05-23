@@ -33,7 +33,7 @@ def retrain_models(username):
 
 	for msg in (head_x + train_x):
 		h_train_x.append(extract_header_features(msg))
-	
+
 	head_vec = DictVectorizer()
 	h_train_x = head_vec.fit_transform(h_train_x)
 
@@ -57,7 +57,7 @@ def store_object(object, filename):
 		pickle.dump(object, output, pickle.HIGHEST_PROTOCOL)
 
 def store_models(username, body_vec, body_model, head_vec, head_model):
-	path = "./"+username+"/models/"
+	path = "./classifier/"+username+"/models/"
 
 	store_object(body_vec, path+"body_vec.pk1")
 	store_object(body_model, path+"body_model.pk1")

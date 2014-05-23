@@ -167,6 +167,7 @@ def delete_category():
 @login_required
 def train_models():
     retrain_models(current_user.user)
+    db.getset("user:%s:trained" % current_user.user, "true")
     return "Success"
 
 # main
