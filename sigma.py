@@ -45,6 +45,11 @@ def load_user(userid):
 def index():
     return render_template('index.html')
 
+@app.route('/mobile')
+@login_required
+def index():
+    return render_template('mobile.html')
+
 @app.route('/login', methods=['GET', 'POST'])
 def login():
     if current_user is not None and current_user.is_authenticated():
