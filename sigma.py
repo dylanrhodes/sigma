@@ -11,6 +11,7 @@ from flask.ext.login import LoginManager, login_user, current_user, login_requir
 from app.db import db
 from app.forms import LoginForm
 from app.models import User
+from classifier.offline_updater import retrain_models
 
 def jsonp(func):
     """Wraps JSONified output for JSONP requests."""
@@ -47,7 +48,7 @@ def index():
 
 @app.route('/mobile')
 @login_required
-def index():
+def index_mobile():
     return render_template('mobile.html')
 
 @app.route('/login', methods=['GET', 'POST'])
@@ -161,6 +162,12 @@ def delete_category():
         emailJSON = json.dumps(pMail, sort_keys=True, indent=4, separators=(',', ': '))
         db.zremrangebyscore("mail:%s:inbox" % current_user.user, emailID, emailID)
         db.zadd("mail:%s:inbox" % current_user.user, emailJSON, emailID)
+
+@app.route('/train_models', methods=['POST'])
+@login_required
+def train_models():
+    retrain_models(current_user.user)
+    return "Success"
 
 # main
 if __name__ == '__main__':
