@@ -44,9 +44,14 @@ sigmaApp.controller('EmailListCtrl', function($scope, $http, Emails) {
 	 'unread' : 5,
 	 'emails' : 4}
   ];
+  var content = "<h3>Category Digest</h3>";
+  for (var i = 0; i < 100; i++) {
+	content += "Email<br>";
+  }
+  
   $scope.aside = {
-	  "title": "Title",
-	  "content": "Hello Aside<br />This is a multiline message!"
+	  "title": "<div style='text-align: left'>Title</div>",
+	  "content": content
   };
 
   $scope.emails = new Emails($scope.categories.length);
