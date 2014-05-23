@@ -82,19 +82,41 @@ def shorten(text):
 
 	return summary
 
+def extract_body(msg):
+    body, rich_body = '', ''
+    charset = None
+    for part in msg.walk():
+        #if part.is_multipart():
+        #    for subpart in part.walk():
+        #        if subpart.get_content_type() == 'text/plain':
+        #            continue
+        if part.get_content_type() == 'text/plain' and not part.is_multipart():
+            text = part.get_payload(decode=True)
+            charset = get_charset(part)
+            body += text.decode(charset, 'ignore')
+        elif part.get_content_type() == 'text/html' and not part.is_multipart():
+        	text = part.get_payload(decode=True)
+            charset = get_charset(part)
+            rich_body += text.decode(charset, 'ignore')
+
+    if rich_body == '':
+    	return body
+    else:
+    	return rich_body
+
+def get_charset(msg, default="ascii"):
+    if msg.get_content_charset():
+        return msg.get_content_charset()
+    elif msg.get_charset():
+        return msg.get_charset()
+
+    return default
+
 username = 'fdylanrhodesgmailcom'
-print('Training keyword extractor...')
-extractor = KeywordExtractor(username)
-print('Finished training extractor...')
+
 test_data = model_retriever.retrieve_object("./fdylanrhodesgmailcom/data/test_x.pk1")
 
 for msg in test_data:
-	text = preprocess(extract_body_text(msg))
-	print(text)
-	print('KEYWORDS: ')
-
-	for tup in extract_keywords(text, 'fdylanrhodesgmailcom', extractor):
-		print(tup)
-
-	raw_input('Press Enter for next message')
+    extract_body(msg)
+    raw_input('Press Enter for next message')
 	
