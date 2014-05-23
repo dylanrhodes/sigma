@@ -23,18 +23,18 @@
 <body ng-controller="EmailListCtrl">
   <div class="wrapper container-fluid">
     <div class="control-bar row">
-      <div class="control-bar-title col-sm-4 hidden-xs" ng-click="focusCategory('')">
+      <div class="control-bar-title col-sm-5 hidden-xs" ng-click="focusCategory('')">
         <img src="{{ url_for('static', filename='images/logo-1.png') }}" />
       </div>
 {% raw %}
-      <div class="control-bar-compose col-sm-4 hidden-xs">
+      <div class="control-bar-compose col-sm-2 hidden-xs">
         <a href="#" class="compose-a" ng-click="compose()"></a>
       </div>
       <div class="control-bar-search col-sm-3 col-xs-11">
         <input type="search" placeholder="Search" ng-model="search" />
       </div>
 {% endraw %}
-	  <div class="control-bar-settings col-sm-1 hidden-xs">
+	  <div class="control-bar-settings col-sm-2 hidden-xs">
         <a class="settings-a" ng-click="settings()"><img src = "{{ url_for('static', filename='images/gear.png') }}" /></a>
 		<a class="settings-a" bs-aside="aside"><img src = "{{ url_for('static', filename='images/digest.png') }}" /></a>
       </div>
@@ -132,7 +132,8 @@
 		  </div>
 		</div>
 		<div class = "row settings-title">
-			<h1>Inbox Setup</h1>
+			<h1 class="col-xs-8">Inbox Setup</h1>
+			<a ng-click="retrain()">Retrain Categorization Model</a>
 		</div>
 		<div class = "row">
 			<div class="category-select col-sm-5 col-xs-8">

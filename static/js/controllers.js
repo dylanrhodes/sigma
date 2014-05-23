@@ -44,9 +44,10 @@ sigmaApp.controller('EmailListCtrl', function($scope, $http, Emails) {
 	 'emails' : 4}
   ];
   $scope.aside = {
-  "title": "Title",
-  "content": "Hello Aside<br />This is a multiline message!"
+	  "title": "Title",
+	  "content": "Hello Aside<br />This is a multiline message!"
   };
+  
   $scope.emails = new Emails($scope.categories.length);
   $scope.emails.init();
   $scope.focusedCategory = "";
@@ -76,6 +77,9 @@ sigmaApp.controller('EmailListCtrl', function($scope, $http, Emails) {
   // }
   // $scope.$apply();
   $scope.catHeaderHeight = function() { return $(".category-header").height() + 11 };
+  $scope.retrain = function() {
+	console.log("Retraining model");
+  }
   $scope.addCc = function() {
 	if (!$scope.cc) {
 		$('.cc-button').attr('class', 'hidden');
