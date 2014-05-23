@@ -20,7 +20,7 @@
   <script src="{{ url_for('static', filename='moment.min.js') }}"></script>
   <script src="{{ url_for('static', filename='Autolinker.min.js') }}"></script>
   <script>
-    $("a.first").pageslide();
+    $("#digestview").pageslide();
   </script>
 </head>
 
@@ -41,7 +41,7 @@
 	  <div class="control-bar-settings col-sm-2 hidden-xs">
 		<a class="settings-a" title="Logout" href="/logout"><img src = "{{ url_for('static', filename='images/logout.png') }}" /></a>
         <a class="settings-a" title="Settings" ng-click="settings()"><img src = "{{ url_for('static', filename='images/gear.png') }}" /></a>
-		<a class="settings-a first" title="View Digests" ><img src = "{{ url_for('static', filename='images/digest.png') }}" /></a>
+		<a class="settings-a" id="digestview" title="View Digests" ><img src = "{{ url_for('static', filename='images/digest.png') }}" /></a>
       </div>
     </div>
 {% raw %}
