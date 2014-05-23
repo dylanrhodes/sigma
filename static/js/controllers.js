@@ -89,7 +89,7 @@ sigmaApp.controller('EmailListCtrl', function($scope, $http, Emails) {
 		url: '/train_models',
 	})
 	.success(function() {console.log("Successfully trained models");})
-	.error(function() {console.log("Didn't successfully train models");}
+	.error(function() {console.log("Didn't successfully train models");};
   }
   $scope.logout = function() {
 	console.log("Logging out");
