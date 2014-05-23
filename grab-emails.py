@@ -13,13 +13,13 @@ from app.db import db
 
 HOST = 'imap.gmail.com'
 
-server = IMAPClient(HOST, use_uid=True, ssl=True)
 
 parser = Parser()
 
 users = db.smembers("user:users")
 for user in users:
     print user
+    server = IMAPClient(HOST, use_uid=True, ssl=True)
     username = db.get("user:%s:login" % user)
     password = db.get("user:%s:password" % user)
     server.login(username, password)
@@ -27,6 +27,10 @@ for user in users:
     messages = server.search(['NOT DELETED','SINCE 1-Apr-2014' ])
     response = server.fetch(messages, ['RFC822'])
     for msgid, data in response.iteritems():
+        # check for duplicates
+        duplicate = db.zrangebyscore("mail:%s:inbox" % user, msgid, msgid)
+        if duplicate:
+            continue
         emailUTF8 = data['RFC822'].encode('utf-8')
         msg = parser.parsestr(emailUTF8)
         body = extract_body(msg)
@@ -36,10 +40,12 @@ for user in users:
         email = {'id': msgid, 'from': msg['From'], 'to': msg['To'], 'subject': msg['Subject'],
                 'date': msg['Date'], 'cc': msg['CC'], 'read': False,
                 'message': body, 'predicted': True, 'categorized': True}
-        # TODO fix this
-        email['category'] = int(classify(msg, 'exxonvaldeez'))
+        trained = db.get("user:%s:trained" % user)
+        if trained == "true":
+            email['category'] = int(classify(msg, user))
+        else:
+            email['category'] = 1
         emailJSON = json.dumps(email, sort_keys=True, indent=4, separators=(',', ': '))
-        # TODO check for duplicates
         db.zadd("mail:%s:inbox" % user, emailJSON, msgid)
         db.sadd("mail:%s:%s" % (user, email['category']), msgid)
     server.logout()
