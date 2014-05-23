@@ -43,6 +43,10 @@ sigmaApp.controller('EmailListCtrl', function($scope, $http, Emails) {
 	 'unread' : 5,
 	 'emails' : 4}
   ];
+  $scope.aside = {
+  "title": "Title",
+  "content": "Hello Aside<br />This is a multiline message!"
+  };
   $scope.emails = new Emails($scope.categories.length);
   $scope.emails.init();
   $scope.focusedCategory = "";
@@ -676,7 +680,8 @@ sigmaApp.factory('Emails', function($http) {
   };
 
   Emails.prototype.nextByCategory = function(category) {
-    if (this.busy) return;
+	console.log("10 emails supposed to be added");
+    /* if (this.busy) return;
     this.busy = true;
     var url = "http://api.reddit.com/hot?after=" + this.after + "&limit=10&jsonp=JSON_CALLBACK";
     $http.jsonp(url).success(function(data) {
@@ -696,7 +701,7 @@ sigmaApp.factory('Emails', function($http) {
       }
       this.after = "t3_" + this.arr[this.arr.length - 1].id;
       this.busy = false;
-    }.bind(this));
+    }.bind(this)); */
   };
 
   return Emails;
