@@ -401,8 +401,8 @@ sigmaApp.controller('EmailListCtrl', function($scope, $http, Emails) {
 				$scope.selected = temp;
 				$scope.selectedIds = [temp.attr('id')];
 				$scope.$apply();
-				$("#" + $scope.selectedCat).scrollTop(0);
-				var level = $("#outer" + $scope.selectedCat).offset().top - $('.control-bar').outerHeight(); //subtract header size
+				$("#inner" + $scope.selectedCat).scrollTop(0);
+				var level = $("#" + $scope.selectedCat).offset().top - $('.control-bar').outerHeight(); //subtract header size
 				window.scrollTo(0, level);
 				$('.category-bar').children().each(function(i) {
 					var cat = parseInt($scope.selected.parent().attr('id'));
