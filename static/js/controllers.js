@@ -2,7 +2,7 @@
 
 /* Controllers */
 
-var sigmaApp = angular.module('sigmaApp', ['ngAnimate', 'mgcrea.ngStrap']);
+var sigmaApp = angular.module('sigmaApp', ['ngSanitize', 'mgcrea.ngStrap']);
 
 sigmaApp.controller('EmailListCtrl', function($scope, $http, Emails) {
 
