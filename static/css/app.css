@@ -80,10 +80,9 @@ h3.num-title {
 }
 
 .control-bar-search {
-	padding-right:0px;
+	padding-right:-10px;
 	text-align: right;
 	padding-left: 0px;
-	margin-right: -10px;
 	/*position: absolute;
 	right: 0;
 	display: inline-block;*/
@@ -651,7 +650,6 @@ a:active.save {
 }
 
 .settings-title {
-	position: relative;
 	border-bottom: 1px solid #eee;
 	padding-bottom: 5px;
 	margin-bottom: 10px;
@@ -668,7 +666,5 @@ a:active.save {
 }
 
 .retrain {
-	position: absolute; 
-	bottom: 0; 
-	right: 5;
+	text-align: right;
 }
