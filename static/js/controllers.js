@@ -48,7 +48,7 @@ sigmaApp.controller('EmailListCtrl', function($scope, $http, Emails) {
 	  "title": "Title",
 	  "content": "Hello Aside<br />This is a multiline message!"
   };
-  
+
   $scope.emails = new Emails($scope.categories.length);
   $scope.emails.init();
   $scope.focusedCategory = "";
@@ -434,7 +434,7 @@ sigmaApp.controller('EmailListCtrl', function($scope, $http, Emails) {
 								.error(function() {console.log("Didn't successfully push email read");});
 							  if (obj.read != 1) $scope.emails.unread[obj.category-1]--;
 							  obj.read = 1;
-							 
+
 							  $('.message-body').html(obj.message);
 							}
 						  });
@@ -481,7 +481,7 @@ sigmaApp.controller('EmailListCtrl', function($scope, $http, Emails) {
 								.error(function() {console.log("Didn't successfully push email read");});
 							  if (obj.read != 1) $scope.emails.unread[obj.category-1]--;
 							  obj.read = 1;
-							  
+
 							  $('.message-body').html(obj.message);
 							}
 						  });
@@ -555,7 +555,7 @@ sigmaApp.controller('EmailListCtrl', function($scope, $http, Emails) {
 						.error(function() {console.log("Didn't successfully push email read");});
 					  if (obj.read != 1) $scope.emails.unread[obj.category-1]--;
 					  obj.read = 1;
-				
+
 					  $('.message-body').html(obj.message);
 					}
 				  });
@@ -638,8 +638,9 @@ sigmaApp.factory('Emails', function($http) {
 		var cat = i+1;
 		var call = "http://sigma.jmvldz.com/get_category_unread?callback=JSON_CALLBACK&category=" + cat;
 		$http.jsonp(call).success(function(data) {
+            var category = data['category'];
 			var num = data['unread'];
-			this.unread.push(num);
+			this.unread[category-1] = num;
 			console.log("jsonp call returned: " + num);
 		}.bind(this))
 		.error(function() {console.log("Couldn't get unread for " + cat);});

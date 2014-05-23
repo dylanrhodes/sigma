@@ -98,7 +98,7 @@ def get_category_unread():
         pMail = json.loads(emailObj[0])
         if not pMail['read']:
             unread += 1
-    response = {'unread': unread}
+    response = {'unread': unread, 'category': category}
     return jsonify(response)
 
 @app.route('/categorize_email', methods=["POST"])
