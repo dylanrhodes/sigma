@@ -57,7 +57,7 @@ def store_object(object, filename):
 		pickle.dump(object, output, pickle.HIGHEST_PROTOCOL)
 
 def store_models(username, body_vec, body_model, head_vec, head_model):
-	path = "./classifier/"+username+"/models/"
+	path = "/home/jmvldz/sigma/classifier/"+username+"/models/"
 
 	store_object(body_vec, path+"body_vec.pk1")
 	store_object(body_model, path+"body_model.pk1")

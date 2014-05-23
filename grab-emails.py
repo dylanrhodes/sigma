@@ -24,7 +24,7 @@ for user in users:
     password = db.get("user:%s:password" % user)
     server.login(username, password)
     select_info = server.select_folder('INBOX', readonly=True)
-    messages = server.search(['NOT DELETED','SINCE 1-Apr-2014' ])
+    messages = server.search(['NOT DELETED','SINCE 30-Apr-2014' ])
     response = server.fetch(messages, ['RFC822'])
     for msgid, data in response.iteritems():
         # check for duplicates
