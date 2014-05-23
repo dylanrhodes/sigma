@@ -47,12 +47,12 @@
 {% raw %}
      <div class="view-area row {{viewingEmail || composingEmail ? 'email-open' : ''}}">
       <div class="inbox {{viewingEmail || composingEmail ? 'col-xs-4' : 'col-xs-12' }} {{viewingEmail || composingEmail ? 'bootpadding-right' : ''}}">
-        <div ng-repeat="category in categories" ng-init="$scope.focusedCategory = 0" class = "{{viewingEmail || focusedCategory != '' || composingEmail ? 'one-box' : category.split ? 'two-box' : 'one-box'}} {{ viewingEmail && viewingEmail.category != category.id ? 'hidden' : '' }} {{ focusedCategory && focusedCategory != '' && focusedCategory != category.id ? 'hidden' : '' }}" style = "border-color: {{category.color}};" id="{{category.id}}">
+        <div ng-repeat="category in categories" ng-init="$scope.focusedCategory = 0" class = "{{viewingEmail || focusedCategory != '' || composingEmail ? 'one-box' : category.split ? 'two-box' : 'one-box'}} {{ viewingEmail && viewingEmail.category != category.id ? 'hidden' : '' }} {{ focusedCategory && focusedCategory != '' && focusedCategory != category.id ? 'hidden' : '' }}" style = "border-color: {{category.color}};">
         	<div class="category-header" style = "background-color: {{category.color}};">
         		{{category.name}}
         	</div>
         	<div class="unread {{emails.unread[category.id-1] ? '' : 'hidden'}}" style = "color: {{category.color}};">{{emails.unread[category.id-1]}}</div>
-        	<div class="emails-area" style = "height: {{viewingEmail || focusedCategory == category.id ? windowHeight - 121 : category.emails*42}}px;">
+        	<div class="emails-area" style = "height: {{viewingEmail || focusedCategory == category.id ? windowHeight - 121 : category.emails*42}}px;" id="{{category.id}}">
 	            <div class="row ind-email {{email.read ? 'read' : ''}} {{ selectedIds.indexOf(email.id) >= 0 ? 'selected-email' : '' }}" id = "{{email.id}}" ng-repeat="email in filterEmails = (emails.arr | filter:{category:category.id} | filter:search)">
 	             <div class = "{{viewingEmail || composingEmail ? 'col-xs-12' : category.split ? 'col-md-4 col-sm-4' : 'from col-md-2 col-sm-3'}} nopadding from">{{email.fromName == '' ? email.fromEmail : email.fromName}}</div>
 	      			 <div class = "{{viewingEmail || composingEmail ? 'col-xs-12' : category.split ? 'col-md-8 col-sm-8 col-xs-12' : 'col-md-10 col-sm-9 col-xs-12'}} lopadding">
