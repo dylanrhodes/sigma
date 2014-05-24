@@ -446,7 +446,7 @@ sigmaApp.controller('EmailListCtrl', function($scope, $http, Emails) {
 								.error(function() {console.log("Didn't successfully push email read");});
 							  if (obj.read != 1) $scope.emails.unread[obj.category-1]--;
 							  obj.read = 1;
-							  if (obj.message.indexOf("<body") == -1) { 
+							  if (!obj.html) { 
 								$('.message-body').css('white-space', 'pre-line'); 
 								$('.message-body').css('padding', '0 40px'); 
 							  }
@@ -500,7 +500,7 @@ sigmaApp.controller('EmailListCtrl', function($scope, $http, Emails) {
 								.error(function() {console.log("Didn't successfully push email read");});
 							  if (obj.read != 1) $scope.emails.unread[obj.category-1]--;
 							  obj.read = 1;
-							  if (obj.message.indexOf("<body") == -1) { 
+							  if (!obj.html) { 
 								$('.message-body').css('white-space', 'pre-line'); 
 								$('.message-body').css('padding', '0 40px'); 
 							  }
@@ -547,7 +547,7 @@ sigmaApp.controller('EmailListCtrl', function($scope, $http, Emails) {
 				.error(function() {console.log("Didn't successfully push email read");});
 			  if (obj.read != 1) $scope.emails.unread[obj.category-1]--;
 			  obj.read = 1;
-			  if (obj.message.indexOf("<body") == -1) { 
+			  if (!obj.html) { 
 				$('.message-body').css('white-space', 'pre-line'); 
 				$('.message-body').css('padding', '0 40px'); 
 			  }
@@ -590,7 +590,7 @@ sigmaApp.controller('EmailListCtrl', function($scope, $http, Emails) {
 						.error(function() {console.log("Didn't successfully push email read");});
 					  if (obj.read != 1) $scope.emails.unread[obj.category-1]--;
 					  obj.read = 1;
-					  if (obj.message.indexOf("<body") == -1) { 
+					  if (!obj.html) { 
 						$('.message-body').css('white-space', 'pre-line'); 
 						$('.message-body').css('padding', '0 40px'); 
 					  }
@@ -722,7 +722,10 @@ sigmaApp.factory('Emails', function($http) {
 				if (email.fromName.indexOf("?") > -1) email.fromName = email.fromName.substring(0, email.fromName.indexOf("?"));
 				email.fromName = decodeURIComponent(email.fromName);
 			}
-			//email.message = Autolinker.link(email.message, { truncate: 50 });
+			var noHtml = email.message.replace(/<(?:.|\n)*?>/gm, '');
+			if (email.message == noHtml) email.html = false;
+			else email.html = true;
+			if (!email.html) email.message = Autolinker.link(email.message, { truncate: 50 });
 			this.arr.unshift(email);
 		}
 	  }
