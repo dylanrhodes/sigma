@@ -557,6 +557,7 @@ sigmaApp.controller('EmailListCtrl', function($scope, $http, Emails) {
 				  $.map($scope.emails.arr, function(obj) {
 					if(obj.id == target_id) {
 					  $scope.viewingEmail = obj;
+					  console.log(obj.message);
 					  var elem = {"id" : obj.id};
 					  $http({
 							method: 'POST',
