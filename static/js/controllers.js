@@ -452,7 +452,7 @@ sigmaApp.controller('EmailListCtrl', function($scope, $http, Emails) {
 							  }
 							  else {
 								$('.message-body').css('white-space', 'normal'); 
-								$('.message-body').css('padding', '0 20px'); 
+								$('.message-body').css('padding', '20px 20px'); 
 							  }
 							  $('.message-body').html(obj.message);
 							}
@@ -506,7 +506,7 @@ sigmaApp.controller('EmailListCtrl', function($scope, $http, Emails) {
 							  }
 							  else {
 								$('.message-body').css('white-space', 'normal'); 
-								$('.message-body').css('padding', '0 20px'); 
+								$('.message-body').css('padding', '20px 20px'); 
 							  }
 							  $('.message-body').html(obj.message);
 							}
@@ -553,7 +553,7 @@ sigmaApp.controller('EmailListCtrl', function($scope, $http, Emails) {
 			  }
 			  else {
 				$('.message-body').css('white-space', 'normal'); 
-				$('.message-body').css('padding', '0 20px'); 
+				$('.message-body').css('padding', '20px 20px'); 
 			  }
 			  $('.message-body').html(obj.message);
 			}
@@ -596,7 +596,7 @@ sigmaApp.controller('EmailListCtrl', function($scope, $http, Emails) {
 					  }
 					  else {
 						$('.message-body').css('white-space', 'normal'); 
-						$('.message-body').css('padding', '0 20px'); 
+						$('.message-body').css('padding', '20px 20px'); 
 					  }
 					  $('.message-body').html(obj.message);
 					}
