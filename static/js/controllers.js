@@ -446,7 +446,7 @@ sigmaApp.controller('EmailListCtrl', function($scope, $http, Emails) {
 								.error(function() {console.log("Didn't successfully push email read");});
 							  if (obj.read != 1) $scope.emails.unread[obj.category-1]--;
 							  obj.read = 1;
-
+							  if (obj.message.indexOf("</html>") == -1) $('.message-body').css('white-space', 'pre-line');
 							  $('.message-body').html(obj.message);
 							}
 						  });
@@ -493,7 +493,7 @@ sigmaApp.controller('EmailListCtrl', function($scope, $http, Emails) {
 								.error(function() {console.log("Didn't successfully push email read");});
 							  if (obj.read != 1) $scope.emails.unread[obj.category-1]--;
 							  obj.read = 1;
-
+							  if (obj.message.indexOf("</html>") == -1) $('.message-body').css('white-space', 'pre-line');
 							  $('.message-body').html(obj.message);
 							}
 						  });
@@ -533,6 +533,7 @@ sigmaApp.controller('EmailListCtrl', function($scope, $http, Emails) {
 				.error(function() {console.log("Didn't successfully push email read");});
 			  if (obj.read != 1) $scope.emails.unread[obj.category-1]--;
 			  obj.read = 1;
+			  if (obj.message.indexOf("</html>") == -1) $('.message-body').css('white-space', 'pre-line');
 			  $('.message-body').html(obj.message);
 			}
 		  });
@@ -568,6 +569,7 @@ sigmaApp.controller('EmailListCtrl', function($scope, $http, Emails) {
 						.error(function() {console.log("Didn't successfully push email read");});
 					  if (obj.read != 1) $scope.emails.unread[obj.category-1]--;
 					  obj.read = 1;
+					  if (obj.message.indexOf("</html>") == -1) $('.message-body').css('white-space', 'pre-line');
 
 					  $('.message-body').html(obj.message);
 					}
