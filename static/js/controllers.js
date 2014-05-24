@@ -568,8 +568,8 @@ sigmaApp.controller('EmailListCtrl', function($scope, $http, Emails) {
 						.error(function() {console.log("Didn't successfully push email read");});
 					  if (obj.read != 1) $scope.emails.unread[obj.category-1]--;
 					  obj.read = 1;
-					  var body = "<pre>" + obj.message + "</pre>";
-					  $('.message-body').html(body);
+
+					  $('.message-body').html(obj.message);
 					}
 				  });
 
