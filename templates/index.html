@@ -45,7 +45,7 @@
       </div>
     </div>
 {% raw %}
-     <div class="view-area row {{viewingEmail || composingEmail ? 'email-open' : ''}}">
+     <div class="view-area row {{viewingEmail || composingEmail ? 'email-open' : ''}}" style="margin-top:{{viewingEmail || composingEmail ? '0' : '10px'}}">
       <div class="inbox {{viewingEmail || composingEmail ? 'col-xs-3' : 'col-xs-12' }} {{viewingEmail || composingEmail ? 'bootpadding-right' : ''}}">
         <div ng-repeat="category in categories" ng-init="$scope.focusedCategory = 0" class = "{{viewingEmail || focusedCategory != '' || composingEmail ? 'one-box' : category.split ? 'two-box' : 'one-box'}} {{ viewingEmail && viewingEmail.category != category.id ? 'hidden' : '' }} {{ focusedCategory && focusedCategory != '' && focusedCategory != category.id ? 'hidden' : '' }}" style = "border-color: {{category.color}};" id="{{category.id}}">
         	<div class="category-header" style = "background-color: {{category.color}};">
