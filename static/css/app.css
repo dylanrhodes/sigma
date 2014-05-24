@@ -500,7 +500,7 @@ button.loadMore {
 
 .message-body {
 	padding: 0 10px;
-	white-space: pre-line;
+	/*white-space: pre-line;*/
 	word-break: break-word;
 	/*height: 100%;
 	overflow: scroll;*/
