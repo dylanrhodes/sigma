@@ -46,7 +46,7 @@
     </div>
 {% raw %}
      <div class="view-area row {{viewingEmail || composingEmail ? 'email-open' : ''}}">
-      <div class="inbox {{viewingEmail || composingEmail ? 'col-xs-4' : 'col-xs-12' }} {{viewingEmail || composingEmail ? 'bootpadding-right' : ''}}">
+      <div class="inbox {{viewingEmail || composingEmail ? 'col-xs-3' : 'col-xs-12' }} {{viewingEmail || composingEmail ? 'bootpadding-right' : ''}}">
         <div ng-repeat="category in categories" ng-init="$scope.focusedCategory = 0" class = "{{viewingEmail || focusedCategory != '' || composingEmail ? 'one-box' : category.split ? 'two-box' : 'one-box'}} {{ viewingEmail && viewingEmail.category != category.id ? 'hidden' : '' }} {{ focusedCategory && focusedCategory != '' && focusedCategory != category.id ? 'hidden' : '' }}" style = "border-color: {{category.color}};" id="{{category.id}}">
         	<div class="category-header" style = "background-color: {{category.color}};">
         		{{category.name}}
@@ -64,7 +64,7 @@
 	    	</div>
         </div>
       </div>
-      <div class="message-container {{viewingEmail ? 'col-xs-8' : 'hidden'}}">
+      <div class="message-container {{viewingEmail ? 'col-xs-9' : 'hidden'}}">
         <div class="message-view" style="height: {{ windowHeight - 94}}px; border-color: {{viewingEmail ? categories[viewingEmail.category - 1].color : '#ddd' }}">
 			<div class="row message-header">
 				<div class="message-subject col-xs-9">
@@ -90,7 +90,7 @@
 			<div class="message-body"></div>
 		</div>
       </div>
-	  <div class="compose-container {{composingEmail ? 'col-xs-8' : 'hidden'}}">
+	  <div class="compose-container {{composingEmail ? 'col-xs-9' : 'hidden'}}">
       <div class="compose-view" style="height: {{windowHeight - 94}}px;">
 		<div class="row compose-header">
 			<div class="compose-subject col-xs-10"><input type="text" id="compose-subject" placeholder="Subject" /></div>
