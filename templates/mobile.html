@@ -55,11 +55,11 @@
 		      </div>
 		    </div>
 		    <div class="inbox {{showingClass(inboxId)}}">
-				<div ng-repeat="email in emails.arr | orderBy:email.millis:reverse" class="row ind-email {{email.read ? 'read' : ''}} {{showingEmail(email) ? '' : 'hidden'}}" id = "{{email.id}}">
+				<div ng-repeat="email in emails.arr | orderBy:email.millis:reverse" class="row ind-email {{email.read ? 'read' : ''}} {{showingEmail(email) ? '' : 'hidden'}}" id = "{{email.id}}" style="color: {{categories[email.category - 1].color}}">
 					<div class="col-xs-11 email-area" ng-click="viewing(email.id)">
 		             	<div class = "from">{{email.from}}</div>
-		             	<div class="subject" style="color: {{categories[email.category - 1].color}}">{{email.subject}}</div>
-		      			<div class = "snipit" style="color: {{categories[email.category - 1].color}}"><span class = "date">{{email.date}}</span> - {{email.snippet}}</div>
+		             	<div class="subject">{{email.subject}}</div>
+		      			<div class = "snipit"><span class = "date">{{email.date}}</span> - {{email.snippet}}</div>
 		      		</div>
 		      		<div class="col-xs-1 fandle-area">
 	      				<div class="email-fandle" id="email-fandle-{{email.id}}" rel="{{email.id}}"></div>
