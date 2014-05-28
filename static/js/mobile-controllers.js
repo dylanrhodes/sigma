@@ -113,7 +113,7 @@ sigmaApp.controller('EmailListCtrl', function($scope, $http, Emails) {
 
   $scope.viewing = function(emailId) {
 		$scope.showing = $scope.viewingId;
-		$scope.viewingEmail = $scope.emails[emailId];
+		$scope.viewingEmail = $scope.emails.arr[emailId];
 		console.log($scope.viewingEmail);
 	}
 
@@ -293,13 +293,13 @@ sigmaApp.controller('EmailListCtrl', function($scope, $http, Emails) {
 				$(this).fandle({ categories : $scope.categories,
 					radius : 160,
 					innerRadius : 25,
-					innerColor : $scope.categories[$scope.emails[emailId].category - 1].color,
+					innerColor : $scope.categories[$scope.emails.arr[emailId].category - 1].color,
 					mode : 'half',
 					innerImage : '/static/images/sigma-handle.png',
 					innerHoverImage : '/static/images/sigma-handle-hover.png'
 			 	}, (function(tempEmailId) {
 			 		return function(selectedId) {
-						$scope.emails[tempEmailId].category = selectedId;
+						$scope.emails.arr[tempEmailId].category = selectedId;
 						$scope.$apply();
 					}; }) 
 			 		(emailId)
