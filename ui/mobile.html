@@ -48,12 +48,12 @@
 		    </div>
 			<div class="inbox {{showingClass(inboxId)}}">
 				<div ng-repeat="email in dummyEmails" class="row ind-email {{email.read ? 'read' : ''}} {{showingEmail(email) ? '' : 'hidden'}}" id = "{{email.id}}" style="color: {{categories[email.category - 1].color}}">
-					<div class="col-xs-8 email-area" ng-click="viewing(email.id)">
-		             	<div class = "from">{{email.fromName == '' ? email.fromEmail : email.fromName}}</div>
+					<div class="col-xs-11 email-area" ng-click="viewing(email.id)">
+		             	<div class = "from">{{email.from}}</div>
 		             	<div class="subject">{{email.subject}}</div>
 		      			<div class = "snipit"><span class = "date">{{email.date}}</span> - {{email.snippet}}</div>
 		      		</div>
-		      		<div class="col-xs-4 fandle-area">
+		      		<div class="col-xs-1 fandle-area">
 	      				<div class="email-fandle" id="email-fandle-{{email.id}}" rel="{{email.id}}"></div>
 	      			</div>
 	            </div>
@@ -65,12 +65,11 @@
 			</div>
 			<div class="compose {{showingClass(composeId)}}">
 				Compose
-
 			</div>
 			<div class="settings {{showingClass(settingsId)}}">
 				Settings
-
 			</div>
+			<script> setTimeout(function() { $(".sidebar-all").click(); }, 1000); </script>
 		</div>
 	</div>
 </div>
