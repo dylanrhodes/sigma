@@ -299,7 +299,8 @@ sigmaApp.controller('EmailListCtrl', function($scope, $http, Emails) {
 					innerHoverImage : '/static/images/sigma-handle-hover.png'
 			 	}, (function(tempEmailId) {
 			 		return function(selectedId) {
-						$scope.emails.byId[tempEmailId].category = selectedId;
+			 			$scope.categorize(tempEmailId, selectedId);
+						// $scope.emails.byId[tempEmailId].category = selectedId;
 						$scope.$apply();
 					}; }) 
 			 		(emailId)
@@ -324,45 +325,16 @@ sigmaApp.controller('EmailListCtrl', function($scope, $http, Emails) {
 	$scope.emails.nextByCategory(categoryId);
   }
 
-  $scope.categorize = function(categoryId) {
-    if($scope.selectedIds.length == 0) {
-    	// nothing selected, categorize current email
-    	$scope.viewingEmail.category = categoryId;
-    	return;
-    }
-	if ($scope.selected != "") {
-	    //move to next element before categorizing
-		var temp = $scope.selected.next();
-		while(temp && $scope.selectedIds.indexOf(temp.attr('id')) >= 0)
-			temp = temp.next();
-		var cl = temp.attr("class");
-
-		$.each($scope.selectedIds, function(i, id) {
-		  $.map($scope.emails.arr, function(obj, index) {
-			if(obj.id == id) {
-			  var elem = {"id" : id, "category" : categoryId};
-			  $http({
-					method: 'POST',
-					url: '/categorize_email',
-					data: elem
-				})
-				.success(function() {console.log("Successfully pushed category change");})
-				.error(function() {console.log("Didn't successfully pushed category change");});
-			  obj.category = categoryId;
-			 }
-		  });
-		});
-
-		if (typeof cl !== 'undefined' && cl !== false) {
-			$scope.selected = temp;
-			$scope.selectedIds = [temp.attr('id')];
-			var top = temp.position().top - temp.parent().position().top;
-			if(top >= temp.parent().height()) {
-				var dif = top - temp.parent().height();
-				temp.parent().scrollTop(temp.parent().scrollTop() + temp.height() + dif);
-			}
-		}
-	}
+  $scope.categorize = function(emailId, categoryId) {
+	  var elem = {"id" : emailId, "category" : categoryId};
+	  $http({
+			method: 'POST',
+			url: '/categorize_email',
+			data: elem
+		})
+		.success(function() {console.log("Successfully pushed category change");})
+		.error(function() {console.log("Didn't successfully pushed category change");});
+	  $scope.emails.byId[emailId].category = categoryId;
   }
 
   $scope.markRead = function(ru) {
