@@ -121,6 +121,9 @@ sigmaApp.controller('EmailListCtrl', function($scope, $http, Emails) {
 		$scope.showing = $scope.viewingId;
 		$scope.viewingEmail = $scope.emails.byId[emailId];
 		$scope.emails.byId[emailId].read = 1;
+
+		$("#" + emailId).find(".fandle-inner-image").attr("href", "/static/images/sigma-handle-read.png");
+
 		var elem = {"id" : emailId};
 	  $http({
 			method: 'POST',
@@ -373,6 +376,7 @@ sigmaApp.controller('EmailListCtrl', function($scope, $http, Emails) {
 					.error(function() {console.log("Didn't successfully push read change");});
 				  if (obj.read != 1) $scope.emails.unread[obj.category-1]--;
 				  obj.read = 1;
+
 			  }
 			  else {
 				var elem = {"id" : id};
