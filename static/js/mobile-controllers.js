@@ -113,7 +113,7 @@ sigmaApp.controller('EmailListCtrl', function($scope, $http, Emails) {
 
   $scope.viewing = function(emailId) {
 		$scope.showing = $scope.viewingId;
-		$scope.viewingEmail = $scope.dummyEmails[emailId];
+		$scope.viewingEmail = $scope.emails[emailId];
 		console.log($scope.viewingEmail);
 	}
 
@@ -293,13 +293,13 @@ sigmaApp.controller('EmailListCtrl', function($scope, $http, Emails) {
 				$(this).fandle({ categories : $scope.categories,
 					radius : 160,
 					innerRadius : 25,
-					innerColor : $scope.categories[$scope.dummyEmails[emailId].category - 1].color,
+					innerColor : $scope.categories[$scope.emails[emailId].category - 1].color,
 					mode : 'half',
 					innerImage : '/static/images/sigma-handle.png',
 					innerHoverImage : '/static/images/sigma-handle-hover.png'
 			 	}, (function(tempEmailId) {
 			 		return function(selectedId) {
-						$scope.dummyEmails[tempEmailId].category = selectedId;
+						$scope.emails[tempEmailId].category = selectedId;
 						$scope.$apply();
 					}; }) 
 			 		(emailId)
@@ -408,317 +408,7 @@ sigmaApp.controller('EmailListCtrl', function($scope, $http, Emails) {
 
 
   jQuery(function($) {
-	$(document).ready(function(){
-		$(document.body).on('keyup', '.num-bar', function() {
-			if (!isNaN($(this).val())) {
-				var num = parseInt($(this).val());
-				if (num != 0 && !isNaN(num)) {
-					$scope.init();
-				}
-			}
-		});
-		$(document.body).on('click', '.split-check' ,function(){
-			$scope.init();
-		});
-	});
-
-	$(document).keydown(function(e){
-		if (e.keyCode == 82) {
-			$scope.markRead(1);
-			$scope.$apply();
-		}
-		if (e.keyCode == 85) {
-			$scope.markRead(0);
-			$scope.$apply();
-		}
-		if (e.keyCode == 9) {
-			e.preventDefault();
-			if ($scope.viewingEmail == null) {
-				if($scope.selected && $scope.selected != "") {
-					$.map($scope.emails.arr, function(e) {
-						if(e.id == $scope.selected.attr('id')) {
-							console.log("1");
-							$scope.selectedCat = e.category;
-						}
-					})
-				}
-				if(! e.shiftKey) {
-					if ($scope.selectedCat == -1 || $scope.selectedCat == $scope.numCat)
-					  $scope.selectedCat = 1;
-					else
-					  $scope.selectedCat ++;
-				} else {
-					if ($scope.selectedCat == -1 || $scope.selectedCat == 1)
-					  $scope.selectedCat = $scope.numCat;
-					else
-					  $scope.selectedCat --;
-				}
-
-				temp = $("#" + $scope.selectedCat).find(".ind-email").first();
-				console.log($("#" + $scope.selectedCat).find(".ind-email"));
-				$scope.selected = temp;
-				$scope.selectedIds = [temp.attr('id')];
-				$scope.$apply();
-				$("#inner" + $scope.selectedCat).scrollTop(0);
-				var level = $("#" + $scope.selectedCat).offset().top - $('.control-bar').outerHeight(); //subtract header size
-				window.scrollTo(0, level);
-				$('.category-bar').children().each(function(i) {
-					var cat = parseInt($scope.selected.parent().attr('id'));
-					$scope.selectedCat = cat;
-					// if ((i+1) != cat) $(this).css('opacity', .6);
-					// else $(this).css('opacity', 1);
-				});
-			}
-		}
-		if (e.keyCode == 38) { //down
-			if ($scope.selected != "") {
-				e.preventDefault();
-				var temp = $scope.selected.prev();
-				var cl = temp.attr("class");
-				if (typeof cl !== 'undefined' && cl !== false) {
-					$scope.selected = temp;
-
-          if(e.shiftKey) {
-            $scope.selectedIds.push(temp.attr('id'));
-          } else {
-            $scope.selectedIds = [temp.attr('id')];
-          }
-
-					var top = temp.position().top;
-					if(top < 0) {
-						temp.parent().scrollTop(temp.parent().scrollTop() + top - 21);
-					}
-					if ($scope.viewingEmail != null) {
-						 var target_id = temp.attr('id');
-						  // TODO replace this search with a direct hash look-up
-						  $.map($scope.emails.arr, function(obj) {
-							if(obj.id == target_id) {
-							  $scope.viewingEmail = obj;
-							  var elem = {"id" : obj.id};
-							  $http({
-									method: 'POST',
-									url: '/mark_as_read',
-									data: elem
-								})
-								.success(function() {console.log("Successfully pushed email read");})
-								.error(function() {console.log("Didn't successfully push email read");});
-							  if (obj.read != 1) $scope.emails.unread[obj.category-1]--;
-							  obj.read = 1;
-							  if (!obj.html) { 
-								$('.message-body').css('white-space', 'pre-line'); 
-								$('.message-body').css('padding', '0 40px'); 
-							  }
-							  else {
-								$('.message-body').css('white-space', 'normal'); 
-								$('.message-body').css('padding', '20px 20px'); 
-							  }
-							  $('.message-body').html(obj.message);
-							}
-						  });
-
-						  $scope.selectedIds = [target_id];
-						  $scope.selected = temp;
-					}
-				}
-			}
-			$scope.$apply();
-		}
-		if (e.keyCode == 40) { //down
-			if ($scope.selected != "") {
-				e.preventDefault();
-				var temp = $scope.selected.next();
-				var cl = temp.attr("class");
-				if (typeof cl !== 'undefined' && cl !== false) {
-					$scope.selected = temp;
-
-					  if(e.shiftKey) {
-						$scope.selectedIds.push(temp.attr('id'));
-					  } else {
-						$scope.selectedIds = [temp.attr('id')];
-					  }
-
-					var top = temp.position().top;
-					if(top >= temp.parent().height()) {
-						var dif = top - temp.parent().height();
-						temp.parent().scrollTop(temp.parent().scrollTop() + temp.height() + dif - 21);
-					}
-					if ($scope.viewingEmail != null) {
-						 var target_id = temp.attr('id');
-						  // TODO replace this search with a direct hash look-up
-						  $.map($scope.emails.arr, function(obj) {
-							if(obj.id == target_id) {
-							  $scope.viewingEmail = obj;
-							  var elem = {"id" : obj.id};
-							  $http({
-									method: 'POST',
-									url: '/mark_as_read',
-									data: elem
-								})
-								.success(function() {console.log("Successfully pushed email read");})
-								.error(function() {console.log("Didn't successfully push email read");});
-							  if (obj.read != 1) $scope.emails.unread[obj.category-1]--;
-							  obj.read = 1;
-							  if (!obj.html) { 
-								$('.message-body').css('white-space', 'pre-line'); 
-								$('.message-body').css('padding', '0 40px'); 
-							  }
-							  else {
-								$('.message-body').css('white-space', 'normal'); 
-								$('.message-body').css('padding', '20px 20px'); 
-							  }
-							  $('.message-body').html(obj.message);
-							}
-						  });
-
-						  $scope.selectedIds = [target_id];
-						  $scope.selected = temp;
-					}
-				}
-			}
-			$scope.$apply();
-		}
-		if (e.keyCode >= 49 && e.keyCode < 49 + $scope.numCat) {
-		   var cat = e.keyCode - 48;
-         $scope.categorize(cat);
-         $scope.$apply();
-		}
-	});
-
-	$(document).on("click", ".ind-email", function(e) {
-		e.stopPropagation();
-
-		if($scope.selectedIds.indexOf($(this).attr('id')) >= 0 && !e.shiftKey) {
-			// They have clicked on a highlighted message (e.g. double-clicked) to open
-		  $scope.focusCategory('');
-		  var target_id = $(this).attr('id');
-		  // TODO replace this search with a direct hash look-up
-		  $.map($scope.emails.arr, function(obj) {
-			if(obj.id == target_id) {
-			  $scope.viewingEmail = obj;
-			  var elem = {"id" : obj.id};
-			  $http({
-					method: 'POST',
-					url: '/mark_as_read',
-					data: elem
-				})
-				.success(function() {console.log("Successfully pushed email read");})
-				.error(function() {console.log("Didn't successfully push email read");});
-			  if (obj.read != 1) $scope.emails.unread[obj.category-1]--;
-			  obj.read = 1;
-			  if (!obj.html) { 
-				$('.message-body').css('white-space', 'pre-line'); 
-				$('.message-body').css('padding', '0 40px'); 
-			  }
-			  else {
-				$('.message-body').css('white-space', 'normal'); 
-				$('.message-body').css('padding', '20px 20px'); 
-			  }
-			  $('.message-body').html(obj.message);
-			}
-		  });
-
-		  $scope.selectedIds = [target_id];
-		  $scope.selected = $(this);
-
-		  $scope.$apply();
-		  return;
-		}
-
-
-			$scope.selected = $(this);
-			if(e.shiftKey) {
-			  $scope.selectedIds.push($(this).attr('id'));
-			} else {
-			  $scope.selectedIds = [$(this).attr('id')];
-			}
-			if ($scope.viewingEmail != null) {
-				 var target_id = $(this).attr('id');
-				  // TODO replace this search with a direct hash look-up
-				  $.map($scope.emails.arr, function(obj) {
-					if(obj.id == target_id) {
-					  $scope.viewingEmail = obj;
-					  console.log(obj.message);
-					  var elem = {"id" : obj.id};
-					  $http({
-							method: 'POST',
-							url: '/mark_as_read',
-							data: elem
-						})
-						.success(function() {console.log("Successfully pushed email read");})
-						.error(function() {console.log("Didn't successfully push email read");});
-					  if (obj.read != 1) $scope.emails.unread[obj.category-1]--;
-					  obj.read = 1;
-					  if (!obj.html) { 
-						$('.message-body').css('white-space', 'pre-line'); 
-						$('.message-body').css('padding', '0 40px'); 
-					  }
-					  else {
-						$('.message-body').css('white-space', 'normal'); 
-						$('.message-body').css('padding', '20px 20px'); 
-					  }
-					  $('.message-body').html(obj.message);
-					}
-				  });
-
-				  $scope.selectedIds = [target_id];
-				  $scope.selected = $(this);
-			}
-		$scope.$apply();
-	});
-/*
-	$(".category-header").click(function(e) {
-		e.stopPropagation();
-		console.log("header");
-		var id = $(this).parent().attr('id');
-		$scope.focusCategory(parseInt(id), 0);
-		$scope.$apply();
-	})
-*/
-	$(document).on("click", ".category", function(e) {
-		e.stopPropagation();
-	});
-
-	$(document).click(function() {
-		if ($scope.markUnread == false) {
-			$scope.selected = "";
-			$scope.selectedIds = [];
-			$scope.$apply();
-		}
-		$scope.markUnread = false;
-	});
-
-	$(document).delegate('.one-box', 'click', function (e) {
-		e.stopPropagation();
-		var offset = $(this).offset();
-		if ((e.pageY - offset.top) <= 50) {
-			var id = $(this).attr('id');
-			$scope.focusCategory(parseInt(id));
-			$scope.$apply();
-		}
-	});
-
-	$(document).delegate('.two-box', 'click', function (e) {
-		e.stopPropagation();
-		var offset = $(this).offset();
-		if($scope.boxWidth == null)
-			$scope.boxWidth = $(".one-box").width();
-		if ((e.pageY - offset.top) <= 50) {
-			var id = $(this).attr('id');
-			$scope.focusCategory(parseInt(id));
-			$scope.$apply();
-		}
-	});
-
-	$('.emails-area').on('scroll', function() {
-		  var newTop = $(this).scrollTop() + 5;
-		  $(this).children(".unread").css({top: newTop, position:'absolute'});
-	});
-	  /*
-	$('.two-box').on('scroll', function() {
-		  var newTop = $(this).scrollTop() + 5;
-		  $(this).children(".unread").css({top: newTop, position:'absolute'});
-    });
-*/
+	
   });
 
 });
@@ -784,7 +474,9 @@ sigmaApp.factory('Emails', function($http) {
 			if (email.message == noHtml) email.html = false;
 			else email.html = true;
 			if (!email.html) email.message = Autolinker.link(email.message, { truncate: 50 });
-			this.arr.unshift(email);
+			// this.arr.unshift(email);
+			this.arr[email.id] = email;
+			console.log(this.arr);
 		}
 	  }
       this.busy = false;
