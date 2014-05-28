@@ -295,8 +295,8 @@ sigmaApp.controller('EmailListCtrl', function($scope, $http, Emails) {
 					innerRadius : 25,
 					innerColor : $scope.categories[$scope.dummyEmails[emailId].category - 1].color,
 					mode : 'half',
-					innerImage : 'sigma-handle.png',
-					innerHoverImage : 'sigma-handle-hover.png'
+					innerImage : '/static/images/sigma-handle.png',
+					innerHoverImage : '/static/images/sigma-handle-hover.png'
 			 	}, (function(tempEmailId) {
 			 		return function(selectedId) {
 						$scope.dummyEmails[tempEmailId].category = selectedId;
