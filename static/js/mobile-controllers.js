@@ -120,6 +120,15 @@ sigmaApp.controller('EmailListCtrl', function($scope, $http, Emails) {
   $scope.viewing = function(emailId) {
 		$scope.showing = $scope.viewingId;
 		$scope.viewingEmail = $scope.emails.byId[emailId];
+		$scope.emails.byId[emailId].read = 1;
+		var elem = {"id" : emailId};
+	  $http({
+			method: 'POST',
+			url: '/mark_as_read',
+			data: elem
+		})
+		.success(function() {console.log("Successfully pushed read change");})
+		.error(function() {console.log("Didn't successfully push read change");});
 	}
 
 	$scope.showingEmail = function(email) {
