@@ -245,7 +245,7 @@ sigmaApp.controller('EmailListCtrl', function($scope, $http, Emails) {
 			$("#compose-to").val(arguments[0].fromEmail);
 			$("#compose-body").val("\n\n---------------------------------\nOn "
 				+ arguments[0].true_date + ", " + arguments[0].from
-				+ " wrote:\n\n" + arguments[0].message);
+				+ " wrote:\n\n" + arguments[0].noHtml);
 		}
 	}
 
@@ -722,8 +722,8 @@ sigmaApp.factory('Emails', function($http) {
 				if (email.fromName.indexOf("?") > -1) email.fromName = email.fromName.substring(0, email.fromName.indexOf("?"));
 				email.fromName = decodeURIComponent(email.fromName);
 			}
-			var noHtml = email.message.replace(/<(?:.|\n)*?>/gm, '');
-			if (email.message == noHtml) email.html = false;
+			email.noHtml = email.message.replace(/<(?:.|\n)*?>/gm, '');
+			if (email.message == email.noHtml) email.html = false;
 			else email.html = true;
 			if (!email.html) email.message = Autolinker.link(email.message, { truncate: 50 });
 			this.arr.unshift(email);
