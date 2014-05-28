@@ -112,9 +112,10 @@ sigmaApp.controller('EmailListCtrl', function($scope, $http, Emails) {
 	}
 
   $scope.viewing = function(emailId) {
+  	alert(emailId);
 		$scope.showing = $scope.viewingId;
 		$scope.viewingEmail = $scope.emails.byId[emailId];
-		console.log($scope.viewingEmail);
+		alert($scope.viewingEmail);
 	}
 
 	$scope.showingEmail = function(email) {
