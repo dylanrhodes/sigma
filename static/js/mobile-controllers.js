@@ -67,6 +67,12 @@ sigmaApp.controller('EmailListCtrl', function($scope, $http, Emails) {
   $scope.composingEmail = false;
   $scope.markUnread = false;
 
+  $scope.inboxId = 1;
+  $scope.viewingId = 2;
+  $scope.settingsId = 3;
+  $scope.composeId = 4;
+  $scope.showing = $scope.inboxId;
+
   $scope.user = { email : "skywalker@sigma.com" }
   $scope.cc = false;
 
@@ -112,10 +118,8 @@ sigmaApp.controller('EmailListCtrl', function($scope, $http, Emails) {
 	}
 
   $scope.viewing = function(emailId) {
-  	alert(emailId);
 		$scope.showing = $scope.viewingId;
 		$scope.viewingEmail = $scope.emails.byId[emailId];
-		alert($scope.viewingEmail);
 	}
 
 	$scope.showingEmail = function(email) {
