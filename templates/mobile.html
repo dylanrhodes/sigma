@@ -55,9 +55,9 @@
 		      </div>
 		    </div>
 		    <div class="inbox {{showingClass(inboxId)}}">
-				<div ng-repeat="email in emails.arr | orderBy:email.millis:reverse" class="row ind-email {{email.read ? 'read' : ''}} {{showingEmail(email) ? '' : 'hidden'}}" id = "{{email.id}}" style="color: {{categories[email.category - 1].color}}">
+				<div ng-repeat="email in emails.arr | orderBy:email.millis" class="row ind-email {{email.read ? 'read' : ''}} {{showingEmail(email) ? '' : 'hidden'}}" id = "{{email.id}}" style="color: {{categories[email.category - 1].color}}">
 					<div class="col-xs-11 email-area" ng-click="viewing(email.id)">
-		             	<div class = "from">{{email.from}}</div>
+		             	<div class = "from">{{email.from}} {{email.millis}}</div>
 		             	<div class="subject">{{email.subject}}</div>
 		      			<div class = "snipit"><span class = "date">{{email.date}}</span> - {{email.snippet}}</div>
 		      		</div>
