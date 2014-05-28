@@ -444,7 +444,8 @@ sigmaApp.factory('Emails', function($http) {
 		if(data.hasOwnProperty(key)) {
 			var email = data[key];
 			var day = moment(email.date, "ddd, DD MMM YYYY HH:mm:ss ZZ");
-			email.true_date = day.format('MMMM Do YYYY, h:mm:ssa');;
+			email.true_date = day.format('MMMM DD YYYY, h:mm:ssa');
+			console.log(email.true_date);
 			email.millis = (new Date(email.true_date)).getTime();
 			console.log(email.millis);
 			email.date = day.fromNow();
