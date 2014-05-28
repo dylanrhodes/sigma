@@ -113,7 +113,7 @@ sigmaApp.controller('EmailListCtrl', function($scope, $http, Emails) {
 
   $scope.viewing = function(emailId) {
 		$scope.showing = $scope.viewingId;
-		$scope.viewingEmail = $scope.emails.arr[emailId];
+		$scope.viewingEmail = $scope.emails.byId[emailId];
 		console.log($scope.viewingEmail);
 	}
 
@@ -293,13 +293,13 @@ sigmaApp.controller('EmailListCtrl', function($scope, $http, Emails) {
 				$(this).fandle({ categories : $scope.categories,
 					radius : 160,
 					innerRadius : 25,
-					innerColor : $scope.categories[$scope.emails.arr[emailId].category - 1].color,
+					innerColor : $scope.categories[$scope.emails.byId[emailId].category - 1].color,
 					mode : 'half',
 					innerImage : '/static/images/sigma-handle.png',
 					innerHoverImage : '/static/images/sigma-handle-hover.png'
 			 	}, (function(tempEmailId) {
 			 		return function(selectedId) {
-						$scope.emails.arr[tempEmailId].category = selectedId;
+						$scope.emails.byId[tempEmailId].category = selectedId;
 						$scope.$apply();
 					}; }) 
 			 		(emailId)
@@ -415,7 +415,8 @@ sigmaApp.controller('EmailListCtrl', function($scope, $http, Emails) {
 
 sigmaApp.factory('Emails', function($http) {
   var Emails = function(length) {
-    this.arr = {};
+    this.arr = [];
+    this.byId = {};
 	this.unread = [];
     this.busy = false;
     this.after = '';
@@ -476,8 +477,8 @@ sigmaApp.factory('Emails', function($http) {
 			if (email.message == noHtml) email.html = false;
 			else email.html = true;
 			if (!email.html) email.message = Autolinker.link(email.message, { truncate: 50 });
-			// this.arr.unshift(email);
-			this.arr[email.id] = email;
+			this.arr.unshift(email);
+			this.byId[email.id] = email;
 			// console.log(this.arr);
 		}
 	  }
