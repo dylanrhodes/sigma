@@ -1,14 +1,9 @@
 /* app css stylesheet */
 
-textarea {
-    resize: none;
-}
-
 body {
-  padding-top: 60px;
+  /*padding-top: 60px;*/
   font-family: 'Open Sans', sans-serif;
   text-align: center;
-  color: #424242;
 }
 
 a {
@@ -23,18 +18,66 @@ h3.num-title {
 	text-align: center;
 }
 
-.aside {
-	text-align: left !important;
-}
-
 .wrapper {
 	/*max-width: 80%;*/
-	display: inline-block;
-	width: calc(100% - 40px);
-	max-width: 1100px;
+	/*display: inline-block;*/
+	/*width: calc(100% - 40px);*/
+	/*max-width: 1100px;*/
 	position: relative;
  	text-align: left;
 	/*margin-bottom: 40px;*/
+	padding: 0px;
+}
+
+.fandle-area {
+	text-align: right;
+	padding-right: 0px;
+	/*margin-top: -95px;*/
+	height: 70px;
+	padding-top: 10px;
+}
+
+.email-area {
+	padding-left: 0px;
+	padding-right: 0px;
+}
+
+.email-fandle {
+	/*margin-top: -90px;*/
+	position: absolute;
+	right: 0;
+}
+
+.sidebar {
+	height: 100%;
+	position: fixed;
+	left: 0;
+	z-index: 99;
+	padding-left: 0px;
+	padding-right: 0px;
+}
+
+.sidebar-item {
+	text-align: center;
+	overflow: hidden;
+	text-overflow:ellipsis;
+	padding-top: 10px;	
+	font-weight: bold;
+	opacity: 0.6;
+}
+
+.sidebar-category {
+	color: #fff;
+}
+
+.sidebar-focused {
+	opacity: 1.0;
+}
+
+.view-area {
+	/*padding-top: 60px;*/
+	padding-left: 0px;
+	padding-right: 0px;
 }
 
 .inbox {
@@ -52,8 +95,8 @@ h3.num-title {
 }
 
 .control-bar {
-	position: fixed;
-	top: 0;
+	/*position: fixed;*/
+	/*top: 0;*/
 	background: #fff;
 	background: rgba(255,255,255,0.9);
 	padding-top: 10px;
@@ -84,7 +127,7 @@ h3.num-title {
 }
 
 .control-bar-search {
-	padding-right: 0px;
+	padding-right:0px;
 	text-align: right;
 	padding-left: 0px;
 	/*position: absolute;
@@ -140,40 +183,12 @@ input[type="search"] {
 }
 
 .settings-a {
-	margin-left: 8px;
-	padding-left: 4px;
+	padding-left: 8px;
 	opacity:0.8;
 	float:right;
 }
 
 .settings-a:hover {
-	opacity: 1.0;
-}
-
-.digest-a {
-	positiion: relative;
-	margin-left: 8px;
-	padding-left: 4px;
-	opacity:0.8;
-	float:right;
-}
-
-.digest-note {
-	position:absolute;
-	text-align: center;
-	line-height: 16px;
-	border-radius: 50%;
-	color: #fff;
-	width: 16px;
-	height: 16px;
-	top: -2px;
-	right: 78px;
-	z-index: 5;
-	background: #B94846;
-	font-size: 10px;
-}
-
-.digest-a:hover {
 	opacity: 1.0;
 }
 
@@ -196,7 +211,7 @@ button.loadMore {
 	width: 98%;
 	margin: 0 1%;
 	/*height: 210px;*/
-	border: 2px solid #eee;
+	border: 1px solid #eee;
 	/*border-right: 2px solid #eee;*/
 	border-left-style: solid;
 	/*border-left-width: 7px;*/
@@ -214,7 +229,7 @@ button.loadMore {
 	margin: 0 1% 10px 1%;
 	display: inline-block;
 	/*height: 210px;*/
-	border: 2px solid #eee;
+	border: 1px solid #eee;
 	/*border-right: 2px solid #eee;*/
 	border-left-style: solid;
 	/*border-left-width: 7px;*/
@@ -255,12 +270,6 @@ button.loadMore {
 	margin: 0 !important;
 }
 
-.bootpadding-right {
-	padding-right: 0 !important;
-}
-.bootpadding {
-	padding: 0;
-}
 .ind-email {
 	/*padding-left: 12px;
 	height: 47px;*/
@@ -270,6 +279,8 @@ button.loadMore {
 	-webkit-user-select: none; 
 	-o-user-select: none; 
 	padding-bottom:2px;
+	padding-left: 10px;
+	height: 70px;
 }
 
 .read {
@@ -283,18 +294,18 @@ button.loadMore {
 .from {
 	font-weight: bold;
 	font-size: 17px;
-	color: #414141;
+	/*color: #414141;*/
 	overflow:hidden;
 	white-space: nowrap;
 	text-overflow:ellipsis;
-	padding-top:9px;
+	/*padding-top:9px;*/
 	/*position: relative;
 	line-height:47px;
 	display: inline-block;
 	margin: auto 12px;
 	width: 185px;*/
 	cursor:default;
-	padding-left: 10px;
+	/*padding-left: 10px;*/
 }
 
 .email-open .from {
@@ -315,7 +326,7 @@ button.loadMore {
 }
 .subject {
 	font-size: 120%;
-	color: #424242;
+	/*color: #424242;*/
 	overflow:hidden;
 	white-space: nowrap;
 	text-overflow:ellipsis;
@@ -333,7 +344,7 @@ button.loadMore {
 	/*left: 260px;*/
 	/*top: -20px;*/
 	/*width: 200px;*/
-	color: #b8b8b8;
+	/*color: #b8b8b8;*/
 	white-space: nowrap;
 	text-overflow:ellipsis;
 	overflow:hidden;
@@ -344,7 +355,7 @@ button.loadMore {
 }
 
 .date {
-	color: #424242;
+	/*color: #424242;*/
 }
 
 
@@ -379,26 +390,20 @@ button.loadMore {
 }
 
 .emails-area::-webkit-scrollbar-track,
-.message-view::-webkit-scrollbar-track,
-#compose-body::-webkit-scrollbar-track,
-.aside::-webkit-scrollbar-track{
+.message-view::-webkit-scrollbar-track {
 	-webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
 	border-radius: 10px;
 	background-color: #F5F5F5;
 }
 
 .emails-area::-webkit-scrollbar,
-.message-view::-webkit-scrollbar,
-#compose-body::-webkit-scrollbar,
-.aside::-webkit-scrollbar {
+.message-view::-webkit-scrollbar {
 	width: 6px;
 	background-color: #F5F5F5;
 }
 
 .emails-area::-webkit-scrollbar-thumb,
-.message-view::-webkit-scrollbar-thumb,
-#compose-body::-webkit-scrollbar-thumb,
-.aside::-webkit-scrollbar-thumb {
+.message-view::-webkit-scrollbar-thumb {
 	border-radius: 10px;
 	-webkit-box-shadow: inset 0 0 6px rgba(0,0,0,.3);
 	background-color: #AFAFAF;
@@ -422,34 +427,14 @@ button.loadMore {
 }
 */
 
-.email-button {
-	opacity: 0.8;
-	cursor:pointer;
-}
-
-.email-button:hover {
-	opacity: 1;
-}
-
-
-.message-container {
-	padding-left: 0 !important;
-	padding-right: 2% !important;
-}
-
-.compose-container {
-	padding-left: 0 !important;
-	padding-right: 2% !important;
-}
-
 .message-view,
 .compose-view {
-	border: 2px solid #eee;
+	border: 1px solid #eee;
 	/*overflow-x: hidden;*/
 	/*overflow-y: scroll;*/
 	/*overflow: scroll;*/
 	overflow: auto;
-	margin-left: 2%;
+	padding: 10px;
 }
 
 .compose-view input[type="text"],
@@ -458,126 +443,24 @@ button.loadMore {
 	outline: none;
 }
 
-.message-header {
-	border-bottom: 1px solid #eee;
-}
-
-.compose-header {
-	border-bottom: 1px solid #eee;
-}
-
 .message-subject {
-	color: #424242;
-	padding: 10px 20px;
-	font-size: 22px;
-}
-
-.message-buttons {
-	padding: 10px 20px;
-	text-align: right;
-}
-
-.compose-buttons {
-	padding-top: 15px;
-	padding-right: 25px;
-	text-align: right;
+	font-size: 27px;
+	padding-bottom: 10px;
 }
 
 .message-from {
-	padding: 12px 20px;
 	font-weight: bold;
-}
-
-.message-date-reply {
-	text-align: right;
-	padding: 7px 20px;
-	font-style: italic;
 }
 
 .message-date {
-	padding-right: 5px;
+	font-style: italic;
+	padding-bottom: 10px;
 }
 
 .message-body {
-	padding: 0 40px;
 	white-space: pre-line;
-	word-break: break-word;
 	/*height: 100%;
 	overflow: scroll;*/
-}
-
-.compose-subject {
-	padding-top: 5px;
-	padding-bottom: 5px;
-	padding-left: 20px;
-	font-size: 27px;
-}
-
-#compose-subject,
-#compose-to,
-#compose-cc,
-#compose-bcc {
-	border-width:0px;
-	border:none;
-}
-
-.compose-to {
-	padding: 5px 20px 0px 20px;
-}
-
-.compose-bcc {
-	margin-bottom: 5px;
-}
-
-.compose-body {
-	padding: 0 40px;
-	white-space: pre-line;
-	word-break: break-word;
-	/*height: 100%;
-	overflow: scroll;*/
-}
-
-.compose-footer {
-	margin: -6px 40px 0 40px;
-	height: 40px;
-	background: #f5f5f5;
-	border: 1px solid #eee;
-}
-
-.send {
-	opacity: 0.8;
-	cursor: pointer;
-	width: 80px;
-	height: 100%;
-	padding: 0;
-	margin: 0;
-	background: #1b6aa3;
-	color: white;
-	font-weight: bold;
-	text-align: center;
-	line-height: 40px;
-}
-
-.send:hover {
-	opacity: 1;
-}
-
-.footer-buttons {
-	padding-top: 8px;
-	text-align: right;
-}
-
-.cc-button {
-	padding: 10px 30px 0px 30px;
-	text-align: right;
-	cursor: pointer;
-	color: #b8b8b8;
-	-webkit-touch-callout: none;
-	-webkit-user-select: none;
-	-khtml-user-select: none;
-	-moz-user-select: none;
-	-ms-user-select: none;
-	user-select: none;
 }
 
 .preview-main {
@@ -594,9 +477,6 @@ input[type="text"], textarea {
 	padding: 5px;
 	padding-left: 8px;
 	width: 100%;
-	-moz-border-radius: 0px;
-	-webkit-border-radius: 0px;
-	border-radius: 0px;
 }
 
 input[type="text"].cat-bar {
@@ -684,6 +564,7 @@ a:active.save {
 }
 
 .settings-title {
+	text-align:center;
 	border-bottom: 1px solid #eee;
 	padding-bottom: 5px;
 	margin-bottom: 10px;
@@ -697,9 +578,4 @@ a:active.save {
 	cursor:pointer;
 	margin-right: 5px;
 	color: #808080;
-}
-
-.retrain {
-	text-align: right;
-	margin-top: 38px;
 }

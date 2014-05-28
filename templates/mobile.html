@@ -1,14 +1,14 @@
 <!doctype html>
 <html lang="en" ng-app="sigmaApp">
 <head>
-  <meta charset="utf-8">
-  <title>Sigma: your organized inbox. (Mobile)</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <title>Sigma: your organized inbox.</title>
   <link rel="shortcut icon" type="image/x-icon" href="{{ url_for('static', filename='favicon.ico') }}">
   <link rel="stylesheet" href="{{ url_for('static', filename='css/libraries/bootstrap.css') }}">
   <link rel="stylesheet" href="{{ url_for('static', filename='css/libraries/main.min.css') }}">
   <link rel="stylesheet" href="{{ url_for('static', filename='css/libraries/bootstrap-additions.min.css') }}">
   <link rel="stylesheet" href="{{ url_for('static', filename='css/libraries/jquery.pageslide.css') }}">
-  <link rel="stylesheet" href="{{ url_for('static', filename='css/mobile-app.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/app.css') }}">
   <link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
 
   <script type="text/javascript" charset="utf-8" src="{{ url_for('static', filename='js/libraries/jquery-1.11.0.min.js') }}"></script>
@@ -18,185 +18,71 @@
   <script src="{{ url_for('static', filename='js/libraries/angular-animate.js') }}"></script>
   <script src="{{ url_for('static', filename='js/libraries/angular-sanitize.js') }}"></script>
   <script src="{{ url_for('static', filename='js/mobile-controllers.js') }}"></script>
+  <script src="{{ url_for('static', filename='js/d3.js') }}"></script>
+  <script src="{{ url_for('static', filename='js/fandle.js') }}"></script>
   <script src="{{ url_for('static', filename='js/app.js') }}"></script>
   <script src="{{ url_for('static', filename='moment.min.js') }}"></script>
   <script src="{{ url_for('static', filename='Autolinker.min.js') }}"></script>
+
+  <meta name="viewport" content="width=320 initial-scale=0.9 maximum-scale=1.0 user-scalable=0" />
 </head>
 
 <body ng-controller="EmailListCtrl">
   <div class="wrapper container-fluid">
-    <div class="control-bar row">
-      <div class="control-bar-title col-sm-5 hidden-xs" ng-click="focusCategory('')">
-        <img src="{{ url_for('static', filename='images/logo-1.png') }}" />
-      </div>
-{% raw %}
-      <div class="control-bar-compose col-sm-2 hidden-xs">
-        <a href="#" class="compose-a" ng-click="compose()"></a>
-      </div>
-      <div class="control-bar-search col-sm-3 col-xs-11">
-        <input type="search" placeholder="Search" ng-model="search" />
-      </div>
-{% endraw %}
-	  <div class="control-bar-settings col-sm-2 hidden-xs">
-		<a class="settings-a" title="Logout" href="/logout"><img src = "{{ url_for('static', filename='images/logout.png') }}" /></a>
-        <a class="settings-a" title="Settings" ng-click="settings()"><img src = "{{ url_for('static', filename='images/gear.png') }}" /></a>
-		<a class="digest-a" title="View Digests" bs-aside="aside"><img src = "{{ url_for('static', filename='images/digest.png') }}" /></a>
-		<div class="digest-note">1</div>
-      </div>
-    </div>
-{% raw %}
-     <div class="view-area row {{viewingEmail || composingEmail ? 'email-open' : ''}}">
-      <div class="inbox {{viewingEmail || composingEmail ? 'col-xs-4' : 'col-xs-12' }} {{viewingEmail || composingEmail ? 'bootpadding-right' : ''}}">
-        <div ng-repeat="category in categories" ng-init="$scope.focusedCategory = 0" class = "{{viewingEmail || focusedCategory != '' || composingEmail ? 'one-box' : category.split ? 'two-box' : 'one-box'}} {{ viewingEmail && viewingEmail.category != category.id ? 'hidden' : '' }} {{ focusedCategory && focusedCategory != '' && focusedCategory != category.id ? 'hidden' : '' }}" style = "border-color: {{category.color}};" id="{{category.id}}">
-        	<div class="category-header" style = "background-color: {{category.color}};">
-        		{{category.name}}
-        	</div>
-        	<div class="unread {{emails.unread[category.id-1] ? '' : 'hidden'}}" style = "color: {{category.color}};">{{emails.unread[category.id-1]}}</div>
-        	<div class="emails-area" style = "height: {{viewingEmail || focusedCategory == category.id ? windowHeight - 121 : category.emails*42}}px;">
-	            <div class="row ind-email {{email.read ? 'read' : ''}} {{ selectedIds.indexOf(email.id) >= 0 ? 'selected-email' : '' }}" id = "{{email.id}}" ng-repeat="email in filterEmails = (emails.arr | filter:{category:category.id} | filter:search)">
-	             <div class = "{{viewingEmail || composingEmail ? 'col-xs-12' : category.split ? 'col-md-4 col-sm-4' : 'from col-md-2 col-sm-3'}} nopadding from">{{email.fromName == '' ? email.fromEmail : email.fromName}}</div>
-	      			 <div class = "{{viewingEmail || composingEmail ? 'col-xs-12' : category.split ? 'col-md-8 col-sm-8 col-xs-12' : 'col-md-10 col-sm-9 col-xs-12'}} lopadding">
-	              <div class="subject" style="{{viewingEmail || composingEmail ? 'font-size: 100%' : ''}}">{{email.subject}}</div>
-	      			  <div class = "snipit" style="{{viewingEmail || composingEmail ? 'font-size: 70%' : ''}}"><span class = "date">{{email.date}}</span> - {{email.snippet}}</div>
-	             </div>
+  	<div class="mobile-app-area row">
+    	<div class="sidebar col-xs-2">
+    		<img src="{{ url_for('static', filename='images/logo-1.png') }}" title="Sigma" style="display:none" />
+    		{% raw %}
+    		<div class="sidebar-item sidebar-compose {{showing == composeId ? 'sidebar-focused' : ''}}" ng-click="compose()" style = "height:{{windowHeight / (numCat + 3)}}px">
+    			+
+    		</div>
+    		<div class="sidebar-item sidebar-all {{focusedCategory == '' ? 'sidebar-focused' : ''}}" ng-click="categoryClick('')" style = "height:{{windowHeight / (numCat + 3)}}px">
+    			All
+    		</div>
+	        <div ng-repeat="category in categories" class="sidebar-item sidebar-category {{focusedCategory == category.id ? 'sidebar-focused' : ''}}" style = "background-color: {{category.color}}; height:{{windowHeight / (numCat + 3)}}px" ng-click="categoryClick(category.id)">
+	        	{{category.name}}
+	        </div>
+	        <div class="sidebar-item sidebar-settings {{showing == settingsId ? 'sidebar-focused' : ''}}" ng-click="settings()" style = "height:{{windowHeight / (numCat + 3)}}px">
+	        	Settings
+	        </div>
+	        {% endraw %}
+		</div>
+		<div class="padding col-xs-2"></div>
+		<div class="view-area col-xs-10">
+			{% raw %}
+			<div class="control-bar">
+		      <div class="control-bar-search">		      	
+		        <input type="search" id="search" placeholder="Search" ng-model="search" />
+		      </div>
+		    </div>
+		    <div class="inbox {{showingClass(inboxId)}}">
+				<div ng-repeat="email in dummyEmails" class="row ind-email {{email.read ? 'read' : ''}} {{showingEmail(email) ? '' : 'hidden'}}" id = "{{email.id}}" style="color: {{categories[email.category - 1].color}}">
+					<div class="col-xs-11 email-area" ng-click="viewing(email.id)">
+		             	<div class = "from">{{email.from}}</div>
+		             	<div class="subject">{{email.subject}}</div>
+		      			<div class = "snipit"><span class = "date">{{email.date}}</span> - {{email.snippet}}</div>
+		      		</div>
+		      		<div class="col-xs-1 fandle-area">
+	      				<div class="email-fandle" id="email-fandle-{{email.id}}" rel="{{email.id}}"></div>
+	      			</div>
 	            </div>
-	    		    <button class = "btn btn-default loadMore" ng-hide = "!filterEmails.length" ng-click = "addMore(category.id)">Load 10 More</button>
-	    	</div>
-        </div>
-      </div>
-      <div class="message-container {{viewingEmail ? 'col-xs-8' : 'hidden'}}">
-        <div class="message-view" style="height: {{ windowHeight - 94}}px; border-color: {{viewingEmail ? categories[viewingEmail.category - 1].color : '#ddd' }}">
-			<div class="row message-header">
-				<div class="message-subject col-xs-9">
-				  {{viewingEmail.subject}}
-				</div>
-				<div class="message-buttons col-xs-3 bootpadding">
-{% endraw %}
-					<img class="email-button" title="Mark as Unread" src = "{{ url_for('static', filename='images/mark-unread.png') }}" border="0" ng-click="markRead(0)" /><img class="email-button" title="Trash Email" src = "{{ url_for('static', filename='images/trash-email.png') }}" border="0" ng-click="categorize(-1)" /><img class="email-button" title="Close Email" src = "{{ url_for('static', filename='images/close-email.png') }}" border="0" ng-click="focusCategory('')" />
-{% raw %}				
-				</div>
 			</div>
-			<div class="row message-header-2">
-				<div class="message-from col-xs-8">
-				  {{viewingEmail.from}}
-				</div>
-				<div class="message-date-reply col-xs-4">
-					{{viewingEmail.date}}
-{% endraw %}
-					<img class="email-button" src = "{{ url_for('static', filename='images/reply.png') }}" style="margin-left: 10px" ng-click="compose(viewingEmail)" />
-{% raw %}
-				</div>
+			<div class="viewing showingClass(viewingId)">
+				<div class="viewing-from">{{viewingEmail.fromName}} <em>{{viewingEmail.fromEmail}}</em></div>
+				<div class="viewing-subject">{{viewingEmail.subject}}</div>
+				<div clas="viewing-date">{{viewingEmail.date}}</div>
+				<div class="viewing-message">{{viewingEmail.message}}</div>
 			</div>
-			<div class="message-body"></div>
-		</div>
-      </div>
-	  <div class="compose-container {{composingEmail ? 'col-xs-8' : 'hidden'}}">
-      <div class="compose-view" style="height: {{windowHeight - 94}}px;">
-		<div class="row compose-header">
-			<div class="compose-subject col-xs-10"><input type="text" id="compose-subject" placeholder="Subject" /></div>
-			<div class="compose-buttons col-xs-2">
-{% endraw %}
-				<img class="email-button" src = "{{ url_for('static', filename='images/close-email.png') }}" border="0" ng-click="focusCategory('')" />
-{% raw %}				
+			<div class="compose {{showingClass(composeId)}}">
+				Compose
 			</div>
-		</div>
-		<div close="row">	
-			<div class="compose-to col-xs-10">
-			  <input type="text" id="compose-to" placeholder="To" />
-			  <input type="text" class="hidden" id="compose-cc" placeholder="Cc" />
-			  <input type="text" class="hidden" id="compose-bcc" placeholder="Bcc" />
+			<div class="settings {{showingClass(settingsId)}}">
+				Settings
 			</div>
-			<div class="cc-button" ng-click="addCc()">Cc Bcc</div>
-		</div>
-        <div class="compose-body">
-          <textarea id="compose-body" style="height: {{ windowHeight - 270}}px;"></textarea>
-        </div>
-		<div class="compose-footer">
-			<div class="col-xs-6 bootpadding" ><div class="send" ng-click="send()">Send</div></div>
-			<div class="footer-buttons col-xs-6">
-{% endraw %}
-				<img class="email-button" src = "{{ url_for('static', filename='images/A.png') }}" border="0" ng-click="focusCategory('')" style="padding-right: 10px;" /><img class="email-button" src = "{{ url_for('static', filename='images/clip.png') }}" border="0" ng-click="focusCategory('')" />
-{% raw %}			
-			</div>
-		</div>
-      </div>
-    </div>
-  </div>
-  </div>
-  <div class="category-bar {{ selectedIds.length > 0 || viewingEmail ? '' : 'hidden' }}">
-    <div ng-repeat="category in categories" class="category {{category.class}} {{categoryIsSelected(category.id) ? 'category-selected' : ''}}" style="background-color: {{category.color}};" ng-click="categorize(category.id)">
-      <span class="category-id">{{category.id}}</span> {{category.name}}
-    </div>
-  </div>
-   <div class="wrapper2 container-fluid hidden">
-		<div class="control-bar row">
-		  <div class="control-bar-title">
-{% endraw %}
-			<img src="{{ url_for('static', filename='images/logo-1.png') }}" />
-{% raw %}
-		  </div>
-		</div>
-		<div class = "row settings-title">
-			<h1 class="col-xs-8">Inbox Setup</h1>
-			<a class="retrain col-xs-4" ng-click="retrain()">Retrain Categorization Model</a>
-		</div>
-		<div class = "row">
-			<div class="category-select col-sm-5 col-xs-8">
-				<h3>Category</h3>
-				<div><a id="rc1" class="removecat" ng-click="RemoveCat(1)" style="visibility:hidden" >x</a><input id="cat1" class = "cat-bar" type="text" disabled="disabled" value="Other" style = "border-color: #808080;" /></div>
-				<div><a id="rc2" class="removecat" ng-click="RemoveCat(2)" >x</a><input id="cat2" class = "cat-bar" type="text" placeholder="Urgent" style = "border-color: #1b6aa3;" /></div>
-				<div><a id="rc3" class="removecat" ng-click="RemoveCat(3)" >x</a><input id="cat3" class = "cat-bar" type="text" style = "border-color: #84cbc5;" /></div>
-				<div><a id="rc4" class="removecat" ng-click="RemoveCat(4)" >x</a><input id="cat4" class = "cat-bar" type="text" style = "border-color: #f8d35e;" /></div>
-				<div><a id="rc5" class="removecat" ng-click="RemoveCat(5)" >x</a><input id="cat5" class = "cat-bar" type="text" style = "border-color: #f47264;" /></div>
-				<div><a id="rc6" class="removecat" ng-click="RemoveCat(6)" >x</a><input id="cat6" class = "cat-bar" type="text" style = "border-color: #85e491;" /></div>
-				<div><a id="rc7" class="hidden" ng-click="RemoveCat(7)" >x</a><input id="cat7" class = "hidden" type="text" style = "border-color: #bd80b9;" /></div>
-				<div><a id="rc8" class="hidden" ng-click="RemoveCat(8)" >x</a><input id="cat8" class = "hidden" type="text" style = "border-color: #f9b588;" /></div>
-				<div><a id="addcat" ng-click="AddCat()">+ Add Category</a></div>
-			</div>
-			<div class="num-select col-sm-2 col-xs-2">
-				<h3 class = "num-title"># in View</h3>
-				<input id="num1" class="num-bar" type="text" value="5" style = "border-color: #808080;"  />
-				<input id="num2" class="num-bar" type="text" value="5" style = "border-color: #1b6aa3;" />
-				<input id="num3" class="num-bar" type="text" value="5" style = "border-color: #84cbc5;" />
-				<input id="num4" class="num-bar" type="text" value="5" style = "border-color: #f8d35e;" />
-				<input id="num5" class="num-bar" type="text" value="5" style = "border-color: #f47264;" />
-				<input id="num6" class="num-bar" type="text" value="5" style = "border-color: #85e491;" />
-				<input id="num7" class="hidden" type="text" value="5" style = "border-color: #bd80b9;" />
-				<input id="num8" class="hidden" type="text" value="5" style = "border-color: #f9b588;" />
-			</div>
-			<div class="split-select col-sm-1 col-xs-2">
-				<h3>Split</h3>
-				<div class = "split-checks">
-					<input id="split1" class="split-check" type="checkbox" />
-					<input id="split2" class="split-check" type="checkbox" checked />
-					<input id="split3" class="split-check" type="checkbox" checked />
-					<input id="split4" class="split-check" type="checkbox" />
-					<input id="split5" class="split-check" type="checkbox" />
-					<input id="split6" class="split-check" type="checkbox" />
-					<input id="split7" class="hidden" type="checkbox" />
-					<input id="split8" class="hidden" type="checkbox" />
-				</div>
-			</div>
-			<div class="preview-main col-sm-4 hidden-xs">
-				<h3>Preview</h3>
-				<div class = "preview">
-					<div id="prev1" style = "display:inline-block;"></div>
-					<div id="prev2" style = "display:inline-block;"></div>
-					<div id="prev3" style = "display:inline-block;"></div>
-					<div id="prev4" style = "display:inline-block;"></div>
-					<div id="prev5" style = "display:inline-block;"></div>
-					<div id="prev6" style = "display:inline-block;"></div>
-					<div id="prev7" style = "display:inline-block;"></div>
-					<div id="prev8" style = "display:inline-block;"></div>
-				</div>
-			</div>
-		</div>
-		<div class="row">
-			<div class="bottom col-sm-12">
-				<a class="save" ng-click="save()">Save</a>
-			</div>
+			<script> setTimeout(function() { $(".sidebar-all").click(); }, 1000); </script>
+		    {% endraw %}
 		</div>
 	</div>
+</div>
 </body>
-{% endraw %}
 </html>

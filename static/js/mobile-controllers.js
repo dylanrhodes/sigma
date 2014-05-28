@@ -83,9 +83,16 @@ sigmaApp.controller('EmailListCtrl', function($scope, $http, Emails) {
   // }
   // $scope.$apply();
   $scope.catHeaderHeight = function() { return $(".category-header").height() + 11 };
+  
   $scope.retrain = function() {
-	console.log("Retraining model");
+	$http({
+		method: 'POST',
+		url: '/train_models',
+	})
+	.success(function() {console.log("Successfully trained models");})
+	.error(function() {console.log("Didn't successfully train models");});
   }
+  
   $scope.logout = function() {
 	console.log("Logging out");
   }
@@ -99,6 +106,24 @@ sigmaApp.controller('EmailListCtrl', function($scope, $http, Emails) {
 		$scope.cc = true;
 	}
   };
+
+  $scope.showingClass = function(showingVar) {
+		return showingVar == $scope.showing ? "" : "hidden";
+	}
+
+  $scope.viewing = function(emailId) {
+		$scope.showing = $scope.viewingId;
+		$scope.viewingEmail = $scope.dummyEmails[emailId];
+		console.log($scope.viewingEmail);
+	}
+
+	$scope.showingEmail = function(email) {
+		var search = $("#search").val();
+		var showingSearch = search == "" || email.message.indexOf(search) >= 0 || email.subject.indexOf(search) >= 0
+							|| email.fromName.indexOf(search) >= 0 || email.fromEmail.indexOf(search) >= 0;
+		var showingCategory = $scope.focusedCategory == "" || $scope.focusedCategory == email.category;
+		return showingSearch && showingCategory;
+	}
 
 	$scope.init = function() {
 		for (var i = 1; i <= $scope.numCat; i++) {
@@ -214,19 +239,28 @@ sigmaApp.controller('EmailListCtrl', function($scope, $http, Emails) {
 */
 	}
 
+	$scope.categoryIsSelected = function(catId) {
+		if($scope.viewingEmail && $scope.viewingEmail.category == catId)
+			return true;
+		var toReturn = false;
+		$.map($scope.selectedIds, function(s) {
+			$.map($scope.emails.arr, function(e) {
+				if(e.id == s && e.category == catId) {
+					toReturn = true;
+				}
+			});
+		});
+		return toReturn;
+	}
+
 	$scope.settings = function() {
-		$('.wrapper').attr('class', 'wrapper container-fluid hidden');
-		$('.wrapper2').attr('class', 'wrapper2 container-fluid');
-		for (var i = 1; i <= $scope.numCat; i++) {
-			$('#cat' + i).val($scope.categories[i-1]['name']);
-			$('#num' + i).val($scope.categories[i-1]['emails']);
-			if ($scope.categories[i-1]['split']) $('#split' + i).prop("checked", true);
-			else $('#split' + i).prop("checked", false);
-		}
-		$scope.init();
+		$scope.showing = $scope.settingsId;
+		//$scope.init();
 	}
 
 	$scope.compose = function() {
+		$scope.showing = $scope.composeId;
+
 		$scope.composingEmail = true;
 		$scope.viewingEmail = null;
 		$scope.focusedCategory = '';
@@ -240,6 +274,37 @@ sigmaApp.controller('EmailListCtrl', function($scope, $http, Emails) {
 				+ arguments[0].true_date + ", " + arguments[0].from
 				+ " wrote:\n\n" + arguments[0].message);
 		}
+	}
+
+	$scope.categoryClick = function(categoryId) {
+	  	$scope.initializeFandle();
+		$scope.showing = $scope.inboxId;
+		$scope.focusedCategory = categoryId;
+	}
+
+	$scope.fandleInitialized = false;
+	$scope.initializeFandle = function() {
+		if($scope.fandleInitialized)
+			return;
+		$scope.fandleInitialized = true;
+		$(".email-fandle").each(
+			function() { 
+				var emailId = $(this).attr("rel");
+				$(this).fandle({ categories : $scope.categories,
+					radius : 160,
+					innerRadius : 25,
+					innerColor : $scope.categories[$scope.dummyEmails[emailId].category - 1].color,
+					mode : 'half',
+					innerImage : 'sigma-handle.png',
+					innerHoverImage : 'sigma-handle-hover.png'
+			 	}, (function(tempEmailId) {
+			 		return function(selectedId) {
+						$scope.dummyEmails[tempEmailId].category = selectedId;
+						$scope.$apply();
+					}; }) 
+			 		(emailId)
+				); 
+			});
 	}
 
   $scope.focusCategory = function(categoryId) {
@@ -394,7 +459,7 @@ sigmaApp.controller('EmailListCtrl', function($scope, $http, Emails) {
 				$scope.selected = temp;
 				$scope.selectedIds = [temp.attr('id')];
 				$scope.$apply();
-				$("#" + $scope.selectedCat).scrollTop(0);
+				$("#inner" + $scope.selectedCat).scrollTop(0);
 				var level = $("#" + $scope.selectedCat).offset().top - $('.control-bar').outerHeight(); //subtract header size
 				window.scrollTo(0, level);
 				$('.category-bar').children().each(function(i) {
@@ -421,7 +486,7 @@ sigmaApp.controller('EmailListCtrl', function($scope, $http, Emails) {
 
 					var top = temp.position().top;
 					if(top < 0) {
-						temp.parent().scrollTop(temp.parent().scrollTop() + top);
+						temp.parent().scrollTop(temp.parent().scrollTop() + top - 21);
 					}
 					if ($scope.viewingEmail != null) {
 						 var target_id = temp.attr('id');
@@ -439,7 +504,14 @@ sigmaApp.controller('EmailListCtrl', function($scope, $http, Emails) {
 								.error(function() {console.log("Didn't successfully push email read");});
 							  if (obj.read != 1) $scope.emails.unread[obj.category-1]--;
 							  obj.read = 1;
-
+							  if (!obj.html) { 
+								$('.message-body').css('white-space', 'pre-line'); 
+								$('.message-body').css('padding', '0 40px'); 
+							  }
+							  else {
+								$('.message-body').css('white-space', 'normal'); 
+								$('.message-body').css('padding', '20px 20px'); 
+							  }
 							  $('.message-body').html(obj.message);
 							}
 						  });
@@ -468,7 +540,7 @@ sigmaApp.controller('EmailListCtrl', function($scope, $http, Emails) {
 					var top = temp.position().top;
 					if(top >= temp.parent().height()) {
 						var dif = top - temp.parent().height();
-						temp.parent().scrollTop(temp.parent().scrollTop() + temp.height() + dif);
+						temp.parent().scrollTop(temp.parent().scrollTop() + temp.height() + dif - 21);
 					}
 					if ($scope.viewingEmail != null) {
 						 var target_id = temp.attr('id');
@@ -486,7 +558,14 @@ sigmaApp.controller('EmailListCtrl', function($scope, $http, Emails) {
 								.error(function() {console.log("Didn't successfully push email read");});
 							  if (obj.read != 1) $scope.emails.unread[obj.category-1]--;
 							  obj.read = 1;
-
+							  if (!obj.html) { 
+								$('.message-body').css('white-space', 'pre-line'); 
+								$('.message-body').css('padding', '0 40px'); 
+							  }
+							  else {
+								$('.message-body').css('white-space', 'normal'); 
+								$('.message-body').css('padding', '20px 20px'); 
+							  }
 							  $('.message-body').html(obj.message);
 							}
 						  });
@@ -526,6 +605,14 @@ sigmaApp.controller('EmailListCtrl', function($scope, $http, Emails) {
 				.error(function() {console.log("Didn't successfully push email read");});
 			  if (obj.read != 1) $scope.emails.unread[obj.category-1]--;
 			  obj.read = 1;
+			  if (!obj.html) { 
+				$('.message-body').css('white-space', 'pre-line'); 
+				$('.message-body').css('padding', '0 40px'); 
+			  }
+			  else {
+				$('.message-body').css('white-space', 'normal'); 
+				$('.message-body').css('padding', '20px 20px'); 
+			  }
 			  $('.message-body').html(obj.message);
 			}
 		  });
@@ -550,6 +637,7 @@ sigmaApp.controller('EmailListCtrl', function($scope, $http, Emails) {
 				  $.map($scope.emails.arr, function(obj) {
 					if(obj.id == target_id) {
 					  $scope.viewingEmail = obj;
+					  console.log(obj.message);
 					  var elem = {"id" : obj.id};
 					  $http({
 							method: 'POST',
@@ -560,7 +648,14 @@ sigmaApp.controller('EmailListCtrl', function($scope, $http, Emails) {
 						.error(function() {console.log("Didn't successfully push email read");});
 					  if (obj.read != 1) $scope.emails.unread[obj.category-1]--;
 					  obj.read = 1;
-
+					  if (!obj.html) { 
+						$('.message-body').css('white-space', 'pre-line'); 
+						$('.message-body').css('padding', '0 40px'); 
+					  }
+					  else {
+						$('.message-body').css('white-space', 'normal'); 
+						$('.message-body').css('padding', '20px 20px'); 
+					  }
 					  $('.message-body').html(obj.message);
 					}
 				  });
@@ -685,7 +780,10 @@ sigmaApp.factory('Emails', function($http) {
 				if (email.fromName.indexOf("?") > -1) email.fromName = email.fromName.substring(0, email.fromName.indexOf("?"));
 				email.fromName = decodeURIComponent(email.fromName);
 			}
-			email.message = Autolinker.link(email.message, { truncate: 50 });
+			var noHtml = email.message.replace(/<(?:.|\n)*?>/gm, '');
+			if (email.message == noHtml) email.html = false;
+			else email.html = true;
+			if (!email.html) email.message = Autolinker.link(email.message, { truncate: 50 });
 			this.arr.unshift(email);
 		}
 	  }
