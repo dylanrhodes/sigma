@@ -309,7 +309,7 @@ sigmaApp.controller('EmailListCtrl', function($scope, $http, Emails) {
 					innerRadius : 25,
 					innerColor : $scope.categories[$scope.emails.byId[emailId].category - 1].color,
 					mode : 'half',
-					innerImage : '/static/images/sigma-handle.png',
+					innerImage : ($scope.emails.byId[emailId].read == 1 ? '/static/images/sigma-handle-read.png' : '/static/images/sigma-handle.png'),
 					innerHoverImage : '/static/images/sigma-handle-hover.png'
 			 	}, (function(tempEmailId) {
 			 		return function(selectedId) {
@@ -435,6 +435,8 @@ sigmaApp.factory('Emails', function($http) {
 			email.true_date = day.format('MMMM DD YYYY, h:mm:ssa');
 			
 			email.date = day.fromNow();
+			email.snippet = "";
+			while(email.snippet.length)
 			email.snippet = email.message.substr(0, 200);
 			email.id = email.id.toString();
 			var from = email.from.replace(/"/g, "");
