@@ -415,7 +415,7 @@ sigmaApp.controller('EmailListCtrl', function($scope, $http, Emails) {
 
 sigmaApp.factory('Emails', function($http) {
   var Emails = function(length) {
-    this.arr = [];
+    this.arr = {};
 	this.unread = [];
     this.busy = false;
     this.after = '';
@@ -476,7 +476,7 @@ sigmaApp.factory('Emails', function($http) {
 			if (!email.html) email.message = Autolinker.link(email.message, { truncate: 50 });
 			// this.arr.unshift(email);
 			this.arr[email.id] = email;
-			console.log(this.arr);
+			// console.log(this.arr);
 		}
 	  }
       this.busy = false;
