@@ -70,7 +70,7 @@
 				<div class="viewing-from">{{viewingEmail.fromName}} <em>{{viewingEmail.fromEmail}}</em></div>
 				<div class="viewing-subject">{{viewingEmail.subject}}</div>
 				<div clas="viewing-date">{{viewingEmail.date}}</div>
-				<div class="viewing-message">{{viewingEmail.message}}</div>
+				<div class="viewing-message" ng-bind-html-unsafe="viewingEmail.message"></div>
 			</div>
 			<div class="compose {{showingClass(composeId)}}">
 				Compose
