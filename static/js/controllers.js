@@ -770,6 +770,7 @@ sigmaApp.factory('Emails', function($http) {
 				email.fromName = "";
 				if (start != 0) email.fromName = from.substring(0, start-1);
 				num++;
+				this.arr.unshift(email);
 			}
 		}
 		console.log("DUMMY DATA!");
