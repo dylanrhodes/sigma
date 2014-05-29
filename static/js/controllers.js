@@ -676,7 +676,53 @@ sigmaApp.factory('Emails', function($http) {
   };
 
   Emails.prototype.init = function() {
-	if (window.location.search == "") {
+	if (window.location.search == "?home") {
+		for (var i = 0; i < this.length; i++) this.unread[i] = 0;
+		var dummies = [
+			{'from' : 'Gandalf <gandie@thewhite.com>',
+			 'subject' : 'Missing: Ring',
+			 'message' : 'Has anyone seen a ring lying around? I seem to have misplaced mine which is quite unfortunate.'},
+			{'from' : 'Pippin Took <pippin@theshire.com>',
+			 'subject' : 'New brews at the Green Dragon',
+			 'message' : 'Hop-goblin 120: This fresh IPA will have you beggin for more. Grab a pint soon!'},
+			 {'from' : 'Gothmog <goth@mtdoom.com>',
+			 'subject' : 'Ashdautas Vrasubatlat',
+			 'message' : 'Nar Udautas Nar Mat Kordh-Ishi Ang Gijak-Ishi Lul Gijak-Ishi Amal shufar, at rrug Snaga nar baj lufut Ambor mabas lufut'},
+			 {'from' : 'Legolas <legomyeggo@gmail.com>',
+			 'subject' : '434,324!',
+			 'message' : 'Let\'s see Gimli top that!'},
+			 {'from' : 'Gimli <gimli@earthlink.net>',
+			 'subject' : '434,323!',
+			 'message' : 'Unbeatable!'}
+		  ];
+		  var num = 0;
+		for (var i = 1; i <= 5; i++) {
+			for (var j = 0; j < 20; j++) {
+				var rando = Math.floor(Math.random()*5);
+				var email = [];
+				email.from = dummies[rando].from;
+				email.subject = dummies[rando].subject;
+				email.message = dummies[rando].message;
+				email.date = "1 hour ago";
+				email.snippet = email.message.substr(0, 200);
+				email.id = num.toString();
+				email.read = Math.round(Math.random());
+				var from = email.from.replace(/"/g, "");
+				var start = from.indexOf("<");
+				var end = from.indexOf(">");
+				email.fromEmail = from.substring(start + 1, end);
+				email.fromName = "";
+				if (start != 0) email.fromName = from.substring(0, start-1);
+				num++;
+				email.category = i;
+				if (email.read == 0) this.unread[i-1]++;
+				this.arr.unshift(email);
+				console.log(email);
+			}
+		}
+		console.log("DUMMY DATA!");
+	}
+	else {
 		for (var i = 0; i < this.length; i++) {
 			var cat = i+1;
 			var call = "http://sigma.jmvldz.com/get_category_unread?callback=JSON_CALLBACK&category=" + cat;
@@ -736,52 +782,6 @@ sigmaApp.factory('Emails', function($http) {
 		  }
 		  this.busy = false;
 		}.bind(this));
-	}
-	else {
-		for (var i = 0; i < this.length; i++) this.unread[i] = 0;
-		var dummies = [
-			{'from' : 'Gandalf <gandie@thewhite.com>',
-			 'subject' : 'Missing: Ring',
-			 'message' : 'Has anyone seen a ring lying around? I seem to have misplaced mine which is quite unfortunate.'},
-			{'from' : 'Pippin Took <pippin@theshire.com>',
-			 'subject' : 'New brews at the Green Dragon',
-			 'message' : 'Hop-goblin 120: This fresh IPA will have you beggin for more. Grab a pint soon!'},
-			 {'from' : 'Gothmog <goth@mtdoom.com>',
-			 'subject' : 'Ashdautas Vrasubatlat',
-			 'message' : 'Nar Udautas Nar Mat Kordh-Ishi Ang Gijak-Ishi Lul Gijak-Ishi Amal shufar, at rrug Snaga nar baj lufut Ambor mabas lufut'},
-			 {'from' : 'Legolas <legomyeggo@gmail.com>',
-			 'subject' : '434,324!',
-			 'message' : 'Let\'s see Gimli top that!'},
-			 {'from' : 'Gimli <gimli@earthlink.net>',
-			 'subject' : '434,323!',
-			 'message' : 'Unbeatable!'}
-		  ];
-		  var num = 0;
-		for (var i = 1; i <= 5; i++) {
-			for (var j = 0; j < 20; j++) {
-				var rando = Math.floor(Math.random()*5);
-				var email = [];
-				email.from = dummies[rando].from;
-				email.subject = dummies[rando].subject;
-				email.message = dummies[rando].message;
-				email.date = "1 hour ago";
-				email.snippet = email.message.substr(0, 200);
-				email.id = num.toString();
-				email.read = Math.round(Math.random());
-				var from = email.from.replace(/"/g, "");
-				var start = from.indexOf("<");
-				var end = from.indexOf(">");
-				email.fromEmail = from.substring(start + 1, end);
-				email.fromName = "";
-				if (start != 0) email.fromName = from.substring(0, start-1);
-				num++;
-				email.category = i;
-				if (email.read == 0) this.unread[i-1]++;
-				this.arr.unshift(email);
-				console.log(email);
-			}
-		}
-		console.log("DUMMY DATA!");
 	}
   };
 
