@@ -250,6 +250,7 @@ sigmaApp.controller('EmailListCtrl', function($scope, $http, Emails) {
 	}
 
   $scope.focusCategory = function(categoryId) {
+	console.log($routeParams);
   	$scope.viewingEmail = null;
   	$scope.composingEmail = false;
   	if($scope.focusedCategory == categoryId)
