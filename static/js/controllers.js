@@ -759,7 +759,11 @@ sigmaApp.factory('Emails', function($http) {
 		  var num = 0;
 		for (var i = 1; i <= 5; i++) {
 			for (var j = 0; j < 20; j++) {
-				var email = dummies[Math.floor(Math.random()*5)];
+				var rando = Math.floor(Math.random()*5);
+				var email = [];
+				email.from = dummies[rando].from;
+				email.subject = dummies[rando].subject;
+				email.message = dummies[rando].message;
 				email.date = "1 hour ago";
 				email.snippet = email.message.substr(0, 200);
 				email.id = num.toString();
@@ -771,7 +775,7 @@ sigmaApp.factory('Emails', function($http) {
 				email.fromName = "";
 				if (start != 0) email.fromName = from.substring(0, start-1);
 				num++;
-				email.category = 2;
+				email.category = i;
 				if (email.read == 0) this.unread[i-1]++;
 				this.arr.unshift(email);
 				console.log(email);
