@@ -754,15 +754,15 @@ sigmaApp.factory('Emails', function($http) {
 			 'message' : 'Let\'s see Gimli top that!'},
 			 {'from' : 'Gimli <gimli@earthlink.net>',
 			 'subject' : '434,323!',
-			 'message' : 'Unbeatable!'},
+			 'message' : 'Unbeatable!'}
 		  ];
 		  var num = 0;
 		for (var i = 1; i <= 5; i++) {
 			for (var j = 0; j < 20; j++) {
 				var email = dummies[Math.round(Math.random()*5)];
-				// var category = Math.round(Math.random()*5) + 1;
-				// email.category = category;
-				// this.unread[category-1]++;
+				var category = Math.round(Math.random()*5) + 1;
+				email.category = category;
+				this.unread[category-1]++;
 				email.date = "1 hour ago";
 				email.snippet = email.message.substr(0, 200);
 				email.id = num.toString();
