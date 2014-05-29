@@ -31,10 +31,20 @@ body, html{
 
 .right {
 	text-align: center;
+	padding-top: 50px;
+}
+
+.left {
+	text-align: center;
 }
 
 .logo {
 	width: 60%;
+}
+
+.devices {
+	width: 100%;
+	margin-left: 40px;
 }
 
 .heading {
