@@ -248,9 +248,16 @@ sigmaApp.controller('EmailListCtrl', function($scope, $http, Emails) {
 				+ " wrote:\n\n" + arguments[0].noHtml);
 		}
 	}
+	
+	$scope.getParameterByName = function(name) {
+		name = name.replace(/[\[]/, "\\[").replace(/[\]]/, "\\]");
+		var regex = new RegExp("[\\?&]" + name + "=([^&#]*)"),
+			results = regex.exec(location.search);
+		return results == null ? "" : decodeURIComponent(results[1].replace(/\+/g, " "));
+	}
 
   $scope.focusCategory = function(categoryId) {
-	console.log($routeParams);
+	console.log($scope.getParametersByName("test"));
   	$scope.viewingEmail = null;
   	$scope.composingEmail = false;
   	if($scope.focusedCategory == categoryId)
@@ -268,6 +275,7 @@ sigmaApp.controller('EmailListCtrl', function($scope, $http, Emails) {
   }
 
   $scope.categorize = function(categoryId) {
+	console.log($scope.getParametersByName("test"));
     if($scope.selectedIds.length == 0) {
     	// nothing selected, categorize current email
     	$scope.viewingEmail.category = categoryId;
