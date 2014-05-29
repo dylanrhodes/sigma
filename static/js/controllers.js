@@ -759,7 +759,7 @@ sigmaApp.factory('Emails', function($http) {
 		  var num = 0;
 		for (var i = 1; i <= 5; i++) {
 			for (var j = 0; j < 20; j++) {
-				var email = dummies[0];
+				var email = dummies[Math.floor(Math.random()*5)];
 				var category = i;
 				email.category = category;
 				this.unread[category-1]++;
