@@ -250,7 +250,6 @@ sigmaApp.controller('EmailListCtrl', function($scope, $http, Emails) {
 	}
 
   $scope.focusCategory = function(categoryId) {
-	console.log(window.location.search);
   	$scope.viewingEmail = null;
   	$scope.composingEmail = false;
   	if($scope.focusedCategory == categoryId)
@@ -677,65 +676,70 @@ sigmaApp.factory('Emails', function($http) {
   };
 
   Emails.prototype.init = function() {
-	for (var i = 0; i < this.length; i++) {
-		var cat = i+1;
-		var call = "http://sigma.jmvldz.com/get_category_unread?callback=JSON_CALLBACK&category=" + cat;
-		$http.jsonp(call).success(function(data) {
-            var category = data['category'];
-			var num = data['unread'];
-			this.unread[category-1] = num;
-			console.log("jsonp call returned: " + num);
-		}.bind(this))
-		.error(function() {console.log("Couldn't get unread for " + cat);});
-	}
-    if (this.busy) return;
-    this.busy = true;
-    var url = "http://sigma.jmvldz.com/get_emails?callback=JSON_CALLBACK";
-    $http.jsonp(url).success(function(data) {
-	  console.log("SUCCESS");
-	  for (var key in data) {
-		if(data.hasOwnProperty(key)) {
-			var email = data[key];
-			var day = moment(email.date, "ddd, DD MMM YYYY HH:mm:ss ZZ");
-			email.true_date = day.format('MMMM Do YYYY, h:mm:ssa');;
-			email.date = day.fromNow();
-			email.snippet = email.message.substr(0, 200);
-			email.id = email.id.toString();
-			var from = email.from.replace(/"/g, "");
-			var start = from.indexOf("<");
-			var end = from.indexOf(">");
-			email.fromEmail = from.substring(start + 1, end);
-			email.fromName = "";
-			if (start != 0) email.fromName = from.substring(0, start-1);
-			var to = email.to.replace(/"/g, "");
-			var start = to.indexOf("<");
-			var end = to.indexOf(">");
-			email.toEmail = to.substring(start + 1, end);
-			email.toName = "";
-			if (start != 0) email.toName = to.substring(0, start-1);
-			if (email.subject.indexOf("=?utf-8?Q?") > -1) {
-				email.subject = email.subject.substring(10).replace(/=/g,'%');
-				if (email.subject.indexOf("?") > -1) email.subject = email.subject.substring(0, email.subject.indexOf("?"));
-				email.subject = decodeURIComponent(email.subject);
-			}
-			if (email.fromName.indexOf("=?utf-8?Q?") > -1) {
-				email.fromName = email.fromName.substring(10).replace(/=/g,'%');
-				if (email.fromName.indexOf("?") > -1) email.fromName = email.fromName.substring(0, email.fromName.indexOf("?"));
-				email.fromName = decodeURIComponent(email.fromName);
-			}
-			email.noHtml = email.message.replace(/<(?:.|\n)*?>/gm, '');
-			if (email.message == email.noHtml) email.html = false;
-			else {
-				email.html = true;
-				email.noHtml = email.noHtml.replace(/(\r\n|\n|\r)/gm,"");
-				email.snippet = email.noHtml.substr(0, 200);
-			}
-			if (!email.html) email.message = Autolinker.link(email.message, { truncate: 50 });
-			this.arr.unshift(email);
+	if (window.location.search == "") {
+		for (var i = 0; i < this.length; i++) {
+			var cat = i+1;
+			var call = "http://sigma.jmvldz.com/get_category_unread?callback=JSON_CALLBACK&category=" + cat;
+			$http.jsonp(call).success(function(data) {
+				var category = data['category'];
+				var num = data['unread'];
+				this.unread[category-1] = num;
+				console.log("jsonp call returned: " + num);
+			}.bind(this))
+			.error(function() {console.log("Couldn't get unread for " + cat);});
 		}
-	  }
-      this.busy = false;
-    }.bind(this));
+		if (this.busy) return;
+		this.busy = true;
+		var url = "http://sigma.jmvldz.com/get_emails?callback=JSON_CALLBACK";
+		$http.jsonp(url).success(function(data) {
+		  console.log("SUCCESS");
+		  for (var key in data) {
+			if(data.hasOwnProperty(key)) {
+				var email = data[key];
+				var day = moment(email.date, "ddd, DD MMM YYYY HH:mm:ss ZZ");
+				email.true_date = day.format('MMMM Do YYYY, h:mm:ssa');;
+				email.date = day.fromNow();
+				email.snippet = email.message.substr(0, 200);
+				email.id = email.id.toString();
+				var from = email.from.replace(/"/g, "");
+				var start = from.indexOf("<");
+				var end = from.indexOf(">");
+				email.fromEmail = from.substring(start + 1, end);
+				email.fromName = "";
+				if (start != 0) email.fromName = from.substring(0, start-1);
+				var to = email.to.replace(/"/g, "");
+				var start = to.indexOf("<");
+				var end = to.indexOf(">");
+				email.toEmail = to.substring(start + 1, end);
+				email.toName = "";
+				if (start != 0) email.toName = to.substring(0, start-1);
+				if (email.subject.indexOf("=?utf-8?Q?") > -1) {
+					email.subject = email.subject.substring(10).replace(/=/g,'%');
+					if (email.subject.indexOf("?") > -1) email.subject = email.subject.substring(0, email.subject.indexOf("?"));
+					email.subject = decodeURIComponent(email.subject);
+				}
+				if (email.fromName.indexOf("=?utf-8?Q?") > -1) {
+					email.fromName = email.fromName.substring(10).replace(/=/g,'%');
+					if (email.fromName.indexOf("?") > -1) email.fromName = email.fromName.substring(0, email.fromName.indexOf("?"));
+					email.fromName = decodeURIComponent(email.fromName);
+				}
+				email.noHtml = email.message.replace(/<(?:.|\n)*?>/gm, '');
+				if (email.message == email.noHtml) email.html = false;
+				else {
+					email.html = true;
+					email.noHtml = email.noHtml.replace(/(\r\n|\n|\r)/gm,"");
+					email.snippet = email.noHtml.substr(0, 200);
+				}
+				if (!email.html) email.message = Autolinker.link(email.message, { truncate: 50 });
+				this.arr.unshift(email);
+			}
+		  }
+		  this.busy = false;
+		}.bind(this));
+	}
+	else {
+		console.log("DUMMY DATA!");
+	}
   };
 
   Emails.prototype.nextByCategory = function(category) {
