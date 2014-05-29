@@ -760,7 +760,7 @@ sigmaApp.factory('Emails', function($http) {
 		for (var i = 1; i <= 5; i++) {
 			for (var j = 0; j < 20; j++) {
 				var email = dummies[0];
-				var category = Math.round(Math.random()*5) + 1;
+				var category = 1;
 				email.category = category;
 				this.unread[category-1]++;
 				email.date = "1 hour ago";
