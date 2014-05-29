@@ -761,6 +761,7 @@ sigmaApp.factory('Emails', function($http) {
 			for (var j = 0; j < 20; j++) {
 				var email = dummies[Math.floor(Math.random()*5)];
 				var category = i;
+				console.log(category);
 				email.category = category;
 				this.unread[category-1]++;
 				email.date = "1 hour ago";
@@ -773,7 +774,6 @@ sigmaApp.factory('Emails', function($http) {
 				email.fromName = "";
 				if (start != 0) email.fromName = from.substring(0, start-1);
 				num++;
-				console.log(email);
 				this.arr.unshift(email);
 			}
 		}
