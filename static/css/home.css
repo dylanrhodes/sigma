@@ -50,8 +50,18 @@ body, html{
 }
 
 .demo {
+	padding-top: 5%;
 	height: 100%;
 	margin-left: 10%;
+}
+
+.scroll {
+	cursor:pointer;
+	position: absolute;
+	bottom: 20px;
+	left: 0;
+	width: 100%;
+	padding-left: 10%;
 }
 
 .frame::-webkit-scrollbar-track{
