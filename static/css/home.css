@@ -12,6 +12,8 @@ body, html{
     position: absolute;
     height: 100%;
     width: 100%;
+	left: 0;
+	top: 0;
 }
 
 .middle {
@@ -26,6 +28,7 @@ body, html{
 }
 
 .main-page {
+	padding-top: 15%;
 	height: 100%;
 }
 
@@ -43,12 +46,37 @@ body, html{
 }
 
 .devices {
-	width: 100%;
-	margin-left: 40px;
+	width: 80%;
+}
+
+.demo {
+	height: 100%;
+	margin-left: 10%;
+}
+
+.frame::-webkit-scrollbar-track{
+	-webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+	border-radius: 10px;
+	background-color: #F5F5F5;
+}
+
+.frame::-webkit-scrollbar {
+	width: 6px;
+	background-color: #F5F5F5;
+}
+
+.frame::-webkit-scrollbar-thumb {
+	border-radius: 10px;
+	-webkit-box-shadow: inset 0 0 6px rgba(0,0,0,.3);
+	background-color: #AFAFAF;
 }
 
 .heading {
 	margin-bottom: 30px;
+}
+
+.signin {
+	margin-top: 20px;
 }
 
 a.signup {
