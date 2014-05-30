@@ -34,7 +34,7 @@ app.config.from_pyfile('config/sigma.cfg')
 # login manager
 lm = LoginManager()
 lm.init_app(app)
-lm.login_view = 'login'
+lm.login_view = 'landing'
 
 @lm.user_loader
 def load_user(userid):
@@ -50,6 +50,10 @@ def index():
 @login_required
 def index_mobile():
     return render_template('mobile.html')
+
+@app.route('/landing')
+def landing():
+    return render_template('landing.html')
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
@@ -70,6 +74,10 @@ def login():
             db.sadd("user:users", user.user)
             # add "untrained" to models
             db.getset("user:%s:trained" % user.user, "false")
+            # add category
+            category = {'id': 1, 'email': 3, 'split': 0, 'name': 'inbox'}
+            categoryJSON = json.dumps(category, sort_keys=True, indent=4, separators=(',', ': '))
+            db.getset("user:%s:categories" % user.user, categoryJSON)
             return redirect(url_for('index'))
     return render_template("login.html", form=form, title="Sign In")
 
@@ -145,6 +153,20 @@ def mark_email_unread():
     db.zremrangebyscore("mail:%s:inbox" % current_user.user, email['id'], email['id'])
     db.zadd("mail:%s:inbox" % current_user.user, emailJSON, email['id'])
     return "Success"
+
+@app.route('/get_categories')
+@jsonp
+@login_required
+def get_categories():
+    categoryString = db.get("user:%s:categories" % current_user.user)
+    categories = json.loads(categoryString)
+    return jsonify(categories)
+
+@app.route('/add_categories', methods=['POST'])
+@login_required
+def add_categories():
+    categories = json.loads(request.data)
+    db.getset("user:%s:categories" % current_user.user, json.dumps(categories, sort_keys=True, indent=4, separators=(',', ': ')))
 
 @app.route('/delete_category', methods=['POST'])
 @login_required
