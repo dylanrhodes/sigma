@@ -5,7 +5,7 @@ import json
 from functools import wraps
 
 from flask import Flask, render_template, jsonify, url_for, redirect
-from flask import request, current_app
+from flask import request, current_app, make_response
 from flask.ext.login import LoginManager, login_user, current_user, login_required, logout_user
 
 from app.db import db
@@ -159,8 +159,7 @@ def mark_email_unread():
 @login_required
 def get_categories():
     categoryString = db.get("user:%s:categories" % current_user.user)
-    categories = json.loads(categoryString)
-    return jsonify(categories)
+    return make_response(categoryString)
 
 @app.route('/add_categories', methods=['POST'])
 @login_required
