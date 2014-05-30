@@ -7,7 +7,7 @@ var sigmaApp = angular.module('sigmaApp', ['ngSanitize', 'mgcrea.ngStrap']);
 sigmaApp.controller('EmailListCtrl', function($scope, $http, Emails) {
 
   $scope.colors = ['#808080', '#1b6aa3', '#84cbc5', '#f8d35e', '#f47264', '#85e491', '#bd80b9', '#f9b588'];
-  $scope.categories = [
+   $scope.categories = [
   	{'id' : 1,
   	 'name' : 'Uncategorized',
   	 'color' : '#808080',
@@ -44,6 +44,12 @@ sigmaApp.controller('EmailListCtrl', function($scope, $http, Emails) {
 	 'unread' : 5,
 	 'emails' : 4}
   ];
+  var url = "http://sigma.jmvldz.com/get_categories?callback=JSON_CALLBACK";
+  $http.jsonp(url).success(function(data) {
+	$scope.categories = data;
+	console.log("Loaded categories");
+  })
+  .error(function() {console.log("Didn't load categories");});
   var content = "";
   for (var i = 0; i < 100; i++) {
 	content += "Email<br>";
