@@ -201,6 +201,13 @@ sigmaApp.controller('EmailListCtrl', function($scope, $http, Emails) {
 				$scope.categories.push(temp);
 			}
 		}
+		$http({
+			method: 'POST',
+			url: '/add_categories',
+			data: $scope.categories
+		})
+		.success(function() {console.log("Successfully added categories");})
+		.error(function() {console.log("Didn't successfully add categories");});
 		//need a way to change move items in a deleted category to uncategorized
 		$scope.numCat = $scope.categories.length;
 		var percentage = 92.5/$scope.numCat;
