@@ -28,3 +28,28 @@ body, html{
 	width: 25%;
 	margin-bottom: 20px;
 }
+
+a.signup {
+	padding: 10px 20px;
+	font-weight: bold;
+	background: white;
+	font-size: 150%;
+	color: #1b6aa3;
+	border:2px solid #1b6aa3;
+}
+
+a:hover.signup {
+	background: #1b6aa3;
+	color: white;
+	text-decoration:none;
+}
+
+a:visited.signup {
+	text-decoration:none;
+}
+
+a:active.signup {
+	background: #1b6aa3;
+	color: white;
+	text-decoration:none;
+}
