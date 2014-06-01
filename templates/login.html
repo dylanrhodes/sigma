@@ -7,7 +7,10 @@
 </head>
 <body>
 {% block content %}
-<div class = "col-md-3"><img class="logo" src="../static/images/logo-1.png" title="Sigma" /></div>
+<div class="outer">
+<div class="middle">
+<div class="inner">
+<img class="logo" src="../static/images/logo-1.png" title="Sigma" />
 <form action="" method="post" name="login">
     {{form.hidden_tag()}}
     <p>
@@ -19,6 +22,9 @@
     <p>{{form.new_account}} New Account?</p>
     <p><input type="submit" value="Sign In"></p>
 </form>
+</div>
+</div>
+</div>
 {% endblock %}
 </body>
 </html>
