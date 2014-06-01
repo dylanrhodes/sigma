@@ -178,6 +178,7 @@ def get_categories():
 def add_categories():
     categories = json.loads(request.data)
     db.getset("user:%s:categories" % current_user.user, json.dumps(categories, sort_keys=True, indent=4, separators=(',', ': ')))
+    return "Success"
 
 @app.route('/delete_category', methods=['POST'])
 @login_required
