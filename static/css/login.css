@@ -29,7 +29,11 @@ body, html{
 	margin-bottom: 20px;
 }
 
-a.signup {
+.button {
+	margin-top: 20px;
+}
+
+a.submit {
 	padding: 10px 20px;
 	font-weight: bold;
 	background: white;
@@ -38,17 +42,17 @@ a.signup {
 	border:2px solid #1b6aa3;
 }
 
-a:hover.signup {
+a:hover.submit {
 	background: #1b6aa3;
 	color: white;
 	text-decoration:none;
 }
 
-a:visited.signup {
+a:visited.submit {
 	text-decoration:none;
 }
 
-a:active.signup {
+a:active.submit {
 	background: #1b6aa3;
 	color: white;
 	text-decoration:none;
