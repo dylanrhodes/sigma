@@ -80,6 +80,32 @@ def login():
             db.getset("user:%s:categories" % user.user, categoryJSON)
             return redirect(url_for('index'))
     return render_template("login.html", form=form, title="Sign In")
+	
+@app.route('/signup', methods=['GET', 'POST'])
+def signup():
+    if current_user is not None and current_user.is_authenticated():
+        return redirect(url_for('index'))
+    form = LoginForm()
+    if form.validate_on_submit():
+        user = User(username=form.email.data, password=form.password.data)
+        if user.is_valid_login():
+            login_user(user)
+            return redirect(url_for('index'))
+        elif form.new_account.data:
+            login_user(user)
+            # add login, add password
+            db.getset("user:%s:login" % user.user, user.username)
+            db.getset("user:%s:password" % user.user, user.password)
+            # add to email list
+            db.sadd("user:users", user.user)
+            # add "untrained" to models
+            db.getset("user:%s:trained" % user.user, "false")
+            # add category
+            category = {'id': 1, 'email': 3, 'split': 0, 'name': 'inbox'}
+            categoryJSON = json.dumps(category, sort_keys=True, indent=4, separators=(',', ': '))
+            db.getset("user:%s:categories" % user.user, categoryJSON)
+            return redirect(url_for('index'))
+    return render_template("signup.html", form=form, title="Sign In")
 
 @app.route('/logout')
 def logout():
