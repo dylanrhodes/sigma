@@ -42,9 +42,11 @@ def load_user(userid):
 
 # routes
 @app.route('/')
-@login_required
 def index():
-    return render_template('index.html')
+    if request.query_string == "home" or \
+       current_user is None and current_user.is_authenticated():
+        return render_template('index.html')
+    return redirect(url_for('landing'))
 
 @app.route('/mobile')
 @login_required
