@@ -14,12 +14,10 @@
 <form action="" method="post" name="login">
     {{form.hidden_tag()}}
     <p>
-        Gmail Address:<br>
-        {{form.email(size=30)}}<br>
-        Gmail Password:<br>
-        {{form.password(size=30)}}<br>
+        {{form.email(size=30,placeholder="Gmail Address")}}<br>
+        {{form.password(size=30,placeholder="Gmail Password")}}<br>
     </p>
-    <p>{{form.new_account}} New Account?</p>
+    <p>{{form.new_account(value=true)}} New Account?</p>
     <p><input type="submit" value="Sign In"></p>
 </form>
 </div>
