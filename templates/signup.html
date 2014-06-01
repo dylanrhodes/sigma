@@ -11,12 +11,12 @@
 <div class="middle">
 <div class="inner">
 <img class="logo" src="../static/images/logo-1.png" title="Sigma" />
-<form action="" method="post" name="login">
+<form action="" method="post" name="login" id="myform">
     {{form.hidden_tag()}}
         <p>{{form.email(size=30,placeholder="Gmail Address")}}</p>
         <p>{{form.password(size=30,placeholder="Gmail Password")}}</p>
     {{form.new_account(checked="checked",class="hidden")}}
-    <p><input type="submit" value="Sign Up"></p>
+    <p><a class="signup" href="login" onclick="document.getElementById('myform').submit();">Sign Up</a></p>
 </form>
 </div>
 </div>
