@@ -150,11 +150,12 @@ sigmaApp.controller('EmailListCtrl', function($scope, $http, Emails) {
 			if (($scope.addCat + $scope.categories.length) == 7) $('#addcat').attr('class', 'hidden');
 			$scope.addCat++;
 			var numCat = $scope.addCat + $scope.categories.length;
+			console.log("Making visible " + numCat);
 			$('#cat' + numCat).attr('class', 'cat-bar');
 			$('#num' + numCat).attr('class', 'num-bar');
 			$('#split' + numCat).attr('class', 'split-check');
 			$('#rc' + numCat).attr('class', 'removecat');
-			var id = $scope.categories[$scope.categories.length - 1]["id"] + $scope.addCat++;;
+			var id = $scope.categories[numCat - 1]["id"] + 1;
 			$('#id' + numCat).val(id);
 			console.log("Added cat with id" + id);
 		}
