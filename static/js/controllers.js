@@ -172,20 +172,27 @@ sigmaApp.controller('EmailListCtrl', function($scope, $http, Emails) {
 	}
 
 	$scope.RemoveCat = function(num) {
-		$("cat"+num).val("");
+		var temp = [];
+		for (var j = 0; j < num-1; j++) {
+			temp[j] = $scope.categories[j];
+		}
+		for (var i = num; i < $scope.numCat; i++) {
+			temp[i-1] = $scope.categories[i]
+		}
+		$scope.categories = temp;
+		$scope.numCat--;
+		var elem = {"category" : num};
 	    if (window.location.search != "?home") {
 		  $http({
 				method: 'POST',
 				url: '/delete_category',
 				data: elem
 			})
-			.success(function() {
-				console.log("Successfully deleted category");
-				alert("All emails moved to uncategorized");
-			})
+			.success(function() {console.log("Successfully deleted category");})
 			.error(function() {console.log("Didn't successfully delete category");});
 		}
-		
+		$scope.settings();
+		$scope.init();
 	}
 
 	$scope.save = function() {
