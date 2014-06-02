@@ -1,0 +1,60 @@
+/* 
+		This stylesheet belongs to TextboxList - Copyright Guillermo Rauch <http://devthought.com> 2009 
+		TextboxList is not priceless for commercial use. See <http://devthought.com/projects/jquery/textboxlist/> 
+		Purchase to remove copyright
+*/
+
+.textboxlist-autocomplete { 
+	position: absolute; 
+	text-align:left; 
+	z-index: 99;
+}
+.textboxlist-autocomplete-placeholder, .textboxlist-autocomplete-results { 
+	margin-top:6px;
+	width:100%;
+	-webkit-border-radius: 0px 0px 7px 7px !important;
+	border-radius: 0px 0px 7px 7px !important;  
+	opacity: 0.96; filter: alpha(opacity=96);
+	border-top: none; 
+	display: none; 
+	text-align:left;
+	background: #eee; 
+	color:#424242; 
+}
+.textboxlist-autocomplete-placeholder { 
+	border-top: 1px solid #ddd;
+	padding: 7px 0px 7px 5px;
+	font-size:14px;
+ }
+.textboxlist-autocomplete-results { 
+	padding:0;
+	padding-right: 5px !important; 
+}
+/*
+.textboxlist-autocomplete-results:before {
+	content:"Places";
+	color:#333;
+	font-size:0.7em;
+	padding-left:5px;
+}
+*/
+.textboxlist-autocomplete-result { 
+	margin: 0; 
+	padding: 7px 5px;
+	margin-right:-5px;
+	list-style-type: none; 
+	border-top:1px solid #ddd; 
+}
+.textboxlist-autocomplete-result-focus { 
+	background: #6badff; 
+	/* background:#a8a9ab;
+	color:#eee;
+	color:#fff; */	
+} 
+.textboxlist-autocomplete-highlight { /* background: #ff4b6d; */ font-weight: bold; }
+
+/*  TextboxList.Autocomplete Style guidelines 
+			Try to keep .textboxlist-autocomplete {} as it is now
+			If you apply custom styles to placeholder, also apply them to results, like it is now.
+			.textboxlist-autocomplete-result {} needs a background for IE.
+*/

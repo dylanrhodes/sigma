@@ -142,7 +142,24 @@ sigmaApp.controller('EmailListCtrl', function($scope, $http, Emails) {
 		return showingSearch && showingCategory;
 	}
 
+	$scope.tbl_values = function() {
+		var tbldata = [];
+		tbldata.push(["One"]);
+		tbldata.push(["Two"]);
+		tbldata.push(["Three"]);
+		/*
+		for(id in places) {
+			if(id != 0)
+				tbldata.push([id, places[id]["name"]]);
+		}
+		*/
+		search_tbl.plugins['autocomplete'].setValues(tbldata);
+	}
+
 	$scope.init = function() {
+		search_tbl = new $.TextboxList("#search", {unique: true, plugins: {autocomplete: {}}});
+		$scope.tbl_values();
+
 		for (var i = 1; i <= $scope.numCat; i++) {
 			$('#cat' + i).attr('class', 'cat-bar');
 			$('#num' + i).attr('class', 'num-bar');
