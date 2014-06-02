@@ -45,11 +45,13 @@ sigmaApp.controller('EmailListCtrl', function($scope, $http, Emails) {
 	 'emails' : 4}
   ];
   var url = "http://sigma.jmvldz.com/get_categories?callback=JSON_CALLBACK";
-  $http.jsonp(url).success(function(data) {
-	$scope.categories = data;
-	console.log("Loaded categories");
-  })
-  .error(function() {console.log("Didn't load categories");});
+  if (window.location.search != "?home") {
+	  $http.jsonp(url).success(function(data) {
+		$scope.categories = data;
+		console.log("Loaded categories");
+	  })
+	  .error(function() {console.log("Didn't load categories");});
+  }
   var content = "";
   for (var i = 0; i < 100; i++) {
 	content += "Email<br>";
@@ -91,12 +93,14 @@ sigmaApp.controller('EmailListCtrl', function($scope, $http, Emails) {
   $scope.catHeaderHeight = function() { return $(".category-header").height() + 11 };
   
   $scope.retrain = function() {
-	$http({
-		method: 'POST',
-		url: '/train_models',
-	})
-	.success(function() {console.log("Successfully trained models");})
-	.error(function() {console.log("Didn't successfully train models");});
+	if (window.location.search != "?home") {
+		$http({
+			method: 'POST',
+			url: '/train_models',
+		})
+		.success(function() {console.log("Successfully trained models");})
+		.error(function() {console.log("Didn't successfully train models");});
+	}
   }
   
   $scope.logout = function() {
@@ -207,13 +211,15 @@ sigmaApp.controller('EmailListCtrl', function($scope, $http, Emails) {
 				$scope.categories.push(temp);
 			}
 		}
-		$http({
-			method: 'POST',
-			url: '/add_categories',
-			data: $scope.categories
-		})
-		.success(function() {console.log("Successfully added categories");})
-		.error(function() {console.log("Didn't successfully add categories");});
+		if (window.location.search != "?home") {
+			$http({
+				method: 'POST',
+				url: '/add_categories',
+				data: $scope.categories
+			})
+			.success(function() {console.log("Successfully added categories");})
+			.error(function() {console.log("Didn't successfully add categories");});
+		}
 		//need a way to change move items in a deleted category to uncategorized
 		$scope.numCat = $scope.categories.length;
 		var percentage = 92.5/$scope.numCat;
@@ -296,13 +302,15 @@ sigmaApp.controller('EmailListCtrl', function($scope, $http, Emails) {
 		  $.map($scope.emails.arr, function(obj, index) {
 			if(obj.id == id) {
 			  var elem = {"id" : id, "category" : categoryId};
-			  $http({
-					method: 'POST',
-					url: '/categorize_email',
-					data: elem
-				})
-				.success(function() {console.log("Successfully pushed category change");})
-				.error(function() {console.log("Didn't successfully pushed category change");});
+			  if (window.location.search != "?home") {
+				  $http({
+						method: 'POST',
+						url: '/categorize_email',
+						data: elem
+					})
+					.success(function() {console.log("Successfully pushed category change");})
+					.error(function() {console.log("Didn't successfully pushed category change");});
+				}
 			  obj.category = categoryId;
 			 }
 		  });
@@ -333,25 +341,29 @@ sigmaApp.controller('EmailListCtrl', function($scope, $http, Emails) {
 			if(obj.id == id) {
 			  if(ru == 1) {
 				  var elem = {"id" : id};
-				  $http({
-						method: 'POST',
-						url: '/mark_as_read',
-						data: elem
-					})
-					.success(function() {console.log("Successfully pushed read change");})
-					.error(function() {console.log("Didn't successfully push read change");});
+				  if (window.location.search != "?home") {
+					  $http({
+							method: 'POST',
+							url: '/mark_as_read',
+							data: elem
+						})
+						.success(function() {console.log("Successfully pushed read change");})
+						.error(function() {console.log("Didn't successfully push read change");});
+				  }
 				  if (obj.read != 1) $scope.emails.unread[obj.category-1]--;
 				  obj.read = 1;
 			  }
 			  else {
 				var elem = {"id" : id};
-				  $http({
-						method: 'POST',
-						url: '/mark_as_unread',
-						data: elem
-					})
-					.success(function() {console.log("Successfully pushed read change");})
-					.error(function() {console.log("Didn't successfully push read change");});
+				  if (window.location.search != "?home") {
+					  $http({
+							method: 'POST',
+							url: '/mark_as_unread',
+							data: elem
+						})
+						.success(function() {console.log("Successfully pushed read change");})
+						.error(function() {console.log("Didn't successfully push read change");});
+				  }
 				  if (obj.read != 0) $scope.emails.unread[obj.category-1]++;
 				  obj.read = 0;
 			  }
@@ -450,13 +462,15 @@ sigmaApp.controller('EmailListCtrl', function($scope, $http, Emails) {
 							if(obj.id == target_id) {
 							  $scope.viewingEmail = obj;
 							  var elem = {"id" : obj.id};
-							  $http({
-									method: 'POST',
-									url: '/mark_as_read',
-									data: elem
-								})
-								.success(function() {console.log("Successfully pushed email read");})
-								.error(function() {console.log("Didn't successfully push email read");});
+							  if (window.location.search != "?home") {
+								  $http({
+										method: 'POST',
+										url: '/mark_as_read',
+										data: elem
+									})
+									.success(function() {console.log("Successfully pushed email read");})
+									.error(function() {console.log("Didn't successfully push email read");});
+							  }
 							  if (obj.read != 1) $scope.emails.unread[obj.category-1]--;
 							  obj.read = 1;
 							  if (!obj.html) { 
@@ -504,13 +518,15 @@ sigmaApp.controller('EmailListCtrl', function($scope, $http, Emails) {
 							if(obj.id == target_id) {
 							  $scope.viewingEmail = obj;
 							  var elem = {"id" : obj.id};
-							  $http({
-									method: 'POST',
-									url: '/mark_as_read',
-									data: elem
-								})
-								.success(function() {console.log("Successfully pushed email read");})
-								.error(function() {console.log("Didn't successfully push email read");});
+							  if (window.location.search != "?home") {
+								  $http({
+										method: 'POST',
+										url: '/mark_as_read',
+										data: elem
+									})
+									.success(function() {console.log("Successfully pushed email read");})
+									.error(function() {console.log("Didn't successfully push email read");});
+							  }
 							  if (obj.read != 1) $scope.emails.unread[obj.category-1]--;
 							  obj.read = 1;
 							  if (!obj.html) { 
@@ -551,13 +567,15 @@ sigmaApp.controller('EmailListCtrl', function($scope, $http, Emails) {
 			if(obj.id == target_id) {
 			  $scope.viewingEmail = obj;
 			  var elem = {"id" : obj.id};
-			  $http({
-					method: 'POST',
-					url: '/mark_as_read',
-					data: elem
-				})
-				.success(function() {console.log("Successfully pushed email read");})
-				.error(function() {console.log("Didn't successfully push email read");});
+			  if (window.location.search != "?home") {
+				  $http({
+						method: 'POST',
+						url: '/mark_as_read',
+						data: elem
+					})
+					.success(function() {console.log("Successfully pushed email read");})
+					.error(function() {console.log("Didn't successfully push email read");});
+			  }
 			  if (obj.read != 1) $scope.emails.unread[obj.category-1]--;
 			  obj.read = 1;
 			  if (!obj.html) { 
@@ -594,13 +612,15 @@ sigmaApp.controller('EmailListCtrl', function($scope, $http, Emails) {
 					  $scope.viewingEmail = obj;
 					  console.log(obj.message);
 					  var elem = {"id" : obj.id};
-					  $http({
-							method: 'POST',
-							url: '/mark_as_read',
-							data: elem
-						})
-						.success(function() {console.log("Successfully pushed email read");})
-						.error(function() {console.log("Didn't successfully push email read");});
+					  if (window.location.search != "?home") {
+						  $http({
+								method: 'POST',
+								url: '/mark_as_read',
+								data: elem
+							})
+							.success(function() {console.log("Successfully pushed email read");})
+							.error(function() {console.log("Didn't successfully push email read");});
+					  }
 					  if (obj.read != 1) $scope.emails.unread[obj.category-1]--;
 					  obj.read = 1;
 					  if (!obj.html) { 
