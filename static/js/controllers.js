@@ -380,6 +380,7 @@ sigmaApp.controller('EmailListCtrl', function($scope, $http, Emails) {
   jQuery(function($) {
   
 	$(".cat-bar").keyup(function(e) {
+		alert("Keyup in the cat-bar");
 		var id = this.attr("id");
 		var i = id.substr(id.length - 1);
 		if(this.val() != "") {
