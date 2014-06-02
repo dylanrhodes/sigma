@@ -153,6 +153,9 @@ sigmaApp.controller('EmailListCtrl', function($scope, $http, Emails) {
 			$('#num' + $scope.numCat).attr('class', 'num-bar');
 			$('#split' + $scope.numCat).attr('class', 'split-check');
 			$('#rc' + $scope.numCat).attr('class', 'removecat');
+			var id = $scope.categories[$scope.categories.length - 1]["id"] + 1;
+			$('#id' + $scope.numCat).val(id);
+			console.log("Added cat with id" + id);
 		}
 		$scope.init();
 	}
@@ -172,27 +175,29 @@ sigmaApp.controller('EmailListCtrl', function($scope, $http, Emails) {
 	}
 
 	$scope.RemoveCat = function(num) {
-		var temp = [];
-		for (var j = 0; j < num-1; j++) {
-			temp[j] = $scope.categories[j];
+		var id = $('#id' + num).val();
+		var index = -1;
+		for (var i = 0; i < $scope.cateogries.length; i++) {
+			if($scope.categories[i] == id) index = i;
 		}
-		for (var i = num; i < $scope.numCat; i++) {
-			temp[i-1] = $scope.categories[i]
+		if (index != -1) {
+			$scope.categories.splice(index, 1);
+			$scope.categories = temp;
+			$scope.numCat--;
+			var elem = {"category" : num};
+			if (window.location.search != "?home") {
+			  $http({
+					method: 'POST',
+					url: '/delete_category',
+					data: elem
+				})
+				.success(function() {console.log("Successfully deleted category");})
+				.error(function() {console.log("Didn't successfully delete category");});
+			}
+			$scope.settings();
+			$scope.init();
 		}
-		$scope.categories = temp;
-		$scope.numCat--;
-		var elem = {"category" : num};
-	    if (window.location.search != "?home") {
-		  $http({
-				method: 'POST',
-				url: '/delete_category',
-				data: elem
-			})
-			.success(function() {console.log("Successfully deleted category");})
-			.error(function() {console.log("Didn't successfully delete category");});
-		}
-		$scope.settings();
-		$scope.init();
+		else console.log("Couldn't remove cateogry")
 	}
 
 	$scope.save = function() {
@@ -210,7 +215,7 @@ sigmaApp.controller('EmailListCtrl', function($scope, $http, Emails) {
 				}
 				var unread = Math.floor(Math.random() * 11);
 				var temp = {};
-				temp['id'] = i;
+				temp['id'] = $('#id' + i).val();
 				temp['name'] = name;
 				temp['color'] = $scope.colors[i-1];
 				temp['class'] = 'category-' + name;
@@ -257,6 +262,7 @@ sigmaApp.controller('EmailListCtrl', function($scope, $http, Emails) {
 		$('.wrapper2').attr('class', 'wrapper2 container-fluid');
 		for (var i = 1; i <= $scope.numCat; i++) {
 			$('#cat' + i).val($scope.categories[i-1]['name']);
+			$('#id' + i).val($scope.categories[i-1]['id']);
 			$('#num' + i).val($scope.categories[i-1]['emails']);
 			if ($scope.categories[i-1]['split']) $('#split' + i).prop("checked", true);
 			else $('#split' + i).prop("checked", false);
