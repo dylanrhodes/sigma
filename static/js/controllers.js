@@ -118,30 +118,21 @@ sigmaApp.controller('EmailListCtrl', function($scope, $http, Emails) {
   };
 
 	$scope.init = function() {
-		for (var i = 1; i <= $scope.numCat; i++) {
+		for (var i = 1; i <= 8; i++) {
 			$('#cat' + i).attr('class', 'cat-bar');
 			$('#num' + i).attr('class', 'num-bar');
 			$('#split' + i).attr('class', 'split-check');
-			$('#rc' + i).attr('class', 'removecat');
-			var color = $('#cat' + i).css('border-color');
-			var height = 8 * $('#num' + i).val();
-			var split = $('#split' + i).prop("checked");
-			if (split) $('#prev' + i).css('width', '35%');
-			else $('#prev' + i).css('width', '72%');
-			$('#prev' + i).css('height', height + 'px');
-			$('#prev' + i).css('border-color', color);
-			$('#prev' + i).css('class', 'preview-block');
-			$('#prev' + i).attr('class', 'prev');
-		}
-		for (var i = $scope.numCat + 1; i <= 8; i++) {
-			$('#cat' + i).attr('class', 'hidden');
-			$('#cat' + i).val("");
-			$('#split' + i).attr('class', 'hidden');
-			$('#split' + i).prop("checked", false);
-			$('#num' + i).attr('class', 'hidden');
-			$('#num' + i).val(5);
-			$('#prev' + i).attr('class', 'hidden');
-			$('#rc' + i).attr('class', 'hidden');
+			if (i <= $scope.numCat) {
+				var color = $('#cat' + i).css('border-color');
+				var height = 8 * $('#num' + i).val();
+				var split = $('#split' + i).prop("checked");
+				if (split) $('#prev' + i).css('width', '35%');
+				else $('#prev' + i).css('width', '72%');
+				$('#prev' + i).css('height', height + 'px');
+				$('#prev' + i).css('border-color', color);
+				$('#prev' + i).css('class', 'preview-block');
+				$('#prev' + i).attr('class', 'prev');
+			}
 		}
 	}
 
@@ -200,7 +191,7 @@ sigmaApp.controller('EmailListCtrl', function($scope, $http, Emails) {
 		var copy = $scope.categories;
 		var names = [];
 		$scope.categories = [];
-		for (var i = 1; i <= num; i++) {
+		for (var i = 1; i <= 8; i++) {
 			var name = $('#cat' + i).val();
 			if (name != "") {
 				var emails = $('#num' + i).val();
@@ -387,6 +378,26 @@ sigmaApp.controller('EmailListCtrl', function($scope, $http, Emails) {
 
 
   jQuery(function($) {
+  
+	$(".cat-bar").keyup(function(e) {
+		var id = this.attr("id");
+		var i = id.substr(id.length - 1);
+		if(this.val() != "") {
+			var color = $('#cat' + i).css('border-color');
+			var height = 8 * $('#num' + i).val();
+			var split = $('#split' + i).prop("checked");
+			if (split) $('#prev' + i).css('width', '35%');
+			else $('#prev' + i).css('width', '72%');
+			$('#prev' + i).css('height', height + 'px');
+			$('#prev' + i).css('border-color', color);
+			$('#prev' + i).css('class', 'preview-block');
+			$('#prev' + i).attr('class', 'prev');
+		}
+		else {
+			$('#prev' + i).attr('class', 'hidden');
+		}
+	});
+	
 	$(document).ready(function(){
 		$(document.body).on('keyup', '.num-bar', function() {
 			if (!isNaN($(this).val())) {
