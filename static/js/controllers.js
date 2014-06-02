@@ -172,20 +172,17 @@ sigmaApp.controller('EmailListCtrl', function($scope, $http, Emails) {
 	}
 
 	$scope.RemoveCat = function(num) {
-		$("cat"+num).val("");
-	    if (window.location.search != "?home") {
-		  $http({
-				method: 'POST',
-				url: '/delete_category',
-				data: elem
-			})
-			.success(function() {
-				console.log("Successfully deleted category");
-				alert("All emails moved to uncategorized");
-			})
-			.error(function() {console.log("Didn't successfully delete category");});
+		var temp = [];
+		for (var j = 0; j < num-1; j++) {
+			temp[j] = $scope.categories[j];
 		}
-		
+		for (var i = num; i < $scope.numCat; i++) {
+			temp[i-1] = $scope.categories[i]
+		}
+		$scope.categories = temp;
+		$scope.numCat--;
+		$scope.settings();
+		$scope.init();
 	}
 
 	$scope.save = function() {
@@ -224,8 +221,6 @@ sigmaApp.controller('EmailListCtrl', function($scope, $http, Emails) {
 			.error(function() {console.log("Didn't successfully add categories");});
 		}
 		//need a way to change move items in a deleted category to uncategorized
-		$scope.emails = new Emails($scope.categories.length);
-		$scope.emails.init();
 		$scope.numCat = $scope.categories.length;
 		var percentage = 92.5/$scope.numCat;
 		$scope.$apply();
