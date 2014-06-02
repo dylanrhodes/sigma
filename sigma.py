@@ -44,7 +44,7 @@ def load_user(userid):
 @app.route('/')
 def index():
     if request.query_string == "home" or \
-       current_user is None and current_user.is_authenticated():
+       current_user is not None and current_user.is_authenticated():
         return render_template('index.html')
     return redirect(url_for('landing'))
 
