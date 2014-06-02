@@ -69,7 +69,7 @@ sigmaApp.controller('EmailListCtrl', function($scope, $http, Emails) {
   $scope.selectedId = -1;
   $scope.selectedIds = [];
   $scope.selectedCat = -1;
-  $scope.numCat = $scope.categories.length;
+  $scope.addCat = 0;
   $scope.oldColor = "";
   $scope.sigma_img_tag = "<img src='images/sigma.png' />";
   $scope.composingEmail = false;
@@ -118,7 +118,7 @@ sigmaApp.controller('EmailListCtrl', function($scope, $http, Emails) {
   };
 
 	$scope.init = function() {
-		for (var i = 1; i <= $scope.numCat; i++) {
+		for (var i = 1; i <= $scope.categories.length; i++) {
 			$('#cat' + i).attr('class', 'cat-bar');
 			$('#num' + i).attr('class', 'num-bar');
 			$('#split' + i).attr('class', 'split-check');
@@ -133,7 +133,7 @@ sigmaApp.controller('EmailListCtrl', function($scope, $http, Emails) {
 			$('#prev' + i).css('class', 'preview-block');
 			$('#prev' + i).attr('class', 'prev');
 		}
-		for (var i = $scope.numCat + 1; i <= 8; i++) {
+		for (var i = $scope.categories.length + 1; i <= 8; i++) {
 			$('#cat' + i).attr('class', 'hidden');
 			$('#cat' + i).val("");
 			$('#split' + i).attr('class', 'hidden');
@@ -146,15 +146,15 @@ sigmaApp.controller('EmailListCtrl', function($scope, $http, Emails) {
 	}
 
 	$scope.AddCat = function() {
-		if ($scope.numCat != 8) {
-			if ($scope.numCat == 7) $('#addcat').attr('class', 'hidden');
-			$scope.numCat++;
-			$('#cat' + $scope.numCat).attr('class', 'cat-bar');
-			$('#num' + $scope.numCat).attr('class', 'num-bar');
-			$('#split' + $scope.numCat).attr('class', 'split-check');
-			$('#rc' + $scope.numCat).attr('class', 'removecat');
+		if (($scope.addCat + $scope.categories.length) != 8) {
+			if (($scope.addCat + $scope.categories.length) == 7) $('#addcat').attr('class', 'hidden');
+			$scope.addCat++;
+			$('#cat' + ($scope.addCat + $scope.categories.length)).attr('class', 'cat-bar');
+			$('#num' + ($scope.addCat + $scope.categories.length)).attr('class', 'num-bar');
+			$('#split' + ($scope.addCat + $scope.categories.length)).attr('class', 'split-check');
+			$('#rc' + ($scope.addCat + $scope.categories.length)).attr('class', 'removecat');
 			var id = $scope.categories[$scope.categories.length - 1]["id"] + 1;
-			$('#id' + $scope.numCat).val(id);
+			$('#id' + ($scope.addCat + $scope.categories.length)).val(id);
 			console.log("Added cat with id" + id);
 		}
 		$scope.init();
@@ -182,8 +182,6 @@ sigmaApp.controller('EmailListCtrl', function($scope, $http, Emails) {
 		}
 		if (index != -1) {
 			$scope.categories.splice(index, 1);
-			$scope.categories = temp;
-			$scope.numCat--;
 			var elem = {"category" : num};
 			if (window.location.search != "?home") {
 			  $http({
@@ -201,7 +199,7 @@ sigmaApp.controller('EmailListCtrl', function($scope, $http, Emails) {
 	}
 
 	$scope.save = function() {
-		var num = $scope.numCat;
+		var num = $scope.addCat + $scope.categories.length;
 		var copy = $scope.categories;
 		var names = [];
 		$scope.categories = [];
@@ -238,8 +236,7 @@ sigmaApp.controller('EmailListCtrl', function($scope, $http, Emails) {
 		//need a way to change move items in a deleted category to uncategorized
 		$scope.emails = new Emails($scope.categories.length);
 		$scope.emails.init();
-		$scope.numCat = $scope.categories.length;
-		var percentage = 92.5/$scope.numCat;
+		var percentage = 92.5/$scope.categories.length;
 		$scope.$apply();
 		$('.category').css('width', percentage + '%');
 		$('.wrapper').attr('class', 'wrapper container-fluid');
@@ -260,7 +257,7 @@ sigmaApp.controller('EmailListCtrl', function($scope, $http, Emails) {
 	$scope.settings = function() {
 		$('.wrapper').attr('class', 'wrapper container-fluid hidden');
 		$('.wrapper2').attr('class', 'wrapper2 container-fluid');
-		for (var i = 1; i <= $scope.numCat; i++) {
+		for (var i = 1; i <= $scope.categories.length; i++) {
 			$('#cat' + i).val($scope.categories[i-1]['name']);
 			$('#id' + i).val($scope.categories[i-1]['id']);
 			$('#num' + i).val($scope.categories[i-1]['emails']);
@@ -428,13 +425,13 @@ sigmaApp.controller('EmailListCtrl', function($scope, $http, Emails) {
 					})
 				}
 				if(! e.shiftKey) {
-					if ($scope.selectedCat == -1 || $scope.selectedCat == $scope.numCat)
+					if ($scope.selectedCat == -1 || $scope.selectedCat == $scope.categories.length)
 					  $scope.selectedCat = 1;
 					else
 					  $scope.selectedCat ++;
 				} else {
 					if ($scope.selectedCat == -1 || $scope.selectedCat == 1)
-					  $scope.selectedCat = $scope.numCat;
+					  $scope.selectedCat = $scope.categories.length;
 					else
 					  $scope.selectedCat --;
 				}
@@ -566,7 +563,7 @@ sigmaApp.controller('EmailListCtrl', function($scope, $http, Emails) {
 			}
 			$scope.$apply();
 		}
-		if (e.keyCode >= 49 && e.keyCode < 49 + $scope.numCat) {
+		if (e.keyCode >= 49 && e.keyCode < 49 + $scope.categories.length) {
 		   var cat = e.keyCode - 48;
          $scope.categorize(cat);
          $scope.$apply();
