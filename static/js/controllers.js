@@ -380,9 +380,9 @@ sigmaApp.controller('EmailListCtrl', function($scope, $http, Emails) {
   jQuery(function($) {
   
 	$(".cat-bar").keyup(function(e) {
-		alert("Keyup in the cat-bar");
 		var id = this.attr("id");
 		var i = id.substr(id.length - 1);
+		alert("id: " + id + "num: " + i);
 		if(this.val() != "") {
 			var color = $('#cat' + i).css('border-color');
 			var height = 8 * $('#num' + i).val();
