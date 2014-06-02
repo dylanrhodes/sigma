@@ -198,6 +198,7 @@ def delete_category():
         emailJSON = json.dumps(pMail, sort_keys=True, indent=4, separators=(',', ': '))
         db.zremrangebyscore("mail:%s:inbox" % current_user.user, emailID, emailID)
         db.zadd("mail:%s:inbox" % current_user.user, emailJSON, emailID)
+    return "Success"
 
 @app.route('/train_models', methods=['POST'])
 @login_required
