@@ -563,7 +563,8 @@ sigmaApp.controller('EmailListCtrl', function($scope, $http, Emails) {
 			$scope.$apply();
 		}
 		if (e.keyCode >= 49 && e.keyCode < 49 + $scope.categories.length) {
-		 var cat = e.keyCode - 48;
+		 var num = e.keyCode - 48;
+		 var cat = $scope.categories[num-1]["id"];
          $scope.categorize(cat);
          $scope.$apply();
 		}
@@ -573,7 +574,6 @@ sigmaApp.controller('EmailListCtrl', function($scope, $http, Emails) {
 		e.stopPropagation();
 		var percentage = 92.5/$scope.categories.length;
 		$('.category').css('width', percentage + '%');
-		console.log("Percentage based on length of " + $scope.categories.length);
 		if($scope.selectedIds.indexOf($(this).attr('id')) >= 0 && !e.shiftKey) {
 			// They have clicked on a highlighted message (e.g. double-clicked) to open
 		  $scope.focusCategory('');

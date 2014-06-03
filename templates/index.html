@@ -125,7 +125,7 @@
   </div>
   <div class="category-bar {{ selectedIds.length > 0 || viewingEmail ? '' : 'hidden' }}">
     <div ng-repeat="category in categories" class="category {{category.class}} {{categoryIsSelected(category.id) ? 'category-selected' : ''}}" style="background-color: {{category.color}};" ng-click="categorize(category.id)">
-      <span class="category-id">{{category.id}}</span> {{category.name}}
+      <span class="category-id">{{$index}}</span> {{category.name}}
     </div>
   </div>
    <div class="wrapper2 container-fluid hidden">
