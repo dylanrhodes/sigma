@@ -176,7 +176,7 @@ sigmaApp.controller('EmailListCtrl', function($scope, $http, Emails) {
 		var id = parseInt($('#id' + num).val());
 		var index = -1;
 		for (var i = 0; i < $scope.cateogries.length; i++) {
-			if($scope.categories[i] == id) index = i;
+			if($scope.categories[i]['id'] == id) index = i;
 		}
 		if (index != -1) {
 			$scope.categories.splice(index, 1);
