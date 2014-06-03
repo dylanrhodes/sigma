@@ -83,6 +83,8 @@ sigmaApp.controller('EmailListCtrl', function($scope, $http, Emails) {
   $scope.emailsById = {};
   $scope.windowHeight = $(window).height();
   $scope.boxWidth = null;
+  var percentage = 92.5/$scope.categories.length;
+  $('.category').css('width', percentage + '%');
   // console.log($scope.emails.unread.length);
   // for (var i = 0; i < $scope.emails.unread.length; i++) {
 	// var cat = i + 1;
