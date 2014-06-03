@@ -571,7 +571,9 @@ sigmaApp.controller('EmailListCtrl', function($scope, $http, Emails) {
 
 	$(document).on("click", ".ind-email", function(e) {
 		e.stopPropagation();
-
+		var percentage = 92.5/$scope.categories.length;
+		$('.category').css('width', percentage + '%');
+		console.log("Percentage based on length of " + $scope.categories.length);
 		if($scope.selectedIds.indexOf($(this).attr('id')) >= 0 && !e.shiftKey) {
 			// They have clicked on a highlighted message (e.g. double-clicked) to open
 		  $scope.focusCategory('');
@@ -668,8 +670,6 @@ sigmaApp.controller('EmailListCtrl', function($scope, $http, Emails) {
 	});
 
 	$(document).click(function() {
-		var percentage = 92.5/$scope.categories.length;
-		$('.category').css('width', percentage + '%');
 		if ($scope.markUnread == false) {
 			$scope.selected = "";
 			$scope.selectedIds = [];
