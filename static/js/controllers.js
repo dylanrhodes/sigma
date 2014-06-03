@@ -49,6 +49,7 @@ sigmaApp.controller('EmailListCtrl', function($scope, $http, Emails) {
 	  $http.jsonp(url).success(function(data) {
 		$scope.categories = data;
 		console.log("Loaded categories");
+		console.log(data);
 	  })
 	  .error(function() {console.log("Didn't load categories");});
   }
@@ -83,8 +84,6 @@ sigmaApp.controller('EmailListCtrl', function($scope, $http, Emails) {
   $scope.emailsById = {};
   $scope.windowHeight = $(window).height();
   $scope.boxWidth = null;
-  var percentage = 92.5/$scope.categories.length;
-  $('.category').css('width', percentage + '%');
   // console.log($scope.emails.unread.length);
   // for (var i = 0; i < $scope.emails.unread.length; i++) {
 	// var cat = i + 1;
@@ -565,7 +564,7 @@ sigmaApp.controller('EmailListCtrl', function($scope, $http, Emails) {
 			$scope.$apply();
 		}
 		if (e.keyCode >= 49 && e.keyCode < 49 + $scope.categories.length) {
-		   var cat = e.keyCode - 48;
+		 var cat = e.keyCode - 48;
          $scope.categorize(cat);
          $scope.$apply();
 		}
