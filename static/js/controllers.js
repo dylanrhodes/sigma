@@ -49,6 +49,7 @@ sigmaApp.controller('EmailListCtrl', function($scope, $http, Emails) {
 	  $http.jsonp(url).success(function(data) {
 		$scope.categories = data;
 		console.log("Loaded categories");
+		console.log(data);
 	  })
 	  .error(function() {console.log("Didn't load categories");});
   }
