@@ -253,6 +253,7 @@ sigmaApp.controller('EmailListCtrl', function($scope, $http, Emails) {
 	}
 
 	$scope.settings = function() {
+		$scope.addCat = 0;
 		$('.wrapper').attr('class', 'wrapper container-fluid hidden');
 		$('.wrapper2').attr('class', 'wrapper2 container-fluid');
 		for (var i = 1; i <= $scope.categories.length; i++) {
