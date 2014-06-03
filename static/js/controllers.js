@@ -151,7 +151,7 @@ sigmaApp.controller('EmailListCtrl', function($scope, $http, Emails) {
 			$scope.addCat++;
 			var numCat = $scope.addCat + $scope.categories.length;
 			var prevCat = numCat - 1;
-			var id = $('#id' + prevCat).val() + 1;
+			var id = parseInt($('#id' + prevCat).val()) + 1;
 			$('#id' + numCat).val(id);
 			console.log("Added cat with id" + id);
 		}
@@ -173,7 +173,7 @@ sigmaApp.controller('EmailListCtrl', function($scope, $http, Emails) {
 	}
 
 	$scope.RemoveCat = function(num) {
-		var id = $('#id' + num).val();
+		var id = parseInt($('#id' + num).val());
 		var index = -1;
 		for (var i = 0; i < $scope.cateogries.length; i++) {
 			if($scope.categories[i] == id) index = i;
@@ -211,7 +211,7 @@ sigmaApp.controller('EmailListCtrl', function($scope, $http, Emails) {
 				}
 				var unread = Math.floor(Math.random() * 11);
 				var temp = {};
-				temp['id'] = $('#id' + i).val();
+				temp['id'] = parseInt($('#id' + i).val());
 				temp['name'] = name;
 				temp['color'] = $scope.colors[i-1];
 				temp['class'] = 'category-' + name;
