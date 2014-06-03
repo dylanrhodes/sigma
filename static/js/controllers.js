@@ -21,13 +21,14 @@ sigmaApp.controller('EmailListCtrl', function($scope, $http, Emails) {
   for (var i = 0; i < 100; i++) {
 	content += "Email<br>";
   }
-  
+
   $scope.aside = {
 	  "title": "Category Digest",
 	  "content": content
   };
 
-  $scope.emails = new Emails($scope.categories.length);
+  //$scope.emails = new Emails($scope.categories.length);
+  $scope.emails = new Emails(8);
   $scope.emails.init();
   $scope.focusedCategory = "";
   $scope.selected = "";
@@ -56,7 +57,7 @@ sigmaApp.controller('EmailListCtrl', function($scope, $http, Emails) {
   // }
   // $scope.$apply();
   $scope.catHeaderHeight = function() { return $(".category-header").height() + 11 };
-  
+
   $scope.retrain = function() {
 	if (window.location.search != "?home") {
 		$http({
@@ -67,7 +68,7 @@ sigmaApp.controller('EmailListCtrl', function($scope, $http, Emails) {
 		.error(function() {console.log("Didn't successfully train models");});
 	}
   }
-  
+
   $scope.logout = function() {
 	console.log("Logging out");
   }
@@ -453,13 +454,13 @@ sigmaApp.controller('EmailListCtrl', function($scope, $http, Emails) {
 							  }
 							  if (obj.read != 1) $scope.emails.unread[obj.category-1]--;
 							  obj.read = 1;
-							  if (!obj.html) { 
-								$('.message-body').css('white-space', 'pre-line'); 
-								$('.message-body').css('padding', '0 40px'); 
+							  if (!obj.html) {
+								$('.message-body').css('white-space', 'pre-line');
+								$('.message-body').css('padding', '0 40px');
 							  }
 							  else {
-								$('.message-body').css('white-space', 'normal'); 
-								$('.message-body').css('padding', '20px 20px'); 
+								$('.message-body').css('white-space', 'normal');
+								$('.message-body').css('padding', '20px 20px');
 							  }
 							  $('.message-body').html(obj.message);
 							}
@@ -509,13 +510,13 @@ sigmaApp.controller('EmailListCtrl', function($scope, $http, Emails) {
 							  }
 							  if (obj.read != 1) $scope.emails.unread[obj.category-1]--;
 							  obj.read = 1;
-							  if (!obj.html) { 
-								$('.message-body').css('white-space', 'pre-line'); 
-								$('.message-body').css('padding', '0 40px'); 
+							  if (!obj.html) {
+								$('.message-body').css('white-space', 'pre-line');
+								$('.message-body').css('padding', '0 40px');
 							  }
 							  else {
-								$('.message-body').css('white-space', 'normal'); 
-								$('.message-body').css('padding', '20px 20px'); 
+								$('.message-body').css('white-space', 'normal');
+								$('.message-body').css('padding', '20px 20px');
 							  }
 							  $('.message-body').html(obj.message);
 							}
@@ -560,13 +561,13 @@ sigmaApp.controller('EmailListCtrl', function($scope, $http, Emails) {
 			  }
 			  if (obj.read != 1) $scope.emails.unread[obj.category-1]--;
 			  obj.read = 1;
-			  if (!obj.html) { 
-				$('.message-body').css('white-space', 'pre-line'); 
-				$('.message-body').css('padding', '0 40px'); 
+			  if (!obj.html) {
+				$('.message-body').css('white-space', 'pre-line');
+				$('.message-body').css('padding', '0 40px');
 			  }
 			  else {
-				$('.message-body').css('white-space', 'normal'); 
-				$('.message-body').css('padding', '20px 20px'); 
+				$('.message-body').css('white-space', 'normal');
+				$('.message-body').css('padding', '20px 20px');
 			  }
 			  $('.message-body').html(obj.message);
 			}
@@ -605,13 +606,13 @@ sigmaApp.controller('EmailListCtrl', function($scope, $http, Emails) {
 					  }
 					  if (obj.read != 1) $scope.emails.unread[obj.category-1]--;
 					  obj.read = 1;
-					  if (!obj.html) { 
-						$('.message-body').css('white-space', 'pre-line'); 
-						$('.message-body').css('padding', '0 40px'); 
+					  if (!obj.html) {
+						$('.message-body').css('white-space', 'pre-line');
+						$('.message-body').css('padding', '0 40px');
 					  }
 					  else {
-						$('.message-body').css('white-space', 'normal'); 
-						$('.message-body').css('padding', '20px 20px'); 
+						$('.message-body').css('white-space', 'normal');
+						$('.message-body').css('padding', '20px 20px');
 					  }
 					  $('.message-body').html(obj.message);
 					}

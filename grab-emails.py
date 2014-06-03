@@ -37,6 +37,7 @@ for user in users:
         body = extract_body(msg)
         msg['message'] = body
         msg['Subject'] = ('NoSubj' if (msg['Subject']==None)  else msg['Subject'])
+        msg['To'] = ('NoTo' if (msg['Subject']==None) else msg['To'])
         # TODO set unread
         email = {'id': msgid, 'from': msg['From'], 'to': msg['To'], 'subject': msg['Subject'],
                 'date': msg['Date'], 'cc': msg['CC'], 'read': False,

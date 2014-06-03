@@ -89,7 +89,7 @@ def signup():
             # add "untrained" to models
             db.getset("user:%s:trained" % user.user, "false")
             # add category
-            category = {'id': 1, 'email': 3, 'split': 0, 'name': 'inbox'}
+            category = {'id': 1, 'email': 3, 'split': 0, 'name': 'inbox', 'class' : 'category-inbox'}
             categoryJSON = json.dumps(category, sort_keys=True, indent=4, separators=(',', ': '))
             db.getset("user:%s:categories" % user.user, categoryJSON)
             return redirect(url_for('index'))
@@ -188,16 +188,17 @@ def delete_category():
     category = json.loads(request.data)['category']
     newCategory = 1
     mail = db.smembers("mail:%s:%s" % (current_user.user, category))
+    print mail
     for emailID in mail:
         # Move email in Redis
-        db.smove("mail:%s:%s" % (current_user.user, category), "mail:%s:%s" % (current_user.user, newCategory), emailID)
+        print db.smove("mail:%s:%s" % (current_user.user, category), "mail:%s:%s" % (current_user.user, newCategory), emailID)
         # Change category in object
         emailObj = db.zrevrangebyscore("mail:%s:inbox" % current_user.user, emailID, emailID)
         pMail = json.loads(emailObj[0])
         pMail['category'] = newCategory
         emailJSON = json.dumps(pMail, sort_keys=True, indent=4, separators=(',', ': '))
-        db.zremrangebyscore("mail:%s:inbox" % current_user.user, emailID, emailID)
-        db.zadd("mail:%s:inbox" % current_user.user, emailJSON, emailID)
+        print db.zremrangebyscore("mail:%s:inbox" % current_user.user, emailID, emailID)
+        print db.zadd("mail:%s:inbox" % current_user.user, emailJSON, emailID)
     return "Success"
 
 @app.route('/train_models', methods=['POST'])
