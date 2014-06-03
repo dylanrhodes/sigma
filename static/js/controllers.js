@@ -567,9 +567,8 @@ sigmaApp.controller('EmailListCtrl', function($scope, $http, Emails) {
 		if (e.keyCode >= 49 && e.keyCode < 49 + $scope.categories.length) {
 		 var num = e.keyCode - 48;
 		 var cat = $scope.categories[num-1]["id"];
-		 console.log(cat);
-         //$scope.categorize(cat);
-         //$scope.$apply();
+         $scope.categorize(cat);
+         $scope.$apply();
 		}
 	});
 
