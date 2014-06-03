@@ -180,15 +180,15 @@ sigmaApp.controller('EmailListCtrl', function($scope, $http, Emails) {
 		}
 		if (index != -1) {
 			$scope.categories.splice(index, 1);
-			var elem = {"category" : num};
+			var elem = {"category" : id};
 			if (window.location.search != "?home") {
 			  $http({
 					method: 'POST',
 					url: '/delete_category',
 					data: elem
 				})
-				.success(function() {console.log("Successfully deleted category");})
-				.error(function() {console.log("Didn't successfully delete category");});
+				.success(function() {console.log("Successfully deleted category " + id);})
+				.error(function() {console.log("Didn't successfully delete category " + id);});
 			}
 			$scope.settings();
 			$scope.init();
