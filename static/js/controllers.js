@@ -118,7 +118,7 @@ sigmaApp.controller('EmailListCtrl', function($scope, $http, Emails) {
   };
 
 	$scope.init = function() {
-		for (var i = 1; i <= $scope.categories.length; i++) {
+		for (var i = 1; i <= ($scope.categories.length + $scope.addCat); i++) {
 			$('#cat' + i).attr('class', 'cat-bar');
 			$('#num' + i).attr('class', 'num-bar');
 			$('#split' + i).attr('class', 'split-check');
@@ -133,7 +133,7 @@ sigmaApp.controller('EmailListCtrl', function($scope, $http, Emails) {
 			$('#prev' + i).css('class', 'preview-block');
 			$('#prev' + i).attr('class', 'prev');
 		}
-		for (var i = $scope.categories.length + 1; i <= 8; i++) {
+		for (var i = $scope.categories.length + $scope.addCat + 1; i <= 8; i++) {
 			$('#cat' + i).attr('class', 'hidden');
 			$('#cat' + i).val("");
 			$('#split' + i).attr('class', 'hidden');
@@ -150,12 +150,8 @@ sigmaApp.controller('EmailListCtrl', function($scope, $http, Emails) {
 			if (($scope.addCat + $scope.categories.length) == 7) $('#addcat').attr('class', 'hidden');
 			$scope.addCat++;
 			var numCat = $scope.addCat + $scope.categories.length;
-			console.log("Making visible " + numCat);
-			$('#cat' + numCat).attr('class', 'cat-bar');
-			$('#num' + numCat).attr('class', 'num-bar');
-			$('#split' + numCat).attr('class', 'split-check');
-			$('#rc' + numCat).attr('class', 'removecat');
-			var id = $scope.categories[numCat - 1]["id"] + 1;
+			var prevCat = numCat - 1;
+			var id = $('#id' + prevCat).val() + 1;
 			$('#id' + numCat).val(id);
 			console.log("Added cat with id" + id);
 		}
