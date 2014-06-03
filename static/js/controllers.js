@@ -49,7 +49,9 @@ sigmaApp.controller('EmailListCtrl', function($scope, $http, Emails) {
 	  $http.jsonp(url).success(function(data) {
 		$scope.categories = data;
 		console.log("Loaded categories");
-		console.log(data);
+		var percentage = 92.5/$scope.categories.length;
+		$('.category').css('width', percentage + '%');
+		$scope.$apply();
 	  })
 	  .error(function() {console.log("Didn't load categories");});
   }
