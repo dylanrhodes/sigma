@@ -175,7 +175,7 @@ sigmaApp.controller('EmailListCtrl', function($scope, $http, Emails) {
 	$scope.RemoveCat = function(num) {
 		var id = parseInt($('#id' + num).val());
 		var index = -1;
-		for (var i = 0; i < $scope.cateogries.length; i++) {
+		for (var i = 0; i < $scope.categories.length; i++) {
 			if($scope.categories[i]['id'] == id) index = i;
 		}
 		if (index != -1) {
