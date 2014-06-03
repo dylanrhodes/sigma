@@ -301,6 +301,7 @@ sigmaApp.controller('EmailListCtrl', function($scope, $http, Emails) {
   }
 
   $scope.categorize = function(categoryId) {
+	console.log(categoryId);
     if($scope.selectedIds.length == 0) {
     	// nothing selected, categorize current email
     	$scope.viewingEmail.category = categoryId;
