@@ -204,7 +204,7 @@ sigmaApp.controller('EmailListCtrl', function($scope, $http, Emails) {
 		$scope.$apply();
 		$('.category').css('width', percentage + '%');
 		$('.wrapper').attr('class', 'wrapper container-fluid');
-		$('.wrapper-sigma-2').attr('class', 'wrapper-sigma-2 container-fluid hidden');
+		$('.wrapper2').attr('class', 'wrapper2 container-fluid hidden');
 
 		$('.emails-area').on('scroll', function() {
 		  var newTop = $(this).scrollTop() + 5;
@@ -221,7 +221,7 @@ sigmaApp.controller('EmailListCtrl', function($scope, $http, Emails) {
 	$scope.settings = function() {
 		$scope.addCat = 0;
 		$('.wrapper').attr('class', 'wrapper container-fluid hidden');
-		$('.wrapper-sigma-2').attr('class', 'wrapper-sigma-2 container-fluid');
+		$('.wrapper2').attr('class', 'wrapper2 container-fluid');
 		for (var i = 1; i <= $scope.categories.length; i++) {
 			$('#cat' + i).val($scope.categories[i-1]['name']);
 			$('#id' + i).val($scope.categories[i-1]['id']);
