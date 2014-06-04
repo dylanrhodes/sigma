@@ -89,7 +89,7 @@ def signup():
             # add "untrained" to models
             db.getset("user:%s:trained" % user.user, "false")
             # add category
-            category = [{'id': 1, 'email': 3, 'split': 0, 'name': 'inbox', 'class' : 'category-inbox'}]
+            category = [{'id': 1, 'emails': 3, 'split': 0, 'name': 'inbox', 'class' : 'category-inbox'}]
             categoryJSON = json.dumps(category, sort_keys=True, indent=4, separators=(',', ': '))
             db.getset("user:%s:categories" % user.user, categoryJSON)
             return redirect(url_for('index'))
