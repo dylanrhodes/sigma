@@ -422,12 +422,12 @@ button.loadMore {
 }
 */
 
-.email-button {
+.email-button-sigma {
 	opacity: 0.8;
 	cursor:pointer;
 }
 
-.email-button:hover {
+.email-button-sigma:hover {
 	opacity: 1;
 }
 
@@ -472,7 +472,7 @@ button.loadMore {
 	font-size: 22px;
 }
 
-.message-buttons {
+.message-buttons-sigma {
 	padding: 10px 20px;
 	text-align: right;
 }
