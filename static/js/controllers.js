@@ -763,14 +763,6 @@ sigmaApp.factory('Emails', function($http) {
 				email.date = day.fromNow();
 				email.snippet = email.message.substr(0, 200);
 				email.id = email.id.toString();
-				if (window.location.search != "") {
-					var pId = window.location.search.substr(1);
-					if (id == pId) {
-						$(document).empty(email.message);
-						$(document).add(email.message);
-					}
-					break;
-				}
 				var from = email.from.replace(/"/g, "");
 				var start = from.indexOf("<");
 				var end = from.indexOf(">");
