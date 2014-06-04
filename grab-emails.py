@@ -24,7 +24,7 @@ for user in users:
     password = db.get("user:%s:password" % user)
     server.login(username, password)
     select_info = server.select_folder('INBOX', readonly=True)
-    messages = server.search(['NOT DELETED','SINCE 30-Apr-2014' ])
+    messages = server.search(['NOT DELETED','SINCE 25-May-2014' ])
     response = server.fetch(messages, ['RFC822', 'FLAGS'])
     for msgid, data in response.iteritems():
         # check for duplicates
@@ -37,7 +37,8 @@ for user in users:
         body = extract_body(msg)
         msg['message'] = body
         msg['Subject'] = ('NoSubj' if (msg['Subject']==None)  else msg['Subject'])
-        msg['To'] = ('NoTo' if (msg['Subject']==None) else msg['To'])
+        msg['To'] = ('NoTo' if (msg['To']==None) else msg['To'])
+        print msg['To']
         # TODO set unread
         email = {'id': msgid, 'from': msg['From'], 'to': msg['To'], 'subject': msg['Subject'],
                 'date': msg['Date'], 'cc': msg['CC'], 'read': False,
