@@ -7,8 +7,8 @@ textarea {
 body {
   padding-top: 58px;
   font-family: 'Open Sans', sans-serif;
-  text-align: center;
   color: #424242;
+  text-align: center;
 }
 
 a {
@@ -262,6 +262,8 @@ button.loadMore {
 	padding: 0;
 }
 .ind-email {
+	font-family: 'Open Sans', sans-serif !important;
+	color: #424242;
 	/*padding-left: 12px;
 	height: 47px;*/
 	border-bottom: 1px solid #d9d9d9;
@@ -423,6 +425,7 @@ button.loadMore {
 */
 
 .email-button-sigma {
+	display: inline !important;
 	opacity: 0.8;
 	cursor:pointer;
 }
@@ -444,6 +447,8 @@ button.loadMore {
 
 .message-view,
 .compose-view {
+	font-family: 'Open Sans', sans-serif;
+	color: #424242;
 	border: 2px solid #eee;
 	/*overflow-x: hidden;*/
 	/*overflow-y: scroll;*/
