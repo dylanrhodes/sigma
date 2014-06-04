@@ -13,7 +13,7 @@ sigmaApp.controller('EmailListCtrl', function($scope, $http, Emails) {
 		$scope.categories = data;
 		console.log("Loaded categories");
 		console.log(data);
-		for (int i = 0; i < $scope.categories.length; i++) $scope.categories[i]["color"] = $scope.colors[i];
+		for (var i = 0; i < $scope.categories.length; i++) $scope.categories[i]["color"] = $scope.colors[i];
 	  })
 	  .error(function() {console.log("Didn't load categories");});
   }
