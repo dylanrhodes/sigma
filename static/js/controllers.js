@@ -793,7 +793,7 @@ sigmaApp.factory('Emails', function($http) {
 					email.snippet = email.noHtml.substr(0, 200);
 				}
 				if (!email.html) email.message = Autolinker.link(email.message, { truncate: 50 });
-				if (email.html) email.message = email.message.replace("* {", "message-view {");
+				if (email.html) email.message = email.message.replace("* {", "message-body {");
 				this.arr.unshift(email);
 			}
 		  }

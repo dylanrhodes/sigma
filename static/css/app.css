@@ -23,6 +23,10 @@ h3.num-title {
 	text-align: center;
 }
 
+.logo-sigma {
+	display: inline;
+}
+
 .aside-sigma {
 	text-align: left !important;
 }
