@@ -9,6 +9,8 @@ body {
   font-family: 'Open Sans', sans-serif;
   color: #424242;
   text-align: center;
+  display: inline !important;
+  margin: 0 !important;
 }
 
 a {
