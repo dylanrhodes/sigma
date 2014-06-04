@@ -263,7 +263,7 @@ button.loadMore {
 }
 .ind-email {
 	font-family: 'Open Sans', sans-serif !important;
-	color: #424242;
+	color: #424242 !important;
 	/*padding-left: 12px;
 	height: 47px;*/
 	border-bottom: 1px solid #d9d9d9;
@@ -465,6 +465,8 @@ button.loadMore {
 
 .message-header {
 	border-bottom: 1px solid #eee;
+	font-family: 'Open Sans', sans-serif !important;
+	color: #424242 !important;
 }
 
 .compose-header {
