@@ -27,7 +27,7 @@ h3.num-title {
 	text-align: left !important;
 }
 
-.wrapper {
+.wrapper-sigma {
 	/*max-width: 80%;*/
 	display: inline-block;
 	width: calc(100% - 40px);
@@ -41,7 +41,7 @@ h3.num-title {
 	margin-bottom: 20px;
 }
 
-.wrapper2 {
+.wrapper-sigma-2 {
 	/*max-width: 80%;*/
 	display: inline-block;
 	width: calc(100% - 40px);
