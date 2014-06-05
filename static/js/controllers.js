@@ -57,7 +57,7 @@ sigmaApp.controller('EmailListCtrl', function($scope, $http, Emails) {
 		 'unread' : 5,
 		 'emails' : 4}
 	  ];
-	  $scope.emails = new Emails(data);
+	  $scope.emails = new Emails($scope.categories);
 	  $scope.emails.init();
   }
 
