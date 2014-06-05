@@ -307,7 +307,7 @@ sigmaApp.controller('EmailListCtrl', function($scope, $http, Emails) {
     	return;
     }
 	if ($scope.selected != "") {
-		if ($scope.selectedIds.indexOf($scope.selected.attr('id')) < 0) $scope.selected = $("#" + $scope.selectedIds[0]);
+		if ($scope.selectedIds.indexOf($scope.selected.attr('id')) < 0) $scope.selected = $("#category" + $scope.selectedIds[0]);
 	    //move to next element before categorizing
 		var temp = $scope.selected.next();
 		while(temp && $scope.selectedIds.indexOf(temp.attr('id')) >= 0)
@@ -436,12 +436,12 @@ sigmaApp.controller('EmailListCtrl', function($scope, $http, Emails) {
 					  $scope.selectedCat --;
 				}
 
-				temp = $("#" + $scope.selectedCat).find(".ind-email").first();
+				temp = $("#category" + $scope.selectedCat).find(".ind-email").first();
 				$scope.selected = temp;
 				$scope.selectedIds = [temp.attr('id')];
 				$scope.$apply();
 				$("#inner" + $scope.selectedCat).scrollTop(0);
-				var level = $("#" + $scope.selectedCat).offset().top - $('.control-bar').outerHeight(); //subtract header size
+				var level = $("#category" + $scope.selectedCat).offset().top - $('.control-bar').outerHeight(); //subtract header size
 				window.scrollTo(0, level);
 				$('.category-bar').children().each(function(i) {
 					var cat = parseInt($scope.selected.parent().attr('id'));
