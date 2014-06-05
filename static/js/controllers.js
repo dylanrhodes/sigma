@@ -223,15 +223,15 @@ sigmaApp.controller('EmailListCtrl', function($scope, $http, Emails) {
 		$scope.addCat = 0;
 		$('.wrapper-sigma').attr('class', 'wrapper-sigma container-fluid hidden');
 		$('.wrapper-sigma-2').attr('class', 'wrapper-sigma-2 container-fluid');
-		$scope.init();
 		for (var i = 1; i <= $scope.categories.length; i++) {
 			$('#cat' + i).val($scope.categories[i-1]['name']);
 			$('#id' + i).val($scope.categories[i-1]['id']);
 			$('#num' + i).val($scope.categories[i-1]['emails']);
 			if ($scope.categories[i-1]['split']) $('#split' + i).prop("checked", true);
-			if ($scope.categories[i-1]['digest']) $('#digest' + i).prop("checked", true);
 			else $('#split' + i).prop("checked", false);
+			if ($scope.categories[i-1]['digest']) $('#digest' + i).prop("checked", true);
 		}
+		$scope.init();
 	}
 
 	$scope.compose = function() {
