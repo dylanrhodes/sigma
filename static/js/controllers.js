@@ -16,17 +16,6 @@ sigmaApp.controller('EmailListCtrl', function($scope, $http, Emails) {
 		for (var i = 0; i < $scope.categories.length; i++) $scope.categories[i]["color"] = $scope.colors[i];
 		$scope.emails = new Emails(data);
 		$scope.emails.init();
-		console.log($scope.emails.digest);
-		var content = "";
-	    for (var i = 0; i < $scope.emails.digest.length; i++) {
-		  content += $scope.emails.digest[i].subject;
-		  content += "<br>";
-	    }
-		console.log(content);
-	    $scope.aside = {
-		    "title": "Category Digest",
-		    "content": content
-	    };
 	  })
 	  .error(function() {console.log("Didn't load categories");});
   }
@@ -694,6 +683,7 @@ sigmaApp.factory('Emails', function($http) {
 	this.next = 1;
 	this.categories = categories;
 	this.length = categories.length;
+	this.aside = [];
   };
 
   Emails.prototype.init = function() {
@@ -821,6 +811,16 @@ sigmaApp.factory('Emails', function($http) {
 				if (dCats.indexOf(email.category) >= 0 && email.read == 0) this.digest.unshift(email);
 				this.arr.unshift(email);
 			}
+			var content = "";
+			for (var i = 0; i < this.digest.length; i++) {
+			  content += this.digest[i].subject;
+			  content += "<br>";
+			}
+			console.log(content);
+			this.aside = {
+				"title": "Category Digest",
+				"content": content
+			};
 		  }
 		  this.busy = false;
 		}.bind(this));
