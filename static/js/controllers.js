@@ -7,7 +7,7 @@ var sigmaApp = angular.module('sigmaApp', ['ngSanitize', 'mgcrea.ngStrap']);
 sigmaApp.controller('EmailListCtrl', function($scope, $http, Emails) {
 
   $scope.colors = ['#808080', '#1b6aa3', '#84cbc5', '#f8d35e', '#f47264', '#85e491', '#bd80b9', '#f9b588'];
-  var url = "http://sigma.jmvldz.com/get_categories?callback=JSON_CALLBACK";
+  var url = "/get_categories?callback=JSON_CALLBACK";
   if (window.location.search != "?home") {
 	  $http.jsonp(url).success(function(data) {
 		$scope.categories = data;
@@ -778,7 +778,7 @@ sigmaApp.factory('Emails', function($http) {
 		for (var i = 0; i < this.length; i++) {
 			var cat = this.categories[i]['id'];
 			if (this.categories[i]['digest']) dCats.push(cat);
-			var call = "http://sigma.jmvldz.com/get_category_unread?callback=JSON_CALLBACK&category=" + cat;
+			var call = "/get_category_unread?callback=JSON_CALLBACK&category=" + cat;
 			$http.jsonp(call).success(function(data) {
 				var category = data['category'];
 				var num = data['unread'];
@@ -789,7 +789,7 @@ sigmaApp.factory('Emails', function($http) {
 		console.log(dCats);
 		if (this.busy) return;
 		this.busy = true;
-		var url = "http://sigma.jmvldz.com/get_emails?callback=JSON_CALLBACK";
+		var url = "/get_emails?callback=JSON_CALLBACK";
 		$http.jsonp(url).success(function(data) {
 		  for (var key in data) {
 			if(data.hasOwnProperty(key)) {
