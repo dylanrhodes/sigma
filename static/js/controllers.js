@@ -792,8 +792,11 @@ sigmaApp.factory('Emails', function($http) {
 				}
 				if (email.message.toLowerCase().indexOf("<style") >= 0) {
 					email.noHtml = email.message.substring(0, email.message.toLowerCase().indexOf("<style")) + email.message.substring(email.message.toLowerCase().indexOf("/style>") + 7);
+					email.noHtml = email.noHtml.replace(/<(?:.|\n)*?>/gm, '');
 				}
-				email.noHtml = email.noHtml.replace(/<(?:.|\n)*?>/gm, '');
+				else {
+					email.noHtml = email.message.replace(/<(?:.|\n)*?>/gm, '');
+				}
 				if (email.message == email.noHtml) email.html = false;
 				else {
 					email.html = true;
