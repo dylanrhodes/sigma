@@ -790,7 +790,10 @@ sigmaApp.factory('Emails', function($http) {
 					if (email.fromName.indexOf("?") > -1) email.fromName = email.fromName.substring(0, email.fromName.indexOf("?"));
 					email.fromName = decodeURIComponent(email.fromName);
 				}
-				email.noHtml = email.message.replace(/<(?:.|\n)*?>/gm, '');
+				if (email.message.toLowercase().indexOf("<style") >= 0) {
+					email.noHtml = email.message.substring(0, email.message.toLowercase().indexOf("<style")) + email.message.substring(email.message.toLowercase().indexOf("/style>") + 7);
+				}
+				email.noHtml = email.noHtml.replace(/<(?:.|\n)*?>/gm, '');
 				if (email.message == email.noHtml) email.html = false;
 				else {
 					email.html = true;
