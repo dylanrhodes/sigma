@@ -88,6 +88,7 @@ sigmaApp.controller('EmailListCtrl', function($scope, $http, Emails) {
 			$('#cat' + i).attr('class', 'cat-bar');
 			$('#num' + i).attr('class', 'num-bar');
 			$('#split' + i).attr('class', 'split-check');
+			$('#digest' + i).attr('class', 'digest-check');
 			$('#rc' + i).attr('class', 'removecat');
 			var color = $('#cat' + i).css('border-color');
 			var height = 8 * $('#num' + i).val();
@@ -104,6 +105,8 @@ sigmaApp.controller('EmailListCtrl', function($scope, $http, Emails) {
 			$('#cat' + i).val("");
 			$('#split' + i).attr('class', 'hidden');
 			$('#split' + i).prop("checked", false);
+			$('#digest' + i).attr('class', 'hidden');
+			$('#digest' + i).prop("checked", false);
 			$('#num' + i).attr('class', 'hidden');
 			$('#num' + i).val(5);
 			$('#prev' + i).attr('class', 'hidden');

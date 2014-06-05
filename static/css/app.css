@@ -656,6 +656,14 @@ input[type='checkbox']:checked {
 	padding-top: 18px;
 }
 
+.digest-select {
+	text-align: center;
+}
+
+.digest-checks {
+	padding-top: 18px;
+}
+
 a.save {
 	padding: 10px 20px;
 	font-weight: bold;

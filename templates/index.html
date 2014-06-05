@@ -141,7 +141,7 @@
 			<a class="retrain col-xs-4" ng-click="retrain()">Retrain Categorization Model</a>
 		</div>
 		<div class = "row">
-			<div class="category-select col-sm-5 col-xs-8">
+			<div class="category-select col-sm-4 col-xs-8">
 				<h3>Category</h3>
 				<div><a id="rc1" class="removecat" ng-click="RemoveCat(1)" style="visibility:hidden" >x</a><input id="cat1" class = "cat-bar" type="text" disabled="disabled" value="Other" style = "border-color: #808080;" /></div><input type="hidden" id="id1" />
 				<div><a id="rc2" class="removecat" ng-click="RemoveCat(2)" >x</a><input id="cat2" class = "cat-bar" type="text" placeholder="Urgent" style = "border-color: #1b6aa3;" /></div><input type="hidden" id="id2" />
@@ -164,7 +164,7 @@
 				<input id="num7" class="hidden" type="text" value="5" style = "border-color: #bd80b9;" />
 				<input id="num8" class="hidden" type="text" value="5" style = "border-color: #f9b588;" />
 			</div>
-			<div class="split-select col-sm-1 col-xs-2">
+			<div class="split-select col-sm-1 col-xs-1">
 				<h3>Split</h3>
 				<div class = "split-checks">
 					<input id="split1" class="split-check" type="checkbox" />
@@ -175,6 +175,19 @@
 					<input id="split6" class="split-check" type="checkbox" />
 					<input id="split7" class="hidden" type="checkbox" />
 					<input id="split8" class="hidden" type="checkbox" />
+				</div>
+			</div>
+			<div class="digest-select col-sm-1 col-xs-1">
+				<h3>Digest</h3>
+				<div class = "digest-checks">
+					<input id="digest1" class="digest-check" type="checkbox" />
+					<input id="digest2" class="digest-check" type="checkbox" checked />
+					<input id="digest3" class="digest-check" type="checkbox" checked />
+					<input id="digest4" class="digest-check" type="checkbox" />
+					<input id="digest5" class="digest-check" type="checkbox" />
+					<input id="digest6" class="digest-check" type="checkbox" />
+					<input id="digest7" class="hidden" type="checkbox" />
+					<input id="digest8" class="hidden" type="checkbox" />
 				</div>
 			</div>
 			<div class="preview-main col-sm-4 hidden-xs">
