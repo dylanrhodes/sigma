@@ -1,5 +1,5 @@
 import networkx as nx
-import numpy as np
+import re
 
 import model_retriever
 from preprocess import preprocess, extract_body_text, strip
@@ -8,40 +8,13 @@ from string import punctuation
 
 import nltk.data
 from sklearn.feature_extraction.text import TfidfVectorizer
-
-'''
-Basic semantic text shortener using textrank algorithm and
-rule based filtering
-'''
  
-def rank_sentences(text):
-    sentence_tokenizer = nltk.data.load('tokenizers/punkt/english.pickle')
-    sentences = sentence_tokenizer.tokenize(text, realign_boundaries=True)
-
-    simple_sent = []
-
-    for sentence in sentences:
-    	simple_sent.append(preprocess(sentence))
-
-    '''
-    all_sent, simple_sent = [], []
-
-    for i in range(0,len(sentences)):
-    	sentence = sentences[i]
-
-    	if len(sentence) > 300 and i < len(sentences) - 1:
-    		for line in sentence.split('\r\n'):
-    			if len(line) > 5:
-    				all_sent.append(line)
-    				simple_sent.append(preprocess(line))
-    	else:
-    		all_sent.append(sentence)
-    		simple_sent.append(preprocess(sentence))
-    '''
+def rank_sentences(sentences):
+    simple_sent = [preprocess(s) for s in sentences]
 
     sim_mat = TfidfVectorizer().fit_transform(simple_sent)
-    sim_graph = nx.from_scipy_sparse_matrix(sim_mat * sim_mat.T)
-    scores = nx.pagerank(sim_graph)
+    nx_graph = nx.from_scipy_sparse_matrix(sim_mat * sim_mat.T)
+    scores = nx.pagerank(nx_graph)
 
     results = ((scores[i], i, s) for i,s in enumerate(sentences))
 
@@ -50,50 +23,66 @@ def rank_sentences(text):
 
     return results
 
-def shorten(msg, MAX_CHARS = 140):
+def segment(msg):
 	text = strip(extract_body_text(msg))
+	text = '\n'.join([l for l in text.split('\n') if len(l) > 0 and l[0] != '>'])
 
-	valid_lines = []
+	tokenizer = nltk.data.load('tokenizers/punkt/english.pickle')
 
-	for line in text.split('\n'):
-		if len(line) > 0 and line[0] != '>':
-			valid_lines.append(line)
+	sentences = tokenizer.tokenize(text, realign_boundaries=True)
 
-	text = '\n'.join(valid_lines)
+	if len(sentences) > 2:
+		sentences = sentences[0:len(sentences)-1]
 
-	ranks = rank_sentences(text)
+	reply_pattern = "On [A-Z][a-z]+, [A-Z][a-z]+(.)? [0-9]+, [0-9]+( at [0-9]+:[0-9]+ [AMP]+)?, [A-Za-z\s]+ <[^@]+@[^@]+\.[^@]+>.?wrote:"
+	output = [msg['subject']]
 
-	summary, best_sent = '', 0
+	for sentence in sentences:
+		match = re.search(reply_pattern, sentence)
 
-	while len(summary) < MAX_CHARS and best_sent < len(ranks):
-		sentence_tuple = ranks[best_sent]
+		if match != None:
+			sentence = sentence[:match.start()]
 
-		if is_valid_summary(ranks, sentence_tuple):
-			#Segment sentence into clauses and remove spurious ones
-			summary = summary + ' ' + sentence_tuple[2]
+		if len(sentence) > 300:
+			for new_sent in sentence.split('\r\n\r\n'):
+				output.append(new_sent)
+		else:
+			output.append(sentence)
 
-		best_sent += 1
+	return [sentence for sentence in output if is_valid_sentence(sentence)]
 
-	#if len(summary) > MAX_CHARS:
-	#	return summary[0:MAX_CHARS]
+def shorten(msg, MAX_CHARS = 300):
+	sentences = segment(msg)
+	ranks = rank_sentences(sentences)
+
+	summary, sentence_index = '', 0
+
+	while len(summary) < MAX_CHARS and sentence_index < len(ranks):
+		sentence = ranks[sentence_index][2]
+
+		#Segment sentence into clauses and remove spurious ones
+		summary = summary + ' ' + sentence
+
+		sentence_index += 1
+
+	summary = ' '.join(summary.split())
+
+	if len(summary) > MAX_CHARS:
+		return summary[0:MAX_CHARS]
 
 	return summary
 
-def is_valid_summary(ranks, sentence_tuple):
-	if sentence_tuple[1] == len(ranks) - 1 and len(ranks) > 3:
+def is_valid_sentence(sentence):
+	if len(sentence) < 10:
 		return False
 
-	if "Forwarded" in sentence_tuple[2] or "Original" in sentence_tuple[2]:
-		if "----" in sentence_tuple[2]:
+	if "Forwarded" in sentence or "Original" in sentence:
+		if "----" in sentence:
 			return False
 
-	punc_count = 0
+	punc_count = sum([1 for char in sentence if char in punctuation])
 
-	for character in sentence_tuple[2]:
-		if character in punctuation:
-			punc_count += 1
-
-	if punc_count > 0.2 * len(sentence_tuple[2]):
+	if punc_count > 0.2 * len(sentence):
 		return False
 
 	return True
