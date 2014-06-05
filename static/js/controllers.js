@@ -179,6 +179,10 @@ sigmaApp.controller('EmailListCtrl', function($scope, $http, Emails) {
 				if ($('#split' + i).prop("checked")) {
 					split = 1;
 				}
+				var digest = 0;
+				if ($('#digest' + i).prop("checked")) {
+					digest = 1;
+				}
 				var unread = Math.floor(Math.random() * 11);
 				var temp = {};
 				temp['id'] = parseInt($('#id' + i).val());
@@ -186,6 +190,7 @@ sigmaApp.controller('EmailListCtrl', function($scope, $http, Emails) {
 				temp['color'] = $scope.colors[i-1];
 				temp['class'] = 'category-' + name;
 				temp['split'] = split;
+				temp['digest'] = digest;
 				temp['unread'] = unread;
 				temp['emails'] = emails;
 				names.push(name);
@@ -230,6 +235,7 @@ sigmaApp.controller('EmailListCtrl', function($scope, $http, Emails) {
 			$('#id' + i).val($scope.categories[i-1]['id']);
 			$('#num' + i).val($scope.categories[i-1]['emails']);
 			if ($scope.categories[i-1]['split']) $('#split' + i).prop("checked", true);
+			if ($scope.categories[i-1]['digest']) $('#digest' + i).prop("checked", true);
 			else $('#split' + i).prop("checked", false);
 		}
 		$scope.init();
