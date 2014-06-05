@@ -771,7 +771,7 @@ sigmaApp.factory('Emails', function($http) {
 				var from = email.from.replace(/"/g, "");
 				var start = from.indexOf("<");
 				var end = from.indexOf(">");
-				if (start <= 0) {
+				if (start >= 0) {
 					email.fromEmail = from.substring(start + 1, end);
 					email.fromName = "";
 					if (start != 0) email.fromName = from.substring(0, start-1);
@@ -783,7 +783,7 @@ sigmaApp.factory('Emails', function($http) {
 				var to = email.to.replace(/"/g, "");
 				var start = to.indexOf("<");
 				var end = to.indexOf(">");
-				if (start <= 0) {
+				if (start >= 0) {
 					email.toEmail = to.substring(start + 1, end);
 					email.toName = "";
 					if (start != 0) email.toName = to.substring(0, start-1);
