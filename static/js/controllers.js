@@ -8,7 +8,6 @@ sigmaApp.controller('EmailListCtrl', function($scope, $http, Emails) {
 
   $scope.colors = ['#808080', '#1b6aa3', '#84cbc5', '#f8d35e', '#f47264', '#85e491', '#bd80b9', '#f9b588'];
   var url = "http://sigma.jmvldz.com/get_categories?callback=JSON_CALLBACK";
-  $scope.categories = "";
   if (window.location.search != "?home") {
 	  $http.jsonp(url).success(function(data) {
 		$scope.categories = data;
@@ -29,8 +28,7 @@ sigmaApp.controller('EmailListCtrl', function($scope, $http, Emails) {
   };
 
   //$scope.emails = new Emails($scope.categories.length);
-  $scope.categories = "";
-  $scope.emails = new Emails($scope.categories);
+  $scope.emails = new Emails(8);
   $scope.emails.init();
   $scope.focusedCategory = "";
   $scope.selected = "";
@@ -684,14 +682,13 @@ sigmaApp.controller('EmailListCtrl', function($scope, $http, Emails) {
 });
 
 sigmaApp.factory('Emails', function($http) {
-  var Emails = function(categories) {
+  var Emails = function(length) {
     this.arr = [];
 	this.unread = [];
     this.busy = false;
     this.after = '';
 	this.next = 1;
-	this.categories = categories;
-	this.length = categories.length;
+	this.length = length;
   };
 
   Emails.prototype.init = function() {
@@ -739,21 +736,18 @@ sigmaApp.factory('Emails', function($http) {
 			}
 		}
 		console.log("DUMMY DATA!");
-		console.log(this.arr);
 	}
 	else {
 		for (var i = 0; i < this.length; i++) {
-			var cat = this.categories[i]['id'];
-			console.log("Getting unread for id " + cat);
+			var cat = i+1;
 			var call = "http://sigma.jmvldz.com/get_category_unread?callback=JSON_CALLBACK&category=" + cat;
 			$http.jsonp(call).success(function(data) {
 				var category = data['category'];
 				var num = data['unread'];
-				this.unread[category] = num;
+				this.unread[category-1] = num;
 			}.bind(this))
 			.error(function() {console.log("Couldn't get unread for " + cat);});
 		}
-		console.log(this.unread);
 		if (this.busy) return;
 		this.busy = true;
 		var url = "http://sigma.jmvldz.com/get_emails?callback=JSON_CALLBACK";
