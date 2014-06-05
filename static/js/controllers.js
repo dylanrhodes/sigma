@@ -57,6 +57,8 @@ sigmaApp.controller('EmailListCtrl', function($scope, $http, Emails) {
 		 'unread' : 5,
 		 'emails' : 4}
 	  ];
+	  $scope.emails = new Emails(data);
+	  $scope.emails.init();
   }
 
   //$scope.emails = new Emails($scope.categories.length);
@@ -765,7 +767,7 @@ sigmaApp.factory('Emails', function($http) {
 				if (start != 0) email.fromName = from.substring(0, start-1);
 				num++;
 				email.category = i;
-				if (email.read == 0) this.unread[i-1]++;
+				if (email.read == 0) this.unread[i]++;
 				this.arr.unshift(email);
 			}
 		}
