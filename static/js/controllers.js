@@ -275,8 +275,8 @@ sigmaApp.controller('EmailListCtrl', function($scope, $http, Emails) {
 	if ($scope.selected != "") {
 	    //move to next element before categorizing
 		var temp = $scope.selected.next();
-		while(temp && $scope.selectedIds.indexOf(temp.attr('id')) >= 0)
-			temp = temp.next();
+		// while(temp && $scope.selectedIds.indexOf(temp.attr('id')) >= 0)
+			// temp = temp.next();
 		var cl = temp.attr("class");
 
 		$.each($scope.selectedIds, function(i, id) {
