@@ -14,7 +14,7 @@ sigmaApp.controller('EmailListCtrl', function($scope, $http, Emails) {
 		console.log("Loaded categories");
 		console.log(data);
 		for (var i = 0; i < $scope.categories.length; i++) $scope.categories[i]["color"] = $scope.colors[i];
-		$scope.emails = new Emails(data.length);
+		$scope.emails = new Emails(data);
 		$scope.emails.init();
 	  })
 	  .error(function() {console.log("Didn't load categories");});
@@ -682,13 +682,14 @@ sigmaApp.controller('EmailListCtrl', function($scope, $http, Emails) {
 });
 
 sigmaApp.factory('Emails', function($http) {
-  var Emails = function(length) {
+  var Emails = function(categories) {
     this.arr = [];
 	this.unread = [];
     this.busy = false;
     this.after = '';
 	this.next = 1;
-	this.length = length;
+	this.categories = categories;
+	this.length = categories.length;
   };
 
   Emails.prototype.init = function() {
@@ -739,12 +740,12 @@ sigmaApp.factory('Emails', function($http) {
 	}
 	else {
 		for (var i = 0; i < this.length; i++) {
-			var cat = i+1;
+			var cat = this.categories[i]['id'];
 			var call = "http://sigma.jmvldz.com/get_category_unread?callback=JSON_CALLBACK&category=" + cat;
 			$http.jsonp(call).success(function(data) {
 				var category = data['category'];
 				var num = data['unread'];
-				this.unread[category-1] = num;
+				this.unread[category] = num;
 			}.bind(this))
 			.error(function() {console.log("Couldn't get unread for " + cat);});
 		}
