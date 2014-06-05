@@ -749,6 +749,7 @@ sigmaApp.factory('Emails', function($http) {
 			}.bind(this))
 			.error(function() {console.log("Couldn't get unread for " + cat);});
 		}
+		console.log(this.unread);
 		if (this.busy) return;
 		this.busy = true;
 		var url = "http://sigma.jmvldz.com/get_emails?callback=JSON_CALLBACK";
