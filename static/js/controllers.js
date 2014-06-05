@@ -766,7 +766,6 @@ sigmaApp.factory('Emails', function($http) {
 				email.true_date = day.format('MMMM Do YYYY, h:mm:ssa');;
 				email.date = day.fromNow();
 				email.snippet = email.message.substr(0, 200);
-				var numId = email.id
 				email.id = email.id.toString();
 				var from = email.from.replace(/"/g, "");
 				var start = from.indexOf("<");
@@ -818,7 +817,7 @@ sigmaApp.factory('Emails', function($http) {
 				}
 				if (!email.html) email.message = Autolinker.link(email.message, { truncate: 50 });
 				if (email.html) email.message = email.message.replace("* {", "message-body {");
-				if (dCats.indexOf(numId) >= 0 && email.read == 0) this.digest.unshift(email);
+				if (dCats.indexOf(email.category) >= 0 && email.read == 0) this.digest.unshift(email);
 				this.arr.unshift(email);
 			}
 		  }
