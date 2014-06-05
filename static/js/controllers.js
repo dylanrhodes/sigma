@@ -31,8 +31,7 @@ sigmaApp.controller('EmailListCtrl', function($scope, $http, Emails) {
   $scope.emails = new Emails(8);
   $scope.emails.init();
   $scope.focusedCategory = "";
-  console.log("selected changed");
-$scope.selected = "";
+  $scope.selected = "";
   $scope.selectedId = -1;
   $scope.selectedIds = [];
   $scope.selectedCat = -1;
@@ -409,8 +408,7 @@ $scope.selected = "";
 
 				temp = $("#" + $scope.selectedCat).find(".ind-email").first();
 				console.log($("#" + $scope.selectedCat).find(".ind-email"));
-				console.log("selected changed");
-$scope.selected = temp;
+				$scope.selected = temp;
 				$scope.selectedIds = [temp.attr('id')];
 				$scope.$apply();
 				$("#inner" + $scope.selectedCat).scrollTop(0);
@@ -430,8 +428,7 @@ $scope.selected = temp;
 				var temp = $scope.selected.prev();
 				var cl = temp.attr("class");
 				if (typeof cl !== 'undefined' && cl !== false) {
-					console.log("selected changed");
-$scope.selected = temp;
+					$scope.selected = temp;
 
           if(e.shiftKey) {
             $scope.selectedIds.push(temp.attr('id'));
@@ -474,8 +471,7 @@ $scope.selected = temp;
 						  });
 
 						  $scope.selectedIds = [target_id];
-						  console.log("selected changed");
-$scope.selected = temp;
+						  $scope.selected = temp;
 					}
 				}
 			}
@@ -487,8 +483,7 @@ $scope.selected = temp;
 				var temp = $scope.selected.next();
 				var cl = temp.attr("class");
 				if (typeof cl !== 'undefined' && cl !== false) {
-					console.log("selected changed");
-$scope.selected = temp;
+					$scope.selected = temp;
 
 					  if(e.shiftKey) {
 						$scope.selectedIds.push(temp.attr('id'));
@@ -532,8 +527,7 @@ $scope.selected = temp;
 						  });
 
 						  $scope.selectedIds = [target_id];
-						  console.log("selected changed");
-$scope.selected = temp;
+						  $scope.selected = temp;
 					}
 				}
 			}
@@ -584,16 +578,14 @@ $scope.selected = temp;
 		  });
 
 		  $scope.selectedIds = [target_id];
-		  console.log("selected changed");
-$scope.selected = $(this);
+		  $scope.selected = $(this);
 
 		  $scope.$apply();
 		  return;
 		}
 
 
-			console.log("selected changed");
-$scope.selected = $(this);
+			$scope.selected = $(this);
 			if(e.shiftKey) {
 			  $scope.selectedIds.push($(this).attr('id'));
 			} else {
@@ -631,8 +623,7 @@ $scope.selected = $(this);
 				  });
 
 				  $scope.selectedIds = [target_id];
-				  console.log("selected changed");
-$scope.selected = $(this);
+				  $scope.selected = $(this);
 			}
 		$scope.$apply();
 	});
@@ -651,8 +642,7 @@ $scope.selected = $(this);
 
 	$(document).click(function() {
 		if ($scope.markUnread == false) {
-			console.log("selected changed");
-$scope.selected = "";
+			$scope.selected = "";
 			$scope.selectedIds = [];
 			$scope.$apply();
 		}
