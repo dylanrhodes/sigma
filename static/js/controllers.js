@@ -437,6 +437,14 @@ sigmaApp.controller('EmailListCtrl', function($scope, $http, Emails) {
 				}
 				var cId = $scope.categories[$scope.selectedCat-1]['id'];
 				temp = $("#category" + cId).find(".ind-email").first();
+				while (!temp.length) {
+					if ($scope.selectedCat == -1 || $scope.selectedCat == $scope.categories.length)
+					  $scope.selectedCat = 1;
+					else
+					  $scope.selectedCat++;
+					cId = $scope.categories[$scope.selectedCat-1]['id'];
+					temp = $("#category" + cId).find(".ind-email").first();
+				}
 				$scope.selected = temp;
 				$scope.selectedIds = [temp.attr('id')];
 				$scope.$apply();
