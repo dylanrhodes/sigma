@@ -20,35 +20,26 @@ python preprocess.py filename.mbox
 
 filter_words = stopwords.words('english')
 
-def read_mbox(filename):
-	mbox = mailbox.mbox(filename)
-	
-	for i in range(1,10):
-		text = extract_body_text(mbox[i])
-		print(preprocess(text))
-
 def extract_body_text(msg):
-	body = ''
+	rich_body, body = '', ''
 	charset = None
 
 	if msg.is_multipart():
 		for part in msg.walk():
-			if part.is_multipart():
-				for subpart in part.walk():
-					if subpart.get_content_type() == 'text/plain':
-						text = subpart.get_payload(decode=True)
-						charset = get_charset(subpart)
-						body = body + text.decode(charset)
-			elif part.get_content_type() == 'text/plain':
+			if part.get_content_type() == 'text/plain' and not part.is_multipart():
 				text = part.get_payload(decode=True)
 				charset = get_charset(part)
 				body = body + text.decode(charset)
+			elif part.get_content_type() == 'text/html' and not part.is_multipart():
+				text = part.get_payload(decode=True)
+				charset = get_charset(part)
+				rich_body = rich_body + text.decode(charset)
 	else:
 		body = msg.get_payload(decode=True)
 		charset = get_charset(msg)
 		body = body.decode(charset)
 
-	return re.sub(r'(?m)^\*.*\n?', '', body)
+	return body
 
 def get_charset(msg, default="ascii"):
 	if msg.get_content_charset():
@@ -59,11 +50,7 @@ def get_charset(msg, default="ascii"):
 	return default
 
 def remove_non_alpha(text):
-	stripper = MLStripper()
-	stripper.feed(text)
-	text = stripper.get_data()
-
-	text = re.sub("[^a-zA-Z'\s]","",text)
+	text = re.sub("[^a-zA-Z0-9'\s]","",text)
 	
 	return text
 
@@ -80,12 +67,14 @@ class MLStripper(HTMLParser):
 		self.fed.append(d)
 
 	def get_data(self):
-		return ''.join(self.fed)
+		return ' '.join(self.fed)
 
 def preprocess(text):
 	text = remove_non_alpha(text)
 	
-	text = text.split()
+	text = text.split(' ')
+
+	text = remove_stop_words(text)
 
 	remove_words = []
 
@@ -96,9 +85,13 @@ def preprocess(text):
 	for word in remove_words:
 		text.remove(word)
 
-	text = remove_stop_words(text)
-
 	return ' '.join(text)
+
+def strip(text):
+	stripper = MLStripper()
+	stripper.feed(text)
+	text = stripper.get_data()
+	return text
 
 def stem_words(text):
 	stemmer = stem.porter.PorterStemmer()
