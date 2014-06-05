@@ -32,6 +32,7 @@ sigmaApp.controller('EmailListCtrl', function($scope, $http, Emails) {
   while ($scope.categories = "") {
 	console.log("doing nothing");
   }
+  console.log($scope.categories);
   $scope.emails = new Emails($scope.categories);
   $scope.emails.init();
   $scope.focusedCategory = "";
