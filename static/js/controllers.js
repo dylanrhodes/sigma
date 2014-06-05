@@ -31,7 +31,8 @@ sigmaApp.controller('EmailListCtrl', function($scope, $http, Emails) {
   $scope.emails = new Emails(8);
   $scope.emails.init();
   $scope.focusedCategory = "";
-  $scope.selected = "";
+  console.log("selected changed");
+$scope.selected = "";
   $scope.selectedId = -1;
   $scope.selectedIds = [];
   $scope.selectedCat = -1;
@@ -408,7 +409,8 @@ sigmaApp.controller('EmailListCtrl', function($scope, $http, Emails) {
 
 				temp = $("#" + $scope.selectedCat).find(".ind-email").first();
 				console.log($("#" + $scope.selectedCat).find(".ind-email"));
-				$scope.selected = temp;
+				console.log("selected changed");
+$scope.selected = temp;
 				$scope.selectedIds = [temp.attr('id')];
 				$scope.$apply();
 				$("#inner" + $scope.selectedCat).scrollTop(0);
@@ -428,7 +430,8 @@ sigmaApp.controller('EmailListCtrl', function($scope, $http, Emails) {
 				var temp = $scope.selected.prev();
 				var cl = temp.attr("class");
 				if (typeof cl !== 'undefined' && cl !== false) {
-					$scope.selected = temp;
+					console.log("selected changed");
+$scope.selected = temp;
 
           if(e.shiftKey) {
             $scope.selectedIds.push(temp.attr('id'));
@@ -471,8 +474,8 @@ sigmaApp.controller('EmailListCtrl', function($scope, $http, Emails) {
 						  });
 
 						  $scope.selectedIds = [target_id];
-						  console.log("Line 475 selected called");
-						  $scope.selected = temp;
+						  console.log("selected changed");
+$scope.selected = temp;
 					}
 				}
 			}
@@ -484,7 +487,8 @@ sigmaApp.controller('EmailListCtrl', function($scope, $http, Emails) {
 				var temp = $scope.selected.next();
 				var cl = temp.attr("class");
 				if (typeof cl !== 'undefined' && cl !== false) {
-					$scope.selected = temp;
+					console.log("selected changed");
+$scope.selected = temp;
 
 					  if(e.shiftKey) {
 						$scope.selectedIds.push(temp.attr('id'));
@@ -528,8 +532,8 @@ sigmaApp.controller('EmailListCtrl', function($scope, $http, Emails) {
 						  });
 
 						  $scope.selectedIds = [target_id];
-						  console.log("Line 533 selected called");
-						  $scope.selected = temp;
+						  console.log("selected changed");
+$scope.selected = temp;
 					}
 				}
 			}
@@ -580,15 +584,16 @@ sigmaApp.controller('EmailListCtrl', function($scope, $http, Emails) {
 		  });
 
 		  $scope.selectedIds = [target_id];
-		  console.log("Line 583 selected called");
-		  $scope.selected = $(this);
+		  console.log("selected changed");
+$scope.selected = $(this);
 
 		  $scope.$apply();
 		  return;
 		}
 
 
-			$scope.selected = $(this);
+			console.log("selected changed");
+$scope.selected = $(this);
 			if(e.shiftKey) {
 			  $scope.selectedIds.push($(this).attr('id'));
 			} else {
@@ -626,8 +631,8 @@ sigmaApp.controller('EmailListCtrl', function($scope, $http, Emails) {
 				  });
 
 				  $scope.selectedIds = [target_id];
-				  console.log("Line 630 selected called");
-				  $scope.selected = $(this);
+				  console.log("selected changed");
+$scope.selected = $(this);
 			}
 		$scope.$apply();
 	});
@@ -646,7 +651,8 @@ sigmaApp.controller('EmailListCtrl', function($scope, $http, Emails) {
 
 	$(document).click(function() {
 		if ($scope.markUnread == false) {
-			$scope.selected = "";
+			console.log("selected changed");
+$scope.selected = "";
 			$scope.selectedIds = [];
 			$scope.$apply();
 		}
