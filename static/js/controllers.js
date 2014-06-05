@@ -471,6 +471,7 @@ sigmaApp.controller('EmailListCtrl', function($scope, $http, Emails) {
 						  });
 
 						  $scope.selectedIds = [target_id];
+						  console.log("Line 475 selected called");
 						  $scope.selected = temp;
 					}
 				}
@@ -527,6 +528,7 @@ sigmaApp.controller('EmailListCtrl', function($scope, $http, Emails) {
 						  });
 
 						  $scope.selectedIds = [target_id];
+						  console.log("Line 533 selected called");
 						  $scope.selected = temp;
 					}
 				}
@@ -578,6 +580,7 @@ sigmaApp.controller('EmailListCtrl', function($scope, $http, Emails) {
 		  });
 
 		  $scope.selectedIds = [target_id];
+		  console.log("Line 583 selected called");
 		  $scope.selected = $(this);
 
 		  $scope.$apply();
@@ -623,6 +626,7 @@ sigmaApp.controller('EmailListCtrl', function($scope, $http, Emails) {
 				  });
 
 				  $scope.selectedIds = [target_id];
+				  console.log("Line 630 selected called");
 				  $scope.selected = $(this);
 			}
 		$scope.$apply();
