@@ -746,6 +746,7 @@ sigmaApp.factory('Emails', function($http) {
 	else {
 		for (var i = 0; i < this.length; i++) {
 			var cat = this.categories[i]['id'];
+			console.log("Getting unread for id " + cat);
 			var call = "http://sigma.jmvldz.com/get_category_unread?callback=JSON_CALLBACK&category=" + cat;
 			$http.jsonp(call).success(function(data) {
 				var category = data['category'];
@@ -754,6 +755,7 @@ sigmaApp.factory('Emails', function($http) {
 			}.bind(this))
 			.error(function() {console.log("Couldn't get unread for " + cat);});
 		}
+		console.log(this.unread);
 		if (this.busy) return;
 		this.busy = true;
 		var url = "http://sigma.jmvldz.com/get_emails?callback=JSON_CALLBACK";
