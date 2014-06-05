@@ -19,6 +19,45 @@ sigmaApp.controller('EmailListCtrl', function($scope, $http, Emails) {
 	  })
 	  .error(function() {console.log("Didn't load categories");});
   }
+  else {
+	$scope.categories = [
+		{'id' : 1,
+		 'name' : 'Uncategorized',
+		 'color' : '#808080',
+		 'class' : 'category-uncategorized',
+		 'split' : 0,
+		 'unread' : 10,
+		 'emails' : 3},
+		{'id' : 2,
+		 'name' : 'ASAP',
+		 'color' : '#1b6aa3',
+		 'class' : 'category-asap',
+		 'split' : 0,
+		 'unread' : 2,
+		 'emails' : 10},
+		{'id' : 3,
+		 'name' : 'School',
+		 'color' : '#84cbc5',
+		 'class' : 'category-school',
+		 'split' : 1,
+		 'unread' : 3,
+		 'emails' : 7},
+		{'id' : 4,
+		 'name' : 'Work',
+		 'color' : '#f8d35e',
+		 'class' : 'category-work',
+		 'split' : 1,
+		 'unread' : 0,
+		 'emails' : 7},
+		{'id' : 5,
+		 'name' : 'Later',
+		 'color' : '#f47264',
+		 'class' : 'category-later',
+		 'split' : 0,
+		 'unread' : 5,
+		 'emails' : 4}
+	  ];
+  }
 
   //$scope.emails = new Emails($scope.categories.length);
   $scope.focusedCategory = "";
