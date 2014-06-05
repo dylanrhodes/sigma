@@ -778,7 +778,7 @@ sigmaApp.factory('Emails', function($http) {
 				}
 				else {
 					email.fromName = "";
-					mail.fromEmail = from;
+					email.fromEmail = from;
 				}
 				var to = email.to.replace(/"/g, "");
 				var start = to.indexOf("<");
@@ -790,7 +790,7 @@ sigmaApp.factory('Emails', function($http) {
 				}
 				else {
 					email.toName = "";
-					mail.toEmail = from;
+					email.toEmail = from;
 				}
 				if (email.subject.indexOf("=?utf-8?Q?") > -1) {
 					email.subject = email.subject.substring(10).replace(/=/g,'%');
