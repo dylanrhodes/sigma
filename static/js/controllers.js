@@ -273,6 +273,7 @@ sigmaApp.controller('EmailListCtrl', function($scope, $http, Emails) {
     	return;
     }
 	if ($scope.selected != "") {
+		if ($scope.selectedIds.indexOf($scope.selected.attr('id')) < 0) $scope.selected = $("#" + $scope.selectedIds[0]);
 		console.log("Before array: " + $scope.selectedIds);
 		console.log("Before selected: " + $scope.selected.attr('id'));
 	    //move to next element before categorizing
