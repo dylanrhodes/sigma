@@ -16,19 +16,19 @@ sigmaApp.controller('EmailListCtrl', function($scope, $http, Emails) {
 		for (var i = 0; i < $scope.categories.length; i++) $scope.categories[i]["color"] = $scope.colors[i];
 		$scope.emails = new Emails(data);
 		$scope.emails.init();
-		console.log($scope.emails.digest);
+		var content = "";
+	    for (var i = 0; i < emails.digest; i++) {
+		  content += emails.digest[i].subject;
+		  content += "<br>";
+	    }
+
+	    $scope.aside = {
+		    "title": "Category Digest",
+		    "content": content
+	    };
 	  })
 	  .error(function() {console.log("Didn't load categories");});
   }
-  var content = "";
-  for (var i = 0; i < 100; i++) {
-	content += "Email<br>";
-  }
-
-  $scope.aside = {
-	  "title": "Category Digest",
-	  "content": content
-  };
 
   //$scope.emails = new Emails($scope.categories.length);
   $scope.focusedCategory = "";
