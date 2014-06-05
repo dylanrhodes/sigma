@@ -819,6 +819,8 @@ sigmaApp.factory('Emails', function($http) {
 				}
 				if (!email.html) email.message = Autolinker.link(email.message, { truncate: 50 });
 				if (email.html) email.message = email.message.replace("* {", "message-body {");
+				console.log("From email: " + email.fromEmail);
+				console.log("From name: " + email.fromName);
 				this.arr.unshift(email);
 			}
 		  }
