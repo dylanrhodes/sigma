@@ -21,7 +21,7 @@ sigmaApp.controller('EmailListCtrl', function($scope, $http, Emails) {
 		  content += emails.digest[i].subject;
 		  content += "<br>";
 	    }
-		
+		console.log(content);
 	    $scope.aside = {
 		    "title": "Category Digest",
 		    "content": content
