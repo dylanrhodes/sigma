@@ -729,7 +729,7 @@ sigmaApp.factory('Emails', function($http) {
 
   Emails.prototype.init = function() {
 	if (window.location.search == "?home") {
-		for (var i = 0; i < this.length; i++) this.unread[i] = 0;
+		for (var i = 1; i <=this.length; i++) this.unread[i] = 0;
 		var dummies = [
 			{'from' : 'Gandalf <gandie@thewhite.com>',
 			 'subject' : 'Missing: Ring',
