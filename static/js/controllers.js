@@ -16,6 +16,7 @@ sigmaApp.controller('EmailListCtrl', function($scope, $http, Emails) {
 		for (var i = 0; i < $scope.categories.length; i++) $scope.categories[i]["color"] = $scope.colors[i];
 		$scope.emails = new Emails(data);
 		$scope.emails.init();
+		console.log($scope.emails.digest);
 		var content = "";
 	    for (var i = 0; i < $scope.emails.digest.length; i++) {
 		  content += $scope.emails.digest[i].subject;
