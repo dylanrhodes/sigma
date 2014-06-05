@@ -16,6 +16,7 @@ sigmaApp.controller('EmailListCtrl', function($scope, $http, Emails) {
 		for (var i = 0; i < $scope.categories.length; i++) $scope.categories[i]["color"] = $scope.colors[i];
 		$scope.emails = new Emails(data);
 		$scope.emails.init();
+		console.log($scope.emails.digest);
 	  })
 	  .error(function() {console.log("Didn't load categories");});
   }
@@ -685,6 +686,8 @@ sigmaApp.factory('Emails', function($http) {
   var Emails = function(categories) {
     this.arr = [];
 	this.unread = [];
+	this.digest = [];
+	
     this.busy = false;
     this.after = '';
 	this.next = 1;
@@ -739,8 +742,10 @@ sigmaApp.factory('Emails', function($http) {
 		console.log("DUMMY DATA!");
 	}
 	else {
+		var dCats = [];
 		for (var i = 0; i < this.length; i++) {
 			var cat = this.categories[i]['id'];
+			if (this.categories[i]['digest']) dCats.push(cat);
 			var call = "http://sigma.jmvldz.com/get_category_unread?callback=JSON_CALLBACK&category=" + cat;
 			$http.jsonp(call).success(function(data) {
 				var category = data['category'];
@@ -761,6 +766,7 @@ sigmaApp.factory('Emails', function($http) {
 				email.true_date = day.format('MMMM Do YYYY, h:mm:ssa');;
 				email.date = day.fromNow();
 				email.snippet = email.message.substr(0, 200);
+				var numId = email.id
 				email.id = email.id.toString();
 				var from = email.from.replace(/"/g, "");
 				var start = from.indexOf("<");
@@ -812,6 +818,7 @@ sigmaApp.factory('Emails', function($http) {
 				}
 				if (!email.html) email.message = Autolinker.link(email.message, { truncate: 50 });
 				if (email.html) email.message = email.message.replace("* {", "message-body {");
+				if (dCats.indexOf(numId) >= 0 && email.read == 0) this.digest.unshift(email);
 				this.arr.unshift(email);
 			}
 		  }
