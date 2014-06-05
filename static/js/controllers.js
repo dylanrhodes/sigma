@@ -49,13 +49,6 @@ sigmaApp.controller('EmailListCtrl', function($scope, $http, Emails) {
   $scope.emailsById = {};
   $scope.windowHeight = $(window).height();
   $scope.boxWidth = null;
-  // console.log($scope.emails.unread.length);
-  // for (var i = 0; i < $scope.emails.unread.length; i++) {
-	// var cat = i + 1;
-	// console.log("Category: " + cat + " Unread: " + $scope.emails.unread[i]);
-	// $scope.categories[i].unread = $scope.emails.unread[i];
-  // }
-  // $scope.$apply();
   $scope.catHeaderHeight = function() { return $(".category-header").height() + 11 };
 
   $scope.retrain = function() {
@@ -230,6 +223,7 @@ sigmaApp.controller('EmailListCtrl', function($scope, $http, Emails) {
 		$scope.addCat = 0;
 		$('.wrapper-sigma').attr('class', 'wrapper-sigma container-fluid hidden');
 		$('.wrapper-sigma-2').attr('class', 'wrapper-sigma-2 container-fluid');
+		$scope.init();
 		for (var i = 1; i <= $scope.categories.length; i++) {
 			$('#cat' + i).val($scope.categories[i-1]['name']);
 			$('#id' + i).val($scope.categories[i-1]['id']);
@@ -238,7 +232,6 @@ sigmaApp.controller('EmailListCtrl', function($scope, $http, Emails) {
 			if ($scope.categories[i-1]['digest']) $('#digest' + i).prop("checked", true);
 			else $('#split' + i).prop("checked", false);
 		}
-		$scope.init();
 	}
 
 	$scope.compose = function() {
@@ -828,8 +821,6 @@ sigmaApp.factory('Emails', function($http) {
 				}
 				if (!email.html) email.message = Autolinker.link(email.message, { truncate: 50 });
 				if (email.html) email.message = email.message.replace("* {", "message-body {");
-				console.log("From email: " + email.fromEmail);
-				console.log("From name: " + email.fromName);
 				this.arr.unshift(email);
 			}
 		  }
