@@ -435,13 +435,13 @@ sigmaApp.controller('EmailListCtrl', function($scope, $http, Emails) {
 					else
 					  $scope.selectedCat --;
 				}
-
-				temp = $("#category" + $scope.selectedCat).find(".ind-email").first();
+				var cId = $scope.categories[$scope.selectedCat-1]['id'];
+				temp = $("#category" + cId).find(".ind-email").first();
 				$scope.selected = temp;
 				$scope.selectedIds = [temp.attr('id')];
 				$scope.$apply();
-				$("#inner" + $scope.selectedCat).scrollTop(0);
-				var level = $("#category" + $scope.selectedCat).offset().top - $('.control-bar').outerHeight(); //subtract header size
+				$("#inner" + cId).scrollTop(0);
+				var level = $("#category" + cId).offset().top - $('.control-bar').outerHeight(); //subtract header size
 				window.scrollTo(0, level);
 				$('.category-bar').children().each(function(i) {
 					var cat = parseInt($scope.selected.parent().attr('id'));
