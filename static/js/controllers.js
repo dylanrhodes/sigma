@@ -158,8 +158,9 @@ sigmaApp.controller('EmailListCtrl', function($scope, $http, Emails) {
 			}
 			$scope.settings();
 			$scope.init();
+			$scope.emails.init();
 		}
-		else console.log("Couldn't remove cateogry")
+		else console.log("Couldn't remove cateogry");
 	}
 
 	$scope.save = function() {
@@ -199,7 +200,6 @@ sigmaApp.controller('EmailListCtrl', function($scope, $http, Emails) {
 		}
 		//need a way to change move items in a deleted category to uncategorized
 		$scope.emails = new Emails($scope.categories.length);
-		$scope.emails.init();
 		var percentage = 92.5/$scope.categories.length;
 		$scope.$apply();
 		$('.category').css('width', percentage + '%');
