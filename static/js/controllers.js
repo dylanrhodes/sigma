@@ -273,14 +273,12 @@ sigmaApp.controller('EmailListCtrl', function($scope, $http, Emails) {
     	return;
     }
 	if ($scope.selected != "") {
-		console.log($scope.selectedIds);
-		console.log($scope.selected.attr('id'));
+		console.log("Before array: " + $scope.selectedIds);
+		console.log("Before selected: " + $scope.selected.attr('id'));
 	    //move to next element before categorizing
 		var temp = $scope.selected.next();
-		if ($scope.selectedIds.length > 1) {
-			console.log("Moving to next");
-			while(temp && $scope.selectedIds.indexOf(temp.attr('id')) >= 0) temp = temp.next();
-		}
+		while(temp && $scope.selectedIds.indexOf(temp.attr('id')) >= 0)
+			temp = temp.next();
 		var cl = temp.attr("class");
 
 		$.each($scope.selectedIds, function(i, id) {
@@ -310,6 +308,8 @@ sigmaApp.controller('EmailListCtrl', function($scope, $http, Emails) {
 				temp.parent().scrollTop(temp.parent().scrollTop() + temp.height() + dif);
 			}
 		}
+		console.log("After array: " + $scope.selectedIds);
+		console.log("After selected: " + $scope.selected.attr('id'));
 	}
   }
 
