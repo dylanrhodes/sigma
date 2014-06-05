@@ -276,8 +276,6 @@ sigmaApp.controller('EmailListCtrl', function($scope, $http, Emails) {
     }
 	if ($scope.selected != "") {
 		if ($scope.selectedIds.indexOf($scope.selected.attr('id')) < 0) $scope.selected = $("#" + $scope.selectedIds[0]);
-		console.log("Before array: " + $scope.selectedIds);
-		console.log("Before selected: " + $scope.selected.attr('id'));
 	    //move to next element before categorizing
 		var temp = $scope.selected.next();
 		while(temp && $scope.selectedIds.indexOf(temp.attr('id')) >= 0)
@@ -311,8 +309,6 @@ sigmaApp.controller('EmailListCtrl', function($scope, $http, Emails) {
 				temp.parent().scrollTop(temp.parent().scrollTop() + temp.height() + dif);
 			}
 		}
-		console.log("After array: " + $scope.selectedIds);
-		console.log("After selected: " + $scope.selected.attr('id'));
 	}
   }
 
@@ -392,7 +388,6 @@ sigmaApp.controller('EmailListCtrl', function($scope, $http, Emails) {
 				if($scope.selected && $scope.selected != "") {
 					$.map($scope.emails.arr, function(e) {
 						if(e.id == $scope.selected.attr('id')) {
-							console.log("1");
 							$scope.selectedCat = e.category;
 						}
 					})
@@ -410,7 +405,6 @@ sigmaApp.controller('EmailListCtrl', function($scope, $http, Emails) {
 				}
 
 				temp = $("#" + $scope.selectedCat).find(".ind-email").first();
-				console.log($("#" + $scope.selectedCat).find(".ind-email"));
 				$scope.selected = temp;
 				$scope.selectedIds = [temp.attr('id')];
 				$scope.$apply();
@@ -600,7 +594,6 @@ sigmaApp.controller('EmailListCtrl', function($scope, $http, Emails) {
 				  $.map($scope.emails.arr, function(obj) {
 					if(obj.id == target_id) {
 					  $scope.viewingEmail = obj;
-					  console.log(obj.message);
 					  var elem = {"id" : obj.id};
 					  if (window.location.search != "?home") {
 						  $http({
@@ -740,7 +733,6 @@ sigmaApp.factory('Emails', function($http) {
 				email.category = i;
 				if (email.read == 0) this.unread[i-1]++;
 				this.arr.unshift(email);
-				console.log(email);
 			}
 		}
 		console.log("DUMMY DATA!");
@@ -753,7 +745,6 @@ sigmaApp.factory('Emails', function($http) {
 				var category = data['category'];
 				var num = data['unread'];
 				this.unread[category-1] = num;
-				console.log("jsonp call returned: " + num);
 			}.bind(this))
 			.error(function() {console.log("Couldn't get unread for " + cat);});
 		}
@@ -761,7 +752,6 @@ sigmaApp.factory('Emails', function($http) {
 		this.busy = true;
 		var url = "http://sigma.jmvldz.com/get_emails?callback=JSON_CALLBACK";
 		$http.jsonp(url).success(function(data) {
-		  console.log("SUCCESS");
 		  for (var key in data) {
 			if(data.hasOwnProperty(key)) {
 				var email = data[key];
@@ -817,7 +807,6 @@ sigmaApp.factory('Emails', function($http) {
 					email.noHtml = email.noHtml.replace(/(\r\n|\n|\r)/gm,"");
 					email.noHtml = email.noHtml.replace(/<(?:.|\n)*?>/gm, '');
 					email.snippet = email.noHtml.substr(0, 200);
-					console.log(email.snippet);
 				}
 				if (!email.html) email.message = Autolinker.link(email.message, { truncate: 50 });
 				if (email.html) email.message = email.message.replace("* {", "message-body {");
