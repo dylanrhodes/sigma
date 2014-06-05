@@ -201,6 +201,17 @@ def delete_category():
         print db.zadd("mail:%s:inbox" % current_user.user, emailJSON, emailID)
     return "Success"
 
+@app.route('/get_email')
+@login_required
+def get_email():
+    emailID = request.args.get('id')
+    emailObj = db.zrevrangebyscore("mail:%s:inbox" % current_user.user, emailID, emailID)
+    if emailObj is None:
+        return "Email %s not found." % emailID
+    pMail = json.loads(emailObj[0])
+    return pMail['message']
+
+
 @app.route('/train_models', methods=['POST'])
 @login_required
 def train_models():
