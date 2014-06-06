@@ -366,6 +366,7 @@ button.loadMore {
 	white-space: nowrap;
 	text-overflow:ellipsis;
 	cursor:default;
+	margin-bottom: 5px;
 	/*position: relative;	
 	display: inline-block;
 	padding-left: 12px;
