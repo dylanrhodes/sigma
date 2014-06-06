@@ -356,18 +356,20 @@ sigmaApp.controller('EmailListCtrl', function($scope, $http, Emails) {
 		  $.map($scope.emails.arr, function(obj, index) {
 			if(obj.id == id) {
 			  if(ru == 1) {
-				  var elem = {"id" : id};
-				  if (window.location.search != "?home") {
-					  $http({
-							method: 'POST',
-							url: '/mark_as_read',
-							data: elem
-						})
-						.success(function() {console.log("Successfully pushed read change");})
-						.error(function() {console.log("Didn't successfully push read change");});
+				  if (obj.read == 0) {
+					  var elem = {"id" : id};
+					  if (window.location.search != "?home") {
+						  $http({
+								method: 'POST',
+								url: '/mark_as_read',
+								data: elem
+							})
+							.success(function() {console.log("Successfully pushed read change");})
+							.error(function() {console.log("Didn't successfully push read change");});
+					  }
+					  $scope.emails.unread[obj.category-1]--;
+					  obj.read = 1;
 				  }
-				  if (obj.read != 1) $scope.emails.unread[obj.category-1]--;
-				  obj.read = 1;
 			  }
 			  else {
 				var elem = {"id" : id};
@@ -487,18 +489,20 @@ sigmaApp.controller('EmailListCtrl', function($scope, $http, Emails) {
 							if(obj.id == target_id) {
 							  $scope.viewingEmail = obj;
 							  $scope.$apply();
-							  var elem = {"id" : obj.id};
-							  if (window.location.search != "?home") {
-								  $http({
-										method: 'POST',
-										url: '/mark_as_read',
-										data: elem
-									})
-									.success(function() {console.log("Successfully pushed email read");})
-									.error(function() {console.log("Didn't successfully push email read");});
+							  if (obj.read == 0) {
+								  var elem = {"id" : obj.id};
+								  if (window.location.search != "?home") {
+									  $http({
+											method: 'POST',
+											url: '/mark_as_read',
+											data: elem
+										})
+										.success(function() {console.log("Successfully pushed email read");})
+										.error(function() {console.log("Didn't successfully push email read");});
+								  }
+								  $scope.emails.unread[obj.category-1]--;
+								  obj.read = 1;
 							  }
-							  if (obj.read != 1) $scope.emails.unread[obj.category-1]--;
-							  obj.read = 1;
 							  if (!obj.html) {
 								$('.message-body').css('white-space', 'pre-line');
 								$('.message-body').css('padding', '0 40px');
@@ -550,18 +554,20 @@ sigmaApp.controller('EmailListCtrl', function($scope, $http, Emails) {
 							if(obj.id == target_id) {
 							  $scope.viewingEmail = obj;
 							  $scope.$apply();
-							  var elem = {"id" : obj.id};
-							  if (window.location.search != "?home") {
-								  $http({
-										method: 'POST',
-										url: '/mark_as_read',
-										data: elem
-									})
-									.success(function() {console.log("Successfully pushed email read");})
-									.error(function() {console.log("Didn't successfully push email read");});
+							  if (obj.read == 0) {
+								  var elem = {"id" : obj.id};
+								  if (window.location.search != "?home") {
+									  $http({
+											method: 'POST',
+											url: '/mark_as_read',
+											data: elem
+										})
+										.success(function() {console.log("Successfully pushed email read");})
+										.error(function() {console.log("Didn't successfully push email read");});
+								  }
+								  $scope.emails.unread[obj.category-1]--;
+								  obj.read = 1;
 							  }
-							  if (obj.read != 1) $scope.emails.unread[obj.category-1]--;
-							  obj.read = 1;
 							  if (!obj.html) {
 								$('.message-body').css('white-space', 'pre-line');
 								$('.message-body').css('padding', '0 40px');
@@ -607,18 +613,20 @@ sigmaApp.controller('EmailListCtrl', function($scope, $http, Emails) {
 			if(obj.id == target_id) {
 			  $scope.viewingEmail = obj;
 			  $scope.$apply();
-			  var elem = {"id" : obj.id};
-			  if (window.location.search != "?home") {
-				  $http({
-						method: 'POST',
-						url: '/mark_as_read',
-						data: elem
-					})
-					.success(function() {console.log("Successfully pushed email read");})
-					.error(function() {console.log("Didn't successfully push email read");});
+			  if (obj.read == 0) {
+				  var elem = {"id" : obj.id};
+				  if (window.location.search != "?home") {
+					  $http({
+							method: 'POST',
+							url: '/mark_as_read',
+							data: elem
+						})
+						.success(function() {console.log("Successfully pushed email read");})
+						.error(function() {console.log("Didn't successfully push email read");});
+				  }
+				  $scope.emails.unread[obj.category-1]--;
+				  obj.read = 1;
 			  }
-			  if (obj.read != 1) $scope.emails.unread[obj.category-1]--;
-			  obj.read = 1;
 			  if (!obj.html) {
 				$('.message-body').css('white-space', 'pre-line');
 				$('.message-body').css('padding', '0 40px');
@@ -657,18 +665,20 @@ sigmaApp.controller('EmailListCtrl', function($scope, $http, Emails) {
 					if(obj.id == target_id) {
 					  $scope.viewingEmail = obj;
 					  $scope.$apply();
-					  var elem = {"id" : obj.id};
-					  if (window.location.search != "?home") {
-						  $http({
-								method: 'POST',
-								url: '/mark_as_read',
-								data: elem
-							})
-							.success(function() {console.log("Successfully pushed email read");})
-							.error(function() {console.log("Didn't successfully push email read");});
+					  if (obj.read == 0) {
+						  var elem = {"id" : obj.id};
+						  if (window.location.search != "?home") {
+							  $http({
+									method: 'POST',
+									url: '/mark_as_read',
+									data: elem
+								})
+								.success(function() {console.log("Successfully pushed email read");})
+								.error(function() {console.log("Didn't successfully push email read");});
+						  }
+						  $scope.emails.unread[obj.category-1]--;
+						  obj.read = 1;
 					  }
-					  if (obj.read != 1) $scope.emails.unread[obj.category-1]--;
-					  obj.read = 1;
 					  if (!obj.html) {
 						$('.message-body').css('white-space', 'pre-line');
 						$('.message-body').css('padding', '0 40px');
