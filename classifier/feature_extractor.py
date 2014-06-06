@@ -14,6 +14,8 @@ def extract_body_features(msg):
 
 		return 'EMPTY_BODY_TEXT'
 
+	return body_features
+
 def extract_header_features(msg):
 	text = msg['subject']
 	words = preprocess(text)
