@@ -30,6 +30,7 @@ for user in users:
     for msgid, data in response.iteritems():
         # check for duplicates
         #print data['FLAGS']
+        print data
         duplicate = db.zrangebyscore("mail:%s:inbox" % user, msgid, msgid)
         if duplicate:
             continue
