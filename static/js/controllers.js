@@ -693,6 +693,7 @@ sigmaApp.controller('EmailListCtrl', function($scope, $http, Emails) {
 		var offset = $(this).offset();
 		if ((e.pageY - offset.top) <= 50) {
 			var id = $(this).attr('id');
+			id = id.substring(8);
 			$scope.focusCategory(parseInt(id));
 			$scope.$apply();
 		}
@@ -705,6 +706,7 @@ sigmaApp.controller('EmailListCtrl', function($scope, $http, Emails) {
 			$scope.boxWidth = $(".one-box").width();
 		if ((e.pageY - offset.top) <= 50) {
 			var id = $(this).attr('id');
+			id = id.substring(8);
 			$scope.focusCategory(parseInt(id));
 			$scope.$apply();
 		}
