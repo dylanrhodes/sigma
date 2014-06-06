@@ -527,13 +527,14 @@ button.loadMore {
 	padding: 0 20px;
 	/*white-space: pre-line;*/
 	word-break: break-word;
-	height: 100%;
+	height: 75%;
 	/*overflow: scroll;*/
 }
 
 .email-frame {
 	overflow-y:scroll;
-	height:85%;
+	padding: 10px;
+	height:100%;
 	width:100%
 }
 
