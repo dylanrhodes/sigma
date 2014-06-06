@@ -17,12 +17,9 @@ def retrieve_models(username):
 
 	return body_vec, body_model, head_vec, head_model
 
-# TODO username MUST be only first part of email address <name> not
-# <name>@<host>
 def retrieve_data_db(username):
     rServer = redis.Redis("localhost")
     mail = rServer.zrevrangebyscore('mail:%s:inbox' % username, "+inf", "-inf")
-    # TODO do these need to be numpy arrays?
     train_x = []
     train_y = []
     for email in mail:

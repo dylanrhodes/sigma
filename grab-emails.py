@@ -37,13 +37,13 @@ for user in users:
         emailUTF8 = data['RFC822'].encode('utf-8')
         msg = parser.parsestr(emailUTF8)
         body = extract_body(msg)
-        msg['message'] = body
+        msg['message'] = ('NoBody Available' if (body == None or body == "") else body)
         msg['Subject'] = ('NoSubj' if (msg['Subject']==None)  else msg['Subject'])
         msg['To'] = ('NoTo' if (msg['To']==None) else msg['To'])
         # TODO set unread
         email = {'id': msgid, 'from': msg['From'], 'to': msg['To'], 'subject': msg['Subject'],
                 'date': msg['Date'], 'cc': msg['CC'], 'read': False,
-                'message': body, 'predicted': True, 'categorized': True}
+                'message': body, 'categorized': False}
         trained = db.get("user:%s:trained" % user)
         if trained == "true":
             email['category'] = int(classify(msg, user))
