@@ -13,7 +13,6 @@ from app.db import db
 
 HOST = 'imap.gmail.com'
 
-
 parser = Parser()
 
 users = db.smembers("user:users")
@@ -35,9 +34,10 @@ for user in users:
         emailUTF8 = data['RFC822'].encode('utf-8')
         msg = parser.parsestr(emailUTF8)
         body = extract_body(msg)
+        print body
         msg['message'] = ('NoBody Available' if (body == None or body == "") else body)
-        msg['Subject'] = ('NoSubj' if (msg['Subject']==None or msg['Subject'] == "")  else msg['Subject'])
-        msg['To'] = ('NoTo' if (msg['To']==None) else msg['To'])
+        msg['subject'] = ('NoSubj' if (msg['Subject']==None or msg['Subject'] == "")  else msg['Subject'])
+        msg['to'] = ('NoTo' if (msg['To']==None) else msg['To'])
         # TODO set unread
         email = {'id': msgid, 'from': msg['From'], 'to': msg['To'], 'subject': msg['Subject'],
                 'date': msg['Date'], 'cc': msg['CC'], 'read': False,
