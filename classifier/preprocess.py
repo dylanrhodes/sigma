@@ -48,6 +48,9 @@ def extract_body_text(msg):
 		charset = get_charset(msg)
 		body = body.decode(charset)
 
+	if body == '':
+		return 'NO_BODY_TEXT'
+
 	return re.sub(r'(?m)^\*.*\n?', '', body)
 
 def get_charset(msg, default="ascii"):
