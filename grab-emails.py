@@ -38,7 +38,7 @@ for user in users:
         msg = parser.parsestr(emailUTF8)
         body = extract_body(msg)
         msg['message'] = ('NoBody Available' if (body == None or body == "") else body)
-        msg['Subject'] = ('NoSubj' if (msg['Subject']==None)  else msg['Subject'])
+        msg['Subject'] = ('NoSubj' if (msg['Subject']==None or msg['Subject'] == "")  else msg['Subject'])
         msg['To'] = ('NoTo' if (msg['To']==None) else msg['To'])
         # TODO set unread
         email = {'id': msgid, 'from': msg['From'], 'to': msg['To'], 'subject': msg['Subject'],
