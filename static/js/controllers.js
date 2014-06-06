@@ -505,6 +505,8 @@ sigmaApp.controller('EmailListCtrl', function($scope, $http, Emails) {
 								$('.message-body').html(obj.message);
 							  }
 							  else {
+								var size = $('.message-view').outerHeight() - ($('.message-header').outerHeight() + $('.message-header-2').outerHeight());
+								$('.email-frame').css('height', size+'px');
 								$('.message-body').css('white-space', 'normal');
 								$('.message-body').css('padding', '0');
 								$('.message-view').css('overflow', 'hidden');
