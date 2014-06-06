@@ -58,10 +58,12 @@ def shorten(msg, MAX_CHARS = 300):
 		if len(sentences) != 0:
 			return ' '.join(sentences)
 		else:
-			if len(msg['subject']) > 0:
-				return msg['subject']
-			else:
-				return strip(msg['plain_body'])
+			summary = msg['subject']
+
+			if len(summary) == 0:
+				summary = strip(msg['plain_body'])
+			
+			return summary[0:MAX_CHARS]
 
 	ranks = rank_sentences(sentences)
 
@@ -77,10 +79,7 @@ def shorten(msg, MAX_CHARS = 300):
 
 	summary = ' '.join(summary.split())
 
-	if len(summary) > MAX_CHARS:
-		return summary[0:MAX_CHARS]
-
-	return summary
+	return summary[0:MAX_CHARS]
 
 def is_valid_sentence(sentence):
 	if len(sentence) < 10:
