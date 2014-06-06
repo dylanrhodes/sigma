@@ -391,6 +391,9 @@ sigmaApp.controller('EmailListCtrl', function($scope, $http, Emails) {
 
 
   jQuery(function($) {
+	$(window).load(function() {
+		$(".loader").fadeOut("slow");
+	})
 	$(document).ready(function(){
 		$(document.body).on('keyup', '.num-bar', function() {
 			if (!isNaN($(this).val())) {
