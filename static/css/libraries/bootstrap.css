@@ -5239,7 +5239,6 @@ button.close {
   height: 0;
   border-color: transparent;
   border-style: solid;
-  background-color: #1b6aa3;
 }
 .tooltip.top .tooltip-arrow {
   bottom: 0;
@@ -5252,46 +5251,46 @@ button.close {
   bottom: 0;
   left: 5px;
   border-width: 5px 5px 0;
-  border-top-color: #1b6aa3;
+  border-top-color: #000;
 }
 .tooltip.top-right .tooltip-arrow {
   right: 5px;
   bottom: 0;
   border-width: 5px 5px 0;
-  border-top-color: #1b6aa3;
+  border-top-color: #000;
 }
 .tooltip.right .tooltip-arrow {
   top: 50%;
   left: 0;
   margin-top: -5px;
   border-width: 5px 5px 5px 0;
-  border-right-color: #1b6aa3;
+  border-right-color: #000;
 }
 .tooltip.left .tooltip-arrow {
   top: 50%;
   right: 0;
   margin-top: -5px;
   border-width: 5px 0 5px 5px;
-  border-left-color: #1b6aa3;
+  border-left-color: #000;
 }
 .tooltip.bottom .tooltip-arrow {
   top: 0;
   left: 50%;
   margin-left: -5px;
   border-width: 0 5px 5px;
-  border-bottom-color: #1b6aa3;
+  border-bottom-color: #000;
 }
 .tooltip.bottom-left .tooltip-arrow {
   top: 0;
   left: 5px;
   border-width: 0 5px 5px;
-  border-bottom-color: #1b6aa3;
+  border-bottom-color: #000;
 }
 .tooltip.bottom-right .tooltip-arrow {
   top: 0;
   right: 5px;
   border-width: 0 5px 5px;
-  border-bottom-color: #1b6aa3;
+  border-bottom-color: #000;
 }
 .popover {
   position: absolute;
