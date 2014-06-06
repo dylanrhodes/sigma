@@ -25,9 +25,9 @@ h3.num-title {
 
 .question-mark {
 	font-size: 50%;
-	position: relative;
-	bottom: 3px;
-	left: 5px;
+	position: absolute;
+	top: 27px;
+	right: 0;
 	color: #1b6aa3;
 	font-weight: bold;
 }
