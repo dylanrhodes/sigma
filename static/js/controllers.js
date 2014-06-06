@@ -845,9 +845,16 @@ sigmaApp.factory('Emails', function($http) {
 			if(data.hasOwnProperty(key)) {
 				var email = data[key];
 				console.log(email.date);
-				var day = moment(email.date, "ddd, DD MMM YYYY HH:mm:ss ZZ");
-				email.true_date = day.format('MMMM Do YYYY, h:mm:ssa');;
-				email.date = day.fromNow();
+				if (isNaN(+email.date[0])) {
+					var day = moment(email.date, "ddd, DD MMM YYYY HH:mm:ss ZZ");
+					email.true_date = day.format('MMMM Do YYYY, h:mm:ssa');;
+					email.date = day.fromNow();
+				}
+				else {
+					var day = moment(email.date, "DD MMM YYYY HH:mm:ss ZZ");
+					email.true_date = day.format('MMMM Do YYYY, h:mm:ssa');;
+					email.date = day.fromNow();
+				}
 				email.snippet = email.message.substr(0, 200);
 				email.id = email.id.toString();
 				var from = email.from.replace(/"/g, "");
