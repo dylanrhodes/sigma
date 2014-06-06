@@ -53,6 +53,10 @@ def segment(msg):
 
 def shorten(msg, MAX_CHARS = 300):
 	sentences = segment(msg)
+
+	if sum([len(s) for s in sentences]) + len(sentences) < MAX_CHARS:
+		return ' '.join(sentences)
+
 	ranks = rank_sentences(sentences)
 
 	summary, sentence_index = '', 0
