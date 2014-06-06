@@ -40,7 +40,7 @@
     		<div class="sidebar-item sidebar-compose {{showing == composeId ? 'sidebar-focused' : ''}}" ng-click="compose()" style = "height:{{windowHeight / (numCat + 3)}}px">
     			+
     		</div>
-    		<div class="sidebar-item sidebar-all {{focusedCategory == '' ? 'sidebar-focused' : ''}}" ng-click="categoryClick('')" style = "height:{{windowHeight / (numCat + 3)}}px">
+    		<div class="sidebar-item sidebar-all {{focusedCategory == '' ? 'sidebar-focused' : ''}}" ng-click="categoryClick('')" id="category-all-btn" style = "height:{{windowHeight / (numCat + 3)}}px">
     			All
     		</div>
 	        <div ng-repeat="category in categories" class="sidebar-item sidebar-category {{focusedCategory == category.id ? 'sidebar-focused' : ''}}" style = "background-color: {{category.color}}; height:{{windowHeight / (numCat + 3)}}px" ng-click="categoryClick(category.id)">
@@ -69,7 +69,7 @@
 		      		<div class="col-xs-1 fandle-area">
 	      				<div class="email-fandle" id="email-fandle-{{email.id}}" rel="{{email.id}}"></div>
 	      			</div>
-	      			<script>console.log("hi")</script>
+	      			<script>$("#category-all-btn").click()</script>
 	            </div>
 			</div>
 			<div class="viewing {{showingClass(viewingId)}}">

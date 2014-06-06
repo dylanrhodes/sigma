@@ -318,10 +318,12 @@ sigmaApp.controller('EmailListCtrl', function($scope, $http, Emails) {
 
 	$scope.fandleInitialized = false;
 	$scope.initializeFandle = function() {
-		if($scope.fandleInitialized)
-			return;
+		// if($scope.fandleInitialized)
+		// 	return;
 		$scope.fandleInitialized = true;
 		$(".email-fandle").each(
+			if($(this).hasClass("fandle"))
+				return;
 			function() { 
 				var emailId = $(this).attr("rel");
 				$(this).fandle({ categories : $scope.categories,
