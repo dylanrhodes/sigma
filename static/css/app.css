@@ -32,6 +32,10 @@ h3.num-title {
 	font-weight: bold;
 }
 
+.digest-title {
+	margin-left: -6px;
+}
+
 .logo-sigma {
 	display: inline;
 }
