@@ -3,7 +3,7 @@
 # CS194, Spring 2014 - Stanford University
 
 from __future__ import unicode_literals
-import json
+import json, argparse, subprocess
 
 from imapclient import IMAPClient
 from email.parser import Parser
@@ -16,17 +16,12 @@ from summarizer.shortener import shorten
 
 HOST = 'imap.gmail.com'
 
-parser = Parser()
-
-users = db.smembers("user:users")
-users =['exxonvaldeez']
-for user in users:
-    print user
+def get_email(user):
     server = IMAPClient(HOST, use_uid=True, ssl=True)
     username = db.get("user:%s:login" % user)
     password = db.get("user:%s:password" % user)
     server.login(username, password)
-    select_info = server.select_folder('INBOX', readonly=True)
+    server.select_folder('INBOX', readonly=True)
     messages = server.search(['NOT DELETED','SINCE 25-May-2014' ])
     response = server.fetch(messages, ['RFC822', 'FLAGS'])
     for msgid, data in response.iteritems():
@@ -39,7 +34,6 @@ for user in users:
         msg = parser.parsestr(emailUTF8)
         body = extract_body(msg)
         msg['message'] = body
-        print msg['message']
         msg['subject'] = ('NoSubj' if (msg['Subject']==None or msg['Subject'] == "")  else msg['Subject'])
         msg['to'] = ('NoTo' if (msg['To']==None) else msg['To'])
         # TODO set unread
@@ -62,4 +56,18 @@ for user in users:
         db.zadd("mail:%s:inbox" % user, emailJSON, msgid)
         db.sadd("mail:%s:%s" % (user, email['category']), msgid)
     server.logout()
+
+parser = Parser()
+argparser = argparse.ArgumentParser()
+argparser.add_argument("-u", "--username", help="The username for the desired account")
+args = argparser.parse_args()
+
+if args.username:
+    get_email(args.username)
+else:
+    users = db.smembers("user:users")
+    for user in users:
+        print user
+        subprocess.Popen(["python", "grab-emails.py", "-u", user])
+
 

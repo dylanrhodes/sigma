@@ -312,7 +312,7 @@ sigmaApp.controller('EmailListCtrl', function($scope, $http, Emails) {
     	return;
     }
 	if ($scope.selected != "") {
-		if ($scope.selectedIds.indexOf($scope.selected.attr('id')) < 0) $scope.selected = $("#category" + $scope.selectedIds[0]);
+		if ($scope.selectedIds.indexOf($scope.selected.attr('id')) < 0) $scope.selected = $("#" + $scope.selectedIds[0]);
 	    //move to next element before categorizing
 		var temp = $scope.selected.next();
 		while(temp && $scope.selectedIds.indexOf(temp.attr('id')) >= 0)
@@ -425,6 +425,10 @@ sigmaApp.controller('EmailListCtrl', function($scope, $http, Emails) {
 		if (e.keyCode == 85) {
 			$scope.markRead(0);
 			$scope.$apply();
+		}
+		if (e.keyCode == 17) {
+			console.log($scope.selected.attr('id'));
+			console.log($scope.selectedIds);
 		}
 		if (e.keyCode == 9) {
 			e.preventDefault();
