@@ -372,18 +372,20 @@ sigmaApp.controller('EmailListCtrl', function($scope, $http, Emails) {
 				  }
 			  }
 			  else {
-				var elem = {"id" : id};
-				  if (window.location.search != "?home") {
-					  $http({
-							method: 'POST',
-							url: '/mark_as_unread',
-							data: elem
-						})
-						.success(function() {console.log("Successfully pushed read change");})
-						.error(function() {console.log("Didn't successfully push read change");});
-				  }
-				  if (obj.read != 0) $scope.emails.unread[obj.category-1]++;
-				  obj.read = 0;
+				if (obj.read == 1) {
+					var elem = {"id" : id};
+					  if (window.location.search != "?home") {
+						  $http({
+								method: 'POST',
+								url: '/mark_as_unread',
+								data: elem
+							})
+							.success(function() {console.log("Successfully pushed read change");})
+							.error(function() {console.log("Didn't successfully push read change");});
+					  }
+					  $scope.emails.unread[obj.category-1]++;
+					  obj.read = 0;
+				}
 			  }
 			 }
 		  });
