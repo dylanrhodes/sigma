@@ -6,7 +6,10 @@ for both body and header classifiers
 '''
 
 def extract_body_features(msg):
-	return preprocess(msg['message'])
+	body_features = preprocess(msg['message'])
+
+	if body_features == '':
+		return 'EMPTY_BODY_TEXT'
 
 def extract_header_features(msg):
 	text = msg['subject']
