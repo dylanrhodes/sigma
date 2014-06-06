@@ -5203,6 +5203,7 @@ button.close {
   visibility: visible;
   filter: alpha(opacity=0);
   opacity: 0;
+  top: -60px !important;
 }
 .tooltip.in {
   filter: alpha(opacity=90);
