@@ -471,7 +471,7 @@ button.loadMore {
 	/*overflow-x: hidden;*/
 	/*overflow-y: scroll;*/
 	/*overflow: scroll;*/
-	overflow: auto;
+	overflow:hidden;
 	margin-left: 2%;
 }
 
@@ -527,7 +527,6 @@ button.loadMore {
 	padding: 0;
 	/*white-space: pre-line;*/
 	word-break: break-word;
-	overflow:hidden;
 	height: 80%;
 	/*overflow: scroll;*/
 }
