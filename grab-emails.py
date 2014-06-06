@@ -13,11 +13,9 @@ from app.db import db
 
 HOST = 'imap.gmail.com'
 
-
 parser = Parser()
 
 users = db.smembers("user:users")
-users = ['exxonvaldeez']
 for user in users:
     print user
     server = IMAPClient(HOST, use_uid=True, ssl=True)
@@ -30,16 +28,16 @@ for user in users:
     for msgid, data in response.iteritems():
         # check for duplicates
         #print data['FLAGS']
-        print data
         duplicate = db.zrangebyscore("mail:%s:inbox" % user, msgid, msgid)
         if duplicate:
             continue
         emailUTF8 = data['RFC822'].encode('utf-8')
         msg = parser.parsestr(emailUTF8)
         body = extract_body(msg)
+        print body
         msg['message'] = ('NoBody Available' if (body == None or body == "") else body)
-        msg['Subject'] = ('NoSubj' if (msg['Subject']==None or msg['Subject'] == "")  else msg['Subject'])
-        msg['To'] = ('NoTo' if (msg['To']==None) else msg['To'])
+        msg['subject'] = ('NoSubj' if (msg['Subject']==None or msg['Subject'] == "")  else msg['Subject'])
+        msg['to'] = ('NoTo' if (msg['To']==None) else msg['To'])
         # TODO set unread
         email = {'id': msgid, 'from': msg['From'], 'to': msg['To'], 'subject': msg['Subject'],
                 'date': msg['Date'], 'cc': msg['CC'], 'read': False,

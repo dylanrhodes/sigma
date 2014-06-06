@@ -60,6 +60,11 @@ sigmaApp.controller('EmailListCtrl', function($scope, $http, Emails) {
 	  $scope.emails = new Emails($scope.categories);
 	  $scope.emails.init();
   }
+  
+  $scope.tooltip = {
+	  "title": "Check this for categories<br />you won't regularly check<br />and you will get a shorter<br />digest version of unread emails!",
+	  "checked": false
+	};
 
   //$scope.emails = new Emails($scope.categories.length);
   $scope.focusedCategory = "";
@@ -951,6 +956,12 @@ sigmaApp.factory('Emails', function($http) {
   };
 
   return Emails;
+})
+
+.config(function($tooltipProvider) {
+  angular.extend($tooltipProvider.defaults, {
+    html: true
+  });
 })
 
 .config(function($asideProvider) {
