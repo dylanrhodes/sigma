@@ -524,8 +524,8 @@ button.loadMore {
 	padding: 0 20px;
 	/*white-space: pre-line;*/
 	word-break: break-word;
-	/*height: 100%;
-	overflow: scroll;*/
+	height: 100%;
+	/*overflow: scroll;*/
 }
 
 .compose-subject {

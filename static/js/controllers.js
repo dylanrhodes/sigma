@@ -506,7 +506,7 @@ sigmaApp.controller('EmailListCtrl', function($scope, $http, Emails) {
 							  else {
 								$('.message-body').css('white-space', 'normal');
 								$('.message-body').css('padding', '10px 10px');
-								$('.message-body').html("<iframe style='overflow-y:scroll;height:100%;width:100%' src='/get_email?id=" + obj.id + "' ></iframe>");
+								$('.message-body').html("<iframe height='100%' width='100%' style='overflow-y:scroll;height:100%;width:100%' src='/get_email?id=" + obj.id + "' ></iframe>");
 							  }
 							  
 							}
