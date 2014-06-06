@@ -916,8 +916,11 @@ sigmaApp.factory('Emails', function($http) {
 			}
 			var content = "";
 			for (var i = 0; i < this.digest.length; i++) {
+			  content += "<div class='row'>"
+			  content += "<div class='col-xs-10 summary'>"
 			  content += this.digest[i].subject;
-			  content += "<br>";
+			  content += "</div>";
+			  content += "</div>";
 			}
 			console.log(content);
 			this.aside = {
