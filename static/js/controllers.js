@@ -505,12 +505,12 @@ sigmaApp.controller('EmailListCtrl', function($scope, $http, Emails) {
 								$('.message-body').html(obj.message);
 							  }
 							  else {
-								var size = $('.message-view').outerHeight() - ($('.message-header').outerHeight() + $('.message-header-2').outerHeight());
 								$('.message-body').html("<iframe class='email-frame' height='100%' width='100%' frameBorder='0' src='/get_email?id=" + obj.id + "' ></iframe>");
-								$('.email-frame').css('height', size+'px');
 								$('.message-body').css('white-space', 'normal');
 								$('.message-body').css('padding', '0');
 								$('.message-view').css('overflow', 'hidden');
+								var size = $('.message-view').outerHeight() - ($('.message-header').outerHeight() + $('.message-header-2').outerHeight());
+								$('.email-frame').css('height', size+'px');
 							  }
 							  
 							}
