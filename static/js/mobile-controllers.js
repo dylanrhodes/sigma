@@ -157,9 +157,6 @@ sigmaApp.controller('EmailListCtrl', function($scope, $http, Emails) {
 	}
 
 	$scope.init = function() {
-		search_tbl = new $.TextboxList("#compose-to", {unique: true, plugins: {autocomplete: {}}});
-		$scope.tbl_values();
-
 		for (var i = 1; i <= $scope.numCat; i++) {
 			$('#cat' + i).attr('class', 'cat-bar');
 			$('#num' + i).attr('class', 'num-bar');
@@ -317,9 +314,17 @@ sigmaApp.controller('EmailListCtrl', function($scope, $http, Emails) {
 	}
 
 	$scope.fandleInitialized = false;
+	$scope.initializedTBL = false
 	$scope.initializeFandle = function() {
 		// if($scope.fandleInitialized)
 		// 	return;
+		if(!scope.initializedTBL) {
+			search_tbl = new $.TextboxList("#compose-to", {unique: true, plugins: {autocomplete: {}}});
+			$scope.initializedTBL = true;
+		}
+		$scope.tbl_values();
+
+
 		$scope.fandleInitialized = true;
 		$(".email-fandle").each(
 			function() { 
