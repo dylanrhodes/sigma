@@ -8,7 +8,10 @@ for both body and header classifiers
 def extract_body_features(msg):
 	body_features = preprocess(msg['message'])
 
-	if body_features == '':
+	if body_features == '' or body_features == None:
+		print('ERROR: Invalid body features for message')
+		print(msg['message'])
+
 		return 'EMPTY_BODY_TEXT'
 
 def extract_header_features(msg):
