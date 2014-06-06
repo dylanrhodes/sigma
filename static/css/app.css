@@ -524,10 +524,10 @@ button.loadMore {
 }
 
 .message-body {
-	padding: 0 20px;
+	padding: 0;
 	/*white-space: pre-line;*/
 	word-break: break-word;
-	height: 75%;
+	height: 80%;
 	/*overflow: scroll;*/
 }
 
