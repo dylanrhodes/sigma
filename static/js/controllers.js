@@ -501,12 +501,14 @@ sigmaApp.controller('EmailListCtrl', function($scope, $http, Emails) {
 							  if (!obj.html) {
 								$('.message-body').css('white-space', 'pre-line');
 								$('.message-body').css('padding', '0 40px');
+								$('.message-body').html(obj.message);
 							  }
 							  else {
 								$('.message-body').css('white-space', 'normal');
 								$('.message-body').css('padding', '20px 20px');
+								$('.message-body').html("<iframe src='/get_email?id=" + obj.id + "' ></iframe>");
 							  }
-							  $('.message-body').html(obj.message);
+							  
 							}
 						  });
 
