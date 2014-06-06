@@ -153,7 +153,7 @@ sigmaApp.controller('EmailListCtrl', function($scope, $http, Emails) {
 				tbldata.push([id, places[id]["name"]]);
 		}
 		*/
-		search_tbl.plugins['autocomplete'].setValues(tbldata);
+		$scope.compose_tbl.plugins['autocomplete'].setValues(tbldata);
 	}
 
 	$scope.init = function() {
@@ -319,7 +319,7 @@ sigmaApp.controller('EmailListCtrl', function($scope, $http, Emails) {
 		// if($scope.fandleInitialized)
 		// 	return;
 		if(!$scope.initializedTBL) {
-			search_tbl = new $.TextboxList("#compose-to", {unique: true, plugins: {autocomplete: {}}});
+			$scope.compose_tbl = new $.TextboxList("#compose-to", {unique: true, plugins: {autocomplete: {}}});
 			$scope.initializedTBL = true;
 		}
 		$scope.tbl_values();
