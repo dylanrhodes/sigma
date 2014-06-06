@@ -17,6 +17,7 @@ HOST = 'imap.gmail.com'
 parser = Parser()
 
 users = db.smembers("user:users")
+users = ['exxonvaldeez']
 for user in users:
     print user
     server = IMAPClient(HOST, use_uid=True, ssl=True)

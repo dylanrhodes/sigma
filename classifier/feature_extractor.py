@@ -9,7 +9,7 @@ def extract_body_features(msg):
 	return preprocess(msg['message'])
 
 def extract_header_features(msg):
-	text = msg['Subject']
+	text = msg['subject']
 	words = preprocess(text)
 
 	features = {}
@@ -17,16 +17,16 @@ def extract_header_features(msg):
 	for word in words:
 		features[word] = 1
 
-	features['SENDER'] = msg['From'].lower()
-	features['RECIPIENT'] = msg['To'].lower()
+	features['SENDER'] = msg['from'].lower()
+	features['RECIPIENT'] = msg['to'].lower()
 
 	if msg['cc'] != None:
-		features['ADDL_RECIPIENTS'] = msg['CC'].lower()
+		features['ADDL_RECIPIENTS'] = msg['cc'].lower()
 	else:
 		features['ADDL_RECIPIENTS'] = 'none'
 
 	if msg['precedence'] != None:
-		features['PRECEDENCE'] = msg['Precedence'].lower()
+		features['PRECEDENCE'] = msg['precedence'].lower()
 	else:
 		features['PRECEDENCE'] = 'none'
 
