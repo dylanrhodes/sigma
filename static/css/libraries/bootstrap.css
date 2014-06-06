@@ -5225,7 +5225,7 @@ button.close {
   margin-left: -3px;
 }
 .tooltip-inner {
-  max-width: 200px;
+  width: 300px;
   padding: 3px 8px;
   color: #fff;
   text-align: center;
