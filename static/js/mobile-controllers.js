@@ -318,7 +318,7 @@ sigmaApp.controller('EmailListCtrl', function($scope, $http, Emails) {
 	$scope.initializeFandle = function() {
 		// if($scope.fandleInitialized)
 		// 	return;
-		if(!scope.initializedTBL) {
+		if(!$scope.initializedTBL) {
 			search_tbl = new $.TextboxList("#compose-to", {unique: true, plugins: {autocomplete: {}}});
 			$scope.initializedTBL = true;
 		}
