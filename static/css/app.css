@@ -527,6 +527,7 @@ button.loadMore {
 	padding: 0;
 	/*white-space: pre-line;*/
 	word-break: break-word;
+	overflow:hidden;
 	height: 80%;
 	/*overflow: scroll;*/
 }
