@@ -72,24 +72,25 @@
 	            </div>
 			</div>
 			<div class="viewing {{showingClass(viewingId)}}">
-				<div class="row">
-					<div class="col-xs-8">
-						<div class="viewing-from">{{viewingEmail.fromName}} <em>{{viewingEmail.fromEmail}}</em></div>
+				<div class="row nopadding-atall">
+					<div class="col-xs-5 nopadding-atall viewing-category" style="color:{{categories[email.category - 1].color}}">
+						<b>{{categories[email.category - 1].name}}</b>
 					</div>
-					<div class="col-xs-4">
+					<div class="col-xs-7 nopadding-atall viewing-actions">
 						<img src="/static/images/mark-unread.png" />
 						<img src="/static/images/trash-email.png" />
-						<img src="/static/images/reply.png" />
+						<img src="/static/images/reply.png" ngclick="compose(email)" />
 					</div>
 				</div>
+				<div class="viewing-from">{{viewingEmail.fromName}} <em>{{viewingEmail.fromEmail}}</em></div>
 				<div class="viewing-subject">{{viewingEmail.subject}}</div>
 				<div clas="viewing-date">{{viewingEmail.date}}</div>
 				<div class="viewing-message" ng-bind-html="viewingEmail.message"></div>
 			</div>
 			<div class="compose {{showingClass(composeId)}}">
-				<input type="email" class="compose-to" placeholder="To" />
-				<input type="text" class="compose-subject" placeholder="Subject" />
-				<textarea class="compose-body" placeholder="Message"></textarea>
+				<input type="email" id="compose-to" placeholder="To" />
+				<input type="text" id="compose-subject" placeholder="Subject" />
+				<textarea id="compose-body" placeholder="Message"></textarea>
 			</div>
 			<div class="settings {{showingClass(settingsId)}}">
 				Settings

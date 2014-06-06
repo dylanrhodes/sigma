@@ -271,6 +271,11 @@ button.loadMore {
 	margin: 0 !important;
 }
 
+.nopadding-atall {
+	padding: 0 !important;
+	margin: 0 !important;
+}
+
 .ind-email {
 	/*padding-left: 12px;
 	height: 47px;*/
@@ -587,6 +592,14 @@ a:active.save {
 
 .viewing {
 	padding: 10px;
+}
+
+.viewing-category {
+	font-size: 0.75em;
+}
+
+.viewing-actions {
+	text-align: right;
 }
 
 .viewing-from {
