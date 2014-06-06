@@ -426,6 +426,10 @@ sigmaApp.controller('EmailListCtrl', function($scope, $http, Emails) {
 			$scope.markRead(0);
 			$scope.$apply();
 		}
+		if (e.keyCode == 17) {
+			console.log($scope.selected.id);
+			console.log($scope.selectedIds);
+		}
 		if (e.keyCode == 9) {
 			e.preventDefault();
 			if ($scope.viewingEmail == null) {
