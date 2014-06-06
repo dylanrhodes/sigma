@@ -486,6 +486,7 @@ sigmaApp.controller('EmailListCtrl', function($scope, $http, Emails) {
 						  $.map($scope.emails.arr, function(obj) {
 							if(obj.id == target_id) {
 							  $scope.viewingEmail = obj;
+							  $scope.$apply();
 							  var elem = {"id" : obj.id};
 							  if (window.location.search != "?home") {
 								  $http({
