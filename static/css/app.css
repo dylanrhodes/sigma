@@ -30,6 +30,7 @@ h3.num-title {
 	right: 0;
 	color: #1b6aa3;
 	font-weight: bold;
+	cursor: pointer;
 }
 
 .digest-title {
