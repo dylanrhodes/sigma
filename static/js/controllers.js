@@ -960,7 +960,8 @@ sigmaApp.factory('Emails', function($http) {
 
 .config(function($tooltipProvider) {
   angular.extend($tooltipProvider.defaults, {
-    html: true
+    html: true,
+	placement: 'right'
   });
 })
 
