@@ -612,18 +612,18 @@ sigmaApp.controller('EmailListCtrl', function($scope, $http, Emails) {
 			  }
 			  if (obj.read != 1) $scope.emails.unread[obj.category-1]--;
 			  obj.read = 1;
-			  if (!obj.html) {
-				$('.message-body').css('white-space', 'pre-line');
-				$('.message-body').css('padding', '0 40px');
-				$('.message-view').css('overflow', 'auto');
-				$('.message-body').html(obj.message);
-			  }
-			  else {
+			  // if (!obj.html) {
+				// $('.message-body').css('white-space', 'pre-line');
+				// $('.message-body').css('padding', '0 40px');
+				// $('.message-view').css('overflow', 'auto');
+				// $('.message-body').html(obj.message);
+			  // }
+			  // else {
 				$('.message-body').css('white-space', 'normal');
 				$('.message-body').css('padding', '10px 0');
 				$('.message-view').css('overflow', 'hidden');
 				$('.message-body').html("<iframe class='email-frame' height='100%' width='100%' frameBorder='0' src='/get_email?id=" + obj.id + "' ></iframe>");
-			  }
+			  // }
 			}
 		  });
 
