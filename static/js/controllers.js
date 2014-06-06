@@ -62,7 +62,7 @@ sigmaApp.controller('EmailListCtrl', function($scope, $http, Emails) {
   }
   
   $scope.tooltip = {
-	  "title": "Check this for categories<br />you won't regularly check<br />and you will get a shorter<br />digest version of unread emails!",
+	  "title": "Check this for categories you won't regularly check and you will get a shorter digest version of unread emails!",
 	  "checked": false
 	};
 
@@ -964,7 +964,7 @@ sigmaApp.factory('Emails', function($http) {
 
 .config(function($tooltipProvider) {
   angular.extend($tooltipProvider.defaults, {
-    html: true,
+    html: false,
 	placement: 'right'
   });
 })
