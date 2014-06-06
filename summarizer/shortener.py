@@ -55,7 +55,10 @@ def shorten(msg, MAX_CHARS = 300):
 	sentences = segment(msg)
 
 	if sum([len(s) for s in sentences]) + len(sentences) < MAX_CHARS:
-		return ' '.join(sentences)
+		if len(sentences) != 0:
+			return ' '.join(sentences)
+		else
+			return msg['subject']
 
 	ranks = rank_sentences(sentences)
 
