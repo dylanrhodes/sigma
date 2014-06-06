@@ -24,7 +24,7 @@ def rank_sentences(sentences):
     return results
 
 def segment(msg):
-	text = strip(extract_body_text(msg))
+	text = strip(msg['plain_body'])
 	text = '\n'.join([l for l in text.split('\n') if len(l) > 0 and l[0] != '>'])
 
 	tokenizer = nltk.data.load('tokenizers/punkt/english.pickle')

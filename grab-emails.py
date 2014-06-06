@@ -11,6 +11,9 @@ from classifier.classify import classify
 from utils.sanitize import extract_body
 from app.db import db
 
+from summarizer.preprocess import extract_body_text
+from summarizer.shortener import shorten
+
 HOST = 'imap.gmail.com'
 
 parser = Parser()
@@ -48,6 +51,13 @@ for user in users:
             email['category'] = int(classify(msg, user))
         else:
             email['category'] = 1
+        
+        plain_body = extract_body_text(msg)
+        print('PLAIN BODY: \n'+plain_body)
+        msg['plain_body'] = plain_body
+        
+        print('SUMMARY: \n'+shorten(msg, MAX_CHARS=300))
+
         emailJSON = json.dumps(email, sort_keys=True, indent=4, separators=(',', ': '))
         db.zadd("mail:%s:inbox" % user, emailJSON, msgid)
         db.sadd("mail:%s:%s" % (user, email['category']), msgid)
