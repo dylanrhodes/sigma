@@ -72,13 +72,24 @@
 	            </div>
 			</div>
 			<div class="viewing {{showingClass(viewingId)}}">
-				<div class="viewing-from">{{viewingEmail.fromName}} <em>{{viewingEmail.fromEmail}}</em></div>
+				<div class="row">
+					<div class="col-xs-8">
+						<div class="viewing-from">{{viewingEmail.fromName}} <em>{{viewingEmail.fromEmail}}</em></div>
+					</div>
+					<div class="col-xs-4">
+						<img src="/static/images/mark-unread.png" />
+						<img src="/static/images/trash-email.png" />
+						<img src="/static/images/reply.png" />
+					</div>
+				</div>
 				<div class="viewing-subject">{{viewingEmail.subject}}</div>
 				<div clas="viewing-date">{{viewingEmail.date}}</div>
 				<div class="viewing-message" ng-bind-html="viewingEmail.message"></div>
 			</div>
 			<div class="compose {{showingClass(composeId)}}">
-				Compose
+				<input type="email" class="compose-to" placeholder="To" />
+				<input type="text" class="compose-subject" placeholder="Subject" />
+				<textarea class="compose-body" placeholder="Message"></textarea>
 			</div>
 			<div class="settings {{showingClass(settingsId)}}">
 				Settings

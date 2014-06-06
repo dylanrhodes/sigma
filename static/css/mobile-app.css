@@ -581,3 +581,29 @@ a:active.save {
 	margin-right: 5px;
 	color: #808080;
 }
+
+
+/* viewing email */
+
+.viewing {
+	padding: 10px;
+}
+
+.viewing-from {
+	font-size: 1.25em;
+	font-weight: bold;
+}
+
+.viewing-subject {
+	font-size: 1.25em;
+}
+
+.viewing-date {
+	color: #424242;
+}
+
+.viewing-message {
+	margin-top: 5px;
+	border-top: 1px solid #eee;
+	padding-top: 5px;
+}
