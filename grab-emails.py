@@ -45,12 +45,12 @@ def get_email(user):
             email['category'] = int(classify(msg, user))
         else:
             email['category'] = 1
-        
+
         plain_body = extract_body_text(msg)
-        print('PLAIN BODY: \n'+plain_body)
+        #print('PLAIN BODY: \n'+plain_body)
         msg['plain_body'] = plain_body
-        
-        print('SUMMARY: \n'+shorten(msg, MAX_CHARS=300))
+
+        #print('SUMMARY: \n'+shorten(msg, MAX_CHARS=300))
 
         emailJSON = json.dumps(email, sort_keys=True, indent=4, separators=(',', ': '))
         db.zadd("mail:%s:inbox" % user, emailJSON, msgid)
@@ -69,5 +69,3 @@ else:
     for user in users:
         print user
         subprocess.Popen(["python", "grab-emails.py", "-u", user])
-
-
