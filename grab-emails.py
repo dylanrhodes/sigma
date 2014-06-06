@@ -16,6 +16,7 @@ HOST = 'imap.gmail.com'
 parser = Parser()
 
 users = db.smembers("user:users")
+users =['exxonvaldeez']
 for user in users:
     print user
     server = IMAPClient(HOST, use_uid=True, ssl=True)
@@ -34,8 +35,8 @@ for user in users:
         emailUTF8 = data['RFC822'].encode('utf-8')
         msg = parser.parsestr(emailUTF8)
         body = extract_body(msg)
-        print body
-        msg['message'] = ('NoBody Available' if (body == None or body == "") else body)
+        msg['message'] = body
+        print msg['message']
         msg['subject'] = ('NoSubj' if (msg['Subject']==None or msg['Subject'] == "")  else msg['Subject'])
         msg['to'] = ('NoTo' if (msg['To']==None) else msg['To'])
         # TODO set unread
