@@ -471,6 +471,7 @@ button.loadMore {
 	/*overflow-x: hidden;*/
 	/*overflow-y: scroll;*/
 	/*overflow: scroll;*/
+	overflow: auto;
 	margin-left: 2%;
 }
 
