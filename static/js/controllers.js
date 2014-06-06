@@ -958,6 +958,12 @@ sigmaApp.factory('Emails', function($http) {
   return Emails;
 })
 
+.config(function($tooltipProvider) {
+  angular.extend($tooltipProvider.defaults, {
+    html: true
+  });
+})
+
 .config(function($asideProvider) {
   angular.extend($asideProvider.defaults, {
     container: 'body',
