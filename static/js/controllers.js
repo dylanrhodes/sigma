@@ -98,10 +98,6 @@ sigmaApp.controller('EmailListCtrl', function($scope, $http, Emails) {
 		.error(function() {console.log("Didn't successfully train models");});
 	}
   }
-  
-  $scope.keepUnread = function(id) {
-	console.log(id);
-  }
 
   $scope.logout = function() {
 	console.log("Logging out");
@@ -632,7 +628,7 @@ sigmaApp.controller('EmailListCtrl', function($scope, $http, Emails) {
 	});
 
 	$(document).on("click", ".keep-unread", function(e) {
-		  var id = parseInt(this.attr('id'));
+		  var id = parseInt(this.attr('title'));
 		  var elem = {"id" : id};
 		  if (window.location.search != "?home") {
 			  $http({
@@ -969,7 +965,7 @@ sigmaApp.factory('Emails', function($http) {
 						  content += "<div class='col-xs-9 summary'>"
 						  content += data[k];
 						  content += "</div>";
-						  content += "<a class='col-xs-3 keep-unread' id='" + k + "' title='" + k + "' href='" + k + "'>Keep Unread</a>"
+						  content += "<a class='col-xs-3 keep-unread' title='" + k + "'>Keep Unread</a>"
 						  content += "</div>";
 						}
 					}
