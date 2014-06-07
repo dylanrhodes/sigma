@@ -6,17 +6,16 @@ Script: TextboxList.Autocomplete.js
 		Guillermo Rauch
 	
 	Note:
-		TextboxList is not priceless for commercial use. See <http://devthought.com/projects/mootools/textboxlist/>
+		TextboxList is not priceless for commercial use. See <http://devthought.com/projects/jquery/textboxlist/>
 		Purchase to remove this message.
 */
 
 (function(){
-
-TextboxList.Autocomplete = new Class({
 	
-	Implements: Options,
+$.TextboxList.Autocomplete = function(textboxlist, _options){
 	
-	options: {
+  var index, prefix, method, container, list, values = [], searchValues = [], results = [], placeholder = false, current, currentInput, hidetimer, doAdd, currentSearch, currentRequest;
+	var options = $.extend(true, {
 		minLength: 1,
 		maxResults: 10,
 		insensitive: true,
@@ -25,217 +24,210 @@ TextboxList.Autocomplete = new Class({
 		mouseInteraction: true,
 		onlyFromValues: false,
 		queryRemote: false,
-		remote: {
+    remote: {
 			url: '',
 			param: 'search',
 			extraParams: {},
 			loadPlaceholder: 'Please wait...'
-		},
+    },
 		method: 'standard',
 		placeholder: 'Type to receive suggestions'
-	},
+	}, _options);
 	
-	initialize: function(textboxlist, options){
-		this.setOptions(options);
-		this.textboxlist = textboxlist;
-		this.textboxlist.addEvent('bitEditableAdd', this.setupBit.bind(this), true)
-			.addEvent('bitEditableFocus', this.search.bind(this), true)
-			.addEvent('bitEditableBlur', this.hide.bind(this), true)
-			.setOptions({bitsOptions: {editable: {addKeys:[], stopEnter: false}}});
-		if (Browser.Engine.trident) this.textboxlist.setOptions({bitsOptions: {editable: {addOnBlur: false}}});
-		if (this.textboxlist.options.unique){
-			this.index = [];
-			this.textboxlist.addEvent('bitBoxRemove', function(bit){
-				if (bit.autoValue) this.index.erase(bit.autoValue);
-			}.bind(this), true);
-		}
-		this.prefix = this.textboxlist.options.prefix + '-autocomplete';
-		this.method = TextboxList.Autocomplete.Methods[this.options.method];
-		this.container = new Element('div', {'class': this.prefix}).setStyle('width', this.textboxlist.container.getStyle('width')).inject(this.textboxlist.container);
-		if ($chk(this.options.placeholder) || this.options.queryServer) 
-			this.placeholder = new Element('div', {'class': this.prefix+'-placeholder'}).inject(this.container);		
-		this.list = new Element('ul', {'class': this.prefix + '-results'}).inject(this.container);
-		this.list.addEvent('click', function(ev){ ev.stop(); });
-		this.values = this.results = this.searchValues = [];
-		this.navigate = this.navigate.bind(this);
-	},
+	var init = function(){
+		textboxlist.addEvent('bitEditableAdd', setupBit)
+			.addEvent('bitEditableFocus', search)
+			.addEvent('bitEditableBlur', hide)
+			.setOptions({bitsOptions: {editable: {addKeys: false, stopEnter: false}}});
+		if ($.browser.msie) textboxlist.setOptions({bitsOptions: {editable: {addOnBlur: false}}});
+		prefix = textboxlist.getOptions().prefix + '-autocomplete';
+		method = $.TextboxList.Autocomplete.Methods[options.method];
+		container = $('<div class="'+ prefix +'" />').width(textboxlist.getContainer().width()).appendTo(textboxlist.getContainer());
+		if (chk(options.placeholder)) placeholder = $('<div class="'+ prefix +'-placeholder" />').html(options.placeholder).appendTo(container);		
+		list = $('<ul class="'+ prefix +'-results" />').appendTo(container).click(function(ev){
+			ev.stopPropagation(); ev.preventDefault();
+		});
+	};
 	
-	setValues: function(values){
-		this.values = values;
-	},
+	var setupBit = function(bit){
+		bit.toElement().keydown(navigate).keyup(function(){ search(); });
+	};
 	
-	setupBit: function(bit){
-		bit.element.addEvent('keydown', this.navigate, true).addEvent('keyup', function(){ this.search(); }.bind(this), true);
-	},
-		
-	search: function(bit){
-		if (bit) this.currentInput = bit;
-		if (!this.options.queryRemote && !this.values.length) return;
-		var search = this.currentInput.getValue()[1];
-		if (search.length < this.options.minLength) this.showPlaceholder(this.options.placeholder);
-		if (search == this.currentSearch) return;
-		this.currentSearch = search;
-		this.list.setStyle('display', 'none');
-		if (search.length < this.options.minLength) return;
-		if (this.options.queryRemote){
-			if (this.searchValues[search]){
-				this.values = this.searchValues[search];
+	var search = function(bit){
+		if (bit) currentInput = bit;
+		if (!options.queryRemote && !values.length) return;
+		var search = $.trim(currentInput.getValue()[1]);
+		if (search.length < options.minLength) showPlaceholder();
+		if (search == currentSearch) return;
+		currentSearch = search;
+		list.css('display', 'none');
+		if (search.length < options.minLength) return;
+		if (options.queryRemote){
+			if (searchValues[search]){
+				values = searchValues[search];
 			} else {
-				var data = this.options.remote.extraParams, that = this;
-				if ($type(data) == 'function') data = data.run([], this);
-				data[this.options.remote.param] = search;
-				if (this.currentRequest) this.currentRequest.cancel();
-				this.currentRequest = new Request.JSON({url: this.options.remote.url, data: data, onRequest: function(){
-					that.showPlaceholder(that.options.remote.loadPlaceholder);
-				}, onSuccess: function(data){
-					that.searchValues[search] = data;
-					that.values = data;
-					that.showResults(search);
-				}}).send();
-			}
-		} 
-		if (this.values.length) this.showResults(search);
-	},
-	
-	showResults: function(search){		
-		var results = this.method.filter(this.values, search, this.options.insensitive, this.options.maxResults);
-		if (this.index) results = results.filter(function(v){ return !this.index.contains(v); }, this);
-		this.hidePlaceholder();
-		if (!results.length) return;
-		this.blur();
-		this.list.empty().setStyle('display', 'block');
-		results.each(function(r){ this.addResult(r, search); }, this);
-		if (this.options.onlyFromValues) this.focusFirst();
-		this.results = results;
-	},	
-	
-	addResult: function(r, search){
-		var element = new Element('li', {'class': this.prefix + '-result', 'html': $pick(r[3], r[1])}).store('textboxlist:auto:value', r);
-		this.list.adopt(element);
-		if (this.options.highlight) $$(this.options.highlightSelector ? element.getElements(this.options.highlightSelector) : element).each(function(el){
-			if (el.get('html')) this.method.highlight(el, search, this.options.insensitive, this.prefix + '-highlight');
-		}, this);
-		if (this.options.mouseInteraction){
-			element.setStyle('cursor', 'pointer').addEvents({
-				mouseenter: function(){ this.focus(element); }.bind(this),
-				mousedown: function(ev){
-					ev.stop(); 
-					$clear(this.hidetimer);
-					this.doAdd = true;
-				}.bind(this),
-				mouseup: function(){
-					if (this.doAdd){
-						this.addCurrent();
-						this.currentInput.focus();
-						this.search();
-						this.doAdd = false;
+				var data = options.remote.extraParams;
+				data[options.remote.param] = search;
+				if (currentRequest) currentRequest.abort();
+				currentRequest = $.ajax({
+					url: options.remote.url,
+					data: data,
+					dataType: 'json',
+					success: function(r){
+						searchValues[search] = r;
+						values = r;
+						showResults(search);
 					}
-				}.bind(this)
+				});
+			}
+		}
+		showResults(search);
+	};
+	
+	var showResults = function(search){
+		var results = method.filter(values, search, options.insensitive, options.maxResults);
+		if (textboxlist.getOptions().unique){
+			results = $.grep(results, function(v){ return textboxlist.isDuplicate(v) == -1; });		
+		}
+		hidePlaceholder();
+		if (!results.length) return;
+		blur();
+		list.empty().css('display', 'block');
+		$.each(results, function(i, r){ addResult(r, search); });
+		if (options.onlyFromValues) focusFirst();
+		results = results;
+	};
+	
+	var addResult = function(r, searched){
+		var element = $('<li class="'+ prefix +'-result" />').html(r[3] ? r[3] : r[1]).data('textboxlist:auto:value', r);		
+		element.appendTo(list);
+		if (options.highlight) $(options.highlightSelector ? element.find(options.highlightSelector) : element).each(function(){
+			if ($(this).html()) method.highlight($(this), searched, options.insensitive, prefix + '-highlight');
+		});
+		if (options.mouseInteraction){
+			element.css('cursor', 'pointer').hover(function(){ focus(element); }).mousedown(function(ev){
+				ev.stopPropagation(); 
+				ev.preventDefault();
+				clearTimeout(hidetimer);
+				doAdd = true;
+			}).mouseup(function(){
+				if (doAdd){
+					addCurrent();
+					currentInput.focus();
+					search();
+					doAdd = false;
+				}
 			});
-			if (!this.options.onlyFromValues) element.addEvent('mouseleave', function(){ if (this.current == element) this.blur(); }.bind(this));	
+			if (!options.onlyFromValues) element.mouseleave(function(){ if (current && (current.get(0) == element.get(0))) blur(); });	
 		}
-	},
+	};
 	
-	hide: function(ev){
-		this.hidetimer = (function(){
-			this.hidePlaceholder();
-			this.list.setStyle('display', 'none');
-			this.currentSearch = null;
-		}).delay(Browser.Engine.trident ? 150 : 0, this);
-	},
+	var hide = function(){
+		hidetimer = setTimeout(function(){
+			hidePlaceholder();
+			list.css('display', 'none');
+			currentSearch = null;			
+		}, $.browser.msie ? 150 : 0);
+	};
 	
-	showPlaceholder: function(customHTML){
-		if (this.placeholder){
-			this.placeholder.setStyle('display', 'block');	
-			if (customHTML) this.placeholder.set('html', customHTML);
-		}		
-	},
+	var showPlaceholder = function(){
+		if (placeholder) placeholder.css('display', 'block');		
+	};
 	
-	hidePlaceholder: function(){
-		if (this.placeholder) this.placeholder.setStyle('display', 'none');
-	},
+	var hidePlaceholder = function(){
+		if (placeholder) placeholder.css('display', 'none');
+	};
 	
-	focus: function(element){
-		if (!element) return this;
-		this.blur();
-		this.current = element.addClass(this.prefix + '-result-focus');
-	},
+	var focus = function(element){
+		if (!element || !element.length) return;
+		blur();
+		current = element.addClass(prefix + '-result-focus');
+	};
 	
-	blur: function(){
-		if (this.current){
-			this.current.removeClass(this.prefix + '-result-focus');
-			this.current = null;
+	var blur = function(){
+		if (current && current.length){
+			current.removeClass(prefix + '-result-focus');
+			current = null;
 		}
-	},
+	};
 	
-	focusFirst: function(){
-		return this.focus(this.list.getFirst());
-	},
+	var focusFirst = function(){
+		return focus(list.find(':first'));
+	};
 	
-	focusRelative: function(dir){
-		if (!this.current) return this;
-		return this.focus(this.current['get' + dir.capitalize()]());
-	},
+	var focusRelative = function(dir){
+		if (!current || !current.length) return self;
+		return focus(current[dir]());
+	};
 	
-	addCurrent: function(){
-		var value = this.current.retrieve('textboxlist:auto:value');
-		var b = this.textboxlist.create('box', value.slice(0, 3));
+	var addCurrent = function(){
+		var value = current.data('textboxlist:auto:value');
+		var b = textboxlist.create('box', value.slice(0, 3));
 		if (b){
 			b.autoValue = value;
-			if (this.index != null) this.index.push(value);
-			this.currentInput.setValue([null, '', null]);
-			b.inject($(this.currentInput), 'before');
+			if ($.isArray(index)) index.push(value);
+			currentInput.setValue([null, '', null]);
+			b.inject(currentInput.toElement(), 'before');
 		}
-		this.blur();
-		return this;
-	},
+		blur();
+		return self;
+	};
 	
-	navigate: function(ev){
-		switch (ev.code){
-			case Event.Keys.up:			
-				ev.stop();
-				(!this.options.onlyFromValues && this.current && this.current == this.list.getFirst()) ? this.blur() : this.focusRelative('previous');
+	var navigate = function(ev){
+		var evStop = function(){ ev.stopPropagation(); ev.preventDefault(); };
+		switch (ev.which){
+			case 38:			
+				evStop();
+				(!options.onlyFromValues && current && current.get(0) === list.find(':first').get(0)) ? blur() : focusRelative('prev');
 				break;
-			case Event.Keys.down:			
-				ev.stop();
-				this.current ? this.focusRelative('next') : this.focusFirst();
+			case 40:			
+				evStop();
+				(current && current.length) ? focusRelative('next') : focusFirst();
 				break;
-			case Event.Keys.enter:
-				ev.stop();
-				if (this.current) this.addCurrent();
-				else if (!this.options.onlyFromValues){
-					var value = this.currentInput.getValue();				
-					var b = this.textboxlist.create('box', value);
+			case 13:
+				evStop();
+				if (current && current.length) addCurrent();
+				else if (!options.onlyFromValues){
+					var value = currentInput.getValue();				
+					var b = textboxlist.create('box', value);
 					if (b){
-						b.inject($(this.currentInput), 'before');
-						this.currentInput.setValue([null, '', null]);
+						b.inject(currentInput.toElement(), 'before');
+						currentInput.setValue([null, '', null]);
 					}
 				}
 		}
-	}
+	};
 	
-});
+	this.setValues = function(v){
+		values = v;
+	};
+	
+	init();
+};
 
-TextboxList.Autocomplete.Methods = {
+$.TextboxList.Autocomplete.Methods = {
 	
 	standard: {
 		filter: function(values, search, insensitive, max){
-			var newvals = [], regexp = new RegExp('\\b' + search.escapeRegExp(), insensitive ? 'i' : '');
+			var newvals = [], regexp = new RegExp('\\b' + escapeRegExp(search), insensitive ? 'i' : '');
 			for (var i = 0; i < values.length; i++){
 				if (newvals.length === max) break;
-				if (values[i][1].test(regexp)) newvals.push(values[i]);
+				if (regexp.test(values[i][1])) newvals.push(values[i]);
 			}
 			return newvals;
 		},
 		
 		highlight: function(element, search, insensitive, klass){
-			var regex = new RegExp('(<[^>]*>)|(\\b'+ search.escapeRegExp() +')', insensitive ? 'ig' : 'g');
-			return element.set('html', element.get('html').replace(regex, function(a, b, c){
+			var regex = new RegExp('(<[^>]*>)|(\\b'+ escapeRegExp(search) +')', insensitive ? 'ig' : 'g');
+			return element.html(element.html().replace(regex, function(a, b, c){
 				return (a.charAt(0) == '<') ? a : '<strong class="'+ klass +'">' + c + '</strong>'; 
 			}));
 		}
 	}
 	
 };
+
+var chk = function(v){ return !!(v || v === 0); };
+var escapeRegExp = function(str){ return str.replace(/([-.*+?^${}()|[\]\/\\])/g, "\\$1"); };
 
 })();
