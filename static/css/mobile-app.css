@@ -633,7 +633,8 @@ a:active.save {
 	background: rgba(255,255,255,0.87);
 	background: #fff;
 	border: none;
-	border-bottom: 1px solid #eee;
+	/*border-bottom: 1px solid #eee;*/
+	box-shadow: 1px 1px 0px #eee;
 	cursor: pointer;
 }
 
@@ -664,6 +665,7 @@ a:active.save {
 .control-bar-item {
 	/*display:inline-block;*/
 	/*margin: 4px;*/
+	margin: 2px;
 }
 
 .category-bar {
