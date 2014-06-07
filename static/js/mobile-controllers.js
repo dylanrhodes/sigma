@@ -175,7 +175,7 @@ sigmaApp.controller('EmailListCtrl', function($scope, $http, Emails) {
 		if($scope.emails && $scope.emails.contacts && $scope.emails.contacts.length > 0 && !$scope.initializedTBLvalues) {
 			alert($scope.emails.contacts.length);
 			$scope.compose_tbl.plugins['autocomplete'].setValues($scope.emails.contacts);
-			$(".compose-to-area").show();
+			$scope.initializedTBLvalues = true;
 		}
 		$(".textboxlist-autocomplete-placeholder").hide();
 		$(".textboxlist-autocomplete-results").hide();
@@ -347,7 +347,6 @@ sigmaApp.controller('EmailListCtrl', function($scope, $http, Emails) {
 
 	$scope.fandleInitialized = false;
 	$scope.initializeFandle = function() {
-		$scope.tbl_values();
 		$scope.fandleInitialized = true;
 		var fanCats = Array();
 		$.each($scope.categories, function(i,v) {
@@ -377,6 +376,8 @@ sigmaApp.controller('EmailListCtrl', function($scope, $http, Emails) {
 			 		(emailId)
 				); 
 			});
+		$scope.tbl_values();
+		
 	}
 
   $scope.focusCategory = function(categoryId) {
