@@ -470,8 +470,8 @@ sigmaApp.factory('Emails', function($http) {
 			if (start != 0) email.fromName = from.substring(0, start-1);
 			this.contacts.unshift([this.contacts.length, 
 									email.fromName + " " + email.fromEmail, 
-									email.fromName + "<em>" + email.fromEmail + "</em>",
-									email.fromName != "" ? email.fromName : email.fromEmail]);
+									email.fromName != "" ? email.fromName : email.fromEmail,
+									email.fromName + " <em>" + email.fromEmail + "</em>"]);
 			var to = email.to.replace(/"/g, "");
 			var start = to.indexOf("<");
 			var end = to.indexOf(">");
