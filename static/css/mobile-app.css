@@ -476,7 +476,7 @@ button.loadMore {
 
 /*CSS for settings.html*/
 
-input[type="text"], textarea, .textboxlist-bits {
+input[type="text"], textarea, .textboxlist-bits, .textboxlist-autocomplete-placeholder, .textboxlist-autocomplete-results {
 	text-align: center;
 	display:inline-block;
 	border: 1px solid #eee;
@@ -489,6 +489,14 @@ input[type="text"], textarea, .textboxlist-bits {
 .textboxlist input {
 	border: none;
 	padding: 0px;
+}
+
+.textboslist-bit {
+	margin: 0px;
+}
+
+.textboxlist-autocomplete-result {
+	background: #fff;
 }
 
 textarea {
@@ -645,4 +653,12 @@ a:active.save {
 .compose-section {
 	margin-top:5px;
 	margin-bottom: 5px;
+}
+
+.compose textarea {
+	height: 75%;
+}
+
+.compose input, textarea {
+	text-align: left;
 }
