@@ -655,6 +655,20 @@ sigmaApp.controller('EmailListCtrl', function($scope, $http, Emails) {
          $scope.$apply();
 		}
 	});
+	
+	$(document).on("click", ".btn-default", function(e) {
+		$scope.emails.aside = {
+			"title": "Digest Already Read",
+			"content": "Refresh to Update Digest"
+		};
+	});
+	
+	$(document).on("click", ".close", function(e) {
+		$scope.emails.aside = {
+			"title": "Digest Already Read",
+			"content": "Refresh to Update Digest"
+		};
+	});
 
 	$(document).on("click", ".keep-unread", function(e) {
 		var id = parseInt($(this).attr('title'));
@@ -1016,10 +1030,18 @@ sigmaApp.factory('Emails', function($http) {
 						  content += "</div>";
 						}
 					}
-					this.aside = {
-						"title": "Category Digest",
-						"content": content
-					};
+					if (arr.length > 0) {
+						this.aside = {
+							"title": "Category Digest",
+							"content": content
+						};
+					}
+					else {
+						this.aside = {
+							"title": "No Unread Emails in Digest",
+							"content": "Refresh to Update Digest"
+						};
+					}
 				}.bind(this))
 				.error(function() {console.log("Couldn't get digest for " + dCats[i]);});
 			}
