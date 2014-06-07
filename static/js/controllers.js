@@ -628,7 +628,7 @@ sigmaApp.controller('EmailListCtrl', function($scope, $http, Emails) {
 	});
 
 	$(document).on("click", ".keep-unread", function(e) {
-		  var id = parseInt(this.attr('title'));
+		  var id = parseInt($(this).attr('title'));
 		  var elem = {"id" : id};
 		  if (window.location.search != "?home") {
 			  $http({
