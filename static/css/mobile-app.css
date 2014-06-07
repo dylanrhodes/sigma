@@ -633,8 +633,9 @@ a:active.save {
 	cursor: pointer;
 }
 
-.menu img {
-	width: 45px;
+.menu img,
+.menu-btn img {
+	width: 30px;
 }
 
 
