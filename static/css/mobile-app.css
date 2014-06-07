@@ -651,6 +651,7 @@ a:active.save {
 	text-align: center;
 	height: calc(20px + 30px);
 	overflow: auto;
+	-webkit-overflow-scrolling: touch;
 	white-space: nowrap;
 	font-size: 0px;
 }

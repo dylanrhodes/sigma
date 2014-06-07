@@ -514,8 +514,7 @@ sigmaApp.factory('Emails', function($http) {
 			
 			email.date = day.fromNow();
 			email.snippet = email.message.substr(0, 200);			
-			if(email.noHtml)
-				email.snippet = email.noHtml.substr(0, 200);
+			
 			email.id = email.id.toString();
 			var from = email.from.replace(/"/g, "");
 			var start = from.indexOf("<");
@@ -529,7 +528,33 @@ sigmaApp.factory('Emails', function($http) {
 				email.fromName = "";
 				email.fromEmail = from;
 			}
-			// console.log(this.contacts.)
+			if (email.subject.indexOf("=?utf-8?Q?") > -1) {
+				email.subject = email.subject.substring(10).replace(/=/g,'%');
+				if (email.subject.indexOf("?") > -1) email.subject = email.subject.substring(0, email.subject.indexOf("?"));
+				email.subject = decodeURIComponent(email.subject);
+			}
+			if (email.fromName.indexOf("=?utf-8?Q?") > -1) {
+				email.fromName = email.fromName.substring(10).replace(/=/g,'%');
+				if (email.fromName.indexOf("?") > -1) email.fromName = email.fromName.substring(0, email.fromName.indexOf("?"));
+				email.fromName = decodeURIComponent(email.fromName);
+			}
+			if (email.message.toLowerCase().indexOf("<style") >= 0) {
+				email.noHtml = email.message.substring(0, email.message.toLowerCase().indexOf("<style")) + email.message.substring(email.message.toLowerCase().indexOf("/style>") + 7);
+				email.noHtml = email.noHtml.replace(/<(?:.|\n)*?>/gm, '');
+			}
+			else {
+				email.noHtml = email.message.replace(/<(?:.|\n)*?>/gm, '');
+			}
+			if (email.message == email.noHtml) email.html = false;
+			else {
+				email.html = true;
+				email.noHtml = email.noHtml.replace(/(\r\n|\n|\r)/gm,"");
+				email.noHtml = email.noHtml.replace(/<(?:.|\n)*?>/gm, '');
+				email.snippet = email.noHtml.substr(0, 200);
+			}
+			if (!email.html) email.message = Autolinker.link(email.message, { truncate: 50 });
+			if (email.html) email.message = email.message.replace("* {", "message-body {");
+			
 			if(! this.contacts[email.fromEmail] && contactsCount < 20) {
 				this.contacts[email.fromEmail] = [this.contacts.length, 
 										email.fromName + " " + email.fromEmail]; /*, 
