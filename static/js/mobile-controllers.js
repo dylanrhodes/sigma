@@ -540,9 +540,11 @@ sigmaApp.factory('Emails', function($http) {
 	  }
 	  var c = [];
 	  $.each(this.contacts, function(i,v) {
+	  	v[0] = c.length;
 	  	c.push(v);
 	  });
 	  console.log(c);
+	  this.contacts = c;
       this.busy = false;
     }.bind(this));
   };
