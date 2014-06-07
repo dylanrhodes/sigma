@@ -28,10 +28,10 @@ $.TextboxList.Autocomplete = function(textboxlist, _options){
 			url: '',
 			param: 'search',
 			extraParams: {},
-			loadPlaceholder: 'Just a second...'
+			loadPlaceholder: 'Please wait...'
     },
 		method: 'standard',
-		placeholder: 'Type venue name to search.'
+		placeholder: 'Type to receive contact suggestions'
 	}, _options);
 	
 	var init = function(){
@@ -42,7 +42,7 @@ $.TextboxList.Autocomplete = function(textboxlist, _options){
 		if ($.browser && $.browser.msie) textboxlist.setOptions({bitsOptions: {editable: {addOnBlur: false}}});
 		prefix = textboxlist.getOptions().prefix + '-autocomplete';
 		method = $.TextboxList.Autocomplete.Methods[options.method];
-		container = $('<div class="'+ prefix +'" />').width(textboxlist.getContainer().width()+2).appendTo(textboxlist.getContainer());
+		container = $('<div class="'+ prefix +'" />').width("100%" /*textboxlist.getContainer().width()*/).appendTo(textboxlist.getContainer());
 		if (chk(options.placeholder)) placeholder = $('<div class="'+ prefix +'-placeholder" />').html(options.placeholder).appendTo(container);		
 		list = $('<ul class="'+ prefix +'-results" />').appendTo(container).click(function(ev){
 			ev.stopPropagation(); ev.preventDefault();
@@ -96,7 +96,6 @@ $.TextboxList.Autocomplete = function(textboxlist, _options){
 		$.each(results, function(i, r){ addResult(r, search); });
 		if (options.onlyFromValues) focusFirst();
 		results = results;
-		focusFirst();
 	};
 	
 	var addResult = function(r, searched){
