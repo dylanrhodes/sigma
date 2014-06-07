@@ -121,9 +121,6 @@ sigmaApp.controller('EmailListCtrl', function($scope, $http, Emails) {
 			}
 		}
 		$scope.emails.digest = [];
-		$scope.emails.aside = {
-			"title": "Digest Already Read",
-		};
 		$scope.$apply();
   }
 
