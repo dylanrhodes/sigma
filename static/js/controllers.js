@@ -120,6 +120,7 @@ sigmaApp.controller('EmailListCtrl', function($scope, $http, Emails) {
 			}
 		}
 		$scope.emails.digest = [];
+		$scope.$apply();
   }
 
   $scope.logout = function() {
@@ -667,6 +668,7 @@ sigmaApp.controller('EmailListCtrl', function($scope, $http, Emails) {
 				obj.read = 0;
 			}
 		  });
+		  $scope.$apply();
 	});
 	
 	$(document).on("click", ".ind-email", function(e) {
