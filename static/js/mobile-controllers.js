@@ -327,13 +327,11 @@ sigmaApp.controller('EmailListCtrl', function($scope, $http, Emails) {
 				if($(this).hasClass("fandle"))
 					return;
 				var emailId = $(this).attr("rel");
-				console.log(emailId);
-				console.log($scope.emails.byId[emailId]);
-				console.log($scope.categories[$scope.emails.byId[emailId].category - 1]);
 				$(this).fandle({ categories : $scope.categories,
 					radius : 160,
 					innerRadius : 25,
-					innerColor : $scope.categories[$scope.emails.byId[emailId].category - 1].color,
+					innerColor : ($scope.categories[$scope.emails.byId[emailId].category - 1] ? 
+						$scope.categories[$scope.emails.byId[emailId].category - 1].color : $scope.categories[0].color),
 					mode : 'half',
 					innerImage : ($scope.emails.byId[emailId].read == 1 ? '/static/images/sigma-handle-read.png' : '/static/images/sigma-handle.png'),
 					innerHoverImage : '/static/images/sigma-handle-hover.png'
