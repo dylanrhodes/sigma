@@ -288,14 +288,15 @@ button.loadMore {
 	height: 70px;
 
 	padding-left: 7px;
-	border: 1px solid #424242;
-	border-left-width: 7px;
+	/*border: 1px */
+	border-left: 7px solid #424242;
+	color: #424242;
 }
 
 .read {
-	/*background-color: #fafafa;*/
-	border-left-width: 1px;
-	padding-left: 13px;
+	background-color: #fafafa;
+	/*border-left-width: 1px;*/
+	/*padding-left: 13px;*/
 }
 
 .selected-email {
