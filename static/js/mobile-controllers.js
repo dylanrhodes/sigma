@@ -293,7 +293,6 @@ sigmaApp.controller('EmailListCtrl', function($scope, $http, Emails) {
 
 		/* can be optionally passed in an email object as the first argument */
 		if(arguments.length > 0) {
-			// console.log(arguments[0]);
 			$("#compose-subject").val("Re: " + arguments[0].subject);
 			$("#compose-to").val(arguments[0].fromEmail);
 			$("#compose-body").val("\n\n---------------------------------\nOn "
@@ -451,7 +450,6 @@ sigmaApp.factory('Emails', function($http) {
 	  for (var key in data) {
 		if(data.hasOwnProperty(key)) {
 			var email = data[key];
-			console.log(email);
 			email.millis = (new Date(email.date)).getTime();
 			var day = moment(email.date, "ddd, DD MMM YYYY HH:mm:ss ZZ");
 			email.true_date = day.format('MMMM DD YYYY, h:mm:ssa');

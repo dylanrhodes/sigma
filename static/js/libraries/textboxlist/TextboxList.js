@@ -15,6 +15,7 @@ Script: TextboxList.js
 $.TextboxList = function(element, _options){
 	
 	var original, container, list, current, focused = false, index = [], blurtimer, events = {};
+	console.log(_options);
 	var options = $.extend(true, {
     prefix: 'textboxlist',
     max: null,
@@ -37,6 +38,7 @@ $.TextboxList = function(element, _options){
 		},
 		decode: function(o){ return o.split(','); }
   }, _options);
+	console.log(options);
 	
 	element = $(element);
 	
