@@ -319,7 +319,7 @@ sigmaApp.controller('EmailListCtrl', function($scope, $http, Emails) {
 		// if($scope.fandleInitialized)
 		// 	return;
 		if(!$scope.initializedTBL) {
-			$scope.compose_tbl = new $.TextboxList("#compose-to", {unique: true, plugins: {autocomplete: {}}});
+			$scope.compose_tbl = new TextboxList("#compose-to", {unique: true, plugins: {autocomplete: {}}});
 			$scope.initializedTBL = true;
 		}
 		$scope.tbl_values();
