@@ -639,8 +639,9 @@ a:active.save {
 
 .category-bar {
 	text-align: center;
-	height: calc(1em + 30px);
+	height: calc(20px + 30px);
 	overflow: auto;
+	white-space: nowrap;
 	font-size: 0px;
 }
 
