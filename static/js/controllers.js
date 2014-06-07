@@ -917,10 +917,10 @@ sigmaApp.factory('Emails', function($http) {
 			var content = "";
 			for (var i = 0; i < this.digest.length; i++) {
 			  content += "<div class='row digest-row'>"
-			  content += "<div class='col-xs-10 summary'>"
+			  content += "<div class='col-xs-9 summary'>"
 			  content += this.digest[i].subject;
 			  content += "</div>";
-			  content += "<a class='col-xs-2'>Keep Unread</a>"
+			  content += "<a class='col-xs-3'>Keep Unread</a>"
 			  content += "</div>";
 			}
 			console.log(content);
