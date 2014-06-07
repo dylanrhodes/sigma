@@ -649,9 +649,11 @@ a:active.save {
 	text-overflow:ellipsis;
 	padding: 5px;
 	font-weight: bold;
-	height: 50px;
+	padding-top: 15px;
+	padding-bottom: 15px;
 	width: 75px;
 	cursor: pointer;
+	display: inline-block;
 	/*background: #fff;*/
 }
 
