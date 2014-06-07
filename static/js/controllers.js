@@ -98,6 +98,10 @@ sigmaApp.controller('EmailListCtrl', function($scope, $http, Emails) {
 		.error(function() {console.log("Didn't successfully train models");});
 	}
   }
+  
+  $scope.keepUnread = function(id) {
+	console.log(id);
+  }
 
   $scope.logout = function() {
 	console.log("Logging out");
@@ -951,8 +955,8 @@ sigmaApp.factory('Emails', function($http) {
 						  content += "<div class='col-xs-9 summary'>"
 						  content += data[k];
 						  content += "</div>";
-						  content += "<a class='col-xs-3' ng-click='markUnread(" + k + ")'>Keep Unread</a>"
-						  content += "</div>"; //comment
+						  content += "<a class='col-xs-3' ng-click='keepUnread(" + k + ")'>Keep Unread</a>"
+						  content += "</div>";
 						}
 					}
 					console.log(content);
