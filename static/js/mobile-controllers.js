@@ -461,7 +461,7 @@ sigmaApp.factory('Emails', function($http) {
     this.after = '';
 	this.next = 1;
 	this.length = length;
-	this.contacts = [];
+	this.contacts = {};
   };
 
   Emails.prototype.init = function() {
@@ -505,10 +505,11 @@ sigmaApp.factory('Emails', function($http) {
 				email.fromName = "";
 				email.fromEmail = from;
 			}
-			this.contacts.unshift([this.contacts.length, 
+			// console.log(this.contacts.)
+			this.contacts[email.fromEmail] = [this.contacts.length, 
 									email.fromName + " " + email.fromEmail, 
 									email.fromName != "" ? email.fromName : email.fromEmail,
-									email.fromName + " <em>" + email.fromEmail + "</em>"]);
+									email.fromName + " <em>" + email.fromEmail + "</em>"];
 			var to = email.to.replace(/"/g, "");
 			var start = to.indexOf("<");
 			var end = to.indexOf(">");
