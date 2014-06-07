@@ -271,6 +271,18 @@ sigmaApp.controller('EmailListCtrl', function($scope, $http, Emails) {
 		$scope.init();
 	}
 
+	$scope.tbl_values = function() {
+		if($scope.emails && $scope.emails.contacts) {
+			$scope.compose_tbl.plugins['autocomplete'].setValues($scope.emails.contacts);
+			$scope.compose_tbl_cc.plugins['autocomplete'].setValues($scope.emails.contacts);
+			$scope.compose_tbl_bcc.plugins['autocomplete'].setValues($scope.emails.contacts);
+		}
+		$(".textboxlist-autocomplete-placeholder").hide();
+		$(".textboxlist-autocomplete-results").hide();
+		setTimeout('$(".textboxlist-autocomplete").width($(".textboxlist").width());', 150);
+	}
+
+	$scope.initializedTBL = false
 	$scope.compose = function() {
 		$scope.composingEmail = true;
 		$scope.viewingEmail = null;
@@ -285,6 +297,14 @@ sigmaApp.controller('EmailListCtrl', function($scope, $http, Emails) {
 				+ arguments[0].true_date + ", " + arguments[0].from
 				+ " wrote:\n\n" + arguments[0].noHtml);
 		}
+
+		if(!$scope.initializedTBL) {
+			$scope.compose_tbl = new $.TextboxList("#compose-to", {unique: true, placeholder : "To", plugins: {autocomplete: {}}});
+			$scope.compose_tbl_cc = new $.TextboxList("#compose-cc", {unique: true, placeholder : "CC", plugins: {autocomplete: {}}});
+			$scope.compose_tbl_bcc = new $.TextboxList("#compose-bcc", {unique: true, placeholder : "BCC", plugins: {autocomplete: {}}});
+			$scope.initializedTBL = true;
+		}
+		$scope.tbl_values();
 	}
 
   $scope.focusCategory = function(categoryId) {
@@ -773,6 +793,7 @@ sigmaApp.factory('Emails', function($http) {
     this.arr = [];
 	this.unread = [];
 	this.digest = [];
+	this.contacts = [];
 	
     this.busy = false;
     this.after = '';
@@ -873,6 +894,10 @@ sigmaApp.factory('Emails', function($http) {
 					email.fromName = "";
 					email.fromEmail = from;
 				}
+				this.contacts.unshift([this.contacts.length, 
+									email.fromName + " " + email.fromEmail, 
+									email.fromName != "" ? email.fromName : email.fromEmail,
+									email.fromName + " <em>" + email.fromEmail + "</em>"]);
 				var to = email.to.replace(/"/g, "");
 				var start = to.indexOf("<");
 				var end = to.indexOf(">");

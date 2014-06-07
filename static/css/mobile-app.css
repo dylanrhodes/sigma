@@ -669,6 +669,10 @@ a:active.save {
 	margin-bottom: 5px;
 }
 
+.compose-body-section {
+	border-top: 1px solid #eee;
+}
+
 .compose textarea {
 	height: 75%;
 }

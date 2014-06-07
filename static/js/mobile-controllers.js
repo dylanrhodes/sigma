@@ -146,6 +146,7 @@ sigmaApp.controller('EmailListCtrl', function($scope, $http, Emails) {
 		if($scope.emails && $scope.emails.contacts)
 			$scope.compose_tbl.plugins['autocomplete'].setValues($scope.emails.contacts);
 		$(".textboxlist-autocomplete-placeholder").hide();
+		$(".textboxlist-autocomplete-results").hide();
 		setTimeout('$(".textboxlist-autocomplete").width($(".textboxlist").width());', 150);
 	}
 
@@ -466,9 +467,15 @@ sigmaApp.factory('Emails', function($http) {
 			var from = email.from.replace(/"/g, "");
 			var start = from.indexOf("<");
 			var end = from.indexOf(">");
-			email.fromEmail = from.substring(start + 1, end);
-			email.fromName = "";
-			if (start != 0) email.fromName = from.substring(0, start-1);
+			if (start >= 0) {
+				email.fromEmail = from.substring(start + 1, end);
+				email.fromName = "";
+				if (start != 0) email.fromName = from.substring(0, start-1);
+			}
+			else {
+				email.fromName = "";
+				email.fromEmail = from;
+			}
 			this.contacts.unshift([this.contacts.length, 
 									email.fromName + " " + email.fromEmail, 
 									email.fromName != "" ? email.fromName : email.fromEmail,

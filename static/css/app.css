@@ -780,3 +780,45 @@ a:active.save {
 	text-align: right;
 	margin-top: 38px;
 }
+
+
+/* textboxlist autocomplete */
+
+.textboxlist-bits, .textboxlist-autocomplete-placeholder, .textboxlist-autocomplete-results {
+	display:inline-block;
+	border: 1px solid #eee;
+	border-radius: 3px;
+	padding: 5px;
+	width: 100%;
+	background: #fff;
+	box-shadow: none;
+}
+
+.textboxlist input {
+	border: none;
+	padding: 0px;
+}
+
+.textboxlist-bit {
+	margin: 0px;
+	margin-right: 3px;
+}
+
+.textboxlist-bit-editable {
+	border: 1px solid #fff;
+	padding-top: 2px;
+	padding-bottom: 2px;
+}
+
+.textboxlist-autocomplete-result {
+	background: #fff;
+}
+
+.textboxlist-autocomplete-result-focus {
+	background: #C6D9E4;
+	border-radius: 3px;
+}
+
+.textboxlist-bits {
+	border: 1px solid #eee;
+}
