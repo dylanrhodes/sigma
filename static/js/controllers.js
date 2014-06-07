@@ -132,6 +132,8 @@ sigmaApp.controller('EmailListCtrl', function($scope, $http, Emails) {
 		$('.cc-button').attr('class', 'hidden');
 		$('#compose-cc-area').attr('class', 'compose-cc');
 		$('#compose-bcc-area').attr('class', 'compose-bcc');
+		$(".compose-bcc-area").show();
+		$(".compose-cc-area").show();
 		var height = $('#compose-body').height() - 40;
 		$('#compose-body').css('height', height + 'px');
 		$scope.cc = true;
