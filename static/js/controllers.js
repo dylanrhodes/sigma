@@ -115,6 +115,7 @@ sigmaApp.controller('EmailListCtrl', function($scope, $http, Emails) {
 							.error(function() {console.log("Didn't successfully push read change");});
 						}
 						obj.read = 1;
+						$scope.$apply();
 					}
 				});
 			}
@@ -418,6 +419,7 @@ sigmaApp.controller('EmailListCtrl', function($scope, $http, Emails) {
 					  }
 					  $scope.emails.unread[obj.category-1]--;
 					  obj.read = 1;
+					  $scope.$apply();
 				  }
 			  }
 			  else {
@@ -434,6 +436,7 @@ sigmaApp.controller('EmailListCtrl', function($scope, $http, Emails) {
 					  }
 					  $scope.emails.unread[obj.category-1]++;
 					  obj.read = 0;
+					  $scope.$apply();
 				}
 			  }
 			 }
@@ -553,6 +556,7 @@ sigmaApp.controller('EmailListCtrl', function($scope, $http, Emails) {
 								  }
 								  $scope.emails.unread[obj.category-1]--;
 								  obj.read = 1;
+								  $scope.$apply();
 							  }
 							  if (!obj.html) {
 								$('.message-body').css('white-space', 'pre-line');
@@ -618,6 +622,7 @@ sigmaApp.controller('EmailListCtrl', function($scope, $http, Emails) {
 								  }
 								  $scope.emails.unread[obj.category-1]--;
 								  obj.read = 1;
+								  $scope.$apply();
 							  }
 							  if (!obj.html) {
 								$('.message-body').css('white-space', 'pre-line');
@@ -697,6 +702,7 @@ sigmaApp.controller('EmailListCtrl', function($scope, $http, Emails) {
 				  }
 				  $scope.emails.unread[obj.category-1]--;
 				  obj.read = 1;
+				  $scope.$apply();
 			  }
 			  if (!obj.html) {
 				$('.message-body').css('white-space', 'pre-line');
@@ -749,6 +755,7 @@ sigmaApp.controller('EmailListCtrl', function($scope, $http, Emails) {
 						  }
 						  $scope.emails.unread[obj.category-1]--;
 						  obj.read = 1;
+						  $scope.$apply();
 					  }
 					  if (!obj.html) {
 						$('.message-body').css('white-space', 'pre-line');
