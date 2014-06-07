@@ -659,14 +659,14 @@ sigmaApp.controller('EmailListCtrl', function($scope, $http, Emails) {
 	$(document).on("click", ".btn-default", function(e) {
 		$scope.emails.aside = {
 			"title": "Digest Already Read",
-			"content": "Refresh to Update Digest"
+			"content": "<div class='summary'>Refresh to Update Digest</div>"
 		};
 	});
 	
 	$(document).on("click", ".close", function(e) {
 		$scope.emails.aside = {
 			"title": "Digest Already Read",
-			"content": "Refresh to Update Digest"
+			"content": "<div class='summary'>Refresh to Update Digest</div>"
 		};
 	});
 
@@ -1041,7 +1041,7 @@ sigmaApp.factory('Emails', function($http) {
 					else {
 						this.aside = {
 							"title": "No Unread Emails in Digest",
-							"content": "Refresh to Update Digest"
+							"content": "<div class='summary'>Refresh to Update Digest</div>"
 						};
 					}
 				}.bind(this))
