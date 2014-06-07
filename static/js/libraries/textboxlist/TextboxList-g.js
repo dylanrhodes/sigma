@@ -20,6 +20,7 @@ $.TextboxList = function(element, _options){
     max: null,
 		unique: false,
 		uniqueInsensitive: true,
+		placeholder : "",
     endEditableBit: true,
 		startEditableBit: true,
 		hideEditableBits: true,
@@ -208,17 +209,6 @@ $.TextboxList = function(element, _options){
 		return $.inArray(uniqueValue(v), index);
 	};
 	
-	var clear = function() {
-        element.val('')
-        var values = [];
-        list.children().each(function(){
-			var bit = getBit(this);
-			if (!bit.is('editable')) values.push(bit.remove());
-		});
-		blur();
-       return values;
-    }
-	
 	this.onFocus = function(bit){
 		if (current) current.blur();
 		clearTimeout(blurtimer);
@@ -278,7 +268,6 @@ $.TextboxList = function(element, _options){
 	this.create = create;
 	this.add = add;
 	this.getValues = getValues;
-	this.clear = clear;
 	this.plugins = [];
 	init();
 };
@@ -319,10 +308,10 @@ $.TextboxListBit = function(type, value, textboxlist, _options){
 			}
 			bit.children().click(function(e){ e.stopPropagation(); e.preventDefault(); });
 		} else {
-			element = $('<input type="text" class="'+ typeprefix +'-input" autocomplete="off" />').val(self.value ? self.value[1] : '').appendTo(bit);
+			element = $('<input type="text" class="'+ typeprefix +'-input" autocomplete="off" placeholder="' + textboxlist.getOptions().placeholder + '" />').val(self.value ? self.value[1] : '').appendTo(bit);
 			if (chk(options.tabIndex)) element.tabIndex = options.tabIndex;
 			if (options.growing) new $.GrowingInput(element, options.growingOptions);		
-			element.focus(function(){ focus(true); if($("#any_check").is(":checked")) { thatUnselectLink.click(); } }).blur(function(){
+			element.focus(function(){ focus(true); }).blur(function(){
 				blur(true);
 				if (options.addOnBlur) toBox(); 
 			});				
