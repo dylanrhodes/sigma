@@ -308,37 +308,6 @@ button.loadMore {
 	/*color: #424242;*/
 }
 
-
-.category-bar {
-	position:fixed;
-	width:100%;
-	bottom: 0;
-	text-align: center;
-	z-index: 99;
-	background: #fff;
-}
-
-.category-bar .category {
-	display:inline-block;
-	width:18.5%;
-	padding:4px;
-	margin-right:1px;
-	color:#fff;
-	font-size:16px;
-	opacity: .6;
-	cursor:pointer;
-}
-
-.category-id {
-	color: rgba(255,255,255,0.75);
-	font-weight: bold;
-}
-
-.category-bar .category:hover,
-.category-bar .category-selected {
-	opacity: 1.0 !important;
-}
-
 .emails-area::-webkit-scrollbar-track,
 .message-view::-webkit-scrollbar-track {
 	-webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
@@ -649,7 +618,8 @@ a:active.save {
 	top: 0;
 	z-index: 99;
 	width: 100%;
-	background: rgba(0,0,0,0.67);
+	background: rgba(255,255,255,0.87);
+	cursor: pointer;
 }
 
 
@@ -667,10 +637,13 @@ a:active.save {
 }
 
 .category-bar {
-
+	text-align: center;
+	overflow: auto;
+	font-size: 0px;
 }
 
 .category-bar-item {
+	font-size: 12px;
 	text-align: center;
 	overflow: hidden;
 	text-overflow:ellipsis;
@@ -678,10 +651,12 @@ a:active.save {
 	font-weight: bold;
 	height: 50px;
 	width: 75px;
+	cursor: pointer;
+	/*background: #fff;*/
 }
 
 .category-bar-category {
-	color: #fff;
+	/*color: #fff;*/
 }
 
 .category-bar-focused {

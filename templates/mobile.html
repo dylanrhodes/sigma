@@ -50,7 +50,7 @@
 	    		<div class="category-bar-item category-bar-all {{focusedCategory == '' ? 'category-bar-focused' : ''}}" ng-click="categoryClick('')" id="category-all-btn">
 	    			All
 	    		</div>
-		        <div ng-repeat="category in categories" class="category-bar-item category-bar-category {{focusedCategory == category.id ? 'category-bar-focused' : ''}}" style = "background-color: {{category.color}};" ng-click="categoryClick(category.id)">
+		        <div ng-repeat="category in categories" class="category-bar-item category-bar-category {{focusedCategory == category.id ? 'category-bar-focused' : ''}}" style = "color: {{category.color}};" ng-click="categoryClick(category.id)">
 		        	{{category.name}}
 		        </div>
 			</div>
