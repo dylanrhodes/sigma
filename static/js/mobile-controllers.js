@@ -327,6 +327,9 @@ sigmaApp.controller('EmailListCtrl', function($scope, $http, Emails) {
 				if($(this).hasClass("fandle"))
 					return;
 				var emailId = $(this).attr("rel");
+				console.log(emailId);
+				console.log($scope.emails.byId[emailId]);
+				console.log($scope.categories[$scope.emails.byId[emailId].category - 1]);
 				$(this).fandle({ categories : $scope.categories,
 					radius : 160,
 					innerRadius : 25,
