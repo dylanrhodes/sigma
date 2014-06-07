@@ -1005,6 +1005,7 @@ sigmaApp.factory('Emails', function($http) {
 							color = categories[i]['color'];
 						}
 					}
+					console.log("<h3 style='color:" + color + "'>" + name + "</h3>");
 					content += "<h3 style='color:" + color + "'>" + name + "</h3>";
 					var arr = data["emails"]
 					for (var k in arr) {
