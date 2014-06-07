@@ -144,9 +144,9 @@ sigmaApp.controller('EmailListCtrl', function($scope, $http, Emails) {
 
 	$scope.tbl_values = function() {
 		var tbldata = [];
-		tbldata.push(["One"]);
-		tbldata.push(["Two"]);
-		tbldata.push(["Three"]);
+		tbldata.push([1, "One"]);
+		tbldata.push([2, "Two"]);
+		tbldata.push([3, "Three"]);
 		/*
 		for(id in places) {
 			if(id != 0)
