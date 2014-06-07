@@ -98,6 +98,11 @@ sigmaApp.controller('EmailListCtrl', function($scope, $http, Emails) {
   $scope.emailsById = {};
   $scope.windowHeight = $(window).height();
   $scope.boxWidth = null;
+
+  $scope.showingMenu = false;
+  $scope.toggleMenu = function() {
+  	$scope.showingMenu = ! $scope.showingMenu;
+  }
   // console.log($scope.emails.unread.length);
   // for (var i = 0; i < $scope.emails.unread.length; i++) {
 	// var cat = i + 1;
@@ -188,6 +193,10 @@ sigmaApp.controller('EmailListCtrl', function($scope, $http, Emails) {
 	}
 
 	$scope.init = function() {
+		console.log("init");
+
+
+
 		for (var i = 1; i <= $scope.numCat; i++) {
 			$('#cat' + i).attr('class', 'cat-bar');
 			$('#num' + i).attr('class', 'num-bar');
