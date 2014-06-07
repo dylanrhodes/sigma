@@ -454,6 +454,7 @@ button.loadMore {
 }
 
 .compose-view input[type="text"],
+.compose-view input[type="email"]
 .compose-view textarea, {
 	text-align: left;
 	outline: none;
@@ -485,7 +486,7 @@ button.loadMore {
 
 /*CSS for settings.html*/
 
-input[type="text"], textarea, .textboxlist-bits, .textboxlist-autocomplete-placeholder, .textboxlist-autocomplete-results {
+input[type="text"], input[type="email"] textarea, .textboxlist-bits, .textboxlist-autocomplete-placeholder, .textboxlist-autocomplete-results {
 	display:inline-block;
 	border: 1px solid #eee;
 	border-radius: 3px;
@@ -694,4 +695,22 @@ a:active.save {
 
 .compose input, textarea {
 	text-align: left;
+}
+
+
+/* Menu */
+
+.menu-btn {
+	position: fixed;
+	top: 15px;
+	left: 15px;
+	padding: 5px;
+	background: rgba(255,255,255,0.75);
+	color: #47a7ff;
+}
+
+.menu {
+	position: fixed;
+	top: 0;
+	display: none;
 }
