@@ -479,6 +479,7 @@ sigmaApp.factory('Emails', function($http) {
     if (this.busy) return;
     this.busy = true;
     var url = "http://sigma.jmvldz.com/get_emails?callback=JSON_CALLBACK";
+    var contactsCount = 0;
     $http.jsonp(url).success(function(data) {
 	  console.log("SUCCESS");
 	  for (var key in data) {
@@ -506,10 +507,13 @@ sigmaApp.factory('Emails', function($http) {
 				email.fromEmail = from;
 			}
 			// console.log(this.contacts.)
-			this.contacts[email.fromEmail] = [this.contacts.length, 
-									email.fromName + " " + email.fromEmail, 
-									email.fromName != "" ? email.fromName : email.fromEmail,
-									email.fromName + " <em>" + email.fromEmail + "</em>"];
+			if(! this.contacts[email.fromEmail] && contactsCount < 50) {
+				this.contacts[email.fromEmail] = [this.contacts.length, 
+										email.fromName + " " + email.fromEmail, 
+										email.fromName != "" ? email.fromName : email.fromEmail,
+										email.fromName + " <em>" + email.fromEmail + "</em>"];
+				contactsCount ++;
+			}
 			var to = email.to.replace(/"/g, "");
 			var start = to.indexOf("<");
 			var end = to.indexOf(">");
@@ -532,9 +536,13 @@ sigmaApp.factory('Emails', function($http) {
 			if (!email.html) email.message = Autolinker.link(email.message, { truncate: 50 });
 			this.arr.unshift(email);
 			this.byId[email.id] = email;
-			// console.log(this.arr);
 		}
 	  }
+	  var c = [];
+	  $.each(this.contacts, function(i,v) {
+	  	c.push(v);
+	  });
+	  console.log(c);
       this.busy = false;
     }.bind(this));
   };
