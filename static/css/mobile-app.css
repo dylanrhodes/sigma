@@ -603,6 +603,16 @@ a:active.save {
 
 /* Menu */
 
+.top-padding {
+	padding-top: 15px;
+	padding-bottom: 15px;
+	text-align: center;
+}
+
+.top-padding img {
+	height: 50px;
+}
+
 .menu-btn {
 	position: fixed;
 	top: 15px;
