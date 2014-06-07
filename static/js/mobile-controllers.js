@@ -172,6 +172,10 @@ sigmaApp.controller('EmailListCtrl', function($scope, $http, Emails) {
 
 	$scope.initializedTBLvalues = false;
 	$scope.tbl_values = function() {
+		if(!$scope.initializedTBL) {
+			$scope.compose_tbl = new $.TextboxList("#compose-to", {unique: true, placeholder : "To", plugins: {autocomplete: {}}});
+			$scope.initializedTBL = true;
+		}
 		if($scope.emails && $scope.emails.contacts && $scope.emails.contacts.length > 0 && !$scope.initializedTBLvalues) {
 			alert($scope.emails.contacts.length);
 			$scope.compose_tbl.plugins['autocomplete'].setValues($scope.emails.contacts);
@@ -331,12 +335,6 @@ sigmaApp.controller('EmailListCtrl', function($scope, $http, Emails) {
 				+ arguments[0].true_date + ", " + arguments[0].from
 				+ " wrote:\n\n" + arguments[0].message);
 		}
-
-		if(!$scope.initializedTBL) {
-			$scope.compose_tbl = new $.TextboxList("#compose-to", {unique: true, placeholder : "To", plugins: {autocomplete: {}}});
-			$scope.initializedTBL = true;
-		}
-		$scope.tbl_values();
 	}
 
 	$scope.categoryClick = function(categoryId) {
@@ -377,7 +375,7 @@ sigmaApp.controller('EmailListCtrl', function($scope, $http, Emails) {
 				); 
 			});
 		$scope.tbl_values();
-		
+
 	}
 
   $scope.focusCategory = function(categoryId) {
