@@ -143,19 +143,9 @@ sigmaApp.controller('EmailListCtrl', function($scope, $http, Emails) {
 	}
 
 	$scope.tbl_values = function() {
-		var tbldata = [];
-		tbldata.push([1, "One"]);
-		tbldata.push([2, "Two"]);
-		tbldata.push([3, "Three"]);
-		/*
-		for(id in places) {
-			if(id != 0)
-				tbldata.push([id, places[id]["name"]]);
-		}
-		*/
-		$scope.compose_tbl.plugins['autocomplete'].setValues(tbldata);
+		if($scope.emails && $scope.emails.contacts)
+			$scope.compose_tbl.plugins['autocomplete'].setValues($scope.emails.contacts);
 		$(".textboxlist-autocomplete").width($(".textboxlist").width());
-		console.log($(".textboxlist").width());
 	}
 
 	$scope.init = function() {
@@ -291,6 +281,7 @@ sigmaApp.controller('EmailListCtrl', function($scope, $http, Emails) {
 		//$scope.init();
 	}
 
+	$scope.initializedTBL = false
 	$scope.compose = function() {
 		$scope.showing = $scope.composeId;
 
@@ -307,6 +298,12 @@ sigmaApp.controller('EmailListCtrl', function($scope, $http, Emails) {
 				+ arguments[0].true_date + ", " + arguments[0].from
 				+ " wrote:\n\n" + arguments[0].message);
 		}
+
+		if(!$scope.initializedTBL) {
+			$scope.compose_tbl = new $.TextboxList("#compose-to", {unique: true, plugins: {autocomplete: {}}});
+			$scope.initializedTBL = true;
+		}
+		$scope.tbl_values();
 	}
 
 	$scope.categoryClick = function(categoryId) {
@@ -316,15 +313,10 @@ sigmaApp.controller('EmailListCtrl', function($scope, $http, Emails) {
 	}
 
 	$scope.fandleInitialized = false;
-	$scope.initializedTBL = false
 	$scope.initializeFandle = function() {
 		// if($scope.fandleInitialized)
 		// 	return;
-		if(!$scope.initializedTBL) {
-			$scope.compose_tbl = new $.TextboxList("#compose-to", {unique: true, plugins: {autocomplete: {}}});
-			$scope.initializedTBL = true;
-		}
-		$scope.tbl_values();
+		
 
 
 		$scope.fandleInitialized = true;
@@ -438,6 +430,7 @@ sigmaApp.factory('Emails', function($http) {
     this.after = '';
 	this.next = 1;
 	this.length = length;
+	this.contacts = [];
   };
 
   Emails.prototype.init = function() {
@@ -475,6 +468,10 @@ sigmaApp.factory('Emails', function($http) {
 			email.fromEmail = from.substring(start + 1, end);
 			email.fromName = "";
 			if (start != 0) email.fromName = from.substring(0, start-1);
+			this.contacts.unshift([this.contacts.length, 
+									email.fromName + " " + email.fromEmail, 
+									email.fromName + "<em>" + email.fromEmail + "</em>",
+									email.fromName != "" email.fromName ? email.fromName : email.fromEmail]);
 			var to = email.to.replace(/"/g, "");
 			var start = to.indexOf("<");
 			var end = to.indexOf(">");
