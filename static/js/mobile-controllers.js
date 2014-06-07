@@ -350,9 +350,10 @@ sigmaApp.controller('EmailListCtrl', function($scope, $http, Emails) {
 					return;
 				var emailId = $(this).attr("rel");
 				var fanCats = Array();
-				$.each($scope.categories, function(v) {
+				$.each($scope.categories, function(i,v) {
+					console.log(v);
 					if(v.name != "Uncategorized")
-						fanCats.push(v.slice(0));
+						fanCats.unshift(v.slice(0));
 				});
 				$(this).fandle({ categories : fanCats,
 					radius : 160,
