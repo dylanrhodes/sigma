@@ -43,14 +43,15 @@
 		{% raw %}
   		<div class="menu {{showingMenu ? '' : 'hidden'}}">
   			<div class="control-bar row">
-			  <div class="control-bar-item col-xs-1"><!-- menu button placeholder --></div>
-			  <div class="control-bar-item col-xs-1">
+			  <!-- <div class="control-bar-item col-xs-1"><! -- menu button placeholder --</div> -->
+			  <div class="control-bar-item col-xs-4">
 			  	<a href="#" ng-click="settings()"><img src="/static/images/settings-mobile.png" /></a>
+			  	<a href="#" ng-click="settings()"><img src="/static/images/by-unread-mobile.png" /></a>
 			  </div>
-		      <div class="control-bar-item col-xs-9 control-bar-search">		      	
+		      <div class="control-bar-item col-xs-6 control-bar-search">		      	
 		        <input type="search" id="search" placeholder="Search" ng-model="search" />
 		      </div>
-		      <div class="control-bar-item col-xs-1"><a href="#" ng-click="compose()"><img src="/static/images/write-mobile.png" /></a></div>
+		      <div class="control-bar-item col-xs-2"><a href="#" ng-click="compose()"><img src="/static/images/write-mobile.png" /></a></div>
 		    </div>
 	    	<div class="category-bar">
 	    		<div class="category-bar-item category-bar-all {{focusedCategory == '' ? 'category-bar-focused' : ''}}" ng-click="categoryClick('')" id="category-all-btn">

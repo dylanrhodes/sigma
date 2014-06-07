@@ -653,6 +653,7 @@ a:active.save {
 .control-bar-item {
 	margin: 0px;
 	padding: 0px;
+	text-align:right;
 }
 
 .category-bar {
