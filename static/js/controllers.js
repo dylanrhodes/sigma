@@ -969,7 +969,7 @@ sigmaApp.factory('Emails', function($http) {
 						  content += "<div class='col-xs-9 summary'>"
 						  content += data[k];
 						  content += "</div>";
-						  content += "<a class='col-xs-3 keep-unread' id='" + k + "'>Keep Unread</a>"
+						  content += "<a class='col-xs-3 keep-unread' id='" + k + "' title='" + k + "' href='" + k + "'>Keep Unread</a>"
 						  content += "</div>";
 						}
 					}
