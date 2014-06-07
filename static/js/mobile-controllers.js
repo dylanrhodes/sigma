@@ -99,10 +99,10 @@ sigmaApp.controller('EmailListCtrl', function($scope, $http, Emails) {
   $scope.windowHeight = $(window).height();
   $scope.boxWidth = null;
 
-  $scope.showingMenu = false;
-  $scope.toggleMenu = function() {
-  	$scope.showingMenu = ! $scope.showingMenu;
-  }
+  // $scope.showingMenu = false;
+  // $scope.toggleMenu = function() {
+  // 	$scope.showingMenu = ! $scope.showingMenu;
+  // }
   // console.log($scope.emails.unread.length);
   // for (var i = 0; i < $scope.emails.unread.length; i++) {
 	// var cat = i + 1;
