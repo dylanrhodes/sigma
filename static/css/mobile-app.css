@@ -689,7 +689,7 @@ a:active.save {
 }
 
 .compose textarea {
-	height: 75%;
+	height: 300px;
 }
 
 .compose input, textarea {
