@@ -496,6 +496,12 @@ input[type="text"], textarea, .textboxlist-bits, .textboxlist-autocomplete-place
 	margin-right: 3px;
 }
 
+.textboxlist-bit-editable {
+	border: 1px solid #fff;
+	padding-top: 2px;
+	padding-bottom: 2px;
+}
+
 .textboxlist-autocomplete-result {
 	background: #fff;
 }
@@ -503,6 +509,10 @@ input[type="text"], textarea, .textboxlist-bits, .textboxlist-autocomplete-place
 .textboxlist-autocomplete-result-focus {
 	background: #C6D9E4;
 	border-radius: 3px;
+}
+
+.textboxlist-bits {
+	border: 1px solid #eee;
 }
 
 textarea {
@@ -652,9 +662,7 @@ a:active.save {
 	padding: 10px;
 	text-align: left;
 }
-.textboxlist-bits {
-	border: 1px solid #eee;
-}
+
 
 .compose-section {
 	margin-top:5px;
