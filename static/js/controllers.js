@@ -116,7 +116,7 @@ sigmaApp.controller('EmailListCtrl', function($scope, $http, Emails) {
 						}
 						obj.read = 1;
 					}
-				}
+				});
 			}
 		}
 		$scope.emails.digest = [];
@@ -666,7 +666,7 @@ sigmaApp.controller('EmailListCtrl', function($scope, $http, Emails) {
 				}
 				obj.read = 0;
 			}
-		  }
+		  });
 	});
 	
 	$(document).on("click", ".ind-email", function(e) {
