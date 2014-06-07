@@ -481,7 +481,6 @@ input[type="text"], textarea, .textboxlist-bits, .textboxlist-autocomplete-place
 	border: 1px solid #eee;
 	border-radius: 3px;
 	padding: 5px;
-	padding-left: 8px;
 	width: 100%;
 	background: #fff;
 	box-shadow: none;
@@ -492,8 +491,9 @@ input[type="text"], textarea, .textboxlist-bits, .textboxlist-autocomplete-place
 	padding: 0px;
 }
 
-.textboslist-bit {
+.textboxlist-bit {
 	margin: 0px;
+	margin-right: 3px;
 }
 
 .textboxlist-autocomplete-result {

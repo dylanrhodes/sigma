@@ -154,6 +154,8 @@ sigmaApp.controller('EmailListCtrl', function($scope, $http, Emails) {
 		}
 		*/
 		$scope.compose_tbl.plugins['autocomplete'].setValues(tbldata);
+		$(".textboxlist-autocomplete").width($(".textboxlist").width());
+		console.log($(".textboxlist").width());
 	}
 
 	$scope.init = function() {
