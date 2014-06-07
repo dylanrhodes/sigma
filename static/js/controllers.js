@@ -103,7 +103,7 @@ sigmaApp.controller('EmailListCtrl', function($scope, $http, Emails) {
 		for (var k in $scope.emails.digest) {
 			if ($scope.emails.digest.hasOwnProperty(k)) {
 				$.map($scope.emails.arr, function(obj, index) {
-					if(obj.id == k && obj.read = 0) {
+					if(obj.id == k && obj.read == 0) {
 						if (window.location.search != "?home") {
 						  var elem = {"id" : k};
 						  $http({
@@ -660,7 +660,7 @@ sigmaApp.controller('EmailListCtrl', function($scope, $http, Emails) {
 		var id = parseInt($(this).attr('title'));
 		var elem = {"id" : id};
 		$.map($scope.emails.arr, function(obj, index) {
-			if(obj.id == id && obj.read = 1) {
+			if(obj.id == id && obj.read == 1) {
 				if (window.location.search != "?home") {
 					$http({
 						method: 'POST',
