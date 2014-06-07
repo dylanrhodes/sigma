@@ -15,7 +15,6 @@ Script: TextboxList.js
 $.TextboxList = function(element, _options){
 	
 	var original, container, list, current, focused = false, index = [], blurtimer, events = {};
-	console.log(_options);
 	var options = $.extend(true, {
     prefix: 'textboxlist',
     max: null,
@@ -38,7 +37,6 @@ $.TextboxList = function(element, _options){
 		},
 		decode: function(o){ return o.split(','); }
   }, _options);
-	console.log(options);
 	
 	element = $(element);
 	
@@ -310,9 +308,6 @@ $.TextboxListBit = function(type, value, textboxlist, _options){
 			}
 			bit.children().click(function(e){ e.stopPropagation(); e.preventDefault(); });
 		} else {
-			console.log(options);
-			console.log(options.placeholder);
-			console.log(textboxlist.getOptions());
 			element = $('<input type="text" class="'+ typeprefix +'-input" autocomplete="off" placeholder="' + textboxlist.getOptions().placeholder + '" />').val(self.value ? self.value[1] : '').appendTo(bit);
 			if (chk(options.tabIndex)) element.tabIndex = options.tabIndex;
 			if (options.growing) new $.GrowingInput(element, options.growingOptions);		
