@@ -911,17 +911,27 @@ sigmaApp.factory('Emails', function($http) {
 				}
 				if (!email.html) email.message = Autolinker.link(email.message, { truncate: 50 });
 				if (email.html) email.message = email.message.replace("* {", "message-body {");
-				if (dCats.indexOf(email.category) >= 0 && email.read == 0) this.digest.unshift(email);
+				// if (dCats.indexOf(email.category) >= 0 && email.read == 0) this.digest.unshift(email);
 				this.arr.unshift(email);
 			}
+			for (var i = 0; i < this.dCat.length; i++) {
+				var call = "/get_category_summary?callback=JSON_CALLBACK&category=" + dCat[i];
+				$http.jsonp(call).success(function(data) {
+					this.digest.push.apply(this.digest, data);
+				}.bind(this))
+				.error(function() {console.log("Couldn't get digest for " + dCat[i]);});
+			}
 			var content = "";
-			for (var i = 0; i < this.digest.length; i++) {
-			  content += "<div class='row digest-row'>"
-			  content += "<div class='col-xs-9 summary'>"
-			  content += this.digest[i].subject;
-			  content += "</div>";
-			  content += "<a class='col-xs-3'>Keep Unread</a>"
-			  content += "</div>";
+			
+			for (var k in this.digest) 
+				if (this.digest.hasOwnProperty(k)) {
+				  content += "<div class='row digest-row'>"
+				  content += "<div class='col-xs-9 summary'>"
+				  content += this.digest[k];
+				  content += "</div>";
+				  content += "<a class='col-xs-3' ng-click='markUnread(" + k + ")'>Keep Unread</a>"
+				  content += "</div>";
+				}
 			}
 			console.log(content);
 			this.aside = {
