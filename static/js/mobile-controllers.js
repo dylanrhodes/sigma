@@ -105,7 +105,10 @@ sigmaApp.controller('EmailListCtrl', function($scope, $http, Emails) {
 
   $scope.showingMenu = true;
   $scope.toggleMenu = function() {
-  	$scope.showingMenu = ! $scope.showingMenu;
+  	if(arguments.length > 0)
+  		$scope.showingMenu = arguments[0];
+  	else
+  		$scope.showingMenu = ! $scope.showingMenu;
   }
   // console.log($scope.emails.unread.length);
   // for (var i = 0; i < $scope.emails.unread.length; i++) {
@@ -554,7 +557,7 @@ sigmaApp.factory('Emails', function($http) {
 			}
 			if (!email.html) email.message = Autolinker.link(email.message, { truncate: 50 });
 			if (email.html) email.message = email.message.replace("* {", "message-body {");
-			
+
 			if(! this.contacts[email.fromEmail] && contactsCount < 20) {
 				this.contacts[email.fromEmail] = [this.contacts.length, 
 										email.fromName + " " + email.fromEmail]; /*, 

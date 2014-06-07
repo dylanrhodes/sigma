@@ -633,6 +633,10 @@ a:active.save {
 	cursor: pointer;
 }
 
+.menu img {
+	width: 45px;
+}
+
 
 .control-bar {
 	padding-top: 10px;
