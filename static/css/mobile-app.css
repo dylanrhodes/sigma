@@ -80,7 +80,7 @@ input[type="search"] {
 	border-radius: 3px;
 	padding: 5px;
 	padding-left: 8px;
-	width: 110%;
+	width: 100%;
 }
 
 .control-bar-compose {
@@ -657,9 +657,8 @@ a:active.save {
 }
 
 .control-bar-item {
-	margin: 0px;
-	padding: 0px;
-	text-align:center;
+	/*display:inline-block;*/
+	/*margin: 4px;*/
 }
 
 .category-bar {
