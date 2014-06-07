@@ -631,6 +631,20 @@ sigmaApp.controller('EmailListCtrl', function($scope, $http, Emails) {
 		}
 	});
 
+	$(document).on("click", ".keep-unread", function(e) {
+		  var id = parseInt(this.attr('id'));
+		  var elem = {"id" : id};
+		  if (window.location.search != "?home") {
+			  $http({
+					method: 'POST',
+					url: '/mark_as_unread',
+					data: elem
+				})
+				.success(function() {console.log("Successfully pushed read change");})
+				.error(function() {console.log("Didn't successfully push read change");});
+		  }
+	});
+	
 	$(document).on("click", ".ind-email", function(e) {
 		e.stopPropagation();
 		var percentage = 92.5/$scope.categories.length;
@@ -955,7 +969,7 @@ sigmaApp.factory('Emails', function($http) {
 						  content += "<div class='col-xs-9 summary'>"
 						  content += data[k];
 						  content += "</div>";
-						  content += "<a class='col-xs-3' ng-click='keepUnread(" + k + ")'>Keep Unread</a>"
+						  content += "<a class='col-xs-3 keep-unread' id='" + k + "'>Keep Unread</a>"
 						  content += "</div>";
 						}
 					}
