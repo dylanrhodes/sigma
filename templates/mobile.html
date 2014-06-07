@@ -74,20 +74,22 @@
 	            </div>
 			</div>
 			<div class="viewing {{showingClass(viewingId)}}">
-				<div class="row nopadding-atall">
-					<div class="col-xs-5 nopadding-atall viewing-category" style="color:{{categories[email.category - 1].color}}">
-						<b>{{categories[emails.byId.category - 1].name}}</b>
+				<div class="viewing-message-top">
+					<div class="row nopadding-atall">
+						<div class="col-xs-5 nopadding-atall viewing-category" style="color:{{categories[viewingEmail.category - 1].color}}">
+							<b>{{categories[viewingEmail.category - 1].name}}</b>
+						</div>
+						<div class="col-xs-7 nopadding-atall viewing-actions">
+							<img src="/static/images/mark-unread.png" />
+							<img src="/static/images/trash-email.png" />
+							<img src="/static/images/reply.png" ngclick="compose(email)" />
+						</div>
 					</div>
-					<div class="col-xs-7 nopadding-atall viewing-actions">
-						<img src="/static/images/mark-unread.png" />
-						<img src="/static/images/trash-email.png" />
-						<img src="/static/images/reply.png" ngclick="compose(email)" />
-					</div>
+					<div class="viewing-from">{{viewingEmail.fromName}} <em>{{viewingEmail.fromEmail}}</em></div>
+					<div class="viewing-subject">{{viewingEmail.subject}}</div>
+					<div clas="viewing-date">{{viewingEmail.date}}</div>
 				</div>
-				<div class="viewing-from">{{viewingEmail.fromName}} <em>{{viewingEmail.fromEmail}}</em></div>
-				<div class="viewing-subject">{{viewingEmail.subject}}</div>
-				<div clas="viewing-date">{{viewingEmail.date}}</div>
-				<div class="viewing-message" ng-bind-html="viewingEmail.message"></div>
+				<div class="viewing-message"></div>
 			</div>
 			<div class="compose {{showingClass(composeId)}}">
 				<div class="compose-section">

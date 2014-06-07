@@ -665,6 +665,12 @@ a:active.save {
 	padding-top: 5px;
 }
 
+.no-html-email-view {
+	white-space: pre-line;
+	overflow: auto;
+	height: 100%;
+}
+
 /* compose */
 
 .compose {
