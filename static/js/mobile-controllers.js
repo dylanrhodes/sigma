@@ -2,7 +2,7 @@
 
 /* Controllers */
 
-var sigmaApp = angular.module('sigmaApp', ['ngSanitize', 'mgcrea.ngStrap']);
+var sigmaApp = angular.module('sigmaApp', ['ngSanitize', 'mgcrea.ngStrap', 'ngTouch']);
 
 sigmaApp.controller('EmailListCtrl', function($scope, $http, Emails) {
 
@@ -17,6 +17,9 @@ sigmaApp.controller('EmailListCtrl', function($scope, $http, Emails) {
 		$scope.emails = new Emails(data);
 		$scope.emails.init();
   		$scope.numCat = $scope.categories.length;
+
+  		console.log($(".menu").height());
+  		$(".top-padding").height($(".menu").height());
 	  })
 	  .error(function() {console.log("Didn't load categories");});
   }
@@ -99,7 +102,7 @@ sigmaApp.controller('EmailListCtrl', function($scope, $http, Emails) {
   $scope.windowHeight = $(window).height();
   $scope.boxWidth = null;
 
-  $scope.showingMenu = false;
+  $scope.showingMenu = true;
   $scope.toggleMenu = function() {
   	$scope.showingMenu = ! $scope.showingMenu;
   }
@@ -506,9 +509,7 @@ sigmaApp.factory('Emails', function($http) {
 			email.true_date = day.format('MMMM DD YYYY, h:mm:ssa');
 			
 			email.date = day.fromNow();
-			email.snippet = "";
-			while(email.snippet.length)
-			email.snippet = email.message.substr(0, 200);
+			email.snippet = email.message.substr(0, 200);			
 			email.id = email.id.toString();
 			var from = email.from.replace(/"/g, "");
 			var start = from.indexOf("<");
