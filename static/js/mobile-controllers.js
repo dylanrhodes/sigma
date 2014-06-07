@@ -316,11 +316,6 @@ sigmaApp.controller('EmailListCtrl', function($scope, $http, Emails) {
 
 	$scope.fandleInitialized = false;
 	$scope.initializeFandle = function() {
-		// if($scope.fandleInitialized)
-		// 	return;
-		
-
-
 		$scope.fandleInitialized = true;
 		$(".email-fandle").each(
 			function() { 
@@ -456,6 +451,7 @@ sigmaApp.factory('Emails', function($http) {
 	  for (var key in data) {
 		if(data.hasOwnProperty(key)) {
 			var email = data[key];
+			console.log(email);
 			email.millis = (new Date(email.date)).getTime();
 			var day = moment(email.date, "ddd, DD MMM YYYY HH:mm:ss ZZ");
 			email.true_date = day.format('MMMM DD YYYY, h:mm:ssa');
