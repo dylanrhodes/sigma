@@ -19,6 +19,7 @@
   <script src="{{ url_for('static', filename='js/libraries/angular-strap-2.0.2/dist/angular-strap.tpl.min.js') }}"></script>
   <script src="{{ url_for('static', filename='js/libraries/angular-animate.js') }}"></script>
   <script src="{{ url_for('static', filename='js/libraries/angular-sanitize.js') }}"></script>
+  <script src="{{ url_for('static', filename='js/libraries/angular-touch.js') }}"></script>
   <script src="{{ url_for('static', filename='js/mobile-controllers.js') }}"></script>
   <script src="{{ url_for('static', filename='js/d3.js') }}"></script>
   <script src="{{ url_for('static', filename='js/fandle.js') }}"></script>
@@ -58,7 +59,7 @@
 		<!-- <div class="padding col-xs-2"></div> -->
 		<div class="view-area col-xs-12">
 		    <div class="inbox {{showingClass(inboxId)}}">
-				<div ng-repeat="email in emails.arr | orderBy:email.millis:reverse" class="row ind-email {{email.read ? 'read' : ''}} {{showingEmail(email) ? '' : 'hidden'}}" id = "{{email.id}}" style="border-left-color: {{categories[email.category - 1].color}}">
+				<div ng-repeat="email in emails.arr | orderBy:email.millis:reverse" class="row ind-email {{email.read ? 'read' : ''}} {{showingEmail(email) ? '' : 'hidden'}}" id = "{{email.id}}" style="border-left-color: {{categories[email.category - 1].color}}" ng-swipe-right="email.read = 0" ng-swipe-left="email.read = 1">
 					<div class="ind-email-inside">
 						<div class="col-xs-11 email-area" ng-click="viewing(email.id)">
 			             	<div class = "from">{{email.from}}</div>

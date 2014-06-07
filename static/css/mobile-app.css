@@ -611,6 +611,7 @@ a:active.save {
 	background: rgba(255,255,255,0.95);
 	color: #47a7ff;
 	z-index: 100;
+	cursor: pointer;
 }
 
 .menu {
@@ -638,6 +639,7 @@ a:active.save {
 
 .category-bar {
 	text-align: center;
+	height: calc(1em + 30px);
 	overflow: auto;
 	font-size: 0px;
 }
