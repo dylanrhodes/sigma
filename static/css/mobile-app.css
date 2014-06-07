@@ -634,11 +634,17 @@ a:active.save {
 	background: #fff;
 	border-bottom: 1px solid #eee;
 	cursor: pointer;
+	margin-left: 45px;
 }
 
 .menu img,
 .menu-btn img {
-	width: 30px;
+	width: 25px;
+}
+
+.menu a {
+	display: inline-block;
+	padding: 4px;
 }
 
 
@@ -653,7 +659,7 @@ a:active.save {
 .control-bar-item {
 	margin: 0px;
 	padding: 0px;
-	text-align:right;
+	text-align:center;
 }
 
 .category-bar {
