@@ -952,7 +952,7 @@ sigmaApp.factory('Emails', function($http) {
 						  content += data[k];
 						  content += "</div>";
 						  content += "<a class='col-xs-3' ng-click='markUnread(" + k + ")'>Keep Unread</a>"
-						  content += "</div>";
+						  content += "</div>"; //comment
 						}
 					}
 					console.log(content);
