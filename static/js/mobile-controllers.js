@@ -509,7 +509,7 @@ sigmaApp.factory('Emails', function($http) {
 				email.fromEmail = from;
 			}
 			// console.log(this.contacts.)
-			if(! this.contacts[email.fromEmail] && contactsCount < 50) {
+			if(! this.contacts[email.fromEmail] && contactsCount < 20) {
 				this.contacts[email.fromEmail] = [this.contacts.length, 
 										email.fromName + " " + email.fromEmail, 
 										email.fromName != "" ? email.fromName : email.fromEmail,
