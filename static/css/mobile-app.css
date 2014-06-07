@@ -617,11 +617,12 @@ a:active.save {
 	position: fixed;
 	top: 0px;
 	left: 0px;
-	padding: 5px;
+	padding: 10px;
 	background: rgba(255,255,255,0.95);
 	color: #47a7ff;
 	z-index: 100;
 	cursor: pointer;
+	border-radius: 0px 0px 5px 0px;
 }
 
 .menu {
@@ -630,6 +631,8 @@ a:active.save {
 	z-index: 99;
 	width: 100%;
 	background: rgba(255,255,255,0.87);
+	background: #fff;
+	border-bottom: 1px solid #eee;
 	cursor: pointer;
 }
 
