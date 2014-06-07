@@ -996,10 +996,12 @@ sigmaApp.factory('Emails', function($http) {
 		    for (var i = 0; i < dCats.length; i++) {
 				var call = "/get_category_summary?callback=JSON_CALLBACK&category=" + dCats[i];
 				$http.jsonp(call).success(function(data) {
-					var cat = parseInt(data["category"]);
+					var cat = data["category"];
+					console.log(cat);
 					var name = "";
 					var color = "";
 					for (var i = 0; i < length; i++) {
+						console.log("looking for: " + cat + " found: " + categories[i]['id']);
 						if (categories[i]['id'] == cat) {
 							name = categories[i]['name'];
 							color = categories[i]['color'];
