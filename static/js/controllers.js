@@ -121,6 +121,9 @@ sigmaApp.controller('EmailListCtrl', function($scope, $http, Emails) {
 			}
 		}
 		$scope.emails.digest = [];
+		$scope.emails.aside = {
+			"title": "Digest Already Read",
+		};
 		$scope.$apply();
   }
 
@@ -996,12 +999,23 @@ sigmaApp.factory('Emails', function($http) {
 		    for (var i = 0; i < dCats.length; i++) {
 				var call = "/get_category_summary?callback=JSON_CALLBACK&category=" + dCats[i];
 				$http.jsonp(call).success(function(data) {
-					for (var k in data) {
-						if (data.hasOwnProperty(k)) {
-						  this.digest[k] = data[k];
+					var cat = parseInt(data["category"]);
+					var name = "";
+					var color = "";
+					for (var i = 0; i < length; i++) {
+						if (categories[i]['id'] == cat) {
+							name = categories[i]['name'];
+							color = categories[i]['color'];
+						}
+					}
+					content += "<h3 style='color:" + color + "'>" + name + "</h3>";
+					var arr = data["emails"]
+					for (var k in arr) {
+						if (arr.hasOwnProperty(k)) {
+						  this.digest[k] = arr[k];
 						  content += "<div class='row digest-row'>"
 						  content += "<div class='col-xs-9 summary'>"
-						  content += data[k];
+						  content += arr[k];
 						  content += "</div>";
 						  content += "<a class='col-xs-3 keep-unread' title='" + k + "'>Keep Unread</a>"
 						  content += "</div>";
