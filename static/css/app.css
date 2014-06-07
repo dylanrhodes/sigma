@@ -599,6 +599,10 @@ button.loadMore {
 	border:none;
 }
 
+.compose-bcc-area, .compose-cc-area {
+	display: none;
+}
+
 .compose-to {
 	padding: 5px 20px 0px 20px;
 }

@@ -20,6 +20,7 @@ $.TextboxList = function(element, _options){
     max: null,
 		unique: false,
 		uniqueInsensitive: true,
+		placeholder : "",
     endEditableBit: true,
 		startEditableBit: true,
 		hideEditableBits: true,

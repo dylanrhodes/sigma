@@ -110,8 +110,12 @@
 		<div close="row">	
 			<div class="compose-to col-xs-10">
 			  <input type="text" id="compose-to" placeholder="To" />
-			  <input type="text" class="hidden" id="compose-cc" placeholder="Cc" />
-			  <input type="text" class="hidden" id="compose-bcc" placeholder="Bcc" />
+			  <div class="compose-cc-area">
+			  	<input type="text" class="hidden" id="compose-cc" placeholder="Cc" />
+			  </div>
+			  <div class="compose-bcc-area">
+			  	<input type="text" class="hidden" id="compose-bcc" placeholder="Bcc" />
+			  </div>
 			</div>
 			<div class="cc-button" ng-click="addCc()">Cc Bcc</div>
 		</div>
