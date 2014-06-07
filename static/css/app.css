@@ -382,6 +382,15 @@ button.loadMore {
 	width: calc(90% - 215px);
 	cursor:default;*/
 }
+
+.digest-category {
+	overflow:hidden;
+	text-align: left;
+	white-space: nowrap;
+	text-overflow:ellipsis;
+	cursor:default;
+}
+
 .snipit {
 	/*position: relative;*/
 	/*left: 260px;*/

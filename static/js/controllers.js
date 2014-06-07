@@ -1003,7 +1003,7 @@ sigmaApp.factory('Emails', function($http) {
 							name = this.categories[i]['name'];
 						}
 					}
-					content += "<h3>" + name + "</h3>";
+					content += "<h3 class='digest-category'>" + name + "</h3>";
 					var arr = data["emails"]
 					for (var k in arr) {
 						if (arr.hasOwnProperty(k)) {
