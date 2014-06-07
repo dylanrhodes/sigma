@@ -18,8 +18,9 @@ sigmaApp.controller('EmailListCtrl', function($scope, $http, Emails) {
 		$scope.emails.init();
   		$scope.numCat = $scope.categories.length;
 
-  		console.log($(".menu").height());
-  		$(".top-padding").height($(".menu").height());
+  		// console.log($(".menu").height());
+  		$(".top-padding").css("padding-top", (($(".menu").height() - 50) / 2) + "px");
+  		$(".top-padding").css("padding-bottom", (($(".menu").height() - 50) / 2) + "px");
 	  })
 	  .error(function() {console.log("Didn't load categories");});
   }
@@ -142,12 +143,15 @@ sigmaApp.controller('EmailListCtrl', function($scope, $http, Emails) {
 		return showingVar == $scope.showing ? "" : "hidden";
 	}
 
+	$scope.read = function(emailId, read) {
+		$scope.emails.byId[emailId].read = read;
+		$("#" + emailId).find(".fandle-inner-image").attr("href", "/static/images/sigma-handle"+(read == 1 ? "-read" ? "" ) +".png");
+	}
+
   $scope.viewing = function(emailId) {
 		$scope.showing = $scope.viewingId;
 		$scope.viewingEmail = $scope.emails.byId[emailId];
-		$scope.emails.byId[emailId].read = 1;
-
-		$("#" + emailId).find(".fandle-inner-image").attr("href", "/static/images/sigma-handle-read.png");
+		$scope.read(emailId, 1);
 
 		var elem = {"id" : emailId};
 	  $http({
@@ -510,6 +514,8 @@ sigmaApp.factory('Emails', function($http) {
 			
 			email.date = day.fromNow();
 			email.snippet = email.message.substr(0, 200);			
+			if(email.noHtml)
+				email.snippet = email.noHtml.substr(0, 200);
 			email.id = email.id.toString();
 			var from = email.from.replace(/"/g, "");
 			var start = from.indexOf("<");

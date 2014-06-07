@@ -64,7 +64,7 @@
 		    <div class="inbox {{showingClass(inboxId)}}">
 				<div ng-repeat="email in emails.arr | orderBy:email.millis:reverse" class="row ind-email {{email.read ? 'read' : ''}} {{showingEmail(email) ? '' : 'hidden'}}" id = "{{email.id}}" style="border-left-color: {{categories[email.category - 1].color}}">
 					<div class="ind-email-inside">
-						<div class="col-xs-11 email-area" ng-click="viewing(email.id)" ng-swipe-right="alert('hi');email.read = 0" ng-swipe-left="alert('hi');email.read = 1">
+						<div class="col-xs-11 email-area" ng-click="viewing(email.id)" ng-swipe-right="read(email.id, 1)" ng-swipe-left="read(email.id, 0)">
 			             	<div class = "from">{{email.from}}</div>
 			             	<div class="subject">{{email.subject}}</div>
 			      			<div class = "snipit"><span class = "date">{{email.date}}</span> - {{email.snippet}}</div>
