@@ -914,7 +914,8 @@ sigmaApp.factory('Emails', function($http) {
 				// if (dCats.indexOf(email.category) >= 0 && email.read == 0) this.digest.unshift(email);
 				this.arr.unshift(email);
 			}
-			for (var i = 0; i < dCats.length; i++) {
+		  }
+		    for (var i = 0; i < dCats.length; i++) {
 				var call = "/get_category_summary?callback=JSON_CALLBACK&category=" + dCats[i];
 				$http.jsonp(call).success(function(data) {
 					this.digest.push.apply(this.digest, data);
@@ -938,7 +939,6 @@ sigmaApp.factory('Emails', function($http) {
 				"title": "Category Digest",
 				"content": content
 			};
-		  }
 		  this.busy = false;
 		}.bind(this));
 	}
