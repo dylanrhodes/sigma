@@ -177,7 +177,7 @@ sigmaApp.controller('EmailListCtrl', function($scope, $http, Emails) {
 			$scope.initializedTBL = true;
 		}
 		if($scope.emails && $scope.emails.contacts && $scope.emails.contacts.length > 0 && !$scope.initializedTBLvalues) {
-			alert($scope.emails.contacts.length);
+			// alert($scope.emails.contacts.length);
 			$scope.compose_tbl.plugins['autocomplete'].setValues($scope.emails.contacts);
 			$scope.initializedTBLvalues = true;
 		}
@@ -515,9 +515,9 @@ sigmaApp.factory('Emails', function($http) {
 			// console.log(this.contacts.)
 			if(! this.contacts[email.fromEmail] && contactsCount < 20) {
 				this.contacts[email.fromEmail] = [this.contacts.length, 
-										email.fromName + " " + email.fromEmail, 
+										email.fromName + " " + email.fromEmail]; /*, 
 										email.fromName != "" ? email.fromName : email.fromEmail,
-										email.fromName + " <em>" + email.fromEmail + "</em>"];
+										email.fromName + " <em>" + email.fromEmail + "</em>"]; */
 				contactsCount ++;
 			}
 			var to = email.to.replace(/"/g, "");
