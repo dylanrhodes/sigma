@@ -997,18 +997,13 @@ sigmaApp.factory('Emails', function($http) {
 				var call = "/get_category_summary?callback=JSON_CALLBACK&category=" + dCats[i];
 				$http.jsonp(call).success(function(data) {
 					var cat = parseInt(data["category"]);
-					console.log(cat);
 					var name = "";
-					var color = "";
 					for (var i = 0; i < this.length; i++) {
-						console.log("looking for: " + cat + " found: " + this.categories[i]['id']);
 						if (this.categories[i]['id'] == cat) {
 							name = this.categories[i]['name'];
-							color = this.categories[i]['color'];
 						}
 					}
-					console.log("<h3 style='color:" + color + "'>" + name + "</h3>");
-					content += "<h3 style='color:" + color + "'>" + name + "</h3>";
+					content += "<h3>" + name + "</h3>";
 					var arr = data["emails"]
 					for (var k in arr) {
 						if (arr.hasOwnProperty(k)) {
