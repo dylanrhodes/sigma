@@ -310,8 +310,10 @@ $.TextboxListBit = function(type, value, textboxlist, _options){
 			}
 			bit.children().click(function(e){ e.stopPropagation(); e.preventDefault(); });
 		} else {
+			console.log(options);
 			console.log(options.placeholder);
-			element = $('<input type="text" class="'+ typeprefix +'-input" autocomplete="off" placeholder="' + options.placeholder + '" />').val(self.value ? self.value[1] : '').appendTo(bit);
+			console.log(textboxlist.getOptions());
+			element = $('<input type="text" class="'+ typeprefix +'-input" autocomplete="off" placeholder="' + textboxlist.getOptions().placeholder + '" />').val(self.value ? self.value[1] : '').appendTo(bit);
 			if (chk(options.tabIndex)) element.tabIndex = options.tabIndex;
 			if (options.growing) new $.GrowingInput(element, options.growingOptions);		
 			element.focus(function(){ focus(true); }).blur(function(){
