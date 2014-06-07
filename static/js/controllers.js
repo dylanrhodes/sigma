@@ -923,7 +923,7 @@ sigmaApp.factory('Emails', function($http) {
 			}
 			var content = "";
 			
-			for (var k in this.digest) 
+			for (var k in this.digest) {
 				if (this.digest.hasOwnProperty(k)) {
 				  content += "<div class='row digest-row'>"
 				  content += "<div class='col-xs-9 summary'>"
