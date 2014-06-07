@@ -33,6 +33,10 @@ h3.num-title {
 	cursor: pointer;
 }
 
+.aside {
+	max-width: 50%;
+}
+
 .digest-title {
 	margin-left: -6px;
 }
