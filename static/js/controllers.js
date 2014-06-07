@@ -1019,7 +1019,9 @@ sigmaApp.factory('Emails', function($http) {
 					}
 					content += "<h3 class='digest-category'>" + name + "</h3>";
 					var arr = data["emails"]
+					var dEmails = false;
 					for (var k in arr) {
+						dEmails = true;
 						if (arr.hasOwnProperty(k)) {
 						  this.digest[k] = arr[k];
 						  content += "<div class='row digest-row'>"
@@ -1030,7 +1032,7 @@ sigmaApp.factory('Emails', function($http) {
 						  content += "</div>";
 						}
 					}
-					if (arr.length > 0) {
+					if (dEmails) {
 						this.aside = {
 							"title": "Category Digest",
 							"content": content
