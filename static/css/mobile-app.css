@@ -445,7 +445,7 @@ button.loadMore {
 }
 
 .compose-view input[type="text"],
-.compose-view textarea {
+.compose-view textarea, {
 	text-align: left;
 	outline: none;
 }
@@ -476,7 +476,7 @@ button.loadMore {
 
 /*CSS for settings.html*/
 
-input[type="text"], textarea {
+input[type="text"], textarea, .textboxlist-bits {
 	text-align: center;
 	display:inline-block;
 	border: 1px solid #eee;
@@ -484,6 +484,17 @@ input[type="text"], textarea {
 	padding: 5px;
 	padding-left: 8px;
 	width: 100%;
+}
+
+.textboxlist input {
+	border: none;
+	padding: 0px;
+}
+
+textarea {
+	border: none;
+	border-radius: 0px;
+	padding-left: 5px;
 }
 
 input[type="text"].cat-bar {
@@ -619,4 +630,19 @@ a:active.save {
 	margin-top: 5px;
 	border-top: 1px solid #eee;
 	padding-top: 5px;
+}
+
+/* compose */
+
+.compose {
+	padding: 10px;
+	text-align: left;
+}
+.textboxlist-bits {
+	border: 1px solid #eee;
+}
+
+.compose-section {
+	margin-top:5px;
+	margin-bottom: 5px;
 }

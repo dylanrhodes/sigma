@@ -42,7 +42,8 @@ $.TextboxList.Autocomplete = function(textboxlist, _options){
 		if ($.browser && $.browser.msie) textboxlist.setOptions({bitsOptions: {editable: {addOnBlur: false}}});
 		prefix = textboxlist.getOptions().prefix + '-autocomplete';
 		method = $.TextboxList.Autocomplete.Methods[options.method];
-		container = $('<div class="'+ prefix +'" />').width(textboxlist.getContainer().width()).appendTo(textboxlist.getContainer());
+		/* width(textboxlist.getContainer().width()). */
+		container = $('<div class="'+ prefix +'" />').appendTo(textboxlist.getContainer());
 		if (chk(options.placeholder)) placeholder = $('<div class="'+ prefix +'-placeholder" />').html(options.placeholder).appendTo(container);		
 		list = $('<ul class="'+ prefix +'-results" />').appendTo(container).click(function(ev){
 			ev.stopPropagation(); ev.preventDefault();
