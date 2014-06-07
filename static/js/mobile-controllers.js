@@ -335,6 +335,8 @@ sigmaApp.controller('EmailListCtrl', function($scope, $http, Emails) {
 				+ arguments[0].true_date + ", " + arguments[0].from
 				+ " wrote:\n\n" + arguments[0].message);
 		}
+
+		$scope.tbl_values();
 	}
 
 	$scope.categoryClick = function(categoryId) {
