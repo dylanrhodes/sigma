@@ -344,17 +344,17 @@ sigmaApp.controller('EmailListCtrl', function($scope, $http, Emails) {
 	$scope.fandleInitialized = false;
 	$scope.initializeFandle = function() {
 		$scope.fandleInitialized = true;
+		var fanCats = Array();
+		$.each($scope.categories, function(i,v) {
+			if(v.name != "Uncategorized")
+				fanCats.unshift(v);
+		});
 		$(".email-fandle").each(
 			function() { 
 				if($(this).hasClass("fandle"))
 					return;
 				var emailId = $(this).attr("rel");
-				var fanCats = Array();
-				$.each($scope.categories, function(i,v) {
-					console.log(v);
-					if(v.name != "Uncategorized")
-						fanCats.unshift(v);
-				});
+				
 				$(this).fandle({ categories : fanCats,
 					radius : 160,
 					innerRadius : 25,
