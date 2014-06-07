@@ -7,43 +7,60 @@ var sigmaApp = angular.module('sigmaApp', ['ngSanitize', 'mgcrea.ngStrap']);
 sigmaApp.controller('EmailListCtrl', function($scope, $http, Emails) {
 
   $scope.colors = ['#808080', '#1b6aa3', '#84cbc5', '#f8d35e', '#f47264', '#85e491', '#bd80b9', '#f9b588'];
-  $scope.categories = [
-  	{'id' : 1,
-  	 'name' : 'Uncategorized',
-  	 'color' : '#808080',
-  	 'class' : 'category-uncategorized',
-	 'split' : 0,
-	 'unread' : 10,
-	 'emails' : 3},
-  	{'id' : 2,
-  	 'name' : 'ASAP',
-  	 'color' : '#1b6aa3',
-  	 'class' : 'category-asap',
-	 'split' : 0,
-	 'unread' : 2,
-	 'emails' : 10},
-  	{'id' : 3,
-  	 'name' : 'School',
-  	 'color' : '#84cbc5',
-  	 'class' : 'category-school',
-	 'split' : 1,
-	 'unread' : 3,
-	 'emails' : 7},
-  	{'id' : 4,
-  	 'name' : 'Work',
-  	 'color' : '#f8d35e',
-  	 'class' : 'category-work',
-	 'split' : 1,
-	 'unread' : 0,
-	 'emails' : 7},
-  	{'id' : 5,
-  	 'name' : 'Later',
-  	 'color' : '#f47264',
-  	 'class' : 'category-later',
-	 'split' : 0,
-	 'unread' : 5,
-	 'emails' : 4}
-  ];
+  var url = "/get_categories?callback=JSON_CALLBACK";
+  if (window.location.search != "?home") {
+	  $http.jsonp(url).success(function(data) {
+		$scope.categories = data;
+		console.log("Loaded categories");
+		console.log(data);
+		for (var i = 0; i < $scope.categories.length; i++) $scope.categories[i]["color"] = $scope.colors[i];
+		$scope.emails = new Emails(data);
+		$scope.emails.init();
+	  })
+	  .error(function() {console.log("Didn't load categories");});
+  }
+  else {
+	$scope.categories = [
+		{'id' : 1,
+		 'name' : 'Uncategorized',
+		 'color' : '#808080',
+		 'class' : 'category-uncategorized',
+		 'split' : 0,
+		 'unread' : 10,
+		 'emails' : 3},
+		{'id' : 2,
+		 'name' : 'ASAP',
+		 'color' : '#1b6aa3',
+		 'class' : 'category-asap',
+		 'split' : 0,
+		 'unread' : 2,
+		 'emails' : 10},
+		{'id' : 3,
+		 'name' : 'School',
+		 'color' : '#84cbc5',
+		 'class' : 'category-school',
+		 'split' : 1,
+		 'unread' : 3,
+		 'emails' : 7},
+		{'id' : 4,
+		 'name' : 'Work',
+		 'color' : '#f8d35e',
+		 'class' : 'category-work',
+		 'split' : 1,
+		 'unread' : 0,
+		 'emails' : 7},
+		{'id' : 5,
+		 'name' : 'Later',
+		 'color' : '#f47264',
+		 'class' : 'category-later',
+		 'split' : 0,
+		 'unread' : 5,
+		 'emails' : 4}
+	  ];
+	  $scope.emails = new Emails($scope.categories);
+	  $scope.emails.init();
+  }
+  
   var content = "";
   for (var i = 0; i < 100; i++) {
 	content += "Email<br>";
