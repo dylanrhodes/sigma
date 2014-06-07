@@ -997,7 +997,6 @@ sigmaApp.factory('Emails', function($http) {
 						  content += "</div>";
 						}
 					}
-					console.log(content);
 					this.aside = {
 						"title": "Category Digest",
 						"content": content
