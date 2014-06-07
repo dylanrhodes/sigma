@@ -145,7 +145,7 @@ sigmaApp.controller('EmailListCtrl', function($scope, $http, Emails) {
 
 	$scope.read = function(emailId, read) {
 		$scope.emails.byId[emailId].read = read;
-		$("#" + emailId).find(".fandle-inner-image").attr("href", "/static/images/sigma-handle"+(read == 1 ? "-read" ? "" ) +".png");
+		$("#" + emailId).find(".fandle-inner-image").attr("href", "/static/images/sigma-handle"+(read == 1 ? "-read" : "" ) +".png");
 	}
 
   $scope.viewing = function(emailId) {
