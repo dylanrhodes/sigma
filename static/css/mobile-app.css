@@ -615,8 +615,8 @@ a:active.save {
 
 .menu-btn {
 	position: fixed;
-	top: 15px;
-	left: 15px;
+	top: 0px;
+	left: 0px;
 	padding: 5px;
 	background: rgba(255,255,255,0.95);
 	color: #47a7ff;
