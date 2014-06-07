@@ -98,6 +98,29 @@ sigmaApp.controller('EmailListCtrl', function($scope, $http, Emails) {
 		.error(function() {console.log("Didn't successfully train models");});
 	}
   }
+  
+  $scope.digest = function() {
+		for (var k in $scope.emails.digest) {
+			if ($scope.emails.digest.hasOwnProperty(k)) {
+				$.map($scope.emails.arr, function(obj, index) {
+					if(obj.id == k) {
+						if (window.location.search != "?home") {
+						  var elem = {"id" : k};
+						  $http({
+								method: 'POST',
+								url: '/mark_as_read',
+								data: elem
+							})
+							.success(function() {console.log("Successfully pushed read change");})
+							.error(function() {console.log("Didn't successfully push read change");});
+						}
+						obj.read = 1;
+					}
+				}
+			}
+		}
+		$scope.emails.digest = [];
+  }
 
   $scope.logout = function() {
 	console.log("Logging out");
@@ -628,16 +651,21 @@ sigmaApp.controller('EmailListCtrl', function($scope, $http, Emails) {
 	});
 
 	$(document).on("click", ".keep-unread", function(e) {
-		  var id = parseInt($(this).attr('title'));
-		  var elem = {"id" : id};
-		  if (window.location.search != "?home") {
-			  $http({
-					method: 'POST',
-					url: '/mark_as_unread',
-					data: elem
-				})
-				.success(function() {console.log("Successfully pushed read change");})
-				.error(function() {console.log("Didn't successfully push read change");});
+		var id = parseInt($(this).attr('title'));
+		var elem = {"id" : id};
+		$.map($scope.emails.arr, function(obj, index) {
+			if(obj.id == id) {
+				if (window.location.search != "?home") {
+					$http({
+						method: 'POST',
+						url: '/mark_as_unread',
+						data: elem
+					})
+					.success(function() {console.log("Successfully pushed read change");})
+					.error(function() {console.log("Didn't successfully push read change");});
+				}
+				obj.read = 0;
+			}
 		  }
 	});
 	

@@ -47,7 +47,7 @@
 	  <div class="control-bar-settings col-sm-2 hidden-xs">
 		<a class="settings-a" title="Logout" href="/logout"><img src = "{{ url_for('static', filename='images/logout.png') }}" /></a>
         <a class="settings-a" title="Settings" ng-click="settings()"><img src = "{{ url_for('static', filename='images/gear.png') }}" /></a>
-		<a class="settings-a" title="View Digests" bs-aside="emails.aside"><img src = "{{ url_for('static', filename='images/digest.png') }}" /></a>
+		<a class="settings-a" title="View Digests" bs-aside="emails.aside" ng-click="digest()"><img src = "{{ url_for('static', filename='images/digest.png') }}" /></a>
 {% raw %}
 		<div class="digest-note {{emails.digest.length < 1 ? 'hidden' : ''}}">!</div>
       </div>
