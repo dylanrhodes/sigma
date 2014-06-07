@@ -477,13 +477,14 @@ button.loadMore {
 /*CSS for settings.html*/
 
 input[type="text"], textarea, .textboxlist-bits, .textboxlist-autocomplete-placeholder, .textboxlist-autocomplete-results {
-	text-align: center;
 	display:inline-block;
 	border: 1px solid #eee;
 	border-radius: 3px;
 	padding: 5px;
 	padding-left: 8px;
 	width: 100%;
+	background: #fff;
+	box-shadow: none;
 }
 
 .textboxlist input {
@@ -497,6 +498,11 @@ input[type="text"], textarea, .textboxlist-bits, .textboxlist-autocomplete-place
 
 .textboxlist-autocomplete-result {
 	background: #fff;
+}
+
+.textboxlist-autocomplete-result-focus {
+	background: #C6D9E4;
+	border-radius: 3px;
 }
 
 textarea {

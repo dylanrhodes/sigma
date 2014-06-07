@@ -31,7 +31,7 @@ $.TextboxList.Autocomplete = function(textboxlist, _options){
 			loadPlaceholder: 'Please wait...'
     },
 		method: 'standard',
-		placeholder: 'Type to receive suggestions'
+		placeholder: 'Type to receive contact suggestions'
 	}, _options);
 	
 	var init = function(){
