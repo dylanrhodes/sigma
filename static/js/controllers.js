@@ -920,7 +920,7 @@ sigmaApp.factory('Emails', function($http) {
 				var call = "/get_category_summary?callback=JSON_CALLBACK&category=" + dCats[i];
 				$http.jsonp(call).success(function(data) {
 					for (var k in data) {
-						if (this.digest.hasOwnProperty(k)) {
+						if (data.hasOwnProperty(k)) {
 						  this.digest[k] = data[k];
 						  content += "<div class='row digest-row'>"
 						  content += "<div class='col-xs-9 summary'>"
