@@ -914,12 +914,12 @@ sigmaApp.factory('Emails', function($http) {
 				// if (dCats.indexOf(email.category) >= 0 && email.read == 0) this.digest.unshift(email);
 				this.arr.unshift(email);
 			}
-			for (var i = 0; i < this.dCat.length; i++) {
-				var call = "/get_category_summary?callback=JSON_CALLBACK&category=" + dCat[i];
+			for (var i = 0; i < dCats.length; i++) {
+				var call = "/get_category_summary?callback=JSON_CALLBACK&category=" + dCats[i];
 				$http.jsonp(call).success(function(data) {
 					this.digest.push.apply(this.digest, data);
 				}.bind(this))
-				.error(function() {console.log("Couldn't get digest for " + dCat[i]);});
+				.error(function() {console.log("Couldn't get digest for " + dCats[i]);});
 			}
 			var content = "";
 			
