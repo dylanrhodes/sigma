@@ -71,8 +71,8 @@ sigmaApp.controller('EmailListCtrl', function($scope, $http, Emails) {
 	  "content": content
   };
 
-  $scope.emails = new Emails($scope.categories.length);
-  $scope.emails.init();
+  // $scope.emails = new Emails($scope.categories.length);
+  // $scope.emails.init();
   $scope.focusedCategory = "";
   $scope.selected = "";
   $scope.selectedId = -1;
