@@ -632,9 +632,9 @@ a:active.save {
 	width: 100%;
 	background: rgba(255,255,255,0.87);
 	background: #fff;
+	border: none;
 	border-bottom: 1px solid #eee;
 	cursor: pointer;
-	margin-left: 45px;
 }
 
 .menu img,
@@ -649,11 +649,16 @@ a:active.save {
 
 
 .control-bar {
+	margin-left: 45px;
 	padding-top: 10px;
 	padding-bottom: 10px;
 	text-align: center;
 	padding-left: 0px;
 	padding-right: 0px;
+}
+
+.control-bar .col-xs-1 {
+	min-width: 45px;
 }
 
 .control-bar-item {
