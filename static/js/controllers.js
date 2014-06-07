@@ -115,7 +115,7 @@ sigmaApp.controller('EmailListCtrl', function($scope, $http, Emails) {
 							.error(function() {console.log("Didn't successfully push read change");});
 						}
 						obj.read = 1;
-						$scope.emails.unread[obj.category-1]--;
+						$scope.emails.unread[obj.category]--;
 					}
 				});
 			}
@@ -417,7 +417,7 @@ sigmaApp.controller('EmailListCtrl', function($scope, $http, Emails) {
 							.success(function() {console.log("Successfully pushed read change");})
 							.error(function() {console.log("Didn't successfully push read change");});
 					  }
-					  $scope.emails.unread[obj.category-1]--;
+					  $scope.emails.unread[obj.category]--;
 					  obj.read = 1;
 					  $scope.$apply();
 				  }
@@ -434,7 +434,7 @@ sigmaApp.controller('EmailListCtrl', function($scope, $http, Emails) {
 							.success(function() {console.log("Successfully pushed read change");})
 							.error(function() {console.log("Didn't successfully push read change");});
 					  }
-					  $scope.emails.unread[obj.category-1]++;
+					  $scope.emails.unread[obj.category]++;
 					  obj.read = 0;
 					  $scope.$apply();
 				}
@@ -554,7 +554,7 @@ sigmaApp.controller('EmailListCtrl', function($scope, $http, Emails) {
 										.success(function() {console.log("Successfully pushed email read");})
 										.error(function() {console.log("Didn't successfully push email read");});
 								  }
-								  $scope.emails.unread[obj.category-1]--;
+								  $scope.emails.unread[obj.category]--;
 								  obj.read = 1;
 								  $scope.$apply();
 							  }
@@ -620,7 +620,7 @@ sigmaApp.controller('EmailListCtrl', function($scope, $http, Emails) {
 										.success(function() {console.log("Successfully pushed email read");})
 										.error(function() {console.log("Didn't successfully push email read");});
 								  }
-								  $scope.emails.unread[obj.category-1]--;
+								  $scope.emails.unread[obj.category]--;
 								  obj.read = 1;
 								  $scope.$apply();
 							  }
@@ -671,7 +671,7 @@ sigmaApp.controller('EmailListCtrl', function($scope, $http, Emails) {
 					.error(function() {console.log("Didn't successfully push read change");});
 				}
 				obj.read = 0;
-				$scope.emails.unread[obj.category-1]++;
+				$scope.emails.unread[obj.category]++;
 			}
 		  });
 		  $scope.$apply();
@@ -701,7 +701,7 @@ sigmaApp.controller('EmailListCtrl', function($scope, $http, Emails) {
 						.success(function() {console.log("Successfully pushed email read");})
 						.error(function() {console.log("Didn't successfully push email read");});
 				  }
-				  $scope.emails.unread[obj.category-1]--;
+				  $scope.emails.unread[obj.category]--;
 				  obj.read = 1;
 				  $scope.$apply();
 			  }
@@ -754,7 +754,7 @@ sigmaApp.controller('EmailListCtrl', function($scope, $http, Emails) {
 								.success(function() {console.log("Successfully pushed email read");})
 								.error(function() {console.log("Didn't successfully push email read");});
 						  }
-						  $scope.emails.unread[obj.category-1]--;
+						  $scope.emails.unread[obj.category]--;
 						  obj.read = 1;
 						  $scope.$apply();
 					  }
