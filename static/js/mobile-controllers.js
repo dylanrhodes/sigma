@@ -145,7 +145,8 @@ sigmaApp.controller('EmailListCtrl', function($scope, $http, Emails) {
 	$scope.tbl_values = function() {
 		if($scope.emails && $scope.emails.contacts)
 			$scope.compose_tbl.plugins['autocomplete'].setValues($scope.emails.contacts);
-		$(".textboxlist-autocomplete").width($(".textboxlist").width());
+		$(".textboxlist-autocomplete").hide();
+		setTimeout('$(".textboxlist-autocomplete").width($(".textboxlist").width());', 150);
 	}
 
 	$scope.init = function() {
