@@ -996,15 +996,15 @@ sigmaApp.factory('Emails', function($http) {
 		    for (var i = 0; i < dCats.length; i++) {
 				var call = "/get_category_summary?callback=JSON_CALLBACK&category=" + dCats[i];
 				$http.jsonp(call).success(function(data) {
-					var cat = data["category"];
+					var cat = parseInt(data["category"]);
 					console.log(cat);
 					var name = "";
 					var color = "";
-					for (var i = 0; i < length; i++) {
-						console.log("looking for: " + cat + " found: " + categories[i]['id']);
-						if (categories[i]['id'] == cat) {
-							name = categories[i]['name'];
-							color = categories[i]['color'];
+					for (var i = 0; i < this.length; i++) {
+						console.log("looking for: " + cat + " found: " + this.categories[i]['id']);
+						if (this.categories[i]['id'] == cat) {
+							name = this.categories[i]['name'];
+							color = this.categories[i]['color'];
 						}
 					}
 					console.log("<h3 style='color:" + color + "'>" + name + "</h3>");
