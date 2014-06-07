@@ -38,23 +38,20 @@
 		<div class="menu-btn" ng-click="toggleMenu()">Menu</div>
 		{% raw %}
   		<div class="menu {{showingMenu ? '' : 'hidden'}}">
-  			<div class="control-bar">
-		      <div class="control-bar-search">		      	
+  			<div class="control-bar row">
+			  <div class="control-bar-item col-xs-2"><!-- menu button placeholder --></div>
+			  <div class="control-bar-item col-xs-2"><a href="#" ng-click="settings()">S</a></div>
+		      <div class="control-bar-item col-xs-6 control-bar-search">		      	
 		        <input type="search" id="search" placeholder="Search" ng-model="search" />
 		      </div>
+		      <div class="control-bar-item col-xs-2"><a href="#" ng-click="compose()">+</a></div>
 		    </div>
-	    	<div class="sidebar">
-	    		<div class="sidebar-item sidebar-compose {{showing == composeId ? 'sidebar-focused' : ''}}" ng-click="compose()" style = "height:{{windowHeight / (numCat + 3)}}px">
-	    			+
-	    		</div>
-	    		<div class="sidebar-item sidebar-all {{focusedCategory == '' ? 'sidebar-focused' : ''}}" ng-click="categoryClick('')" id="category-all-btn" style = "height:{{windowHeight / (numCat + 3)}}px">
+	    	<div class="category-bar">
+	    		<div class="category-bar-item category-bar-all {{focusedCategory == '' ? 'category-bar-focused' : ''}}" ng-click="categoryClick('')" id="category-all-btn">
 	    			All
 	    		</div>
-		        <div ng-repeat="category in categories" class="sidebar-item sidebar-category {{focusedCategory == category.id ? 'sidebar-focused' : ''}}" style = "background-color: {{category.color}}; height:{{windowHeight / (numCat + 3)}}px" ng-click="categoryClick(category.id)">
+		        <div ng-repeat="category in categories" class="category-bar-item category-bar-category {{focusedCategory == category.id ? 'category-bar-focused' : ''}}" style = "background-color: {{category.color}};" ng-click="categoryClick(category.id)">
 		        	{{category.name}}
-		        </div>
-		        <div class="sidebar-item sidebar-settings {{showing == settingsId ? 'sidebar-focused' : ''}}" ng-click="settings()" style = "height:{{windowHeight / (numCat + 3)}}px">
-		        	Settings
 		        </div>
 			</div>
 		</div>
@@ -112,7 +109,7 @@
 			<div class="settings {{showingClass(settingsId)}}">
 				Settings
 			</div>
-			<script> setTimeout(function() { $(".sidebar-all").click(); }, 1000); </script>
+			<script> setTimeout(function() { $(".category-bar-all").click(); }, 1000); </script>
 		</div>
 	   {% endraw %}
 	</div>

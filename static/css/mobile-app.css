@@ -48,32 +48,6 @@ h3.num-title {
 	right: 0;
 }
 
-.sidebar {
-	height: 100%;
-	position: fixed;
-	left: 0;
-	z-index: 99;
-	padding-left: 0px;
-	padding-right: 0px;
-}
-
-.sidebar-item {
-	text-align: center;
-	overflow: hidden;
-	text-overflow:ellipsis;
-	padding-top: 10px;	
-	font-weight: bold;
-	opacity: 0.6;
-}
-
-.sidebar-category {
-	color: #fff;
-}
-
-.sidebar-focused {
-	opacity: 1.0;
-}
-
 .view-area {
 	/*padding-top: 60px;*/
 	padding-left: 0px;
@@ -95,46 +69,6 @@ h3.num-title {
 	margin-bottom: 40px;
 }
 
-.control-bar {
-	/*position: fixed;*/
-	/*top: 0;*/
-	background: #fff;
-	background: rgba(255,255,255,0.9);
-	padding-top: 10px;
-	padding-bottom: 10px;
-	z-index: 10;
-	text-align: center;
-	width: calc(100% - 40px);
-	max-width: 1100px;
-}
-
-.control-bar.row {
-	margin-left: -12px;
-	margin-right: -12px;	
-	padding-left: 15px;
-	padding-right: 15px;
-}
-
-.control-bar-title {
-	text-align: left;
-	font-size:20px;
-	color:#424242;
-	cursor:pointer;
-	padding-left:1%;
-}
-
-.control-bar-title img {
-	height: 25px;
-}
-
-.control-bar-search {
-	padding-right:0px;
-	text-align: right;
-	padding-left: 0px;
-	/*position: absolute;
-	right: 0;
-	display: inline-block;*/
-}
 
 input:focus {
 	outline: none;
@@ -705,12 +639,52 @@ a:active.save {
 	top: 15px;
 	left: 15px;
 	padding: 5px;
-	background: rgba(255,255,255,0.75);
+	background: rgba(255,255,255,0.95);
 	color: #47a7ff;
+	z-index: 100;
 }
 
 .menu {
 	position: fixed;
 	top: 0;
-	display: none;
+	z-index: 99;
+	width: 100%;
+	background: rgba(0,0,0,0.67);
 }
+
+
+.control-bar {
+	padding-top: 10px;
+	padding-bottom: 10px;
+	text-align: center;
+	padding-left: 0px;
+	padding-right: 0px;
+}
+
+.control-bar-item {
+	margin: 0px;
+	padding: 0px;
+}
+
+.category-bar {
+
+}
+
+.category-bar-item {
+	text-align: center;
+	overflow: hidden;
+	text-overflow:ellipsis;
+	padding: 5px;
+	font-weight: bold;
+	height: 50px;
+	width: 75px;
+}
+
+.category-bar-category {
+	color: #fff;
+}
+
+.category-bar-focused {
+	
+}
+
