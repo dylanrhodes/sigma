@@ -36,6 +36,7 @@
   <div class="wrapper container-fluid">
   	<div class="mobile-app-area row">
 		<!-- <div class="menu-btn" ng-click="toggleMenu()">Menu</div> -->
+		{% raw %}
   		<div class="menu {{showingMenu ? '' : 'hidden'}}">
   			<div class="control-bar">
 		      <div class="control-bar-search">		      	
@@ -43,7 +44,6 @@
 		      </div>
 		    </div>
 	    	<div class="sidebar">
-	    		{% raw %}
 	    		<div class="sidebar-item sidebar-compose {{showing == composeId ? 'sidebar-focused' : ''}}" ng-click="compose()" style = "height:{{windowHeight / (numCat + 3)}}px">
 	    			+
 	    		</div>
@@ -56,12 +56,10 @@
 		        <div class="sidebar-item sidebar-settings {{showing == settingsId ? 'sidebar-focused' : ''}}" ng-click="settings()" style = "height:{{windowHeight / (numCat + 3)}}px">
 		        	Settings
 		        </div>
-		        {% endraw %}
 			</div>
 		</div>
 		<!-- <div class="padding col-xs-2"></div> -->
 		<div class="view-area col-xs-12">
-			{% raw %}
 		    <div class="inbox {{showingClass(inboxId)}}">
 				<div ng-repeat="email in emails.arr | orderBy:email.millis:reverse" class="row ind-email {{email.read ? 'read' : ''}} {{showingEmail(email) ? '' : 'hidden'}}" id = "{{email.id}}" style="border-left-color: {{categories[email.category - 1].color}}">
 					<div class="ind-email-inside">
@@ -115,8 +113,8 @@
 				Settings
 			</div>
 			<script> setTimeout(function() { $(".sidebar-all").click(); }, 1000); </script>
-		    {% endraw %}
 		</div>
+	   {% endraw %}
 	</div>
 </div>
 </body>
