@@ -16,6 +16,7 @@ sigmaApp.controller('EmailListCtrl', function($scope, $http, Emails) {
 		for (var i = 0; i < $scope.categories.length; i++) $scope.categories[i]["color"] = $scope.colors[i];
 		$scope.emails = new Emails(data);
 		$scope.emails.init();
+  		$scope.numCat = $scope.categories.length;
 	  })
 	  .error(function() {console.log("Didn't load categories");});
   }
@@ -60,7 +61,7 @@ sigmaApp.controller('EmailListCtrl', function($scope, $http, Emails) {
 	  $scope.emails = new Emails($scope.categories);
 	  $scope.emails.init();
   }
-  
+
   var content = "";
   for (var i = 0; i < 100; i++) {
 	content += "Email<br>";
@@ -78,7 +79,6 @@ sigmaApp.controller('EmailListCtrl', function($scope, $http, Emails) {
   $scope.selectedId = -1;
   $scope.selectedIds = [];
   $scope.selectedCat = -1;
-  $scope.numCat = $scope.categories.length;
   $scope.oldColor = "";
   $scope.sigma_img_tag = "<img src='images/sigma.png' />";
   $scope.composingEmail = false;
