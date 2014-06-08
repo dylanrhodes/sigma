@@ -170,7 +170,7 @@ sigmaApp.controller('EmailListCtrl', function($scope, $http, Emails) {
 			$('.viewing-message').html("<div class='no-html-email-view'>" + $scope.viewingEmail.message + "</div>");
 		  }
 		  else {
-			$('.viewing-message').html("<iframe class='email-frame' height='100%' width='100%' frameBorder='0' src='/get_email?id=" + $scope.viewingEmail.id + "' ></iframe>");
+			$('.viewing-message').html("<iframe class='email-frame' height='200px' width='200px' frameBorder='0' src='/get_email?id=" + $scope.viewingEmail.id + "' ></iframe>");
 			console.log($(".viewing").height());
 			console.log($(".viewing-message-top").height());
 			//($(".viewing").height() - $(".viewing-message-top").height())
