@@ -231,6 +231,16 @@ sigmaApp.controller('EmailListCtrl', function($scope, $http, Emails) {
 		var cc = "";
 		var bcc = "";
 		console.log("Subject: " + subject + ", Body: " + body);
+		var data = {'body': body, 'subject': subject, 'to': to};
+		if (window.location.search != "?home") {
+			$http({
+				method: 'POST',
+				url: '/send_email',
+				data: data
+			})
+			.success(function() {console.log("Successfully sent email");})
+			.error(function() {console.log("Didn't successfully send email");});
+		}
 	}
 
 	$scope.save = function() {
