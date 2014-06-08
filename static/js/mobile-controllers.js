@@ -112,13 +112,14 @@ sigmaApp.controller('EmailListCtrl', function($scope, $http, Emails) {
   		$scope.showingMenu = ! $scope.showingMenu;
   }
 
-  $scope.emailOrdering = function(email) {
-  	console.log(email);
-  	if(!email)
-  		return "";
+  $scope.emailOrdering = function(read, millis) { //email) {
+  	// console.log(email);
+  	// if(!email)
+  		// return "";
+  	console.log(read, millis);
   	if($scope.byunread)
-  		return email.read + "" + email.millis;
-  	return email.millis;
+  		return read + "" + millis;
+  	return millis;
   }
   // console.log($scope.emails.unread.length);
   // for (var i = 0; i < $scope.emails.unread.length; i++) {
