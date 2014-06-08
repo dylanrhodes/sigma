@@ -369,8 +369,10 @@ button.loadMore {
 }
 
 .digest-sub-row {
-	margin-bottom: 5px;
+	margin-bottom: 10px;
+	padding-bottom: 10px;
 	font-size: 80%;
+	border-bottom: 1px solid #DDDDDD;
 }
 
 .summary {
@@ -394,6 +396,7 @@ button.loadMore {
 	white-space: nowrap;
 	text-overflow:ellipsis;
 	cursor:default;
+	margin-bottom: 20px;
 }
 
 .snipit {
