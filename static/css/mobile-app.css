@@ -682,11 +682,6 @@ a:active.save {
 	width: 25px;
 }
 
-.menu a {
-	display: inline-block;
-	padding: 4px;
-}
-
 
 .control-bar {
 	margin-left: 45px;
@@ -695,6 +690,7 @@ a:active.save {
 	text-align: center;
 	padding-left: 0px;
 	padding-right: 0px;
+	font-size: 0px;
 }
 
 .control-bar .col-xs-1 {
@@ -702,9 +698,20 @@ a:active.save {
 }
 
 .control-bar-item {
-	/*display:inline-block;*/
+	display:inline-block;
 	/*margin: 4px;*/
-	margin: 2px;
+	/*margin: 2px;*/
+}
+
+.control-bar-item a {
+	display: inline-block;
+	padding: 10px;
+}
+
+
+.control-bar-search input {
+	font-size: 12px;
+	width: calc(100% - 45px * 3);
 }
 
 .category-bar {

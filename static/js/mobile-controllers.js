@@ -104,7 +104,7 @@ sigmaApp.controller('EmailListCtrl', function($scope, $http, Emails) {
   $scope.windowHeight = $(window).height();
   $scope.boxWidth = null;
 
-  $scope.showingMenu = true;
+  $scope.showingMenu = false;
   $scope.toggleMenu = function() {
   	if(arguments.length > 0)
   		$scope.showingMenu = arguments[0];
