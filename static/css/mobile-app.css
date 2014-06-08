@@ -215,9 +215,9 @@ button.loadMore {
 	height: 47px;*/
 	/*border: 1px */
 	border-left: 7px solid #424242;
-	transition: background-color 0.2s;;
+	/* transition: background-color 0.2s;;
 	-webkit-transition: background-color 0.2s;
-	overflow: hidden;
+	overflow: hidden; */
 }
 
 .ind-email-inside {

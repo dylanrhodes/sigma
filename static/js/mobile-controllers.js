@@ -96,8 +96,7 @@ sigmaApp.controller('EmailListCtrl', function($scope, $http, Emails) {
 
   $scope.user = { email : "skywalker@sigma.com" }
   $scope.cc = false;
-  $scope.byunread = false;
-  
+
   // $scope.viewingId = -1;
 
   $scope.emailsById = {};
@@ -110,16 +109,6 @@ sigmaApp.controller('EmailListCtrl', function($scope, $http, Emails) {
   		$scope.showingMenu = arguments[0];
   	else
   		$scope.showingMenu = ! $scope.showingMenu;
-  }
-
-  $scope.emailOrdering = function(read, millis) { //email) {
-  	// console.log(email);
-  	// if(!email)
-  		// return "";
-  	console.log(read, millis);
-  	if($scope.byunread)
-  		return read + "" + millis;
-  	return millis;
   }
   // console.log($scope.emails.unread.length);
   // for (var i = 0; i < $scope.emails.unread.length; i++) {
