@@ -26,6 +26,17 @@
 						<h2 class="heading">Your Auto-Organized Inbox</h2>
 						<a class="signup" href="signup">Get Started</a>
 						<div class="signin"><a href="login">Sign In</a></div>
+						<script>
+						var a=document.getElementsByTagName("a");
+							for(var i=0;i<a.length;i++)
+							{
+							    a[i].onclick=function()
+							    {
+							        window.location=this.getAttribute("href");
+							        return false
+							    }
+							}
+							</script>
 					</div>
 					<div class="col-xs-12 scroll" onclick="scrollDown()";>View Demo <img src="../static/images/carrot.png" title="Carrot"/></div>
 				</div>
