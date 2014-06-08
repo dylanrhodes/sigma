@@ -6,7 +6,7 @@ var sigmaApp = angular.module('sigmaApp', ['ngSanitize', 'mgcrea.ngStrap', 'ngTo
 
 sigmaApp.controller('EmailListCtrl', function($scope, $http, Emails) {
 
-  $scope.colors = ['#808080', '#1b6aa3', '#84cbc5', '#f8d35e', '#f47264', '#85e491', '#bd80b9', '#f9b588'];
+  $scope.colors = ['#808080', '#f47264', '#f8d35e', '#84cbc5',  '#1b6aa3',  '#85e491', '#bd80b9', '#f9b588'];
   var url = "/get_categories?callback=JSON_CALLBACK";
   if (window.location.search != "?home") {
 	  $http.jsonp(url).success(function(data) {
