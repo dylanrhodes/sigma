@@ -111,7 +111,10 @@ def get_recent_email():
     parsedMail = {}
     for email in mail:
         pMail = json.loads(email)
-        parsedMail[pMail['id']] = pMail
+        if 'archived' in pMail and not pMail['archived']:
+            parsedMail[pMail['id']] = pMail
+        else if not 'archived' in pMail:
+            parsedMail[pMail['id']] = pMail
     return jsonify(parsedMail)
 
 @app.route('/get_category_unread')
@@ -165,6 +168,19 @@ def mark_email_read():
     email = json.loads(request.data)
     mail = db.zrevrangebyscore("mail:%s:inbox" % current_user.user, email['id'], email['id'])
     pMail = json.loads(mail[0])
+    pMail['read'] = True
+    emailJSON = json.dumps(pMail, sort_keys=True, indent=4, separators=(',', ': '))
+    db.zremrangebyscore("mail:%s:inbox" % current_user.user, email['id'], email['id'])
+    db.zadd("mail:%s:inbox" % current_user.user, emailJSON, email['id'])
+    return "Success"
+
+@app.route('/mark_as_archived', methods=["POST"])
+@login_required
+def mark_email_archived():
+    email = json.loads(request.data)
+    mail = db.zrevrangebyscore("mail:%s:inbox" % current_user.user, email['id'], email['id'])
+    pMail = json.loads(mail[0])
+    pMail['archived'] = True
     pMail['read'] = True
     emailJSON = json.dumps(pMail, sort_keys=True, indent=4, separators=(',', ': '))
     db.zremrangebyscore("mail:%s:inbox" % current_user.user, email['id'], email['id'])

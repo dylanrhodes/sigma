@@ -40,7 +40,7 @@ def get_email(user):
         # TODO set unread
         email = {'id': msgid, 'from': msg['From'], 'to': msg['To'], 'subject': msg['Subject'],
                 'date': msg['Date'], 'cc': msg['CC'], 'read': False,
-                'message': body, 'categorized': False, 'summary': shorten(plain)}
+                'message': body, 'categorized': False, 'summary': shorten(plain), 'archived': False}
 
         trained = db.get("user:%s:trained" % user)
         if trained == "true":
