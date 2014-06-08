@@ -1031,10 +1031,10 @@ sigmaApp.factory('Emails', function($http) {
 						if (arr.hasOwnProperty(k)) {
 						  this.digest[k] = arr[k];
 						  content += "<div class='row digest-row'>"
-						  content += "<div class='col-xs-9 summary'>"
+						  content += "<div class='col-xs-10 summary'>"
 						  content += arr[k]['summary'];
 						  content += "</div>";
-						  content += "<a class='col-xs-3 keep-unread' title='" + k + "'>Keep Unread</a>"
+						  content += "<a class='col-xs-2 keep-unread' title='" + k + "' style='padding:0;'>Keep Unread</a>"
 						  content += "</div>";
 						  content += "<div class='row digest-sub-row'>"
 						  var from = arr[k]['from'];
@@ -1048,7 +1048,7 @@ sigmaApp.factory('Emails', function($http) {
 						  if (fromName == "") dFrom = fromEmail;
 						  else dFrom = fromName;
 						  content += "<div class='col-xs-3 summary'>from: " + dFrom + "</div>"
-						  content += "<div class='col-xs-6 summary'>subject: "
+						  content += "<div class='col-xs-7 summary'>subject: "
 						  content += arr[k]['subject'];
 						  content += "</div>"
 						  content += "</div>"
