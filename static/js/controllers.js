@@ -1034,7 +1034,7 @@ sigmaApp.factory('Emails', function($http) {
 						  content += "<div class='col-xs-10 summary'>"
 						  content += arr[k]['summary'];
 						  content += "</div>";
-						  content += "<a class='col-xs-2 keep-unread' title='" + k + "' style='padding:0;'>Keep Unread</a>"
+						  content += "<a class='col-xs-2 keep-unread' title='" + k + "'>Keep Unread</a>"
 						  content += "</div>";
 						  content += "<div class='row digest-sub-row'>"
 						  var from = arr[k]['from'];

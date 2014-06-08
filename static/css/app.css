@@ -390,6 +390,10 @@ button.loadMore {
 	cursor:default;*/
 }
 
+.keep-unread {
+	padding: 0 !important;
+}
+
 .digest-category {
 	overflow:hidden;
 	text-align: left;
