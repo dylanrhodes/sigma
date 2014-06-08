@@ -694,7 +694,7 @@ a:active.save {
 }
 
 .menu-hidden .control-bar {
-	margin-left: 0px;
+	margin-left: 5px;
 }
 
 .control-bar .col-xs-1 {
@@ -714,6 +714,7 @@ a:active.save {
 
 
 .control-bar-search {
+	padding-top: 5px;
 	font-size: 12px;
 	width: calc(100% - 45px * 3);
 }
