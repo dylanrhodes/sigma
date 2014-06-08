@@ -4,6 +4,7 @@ body {
   padding-top: 0px;
   font-family: 'Open Sans', sans-serif;
   text-align: center;
+
 }
 
 a {
@@ -564,6 +565,7 @@ a:active.save {
 
 .viewing {
 	padding: 10px;
+	word-wrap: break-word;
 }
 
 .viewing-category {
@@ -717,14 +719,14 @@ a:active.save {
 .control-bar-item a {
 	display: inline-block;
 	padding: 10px;
-	padding-top: 3px;
+	padding-top: 0px;
 }
 
 
 .control-bar-search {
 	/*padding-top: 5px;*/
 	font-size: 12px;
-	width: calc(100% - 45px * 3);
+	width: calc(100% - 45px * 2);
 }
 
 .category-bar {
