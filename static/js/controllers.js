@@ -1037,7 +1037,17 @@ sigmaApp.factory('Emails', function($http) {
 						  content += "<a class='col-xs-3 keep-unread' title='" + k + "'>Keep Unread</a>"
 						  content += "</div>";
 						  content += "<div class='row digest-sub-row'>"
-						  content += "<div class='col-xs-4 summary'>from: " + arr[k]['from'] + "</div>"
+						  var from = arr[k]['from'];
+						  from = from.replace(/"/g, "");
+						  var start = from.indexOf("<");
+						  var end = from.indexOf(">");
+						  var fromEmail = from.substring(start + 1, end);
+						  var fromName = "";
+						  if (start != 0) fromName = from.substring(0, start-1);
+						  var dFrom;
+						  if (fromName == "") dFrom = fromEmail;
+						  else dFrom = fromName;
+						  content += "<div class='col-xs-4 summary'>from: " + dFrom + "</div>"
 						  content += "<div class='col-xs-8 summary'>subject: "
 						  content += arr[k]['subject'];
 						  content += "</div>"
