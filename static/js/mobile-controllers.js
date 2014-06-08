@@ -371,7 +371,7 @@ sigmaApp.controller('EmailListCtrl', function($scope, $http, Emails) {
 		$scope.fandleInitialized = true;
 		var fanCats = Array();
 		$.each($scope.categories, function(i,v) {
-			if(v.name != "Uncategorized")
+			if(v.id != 1)
 				fanCats.unshift(v);
 		});
 		$(".email-fandle").each(
