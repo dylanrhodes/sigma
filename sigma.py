@@ -1,7 +1,7 @@
 # sigma.py - main flask file for sigma.jmvldz.com # written by Josh Valdez
 
 # imports
-import json
+import json, subprocess
 from functools import wraps
 
 from flask import Flask, render_template, jsonify, url_for, redirect
@@ -226,6 +226,16 @@ def get_email():
     pMail = json.loads(emailObj[0])
     return pMail['message']
 
+@app.route('/send_email', methods=['POST'])
+@login_required
+def send_email():
+    email = json.loads(request.data)
+    username = db.get("user:%s:login" % current_user.user)
+    password = db.get("user:%s:password" % current_user.user)
+    subprocess.Popen(["python", "/home/jmvldz/sigma/send-email.py", "-f", username, \
+                      "-t", email['to'], "-m", email['body'], "-s", email['subject'], \
+                      "-p", password])
+    return "Success"
 
 @app.route('/train_models', methods=['POST'])
 @login_required
