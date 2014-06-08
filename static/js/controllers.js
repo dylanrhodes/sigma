@@ -861,7 +861,7 @@ sigmaApp.factory('Emails', function($http) {
     this.arr = [];
 	this.unread = [];
 	this.digest = [];
-	this.contacts = [];
+	this.contacts = {};
 	
     this.busy = false;
     this.after = '';
@@ -935,6 +935,7 @@ sigmaApp.factory('Emails', function($http) {
 		this.busy = true;
 		var url = "/get_emails?callback=JSON_CALLBACK";
 		$http.jsonp(url).success(function(data) {
+			var contactsCount = 0;
 		  for (var key in data) {
 			if(data.hasOwnProperty(key)) {
 				var email = data[key];
@@ -962,10 +963,13 @@ sigmaApp.factory('Emails', function($http) {
 					email.fromName = "";
 					email.fromEmail = from;
 				}
-				this.contacts.unshift([this.contacts.length, 
-									email.fromName + " " + email.fromEmail, 
-									email.fromName != "" ? email.fromName : email.fromEmail,
-									email.fromName + " <em>" + email.fromEmail + "</em>"]);
+				if(! this.contacts[email.fromEmail] && contactsCount < 1000) {
+					this.contacts[email.fromEmail.toLowerCase()] = [this.contacts.length, 
+											email.fromName + " " + email.fromEmail]; /*, 
+											email.fromName != "" ? email.fromName : email.fromEmail,
+											email.fromName + " <em>" + email.fromEmail + "</em>"]; */
+					contactsCount ++;
+				}
 				var to = email.to.replace(/"/g, "");
 				var start = to.indexOf("<");
 				var end = to.indexOf(">");
@@ -1049,6 +1053,12 @@ sigmaApp.factory('Emails', function($http) {
 				}.bind(this))
 				.error(function() {console.log("Couldn't get digest for " + dCats[i]);});
 			}
+		  var c = [];
+		  $.each(this.contacts, function(i,v) {
+		  	v[0] = c.length;
+		  	c.push(v);
+		  });
+		  this.contacts = c;
 		  this.busy = false;
 		}.bind(this));
 	}

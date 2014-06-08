@@ -596,7 +596,6 @@ sigmaApp.factory('Emails', function($http) {
 	  	v[0] = c.length;
 	  	c.push(v);
 	  });
-	  console.log(c);
 	  this.contacts = c;
       this.busy = false;
     }.bind(this));
