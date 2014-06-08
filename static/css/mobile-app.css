@@ -215,6 +215,9 @@ button.loadMore {
 	height: 47px;*/
 	/*border: 1px */
 	border-left: 7px solid #424242;
+	transition: background-color 0.2s;;
+	-webkit-transition: background-color 0.2s;
+	overflow: hidden;
 }
 
 .ind-email-inside {
@@ -234,6 +237,27 @@ button.loadMore {
 	background-color: #f1f1f1;
 	/*border-left-width: 1px;*/
 	/*padding-left: 13px;*/
+}
+
+.email-show {
+	-webkit-transition: 0.2s linear all; /* Chrome */
+	transition: 0.2s linear all;
+	height: 0px;
+}
+ 
+.email-show.email-show-active {
+	height: 70px;
+}
+
+
+.email-hide {
+	-webkit-transition: 0.2s linear all; /* Chrome */
+	transition: 0.2s linear all;
+	height: 70px;
+}
+ 
+.email-hide.email-hide-active {
+	height: 0px;
 }
 
 .selected-email {
@@ -698,5 +722,26 @@ a:active.save {
 
 .category-bar-focused {
 	
+}
+
+.fade-in {
+	-webkit-transition: 0.2s linear all; /* Chrome */
+	transition: 0.2s linear all;
+	opacity: 0;
+}
+ 
+.fade-in.fade-in-active {
+	opacity: 1;
+}
+
+
+.fade-out {
+	-webkit-transition: 0.2s loutear all; /* Chrome */
+	transition: 0.2s loutear all;
+	opacity: 1;
+}
+ 
+.fade-out.fade-out-active {
+	opacity: 0;
 }
 

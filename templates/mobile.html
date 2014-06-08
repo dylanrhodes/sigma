@@ -41,14 +41,14 @@
 			<img src="/static/images/up-mobile.png" ng-show="showingMenu" />
 		</div>
 		{% raw %}
-  		<div class="menu {{showingMenu ? '' : 'hidden'}}">
+  		<div class="menu" ng-show="showingMenu" ng-animate="{show: 'fade-in', hide: 'fade-out'}">
   			<div class="control-bar row">
 			  <!-- <div class="control-bar-item col-xs-1"><!-- menu button placeholder --</div> -->
 			  <div class="control-bar-item col-xs-1">
 			  	<a href="#" ng-click="settings()"><img src="/static/images/settings-mobile.png" /></a>
 			  </div>
 			  <div class="control-bar-item col-xs-1">
-			  	<a href="#" ng-click="settings()"><img src="/static/images/by-unread-mobile.png" /></a>
+			  	<a href="#" ng-click="byunread = !byunread"><img src="/static/images/by-unread-mobile.png" /></a>
 			  </div>
 		      <div class="control-bar-item col-xs-7 control-bar-search">		      	
 		        <input type="search" id="search" placeholder="Search" ng-model="search" />
@@ -72,7 +72,7 @@
 		<!-- <div class="padding col-xs-2"></div> -->
 		<div class="view-area col-xs-12">
 		    <div class="inbox {{showingClass(inboxId)}}">
-				<div ng-repeat="email in emails.arr | orderBy:email.millis:reverse" class="row ind-email {{email.read ? 'read' : ''}} {{showingEmail(email) ? '' : 'hidden'}}" id = "{{email.id}}" style="border-left-color: {{categories[email.category - 1].color}}">
+				<div ng-repeat="email in emails.arr | orderBy:emailOrdering(email):reverse" class="row ind-email {{email.read ? 'read' : ''}}" id = "{{email.id}}" style="border-left-color: {{categories[email.category - 1].color}}" ng-show="showingEmail(email)" ng-animate="{ show: 'email-show', hide: 'email-hide'}">
 					<div class="ind-email-inside">
 						<div class="col-xs-11 email-area" ng-click="viewing(email.id)" ng-swipe-right="read(email.id, 1)" ng-swipe-left="read(email.id, 0)">
 			             	<div class = "from">{{email.from}}</div>
