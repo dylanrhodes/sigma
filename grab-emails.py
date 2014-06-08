@@ -36,22 +36,17 @@ def get_email(user):
         msg['message'] = body
         msg['subject'] = ('NoSubj' if (msg['Subject']==None or msg['Subject'] == "")  else msg['Subject'])
         msg['to'] = ('NoTo' if (msg['To']==None) else msg['To'])
+        plain = {'plain_body': extract_body_text(msg), 'subject': msg['subject']}
         # TODO set unread
         email = {'id': msgid, 'from': msg['From'], 'to': msg['To'], 'subject': msg['Subject'],
                 'date': msg['Date'], 'cc': msg['CC'], 'read': False,
-                'message': body, 'categorized': False}
+                'message': body, 'categorized': False, 'summary': shorten(plain)}
+
         trained = db.get("user:%s:trained" % user)
         if trained == "true":
             email['category'] = int(classify(msg, user))
         else:
             email['category'] = 1
-
-        plain_body = extract_body_text(msg)
-        #print('PLAIN BODY: \n'+plain_body)
-        msg['plain_body'] = plain_body
-
-        #print('SUMMARY: \n'+shorten(msg, MAX_CHARS=300))
-
         emailJSON = json.dumps(email, sort_keys=True, indent=4, separators=(',', ': '))
         db.zadd("mail:%s:inbox" % user, emailJSON, msgid)
         db.sadd("mail:%s:%s" % (user, email['category']), msgid)

@@ -12,6 +12,7 @@ from app.db import db
 from app.forms import LoginForm
 from app.models import User
 from classifier.offline_updater import retrain_models
+from summarizer.shortener import shorten
 
 def jsonp(func):
     """Wraps JSONified output for JSONP requests."""
@@ -127,6 +128,25 @@ def get_category_unread():
         if not pMail['read']:
             unread += 1
     response = {'unread': unread, 'category': category}
+    return jsonify(response)
+
+@app.route('/get_category_summary')
+@jsonp
+@login_required
+def get_category_summary():
+    category = request.args.get('category')
+    mail = db.smembers("mail:%s:%s" % (current_user.user, category))
+    summaries = {}
+    for emailID in mail:
+        emailObj = db.zrevrangebyscore("mail:%s:inbox" % current_user.user, emailID, emailID)
+        pMail = json.loads(emailObj[0])
+        msg = {'plain_body': pMail['message'], 'subject': pMail['subject']}
+        summary = (shorten(msg) if('summary' not in pMail) else pMail['summary'])
+        if 'summary' in pMail:
+            print pMail['summary']
+        if not pMail['read']:
+            summaries[pMail['id']] = {"summary": summary, "from": pMail['from'], "subject": pMail['subject']}
+    response = {'category': category, 'emails': summaries}
     return jsonify(response)
 
 @app.route('/categorize_email', methods=["POST"])
