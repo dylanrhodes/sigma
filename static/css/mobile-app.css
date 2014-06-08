@@ -694,10 +694,10 @@ a:active.save {
 
 .category-bar {
 	text-align: center;
-	height: calc(20px + 30px);
-	overflow: auto;
+	/*height: calc(20px + 30px);*/
+	/*overflow: auto;*/
 	-webkit-overflow-scrolling: touch;
-	white-space: nowrap;
+	/*white-space: nowrap;*/
 	font-size: 0px;
 }
 
@@ -707,6 +707,8 @@ a:active.save {
 	overflow: hidden;
 	text-overflow:ellipsis;
 	padding: 5px;
+	border-radius: 4px;
+	-webkit-border-radius: 4px;
 	font-weight: bold;
 	padding-top: 15px;
 	padding-bottom: 15px;
