@@ -217,7 +217,6 @@ button.loadMore {
 	border-left: 7px solid #424242;
 	transition: background-color 0.2s;;
 	-webkit-transition: background-color 0.2s;
-	overflow: hidden;
 }
 
 .ind-email-inside {
@@ -228,6 +227,7 @@ button.loadMore {
 	-o-user-select: none; 
 	padding-bottom:2px;
 	height: 70px;
+	overflow: hidden;
 
 	padding-left: 7px;
 	color: #555;		

@@ -19,8 +19,8 @@ sigmaApp.controller('EmailListCtrl', function($scope, $http, Emails) {
   		$scope.numCat = $scope.categories.length;
 
   		// console.log($(".menu").height());
-  		$(".top-padding").css("padding-top", (($(".menu").height() - 50) / 2) + "px");
-  		$(".top-padding").css("padding-bottom", (($(".menu").height() - 50) / 2) + "px");
+  		setTimeout('$(".top-padding").css("padding-top", (($(".menu").height() - 50) / 2) + "px"); \
+  		$(".top-padding").css("padding-bottom", (($(".menu").height() - 50) / 2) + "px");', 150);
 	  })
 	  .error(function() {console.log("Didn't load categories");});
   }
