@@ -224,6 +224,20 @@ sigmaApp.controller('EmailListCtrl', function($scope, $http, Emails) {
 		else console.log("Couldn't remove cateogry");
 	}
 	
+	$scope.archive = function(email) {
+		var elem = {"id" : email.id};
+		if (window.location.search != "?home") {
+			$http({
+				method: 'POST',
+				url: '/send_email',
+				data: data
+			})
+			.success(function() {console.log("Successfully archived email");location.reload();})
+			.error(function() {console.log("Didn't successfully archive email");});
+		}
+		email.archived = 1;
+	}
+	
 	$scope.send = function() {
 		var subject = $("#compose-subject").val();
 		var body = $("#compose-body").val();
