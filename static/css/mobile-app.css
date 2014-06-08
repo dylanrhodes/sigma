@@ -709,7 +709,7 @@ a:active.save {
 }
 
 
-.control-bar-search input {
+.control-bar-search {
 	font-size: 12px;
 	width: calc(100% - 45px * 3);
 }
