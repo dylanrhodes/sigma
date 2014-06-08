@@ -3,6 +3,14 @@
 <head>
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <title>Sigma: your organized inbox.</title>
+  	<script>
+		var ua = navigator.userAgent.toLowerCase();
+		var isAndroid = ua.indexOf("android") > -1; //&& ua.indexOf("mobile");
+		if ((navigator.userAgent.match(/iPhone/i)) || (navigator.userAgent.match(/iPod/i)) || isAndroid) {
+		   window.location = "mobile";
+		}
+		-->
+	</script>
   <link rel="shortcut icon" type="image/x-icon" href="{{ url_for('static', filename='favicon.ico') }}">
   <link rel="stylesheet" href="{{ url_for('static', filename='css/libraries/bootstrap.css') }}">
   <link rel="stylesheet" href="{{ url_for('static', filename='css/libraries/main.min.css') }}">
@@ -27,6 +35,7 @@
   <script src="{{ url_for('static', filename='js/libraries/textboxlist/GrowingInput.js') }}"></script>
   <script src="{{ url_for('static', filename='js/libraries/textboxlist/TextboxList.js') }}"></script>
   <script src="{{ url_for('static', filename='js/libraries/textboxlist/TextboxList.Autocomplete.js') }}"></script>
+
 </head>
 
 <body ng-controller="EmailListCtrl">
@@ -218,6 +227,14 @@
 				<a class="save" ng-click="save()">Save</a>
 			</div>
 		</div>
+
+		
+	</div>
+	<div class="footer">
+		&copy;2014 SGMA. Terms of use.
+		<a onclick="window.location = 'mobile'">
+			Mobile Version
+		</a>
 	</div>
 </body>
 {% endraw %}
