@@ -693,6 +693,10 @@ a:active.save {
 	font-size: 0px;
 }
 
+.menu-hidden .control-bar {
+	margin-left: 0px;
+}
+
 .control-bar .col-xs-1 {
 	/*min-width: 45px;*/
 }

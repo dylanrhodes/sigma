@@ -44,7 +44,11 @@
   		<div class="menu {{showingMenu ? 'menu-shown' : 'menu-hidden'}}" ng-animate="{show: 'fade-in', hide: 'fade-out'}">
   			<div class="control-bar row">
 			  <!-- <div class="control-bar-item col-xs-1"><!-- menu button placeholder --</div> -->
-			  <div class="control-bar-item">
+			  
+		      <div class="control-bar-item control-bar-search">		      	
+		        <input type="search" id="search" placeholder="Search" ng-model="search" />
+		      </div>
+		      <div class="control-bar-item">
 			  	<a href="#" ng-click="settings()"><img src="/static/images/settings-mobile.png" /></a>
 			  </div>
 			  <div class="control-bar-item">
@@ -53,9 +57,6 @@
 			  		<img src="/static/images/calendar-mobile.png" ng-show="byunread" />
 			  	</a>
 			  </div>
-		      <div class="control-bar-item control-bar-search">		      	
-		        <input type="search" id="search" placeholder="Search" ng-model="search" />
-		      </div>
 		      <div class="control-bar-item">
 		      	<a href="#" ng-click="compose()"><img src="/static/images/write-mobile.png" /></a>
 		      </div>
