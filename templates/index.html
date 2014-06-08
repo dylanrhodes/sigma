@@ -88,7 +88,7 @@
 				</div>
 				<div class="message-buttons-sigma col-xs-3 bootpadding">
 {% endraw %}
-					<img class="email-button-sigma" title="Mark as Unread" src = "{{ url_for('static', filename='images/mark-unread.png') }}" border="0" ng-click="archive(viewingEmail)" /><img class="email-button-sigma" title="Archive Email" src = "{{ url_for('static', filename='images/trash-email.png') }}" border="0" ng-click="categorize(-1)" /><img class="email-button-sigma" title="Close Email" src = "{{ url_for('static', filename='images/close-email.png') }}" border="0" ng-click="focusCategory('')" />
+					<img class="email-button-sigma" title="Mark as Unread" src = "{{ url_for('static', filename='images/mark-unread.png') }}" border="0" ng-click="markRead(0)" /><img class="email-button-sigma" title="Archive Email" src = "{{ url_for('static', filename='images/trash-email.png') }}" border="0" ng-click="archive(viewingEmail)" /><img class="email-button-sigma" title="Close Email" src = "{{ url_for('static', filename='images/close-email.png') }}" border="0" ng-click="focusCategory('')" />
 {% raw %}				
 				</div>
 			</div>
