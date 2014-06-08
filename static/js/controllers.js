@@ -1032,14 +1032,14 @@ sigmaApp.factory('Emails', function($http) {
 						  this.digest[k] = arr[k];
 						  content += "<div class='row digest-row'>"
 						  content += "<div class='col-xs-9 summary'>"
-						  content += arr[k];
+						  content += arr[k]['summary'];
 						  content += "</div>";
 						  content += "<a class='col-xs-3 keep-unread' title='" + k + "'>Keep Unread</a>"
 						  content += "</div>";
 						  content += "<div class='row digest-sub-row'>"
-						  content += "<div class='col-xs-4 summary'>from: ggreiner@stanford.edu</div>"
+						  content += "<div class='col-xs-4 summary'>from: " + arr[k]['from'] + "</div>"
 						  content += "<div class='col-xs-8 summary'>subject: "
-						  content += arr[k];
+						  content += arr[k]['subject'];
 						  content += "</div>"
 						  content += "</div>"
 						}
