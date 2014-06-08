@@ -223,6 +223,15 @@ sigmaApp.controller('EmailListCtrl', function($scope, $http, Emails) {
 		}
 		else console.log("Couldn't remove cateogry");
 	}
+	
+	$scope.send = function() {
+		var subject = $("#compose-subject").val();
+		var body = $("#compose-body").val();
+		var to = "joshuav@stanford.edu";
+		var cc = "";
+		var bcc = "";
+		console.log("Subject: " + subject + ", Body: " + body);
+	}
 
 	$scope.save = function() {
 		var num = $scope.addCat + $scope.categories.length;
