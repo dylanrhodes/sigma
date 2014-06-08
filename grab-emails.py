@@ -22,7 +22,7 @@ def get_email(user):
     password = db.get("user:%s:password" % user)
     server.login(username, password)
     server.select_folder('INBOX', readonly=True)
-    messages = server.search(['NOT DELETED','SINCE 25-May-2014' ])
+    messages = server.search(['NOT DELETED','SINCE 25-May-2014', 'UNSEEN'])
     response = server.fetch(messages, ['RFC822', 'FLAGS'])
     for msgid, data in response.iteritems():
         # check for duplicates
