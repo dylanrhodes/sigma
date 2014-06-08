@@ -215,9 +215,9 @@ button.loadMore {
 	height: 47px;*/
 	/*border: 1px */
 	border-left: 7px solid #424242;
-	/* transition: background-color 0.2s;;
+	transition: background-color 0.2s;;
 	-webkit-transition: background-color 0.2s;
-	overflow: hidden; */
+	overflow: hidden;
 }
 
 .ind-email-inside {
@@ -238,9 +238,9 @@ button.loadMore {
 	/*border-left-width: 1px;*/
 	/*padding-left: 13px;*/
 }
-/*
+
 .email-show {
-	-webkit-transition: 0.2s linear all; 
+	-webkit-transition: 0.2s linear all; /* Chrome */
 	transition: 0.2s linear all;
 	height: 0px;
 }
@@ -251,7 +251,7 @@ button.loadMore {
 
 
 .email-hide {
-	-webkit-transition: 0.2s linear all; 
+	-webkit-transition: 0.2s linear all; /* Chrome */
 	transition: 0.2s linear all;
 	height: 70px;
 }
@@ -259,7 +259,7 @@ button.loadMore {
 .email-hide.email-hide-active {
 	height: 0px;
 }
-*/
+
 .selected-email {
 	background: #e9fcfb;
 }
@@ -723,9 +723,9 @@ a:active.save {
 .category-bar-focused {
 	
 }
-/*
+
 .fade-in {
-	-webkit-transition: 0.2s linear all; 
+	-webkit-transition: 0.2s linear all; /* Chrome */
 	transition: 0.2s linear all;
 	opacity: 0;
 }
@@ -736,7 +736,7 @@ a:active.save {
 
 
 .fade-out {
-	-webkit-transition: 0.2s loutear all;
+	-webkit-transition: 0.2s loutear all; /* Chrome */
 	transition: 0.2s loutear all;
 	opacity: 1;
 }
@@ -745,4 +745,3 @@ a:active.save {
 	opacity: 0;
 }
 
-*/
