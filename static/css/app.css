@@ -365,7 +365,12 @@ button.loadMore {
 }
 
 .digest-row {
+	margin-bottom: 0;
+}
+
+.digest-sub-row {
 	margin-bottom: 5px;
+	font-size: 80%;
 }
 
 .summary {
