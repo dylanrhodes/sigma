@@ -699,6 +699,7 @@ a:active.save {
 	-webkit-overflow-scrolling: touch;
 	/*white-space: nowrap;*/
 	font-size: 0px;
+	padding-bottom: 2px;
 }
 
 .category-bar-item {
@@ -710,9 +711,9 @@ a:active.save {
 	border-radius: 4px;
 	-webkit-border-radius: 4px;
 	font-weight: bold;
-	padding-top: 15px;
-	padding-bottom: 15px;
-	width: 75px;
+	padding-top: 12px;
+	padding-bottom: 12px;
+	width: 85px;
 	cursor: pointer;
 	display: inline-block;
 	/*background: #fff;*/
