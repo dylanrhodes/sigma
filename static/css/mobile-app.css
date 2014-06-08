@@ -591,6 +591,8 @@ a:active.save {
 	margin-top: 5px;
 	border-top: 1px solid #eee;
 	padding-top: 5px;
+	overflow: auto; 
+	-webkit-overflow-scrolling:touch;
 }
 
 .email-frame {
