@@ -113,6 +113,9 @@ sigmaApp.controller('EmailListCtrl', function($scope, $http, Emails) {
   }
 
   $scope.emailOrdering = function(email) {
+  	console.log(email);
+  	if(!email)
+  		return "";
   	if($scope.byunread)
   		return email.read + "" + email.millis;
   	return email.millis;
