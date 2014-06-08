@@ -227,7 +227,7 @@ button.loadMore {
 	-o-user-select: none; 
 	padding-bottom:2px;
 	height: 70px;
-	overflow: hidden;
+	/*overflow: hidden;*/
 
 	padding-left: 7px;
 	color: #555;		
@@ -660,6 +660,16 @@ a:active.save {
 	/*border-bottom: 1px solid #eee;*/
 	box-shadow: 1px 1px 0px #eee;
 	cursor: pointer;
+	transition: top 0.4s;
+	-webkit-transition: top 0.4s;
+}
+
+.menu-shown {
+	top: 0;
+}
+
+.menu-hidden {
+	top: -150px;
 }
 
 .menu img,
@@ -716,6 +726,8 @@ a:active.save {
 	width: 85px;
 	cursor: pointer;
 	display: inline-block;
+	transition: all 0.2s;
+	-webkit-transition: all 0.2s;
 	/*background: #fff;*/
 }
 

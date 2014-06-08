@@ -111,16 +111,6 @@ sigmaApp.controller('EmailListCtrl', function($scope, $http, Emails) {
   	else
   		$scope.showingMenu = ! $scope.showingMenu;
   }
-
-  $scope.emailOrdering = function(read, millis) { //email) {
-  	// console.log(email);
-  	// if(!email)
-  		// return "";
-  	console.log(read, millis);
-  	if($scope.byunread)
-  		return read + "" + millis;
-  	return millis;
-  }
   // console.log($scope.emails.unread.length);
   // for (var i = 0; i < $scope.emails.unread.length; i++) {
 	// var cat = i + 1;
@@ -522,7 +512,7 @@ sigmaApp.factory('Emails', function($http) {
 	  for (var key in data) {
 		if(data.hasOwnProperty(key)) {
 			var email = data[key];
-			email.millis = (new Date(email.date)).getTime();
+			email.millis = -1 * (new Date(email.date)).getTime();
 			var day = moment(email.date, "ddd, DD MMM YYYY HH:mm:ss ZZ");
 			email.true_date = day.format('MMMM DD YYYY, h:mm:ssa');
 			
