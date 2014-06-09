@@ -264,8 +264,9 @@ sigmaApp.controller('EmailListCtrl', function($scope, $http, Emails, $alert) {
 		var subject = $("#compose-subject").val();
 		var body = $("#compose-body").val();
 		var to = $.map($("#compose-to").val().split(','), $scope.tblContactsToContacts).join(',');
-		var cc = $.map($("#compose-cc").val().split(','), $scope.tblContactsToContacts).join(',');;
-		var bcc = $.map($("#compose-bcc").val().split(','), $scope.tblContactsToContacts).join(',');;
+		var cc = $.map($("#compose-cc").val().split(','), $scope.tblContactsToContacts).join(',');
+		var bcc = $.map($("#compose-bcc").val().split(','), $scope.tblContactsToContacts).join(',');
+		console.log(to);
 		var data = {'body': body, 'subject': subject, 'to': to, 'cc' : cc, 'bcc' : bcc};
 		console.log(data);
 		if (window.location.search != "?home") {
