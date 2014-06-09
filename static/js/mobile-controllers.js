@@ -201,6 +201,9 @@ sigmaApp.controller('EmailListCtrl', function($scope, $http, Emails) {
 			return false;
 		}
 
+		if(!$scope.isEmail)
+			return true;
+
 		var search = $("#search").val();
 		var showingSearch = search == "" || email.message.indexOf(search) >= 0 || email.subject.indexOf(search) >= 0
 							|| email.fromName.indexOf(search) >= 0 || email.fromEmail.indexOf(search) >= 0;
@@ -628,7 +631,7 @@ sigmaApp.factory('Emails', function($http) {
 		}
 	  }
 	  // dummy archive separator
-	  this.arr.unshift({archived : true, isEmail : false, from : "Archive"});
+	  this.arr.unshift({archived : true, isEmail : false});
 	  var c = [];
 	  $.each(this.contacts, function(i,v) {
 	  	v[0] = c.length;

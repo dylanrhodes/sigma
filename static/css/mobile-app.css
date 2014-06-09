@@ -800,8 +800,12 @@ a:active.save {
 	font-weight: bold;
 }
 
+.archive-placeholder img {
+	width: 40px;
+}
+
 .archive-placeholder .from {
-	margin-top: 22px;
+	margin-top: 17px;
 }
 
 /* viewing menu */
