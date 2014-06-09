@@ -204,8 +204,8 @@ sigmaApp.controller('EmailListCtrl', function($scope, $http, Emails) {
 		}
 
 		console.log(email);
-		// if($scope.focusedCategory == 'ai')
-		// 	return 
+		if($scope.focusedCategory == 'ai')
+			return email.categorized === false;
 
 		if(!email.isEmail)
 			return true;
