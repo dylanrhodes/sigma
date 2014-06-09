@@ -253,11 +253,18 @@ sigmaApp.controller('EmailListCtrl', function($scope, $http, Emails, $alert) {
 		}
 		email.archived = 1;
 	}
-	
+
+	$scope.tblContactsToContacts = function(val, i) {
+		if($scope.emails.contacts[val])
+			return $scope.emails.contacts[val];
+		return val;
+	}
+
 	$scope.send = function() {
 		var subject = $("#compose-subject").val();
 		var body = $("#compose-body").val();
-		var to = "joshuav@stanford.edu";
+		var to = $.map($("#compose-to").val().split(','), $scope.tblContactsToContacts).join(',');
+		console.log(to);
 		var cc = "";
 		var bcc = "";
 		console.log("Subject: " + subject + ", Body: " + body);
@@ -726,7 +733,7 @@ sigmaApp.controller('EmailListCtrl', function($scope, $http, Emails, $alert) {
 	});
 
 	$(document).on("click", ".keep-unread", function(e) {
-		var myAlert = $alert({title: 'Marked Unread!', placement: 'top-left', container: 'body', type: 'info', duration: 2, show: true});
+		var myAlert = $alert({title: 'Marked Unread!', placement: 'top-left', type: 'info', duration: 2, show: true});
 		var id = parseInt($(this).attr('title'));
 		var elem = {"id" : id};
 		$.map($scope.emails.arr, function(obj, index) {
@@ -1018,7 +1025,7 @@ sigmaApp.factory('Emails', function($http) {
 					email.fromEmail = from;
 				}
 				if(! this.contacts[email.fromEmail] && contactsCount < 1000) {
-					this.contacts[email.fromEmail.toLowerCase()] = [email.fromEmail, 
+					this.contacts[email.fromEmail.toLowerCase()] = [this.contacts.length, 
 											email.fromName + " " + email.fromEmail, 
 											email.fromName != "" ? email.fromName : email.fromEmail,
 											email.fromName + " <em>" + email.fromEmail + "</em>"];
