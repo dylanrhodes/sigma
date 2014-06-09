@@ -626,6 +626,8 @@ sigmaApp.factory('Emails', function($http) {
 			this.byId[email.id] = email;
 		}
 	  }
+	  // dummy archive separator
+	  this.arr.unshift({archived : true, isEmail : false });
 	  var c = [];
 	  $.each(this.contacts, function(i,v) {
 	  	v[0] = c.length;
