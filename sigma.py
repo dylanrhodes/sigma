@@ -107,7 +107,8 @@ def logout():
 def get_emails():
     mail = db.zrevrangebyscore("mail:%s:inbox" % current_user.user, "+inf", "-inf")
     parsedMail = {}
-    session['recent_id'] = json.loads(mail[0])['id']
+    if len(mail) > 0:
+        session['recent_id'] = json.loads(mail[0])['id']
     for email in mail:
         pMail = json.loads(email)
         parsedMail[pMail['id']] = pMail
@@ -120,7 +121,8 @@ def get_recent_email():
     recentID = int(session['recent_id']) + 1
     mail = db.zrevrangebyscore("mail:%s:inbox" % current_user.user, "+inf", recentID)
     parsedMail = {}
-    session['recent_id'] = json.loads(mail[0])['id']
+    if len(mail) > 0:
+        session['recent_id'] = json.loads(mail[0])['id']
     for email in mail:
         pMail = json.loads(email)
         parsedMail[pMail['id']] = pMail

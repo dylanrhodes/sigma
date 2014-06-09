@@ -31,11 +31,11 @@ def get_email(user):
             continue
         emailUTF8 = data['RFC822'].encode('utf-8')
         msg = parser.parsestr(emailUTF8)
-        body = extract_body(msg)
+        body = extract_body(msg).encode('utf-8')
         msg['message'] = body
-        msg['subject'] = ('NoSubj' if (msg['Subject']==None or msg['Subject'] == "")  else msg['Subject'])
-        msg['to'] = ('NoTo' if (msg['To']==None) else msg['To'])
-        plain = {'plain_body': extract_body_text(msg), 'subject': msg['subject']}
+        msg['subject'] = ('NoSubj' if (msg['Subject'] == None or msg['Subject'].encode('utf-8') == "".encode('utf-8'))  else msg['Subject'])
+        msg['to'] = ('NoTo' if (msg['To'] == None) else msg['To'])
+        plain = {'plain_body': extract_body_text(msg).encode('utf-8'), 'subject': msg['subject']}
         # TODO set unread
         email = {'id': msgid, 'from': msg['From'], 'to': msg['To'], 'subject': msg['Subject'],
                 'date': msg['Date'], 'cc': msg['CC'], 'read': False,
