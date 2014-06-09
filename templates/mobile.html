@@ -113,7 +113,7 @@
 		    <div class="inbox" ng-show="showing == inboxId || viewingEmail">
 				<div ng-repeat="email in emails.arr | orderBy:(byunread ? ['archived', 'isEmail', 'read', 'millis'] : ['archived','isEmail', 'millis']):reverse" class="row ind-email {{email.read ? 'read' : ''}}" id = "{{email.id}}" style="border-left-color: {{email.isEmail ? categories[email.category - 1].color : '#d9d9d9'}} {{showingEmail(email) ? '' : 'hidden'}}" ng-show="showingEmail(email)" ng-animate="{ show: 'email-show', hide: 'email-hide'}">
 					<div class="ind-email-inside {{email.isEmail ? '' : 'archive-placeholder'}}">
-						<div class="col-xs-11 email-area" ng-click="email.isEmail ? viewing(email.id) : ''" ng-swipe-right="email.isEmail ? archive(email.id, 1) : ''" ng-swipe-left="email.isEmail ? archive(email.id, 0) : ''">
+						<div class="col-xs-11 email-area" ng-click="email.isEmail ? viewing(email.id) : ''" ng-swipe-right="email.isEmail ? archive(email, 1) : ''" ng-swipe-left="email.isEmail ? archive(email, 0) : ''">
 			             	<div class = "from">
 			             		<img src='/static/images/archive-gray-mobile.png' ng-hide="email.isEmail" />
 			             		{{email.from}}

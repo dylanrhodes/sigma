@@ -159,7 +159,7 @@ sigmaApp.controller('EmailListCtrl', function($scope, $http, Emails) {
 		.error(function() {console.log("Didn't successfully push read change");});
 	}
 
-	$scope.archive 	= function(email) {
+	$scope.archive = function(email) {
 		var archived = arguments.length > 1 ? arguments[2] : 1;
 		if (window.location.search != "?home") {
 			$http({
@@ -170,7 +170,7 @@ sigmaApp.controller('EmailListCtrl', function($scope, $http, Emails) {
 			.success(function() {console.log("Successfully archived email");})
 			.error(function() {console.log("Didn't successfully archive email");});
 		}
-		email.archived = 0;
+		email.archived = archived;
 	}
 
   $scope.viewing = function(emailId) {
