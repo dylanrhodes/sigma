@@ -602,6 +602,7 @@ sigmaApp.factory('Emails', function($http) {
 				contactsCount ++;
 			}
 			var to = email.to.replace(/"/g, "");
+			var from = email.from.replace(/"/g, "");
 			var start = to.indexOf("<");
 			var end = to.indexOf(">");
 			email.toEmail = to.substring(start + 1, end);
