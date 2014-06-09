@@ -201,7 +201,7 @@ sigmaApp.controller('EmailListCtrl', function($scope, $http, Emails) {
 			return false;
 		}
 
-		if(!$scope.isEmail)
+		if(!email.isEmail)
 			return true;
 
 		var search = $("#search").val();
