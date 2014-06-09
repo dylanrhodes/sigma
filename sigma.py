@@ -260,6 +260,12 @@ def train_models():
     db.getset("user:%s:trained" % current_user.user, "true")
     return "Success"
 
+@app.route('/get_new_mail', methods=['POST'])
+@login_required
+def get_new_mail():
+    subprocess.Popen(["python", "/home/jmvldz/sigma/grab-emails.py", "-u", current_user.user])
+    return "Success"
+
 # main
 if __name__ == '__main__':
     app.run()
