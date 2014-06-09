@@ -252,7 +252,7 @@ sigmaApp.controller('EmailListCtrl', function($scope, $http, Emails) {
 				url: '/send_email',
 				data: data
 			})
-			.success(function() {console.log("Successfully sent email");location.reload();})
+			.success(function() {console.log("Successfully sent email"); /*location.reload();*/})
 			.error(function() {console.log("Didn't successfully send email");});
 		}
 		$scope.inbox();
