@@ -264,9 +264,11 @@ sigmaApp.controller('EmailListCtrl', function($scope, $http, Emails, $alert) {
 		var subject = $("#compose-subject").val();
 		var body = $("#compose-body").val();
 		var to = $.map($("#compose-to").val().split(','), $scope.tblContactsToContacts).join(',');
-		var cc = $.map($("#compose-cc").val().split(','), $scope.tblContactsToContacts).join(',');;
-		var bcc = $.map($("#compose-bcc").val().split(','), $scope.tblContactsToContacts).join(',');;
+		var cc = $.map($("#compose-cc").val().split(','), $scope.tblContactsToContacts).join(',');
+		var bcc = $.map($("#compose-bcc").val().split(','), $scope.tblContactsToContacts).join(',');
+		console.log(to);
 		var data = {'body': body, 'subject': subject, 'to': to, 'cc' : cc, 'bcc' : bcc};
+		console.log(data);
 		if (window.location.search != "?home") {
 			$http({
 				method: 'POST',
@@ -576,15 +578,36 @@ sigmaApp.controller('EmailListCtrl', function($scope, $http, Emails, $alert) {
 							email.toName = "";
 							email.toEmail = from;
 						}
-						if (email.subject.indexOf("=?utf-8?Q?") > -1) {
+						if (email.subject.indexOf("=?utf-8?Q?") == 0 || email.subject.indexOf("=?UTF-8?Q?") == 0) {
+							email.subject = email.subject.replace('%','perc.');
 							email.subject = email.subject.substring(10).replace(/=/g,'%');
-							if (email.subject.indexOf("?") > -1) email.subject = email.subject.substring(0, email.subject.indexOf("?"));
-							email.subject = decodeURIComponent(email.subject);
+							if (email.subject.indexOf("?") > -1) {
+								email.subject = email.subject.substring(0, email.subject.indexOf("?"));
+								email.subject = decodeURIComponent(email.subject);
+							}
 						}
-						if (email.fromName.indexOf("=?utf-8?Q?") > -1) {
+						if (email.subject.indexOf("=?utf-8?B?") == 0 || email.subject.indexOf("=?UTF-8?B?") == 0) {
+							email.subject = email.subject.substring(10);
+							console.log(email.subject);
+							if (email.subject.indexOf("?") > -1) {
+								email.subject = email.subject.substring(0, email.subject.indexOf("?"));
+								email.subject = decodeURIComponent(escape(window.atob(email.subject)));
+							}
+						}
+						if (email.fromName.indexOf("=?utf-8?Q?") == 0 || email.fromName.indexOf("=?UTF-8?Q?") == 0) {
+							email.subject = email.subject.replace('%','perc.');
 							email.fromName = email.fromName.substring(10).replace(/=/g,'%');
-							if (email.fromName.indexOf("?") > -1) email.fromName = email.fromName.substring(0, email.fromName.indexOf("?"));
-							email.fromName = decodeURIComponent(email.fromName);
+							if (email.fromName.indexOf("?") > -1) {
+								email.fromName = email.fromName.substring(0, email.fromName.indexOf("?"));
+								email.fromName = decodeURIComponent(email.fromName);
+							}
+						}
+						if (email.fromName.indexOf("=?utf-8?B?") == 0 || email.fromName.indexOf("=?UTF-8?B?") == 0) {
+							email.fromName = email.fromName.substring(10);
+							if (email.fromName.indexOf("?") > -1) {
+								email.fromName = email.fromName.substring(0, email.fromName.indexOf("?"));
+								email.fromName = decodeURIComponent(escape(window.atob(email.fromName)));
+							}
 						}
 						if (email.message.toLowerCase().indexOf("<style") >= 0) {
 							email.noHtml = email.message.substring(0, email.message.toLowerCase().indexOf("<style")) + email.message.substring(email.message.toLowerCase().indexOf("/style>") + 7);
@@ -1142,25 +1165,38 @@ sigmaApp.factory('Emails', function($http, $alert) {
 					email.toName = "";
 					email.toEmail = from;
 				}
-				if (email.subject.indexOf("=?utf-8?Q?") > -1 || email.subject.indexOf("=?UTF-8?Q?") > -1) {
+				if (email.subject.indexOf("=?utf-8?Q?") == 0 || email.subject.indexOf("=?UTF-8?Q?") == 0) {
+					email.subject = email.subject.replace('%','perc.');
 					email.subject = email.subject.substring(10).replace(/=/g,'%');
-					if (email.subject.indexOf("?") > -1) email.subject = email.subject.substring(0, email.subject.indexOf("?"));
-					email.subject = decodeURIComponent(email.subject);
+					if (email.subject.indexOf("?") > -1) {
+						email.subject = email.subject.substring(0, email.subject.indexOf("?"));
+						console.log(email);
+						email.subject = decodeURIComponent(email.subject);
+					}
 				}
-				if (email.subject.indexOf("=?utf-8?B?") > -1 || email.subject.indexOf("=?UTF-8?B?") > -1) {
+				if (email.subject.indexOf("=?utf-8?B?") == 0 || email.subject.indexOf("=?UTF-8?B?") == 0) {
+					
 					email.subject = email.subject.substring(10);
-					if (email.subject.indexOf("?") > -1) email.subject = email.subject.substring(0, email.subject.indexOf("?"));
-					email.subject = decodeURIComponent(escape(window.atob(email.subject)))
+					console.log(email.subject);
+					if (email.subject.indexOf("?") > -1) {
+						email.subject = email.subject.substring(0, email.subject.indexOf("?"));
+						email.subject = decodeURIComponent(escape(window.atob(email.subject)));
+					}
 				}
-				if (email.fromName.indexOf("=?utf-8?Q?") > -1 || email.fromName.indexOf("=?UTF-8?Q?") > -1) {
+				if (email.fromName.indexOf("=?utf-8?Q?") == 0 || email.fromName.indexOf("=?UTF-8?Q?") == 0) {
+					email.fromName = email.fromName.replace('%','perc.');
 					email.fromName = email.fromName.substring(10).replace(/=/g,'%');
-					if (email.fromName.indexOf("?") > -1) email.fromName = email.fromName.substring(0, email.fromName.indexOf("?"));
-					email.fromName = decodeURIComponent(email.fromName);
+					if (email.fromName.indexOf("?") > -1) {
+						email.fromName = email.fromName.substring(0, email.fromName.indexOf("?"));
+						email.fromName = decodeURIComponent(email.fromName);
+					}
 				}
-				if (email.fromName.indexOf("=?utf-8?B?") > -1 || email.fromName.indexOf("=?UTF-8?B?") > -1) {
+				if (email.fromName.indexOf("=?utf-8?B?") == 0 || email.fromName.indexOf("=?UTF-8?B?") == 0) {
 					email.fromName = email.fromName.substring(10);
-					if (email.fromName.indexOf("?") > -1) email.fromName = email.fromName.substring(0, email.fromName.indexOf("?"));
-					email.fromName = decodeURIComponent(escape(window.atob(email.fromName)))
+					if (email.fromName.indexOf("?") > -1) {
+						email.fromName = email.fromName.substring(0, email.fromName.indexOf("?"));
+						email.fromName = decodeURIComponent(escape(window.atob(email.fromName)));
+					}
 				}
 				if (email.message.toLowerCase().indexOf("<style") >= 0) {
 					email.noHtml = email.message.substring(0, email.message.toLowerCase().indexOf("<style")) + email.message.substring(email.message.toLowerCase().indexOf("/style>") + 7);
