@@ -160,8 +160,8 @@ sigmaApp.controller('EmailListCtrl', function($scope, $http, Emails) {
 	}
 
 	$scope.archive = function(email) {
-		var archived = arguments.length > 1 ? arguments[1] : 1;
-		alert(archived);
+		var archived = arguments.length > 1 ? arguments[1] : true;
+		// alert(archived);
 		if (window.location.search != "?home") {
 			$http({
 				method: 'POST',
@@ -172,7 +172,7 @@ sigmaApp.controller('EmailListCtrl', function($scope, $http, Emails) {
 			.error(function() {console.log("Didn't successfully archive email");});
 		}
 		email.archived = archived;
-		alert(email.archived);
+		// alert(email.archived);
 	}
 
   $scope.viewing = function(emailId) {
