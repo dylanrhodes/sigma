@@ -1168,6 +1168,7 @@ sigmaApp.factory('Emails', function($http, $alert) {
 					email.subject = email.subject.substring(10).replace(/=/g,'%');
 					if (email.subject.indexOf("?") > -1) {
 						email.subject = email.subject.substring(0, email.subject.indexOf("?"));
+						console.log(email);
 						email.subject = decodeURIComponent(email.subject);
 					}
 				}
