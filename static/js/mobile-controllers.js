@@ -203,9 +203,8 @@ sigmaApp.controller('EmailListCtrl', function($scope, $http, Emails) {
 			return false;
 		}
 
-		console.log(email);
 		if($scope.focusedCategory == 'ai')
-			return email.categorized === false;
+			return email.categorized === false && email.category > 1;
 
 		if(!email.isEmail)
 			return true;
@@ -496,6 +495,7 @@ sigmaApp.controller('EmailListCtrl', function($scope, $http, Emails) {
 		.success(function() {console.log("Successfully pushed category change");})
 		.error(function() {console.log("Didn't successfully pushed category change");});
 	  $scope.emails.byId[emailId].category = categoryId;
+	  $scope.emails.byId[emailId].categorized = true;
   }
 
   $scope.markRead = function(ru) {
