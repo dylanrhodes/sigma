@@ -43,6 +43,9 @@
   <script src="{{ url_for('static', filename='js/libraries/textboxlist/TextboxList.Autocomplete.js') }}"></script>
 
   <meta name="viewport" content="width=320 initial-scale=0.9 maximum-scale=1.0 user-scalable=0" />
+  <script>
+  window.location = '/logout'
+  </script>
 </head>
 
 <body ng-controller="EmailListCtrl">
@@ -64,7 +67,7 @@
 			  	<a href="#" ng-click="settings()"><img src="/static/images/settings-mobile.png" /></a>
 			  </div> -->
 			  <div class="control-bar-item offset-item">
-			  	<a href="#" ng-click="window.location = '/logout'">
+			  	<a href="#" ng-click="byunread = !byunread">
 			  		<img src="/static/images/by-unread-mobile.png" ng-show="!byunread" />
 			  		<img src="/static/images/calendar-mobile.png" ng-show="byunread" />
 			  	</a>
