@@ -726,7 +726,7 @@ sigmaApp.controller('EmailListCtrl', function($scope, $http, Emails, $alert) {
 	});
 
 	$(document).on("click", ".keep-unread", function(e) {
-		var myAlert = $alert({title: 'Marked Unread!', placement: 'top-left', type: 'info', duration: 2, show: true});
+		var myAlert = $alert({title: 'Marked Unread!', placement: 'top-left', container: 'body', type: 'info', duration: 2, show: true});
 		var id = parseInt($(this).attr('title'));
 		var elem = {"id" : id};
 		$.map($scope.emails.arr, function(obj, index) {
