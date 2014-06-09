@@ -233,6 +233,27 @@ sigmaApp.controller('EmailListCtrl', function($scope, $http, Emails) {
 		setTimeout('$(".textboxlist-autocomplete").width($(".textboxlist").width());', 150);
 	}
 
+	$scope.send = function() {
+		var subject = $("#compose-subject").val();
+		var body = $("#compose-body").val();
+		var to = $.map($("#compose-to").val().split(','), $scope.tblContactsToContacts).join(',');
+		var cc = $.map($("#compose-cc").val().split(','), $scope.tblContactsToContacts).join(',');;
+		var bcc = $.map($("#compose-bcc").val().split(','), $scope.tblContactsToContacts).join(',');;
+		var data = {'body': body, 'subject': subject, 'to': to, 'cc' : cc, 'bcc' : bcc};
+		if (window.location.search != "?home") {
+			$http({
+				method: 'POST',
+				url: '/send_email',
+				data: data
+			})
+			.success(function() {console.log("Successfully sent email");location.reload();})
+			.error(function() {console.log("Didn't successfully send email");});
+		}
+		$scope.inbox();
+	}
+
+
+
 	$scope.init = function() {
 		console.log("init");
 
@@ -387,6 +408,7 @@ sigmaApp.controller('EmailListCtrl', function($scope, $http, Emails) {
 		if(arguments.length > 0) {
 			$("#compose-subject").val("Re: " + arguments[0].subject);
 			$("#compose-to").val(arguments[0].fromEmail);
+			$scope.compose_tbl.add([arguments[0].fromEmail]);
 			$("#compose-body").val("\n\n---------------------------------\nOn "
 				+ arguments[0].true_date + ", " + arguments[0].from
 				+ " wrote:\n\n" + arguments[0].message);
