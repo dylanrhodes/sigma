@@ -1121,7 +1121,7 @@ sigmaApp.factory('Emails', function($http, $alert) {
 					email.fromName = from;
 					email.fromEmail = from;
 				}
-				console.log("fromName: " + fromName + " fromEmail: " + fromEmail);
+				console.log("fromName: " + email.fromName + " fromEmail: " + email.fromEmail);
 				if(! this.contacts[email.fromEmail] && contactsCount < 1000) {
 					this.contacts[email.fromEmail.toLowerCase()] = [this.contacts.length, 
 											email.fromName + " " + email.fromEmail, 
