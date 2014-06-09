@@ -160,7 +160,7 @@ sigmaApp.controller('EmailListCtrl', function($scope, $http, Emails) {
 	}
 
 	$scope.archive = function(email) {
-		var archived = arguments.length > 1 ? arguments[2] : 1;
+		var archived = arguments.length > 1 ? arguments[1] : 1;
 		alert(archived);
 		if (window.location.search != "?home") {
 			$http({
