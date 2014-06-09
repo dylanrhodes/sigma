@@ -215,11 +215,12 @@ sigmaApp.controller('EmailListCtrl', function($scope, $http, Emails) {
 
 	$scope.initializedTBLvalues = false;
 	$scope.tbl_values = function() {
-		return;
+		// return;
 		if(!$scope.initializedTBL) {
-			$scope.compose_tbl = new $.TextboxList("#compose-to", {unique: true, placeholder : "To", plugins: {autocomplete: {}}});
+			$scope.compose_tbl = new $.TextboxList("#compose-to", {unique: true, placeholder : "To" /*, plugins: {autocomplete: {}} */});
 			$scope.initializedTBL = true;
 		}
+		return;
 		if($scope.emails && $scope.emails.contacts && $scope.emails.contacts.length > 0 && !$scope.initializedTBLvalues) {
 			// alert($scope.emails.contacts.length);
 			$scope.compose_tbl.plugins['autocomplete'].setValues($scope.emails.contacts);
