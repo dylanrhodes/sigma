@@ -1146,6 +1146,7 @@ sigmaApp.factory('Emails', function($http, $alert) {
 				if (email.subject.indexOf("=?utf-8?Q?") == 0 || email.subject.indexOf("=?UTF-8?Q?") == 0) {
 					email.subject = email.subject.substring(10).replace(/=/g,'%');
 					if (email.subject.indexOf("?") > -1) email.subject = email.subject.substring(0, email.subject.indexOf("?"));
+					console.log(email);
 					email.subject = decodeURIComponent(email.subject);
 				}
 				if (email.subject.indexOf("=?utf-8?B?") == 0 || email.subject.indexOf("=?UTF-8?B?") == 0) {
