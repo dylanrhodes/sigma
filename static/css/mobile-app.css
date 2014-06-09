@@ -835,3 +835,7 @@ a:active.save {
 .compose input {
 	border: none;
 }
+
+.inbox-bar {
+	padding-bottom: 0px;
+}
