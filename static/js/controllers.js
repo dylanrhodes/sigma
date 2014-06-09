@@ -1021,7 +1021,7 @@ sigmaApp.factory('Emails', function($http) {
 					this.contacts[email.fromEmail.toLowerCase()] = [email.fromEmail, 
 											email.fromName + " " + email.fromEmail, 
 											email.fromName != "" ? email.fromName : email.fromEmail,
-											email.fromName + " <em>" + email.fromEmail + "</em>"]; */
+											email.fromName + " <em>" + email.fromEmail + "</em>"];
 					contactsCount ++;
 				}
 				var to = email.to.replace(/"/g, "");
