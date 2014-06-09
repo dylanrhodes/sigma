@@ -95,7 +95,7 @@
 		<!-- <div class="padding col-xs-2"></div> -->
 		<div class="view-area col-xs-12">
 		    <div class="inbox" ng-show="showing == inboxId || viewingEmail">
-				<div ng-repeat="email in emails.arr | orderBy:(byunread ? ['read', 'millis'] : ['millis']):reverse" class="row ind-email {{email.read ? 'read' : ''}}" id = "{{email.id}}" style="border-left-color: {{categories[email.category - 1].color}} {{showingEmail(email) ? '' ? 'hidden'}}" ng-show="showingEmail(email)" ng-animate="{ show: 'email-show', hide: 'email-hide'}">
+				<div ng-repeat="email in emails.arr | orderBy:(byunread ? ['read', 'millis'] : ['millis']):reverse" class="row ind-email {{email.read ? 'read' : ''}}" id = "{{email.id}}" style="border-left-color: {{categories[email.category - 1].color}} {{showingEmail(email) ? '' : 'hidden'}}" ng-show="showingEmail(email)" ng-animate="{ show: 'email-show', hide: 'email-hide'}">
 					<div class="ind-email-inside">
 						<div class="col-xs-11 email-area" ng-click="viewing(email.id)" ng-swipe-right="read(email.id, 1)" ng-swipe-left="read(email.id, 0)">
 			             	<div class = "from">{{email.from}}</div>
