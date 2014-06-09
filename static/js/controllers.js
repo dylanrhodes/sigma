@@ -1008,6 +1008,9 @@ sigmaApp.factory('Emails', function($http) {
 					email.true_date = day.format('MMMM Do YYYY, h:mm:ssa');;
 					email.date = day.fromNow();
 				}
+				if(!email.archived)
+					email.archived = false;
+				
 				email.snippet = email.message.substr(0, 200);
 				email.id = email.id.toString();
 				var from = email.from.replace(/"/g, "");

@@ -153,13 +153,13 @@ sigmaApp.controller('EmailListCtrl', function($scope, $http, Emails) {
 		$http({
 			method: 'POST',
 			url: '/mark_as_read',
-			data: elem
+			data: {id : email.id}
 		})
 		.success(function() {console.log("Successfully pushed read change");})
 		.error(function() {console.log("Didn't successfully push read change");});
 	}
 
-	$scope.archive = function(email) {
+	$scope.archive 	= function(email) {
 		if (window.location.search != "?home") {
 			$http({
 				method: 'POST',
@@ -537,6 +537,9 @@ sigmaApp.factory('Emails', function($http) {
 			
 			email.date = day.fromNow();
 			email.snippet = email.message.substr(0, 200);			
+
+			if(!email.archived)
+				email.archived = false;
 			
 			email.id = email.id.toString();
 			var from = email.from.replace(/"/g, "");
