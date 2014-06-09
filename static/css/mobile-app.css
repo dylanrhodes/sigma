@@ -798,3 +798,7 @@ a:active.save {
 	margin-left: 0px;
 	font-size: 12px;
 }
+
+.viewing-padding {
+	height: 45px;
+}
