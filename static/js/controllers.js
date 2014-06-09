@@ -1089,7 +1089,7 @@ sigmaApp.factory('Emails', function($http, $alert) {
 		this.busy = true;
 		var url = "/get_emails?callback=JSON_CALLBACK";
 		$http.jsonp(url)
-		.error(function() {var welcome = $alert({title: 'Welcome to Sigma!', content: "Thanks for signing up! We are currently attempting to download your emails from gmail. It may take a minute or to. Please go here: https://security.google.com/settings/security/activity and make sure we are authorized to access your account! Feel free to set up your email categories by clicking the gear icon.", placement: 'top', type: 'info', show: true});})
+		.error(function() {var welcome = $alert({title: 'Welcome to Sigma!', content: "Thanks for signing up! We are currently attempting to download your emails from gmail. It may take a minute or to. Please go here: https://security.google.com/settings/security/activity and make sure we are authorized to access your account! Feel free to set up your email categories by clicking the gear", placement: 'top', type: 'info', show: true});})
 		.success(function(data) {
 			var contactsCount = 0;
 		  for (var key in data) {
@@ -1252,7 +1252,7 @@ sigmaApp.factory('Emails', function($http, $alert) {
 		  this.contacts = c;
 		  this.busy = false;
 		  if (this.arr.length == 0) {
-			var welcome = $alert({title: 'Welcome to Sigma!', content: "Thanks for signing up! We are currently attempting to download your emails from gmail. It may take a minute or to. Please go here: https://security.google.com/settings/security/activity and make sure we are authorized to access your account! Feel free to set up your email categories by clicking the gear icon.", placement: 'top', type: 'info', show: true});
+			var welcome = $alert({title: 'Welcome to Sigma!', content: "Thanks for signing up! We are currently attempting to download your emails from gmail. It may take a minute or to. Please go here: https://security.google.com/settings/security/activity and make sure we are authorized to access your account! Feel free to set up your email categories by clicking the gear", placement: 'top', type: 'info', show: true});
 		  }
 		}.bind(this));
 	}
