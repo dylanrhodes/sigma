@@ -157,6 +157,7 @@ sigmaApp.controller('EmailListCtrl', function($scope, $http, Emails) {
 		$scope.viewingEmail = $scope.emails.byId[emailId];
 		$scope.showingMenu = false;
 		$scope.read(emailId, 1);
+		$scope.$apply();
 
 		var elem = {"id" : emailId};
 	  $http({
@@ -187,6 +188,7 @@ sigmaApp.controller('EmailListCtrl', function($scope, $http, Emails) {
 			return true;
 		if($scope.viewingEmail)
 			return false;
+		console.log("a");
 
 		var search = $("#search").val();
 		var showingSearch = search == "" || email.message.indexOf(search) >= 0 || email.subject.indexOf(search) >= 0
