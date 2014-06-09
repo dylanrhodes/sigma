@@ -1009,7 +1009,7 @@ sigmaApp.controller('EmailListCtrl', function($scope, $http, Emails, $alert) {
 
 });
 
-sigmaApp.factory('Emails', function($http) {
+sigmaApp.factory('Emails', function($http, $alert) {
   var Emails = function(categories) {
     this.arr = [];
 	this.unread = [];
