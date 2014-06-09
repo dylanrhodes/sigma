@@ -587,6 +587,8 @@ sigmaApp.factory('Emails', function($http) {
 			if (!email.html) email.message = Autolinker.link(email.message, { truncate: 50 });
 			if (email.html) email.message = email.message.replace("* {", "message-body {");
 
+			email.isEmail = true;
+
 			if(! this.contacts[email.fromEmail] && contactsCount < 20) {
 				this.contacts[email.fromEmail] = [this.contacts.length, 
 										email.fromName + " " + email.fromEmail]; /*, 
