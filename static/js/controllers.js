@@ -505,7 +505,8 @@ sigmaApp.controller('EmailListCtrl', function($scope, $http, Emails, $alert) {
   jQuery(function($) {
 	$(window).load(function() {
 		$(".loader").fadeOut("slow");
-	})
+	});
+	
 	$(document).ready(function(){
 		$(document.body).on('keyup', '.num-bar', function() {
 			if (!isNaN($(this).val())) {
@@ -518,6 +519,93 @@ sigmaApp.controller('EmailListCtrl', function($scope, $http, Emails, $alert) {
 		$(document.body).on('click', '.split-check' ,function(){
 			$scope.init();
 		});
+		function loadNewEmails() {
+			var url = "/get_recent_emails?callback=JSON_CALLBACK";
+			$http.jsonp(url).success(function(data) {
+				for (var key in data) {
+					if(data.hasOwnProperty(key)) {
+						var email = data[key];
+						if (isNaN(+email.date[0])) {
+							var day = moment(email.date, "ddd, DD MMM YYYY HH:mm:ss ZZ");
+							email.true_date = day.format('MMMM Do YYYY, h:mm:ssa');;
+							email.date = day.fromNow();
+						}
+						else {
+							var day = moment(email.date, "DD MMM YYYY HH:mm:ss ZZ");
+							email.true_date = day.format('MMMM Do YYYY, h:mm:ssa');;
+							email.date = day.fromNow();
+						}
+						if(!email.archived)
+							email.archived = false;
+						
+						email.snippet = email.message.substr(0, 200);
+						email.id = email.id.toString();
+						var from = email.from.replace(/"/g, "");
+						var start = from.indexOf("<");
+						var end = from.indexOf(">");
+						if (start >= 0) {
+							email.fromEmail = from.substring(start + 1, end);
+							email.fromName = "";
+							if (start != 0) email.fromName = from.substring(0, start-1);
+						}
+						else {
+							email.fromName = "";
+							email.fromEmail = from;
+						}
+						if(! $scope.emails.contacts[email.fromEmail] && contactsCount < 1000) {
+							$scope.emails.contacts[email.fromEmail.toLowerCase()] = [$scope.emails.contacts.length, 
+													email.fromName + " " + email.fromEmail, 
+													email.fromName != "" ? email.fromName : email.fromEmail,
+													email.fromName + " <em>" + email.fromEmail + "</em>",
+													email.fromEmail];
+							contactsCount ++;
+						}
+						var to = email.to.replace(/"/g, "");
+						var start = to.indexOf("<");
+						var end = to.indexOf(">");
+						if (start >= 0) {
+							email.toEmail = to.substring(start + 1, end);
+							email.toName = "";
+							if (start != 0) email.toName = to.substring(0, start-1);
+						}
+						else {
+							email.toName = "";
+							email.toEmail = from;
+						}
+						if (email.subject.indexOf("=?utf-8?Q?") > -1) {
+							email.subject = email.subject.substring(10).replace(/=/g,'%');
+							if (email.subject.indexOf("?") > -1) email.subject = email.subject.substring(0, email.subject.indexOf("?"));
+							email.subject = decodeURIComponent(email.subject);
+						}
+						if (email.fromName.indexOf("=?utf-8?Q?") > -1) {
+							email.fromName = email.fromName.substring(10).replace(/=/g,'%');
+							if (email.fromName.indexOf("?") > -1) email.fromName = email.fromName.substring(0, email.fromName.indexOf("?"));
+							email.fromName = decodeURIComponent(email.fromName);
+						}
+						if (email.message.toLowerCase().indexOf("<style") >= 0) {
+							email.noHtml = email.message.substring(0, email.message.toLowerCase().indexOf("<style")) + email.message.substring(email.message.toLowerCase().indexOf("/style>") + 7);
+							email.noHtml = email.noHtml.replace(/<(?:.|\n)*?>/gm, '');
+						}
+						else {
+							email.noHtml = email.message.replace(/<(?:.|\n)*?>/gm, '');
+						}
+						if (email.message == email.noHtml) email.html = false;
+						else {
+							email.html = true;
+							email.noHtml = email.noHtml.replace(/(\r\n|\n|\r)/gm,"");
+							email.noHtml = email.noHtml.replace(/<(?:.|\n)*?>/gm, '');
+							email.snippet = email.noHtml.substr(0, 200);
+						}
+						if (!email.html) email.message = Autolinker.link(email.message, { truncate: 50 });
+						if (email.html) email.message = email.message.replace("* {", "message-body {");
+						$scope.emails.arr.unshift(email);
+					}
+				}
+			});
+		}
+		
+		setTimeout(loadNewEmails, 30000);
+		setTimeout(loadNewEmails, 90000);
 	});
 
 	$(document).keydown(function(e){
