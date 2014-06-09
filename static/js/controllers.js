@@ -1253,7 +1253,7 @@ sigmaApp.factory('Emails', function($http, $alert) {
 		  this.busy = false;
 		  if (this.arr.length == 0) {
 			$(document.body).css("padding-top", "0");
-			var welcome = $alert({title: 'Welcome to Sigma!', content: "Thanks for signing up! We are currently attempting to download your emails from gmail. It may take a minute or to. Please go here: https://security.google.com/settings/security/activity and make sure we are authorized to access your account! Feel free to set up your email categories by clicking the gear", placement: 'bottom', container: 'body', type: 'info', show: true});
+			var welcome = $alert({title: 'Welcome to Sigma!', content: "Thanks for signing up! We are currently attempting to download your emails from gmail. It may take a minute or to. Please go here: https://security.google.com/settings/security/activity and make sure we are authorized to access your account! Feel free to set up your email categories by clicking the gear", placement: 'top', container: 'body', type: 'info', show: true});
 		  }
 		}.bind(this));
 	}
