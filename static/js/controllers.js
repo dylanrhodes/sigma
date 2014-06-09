@@ -1088,7 +1088,7 @@ sigmaApp.factory('Emails', function($http, $alert) {
 		this.busy = true;
 		var url = "/get_emails?callback=JSON_CALLBACK";
 		$http.jsonp(url)
-		.error(function() {var welcome = $alert({title: 'Welcome to Sigma!', content: "Thanks for signing up! We are currently attempting to download your emails from gmail. It may take a minute or to. Please check your email to see if Gmail requires you to authorize us to access your account! Feel free to set up your email categories by clicking the gear icon.", placement: 'top', type: 'info', show: true});})
+		.error(function() {var welcome = $alert({title: 'Welcome to Sigma!', content: "Thanks for signing up! We are currently attempting to download your emails from gmail. It may take a minute or to. Please go here: https://security.google.com/settings/security/activity and make sure we are authorized to access your account! Feel free to set up your email categories by clicking the gear icon.", placement: 'top', type: 'info', show: true});})
 		.success(function(data) {
 			var contactsCount = 0;
 		  for (var key in data) {
@@ -1146,10 +1146,20 @@ sigmaApp.factory('Emails', function($http, $alert) {
 					if (email.subject.indexOf("?") > -1) email.subject = email.subject.substring(0, email.subject.indexOf("?"));
 					email.subject = decodeURIComponent(email.subject);
 				}
+				if (email.subject.indexOf("=?utf-8?B?") > -1) {
+					email.subject = email.subject.substring(10);
+					if (email.subject.indexOf("?") > -1) email.subject = email.subject.substring(0, email.subject.indexOf("?"));
+					email.subject = decodeURIComponent(escape(window.atob(email.subject)))
+				}
 				if (email.fromName.indexOf("=?utf-8?Q?") > -1) {
 					email.fromName = email.fromName.substring(10).replace(/=/g,'%');
 					if (email.fromName.indexOf("?") > -1) email.fromName = email.fromName.substring(0, email.fromName.indexOf("?"));
 					email.fromName = decodeURIComponent(email.fromName);
+				}
+				if (email.fromName.indexOf("=?utf-8?B?") > -1) {
+					email.fromName = email.fromName.substring(10);
+					if (email.fromName.indexOf("?") > -1) email.fromName = email.fromName.substring(0, email.fromName.indexOf("?"));
+					email.fromName = decodeURIComponent(escape(window.atob(email.fromName)))
 				}
 				if (email.message.toLowerCase().indexOf("<style") >= 0) {
 					email.noHtml = email.message.substring(0, email.message.toLowerCase().indexOf("<style")) + email.message.substring(email.message.toLowerCase().indexOf("/style>") + 7);
@@ -1241,7 +1251,7 @@ sigmaApp.factory('Emails', function($http, $alert) {
 		  this.contacts = c;
 		  this.busy = false;
 		  if (this.arr.length == 0) {
-			var welcome = $alert({title: 'Welcome to Sigma!', content: "Thanks for signing up! We are currently attempting to download your emails from gmail. It may take a minute or to. Please check your email to see if Gmail requires you to authorize us to access your account! Feel free to set up your email categories by clicking the gear icon.", placement: 'top', type: 'info', show: true});
+			var welcome = $alert({title: 'Welcome to Sigma!', content: "Thanks for signing up! We are currently attempting to download your emails from gmail. It may take a minute or to. Please go here: https://security.google.com/settings/security/activity and make sure we are authorized to access your account! Feel free to set up your email categories by clicking the gear icon.", placement: 'top', type: 'info', show: true});
 		  }
 		}.bind(this));
 	}
