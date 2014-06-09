@@ -796,8 +796,12 @@ a:active.save {
 	background: #d9d9d9;
 	font-size: 18px;
 	text-align:center;
-	color: #ccc;
+	color: #777;
 	font-weight: bold;
+}
+
+.archive-placeholder .from {
+	margin-top: 20px;
 }
 
 /* viewing menu */
