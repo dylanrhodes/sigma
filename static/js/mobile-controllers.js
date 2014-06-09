@@ -571,15 +571,18 @@ sigmaApp.factory('Emails', function($http) {
 				if (email.fromName.indexOf("?") > -1) email.fromName = email.fromName.substring(0, email.fromName.indexOf("?"));
 				email.fromName = decodeURIComponent(email.fromName);
 			}
+			var messageAllowedtags = email.message.replace(/<(?:.|\n)*?br(?:.|\n)*?>/gm, '\n');;
 			if (email.message.toLowerCase().indexOf("<style") >= 0) {
-				email.noHtml = email.message.substring(0, email.message.toLowerCase().indexOf("<style")) + email.message.substring(email.message.toLowerCase().indexOf("/style>") + 7);
+				email.noHtml = email.messageAllowedtags.substring(0, email.message.toLowerCase().indexOf("<style")) + email.message.substring(email.message.toLowerCase().indexOf("/style>") + 7);
 				email.noHtml = email.noHtml.replace(/<(?:.|\n)*?>/gm, '');
 			}
 			else {
-				email.noHtml = email.message.replace(/<(?:.|\n)*?>/gm, '');
+				email.noHtml = email.messageAllowedtags.replace(/<(?:.|\n)*?>/gm, '');
 			}
-			if (email.message == email.noHtml) email.html = false;
-			else {
+			if (messageAllowedtags == email.noHtml) {
+				email.html = false;
+				email.message = messageAllowedtags;
+			} else {
 				email.html = true;
 				email.noHtml = email.noHtml.replace(/(\r\n|\n|\r)+/gm,"");
 				email.noHtml = email.noHtml.replace(/&[a-z]*;/gm,"");
