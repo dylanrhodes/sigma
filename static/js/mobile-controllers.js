@@ -569,118 +569,112 @@ sigmaApp.factory('Emails', function($http) {
 	}
     if (this.busy) return;
     this.busy = true;
-    var load_url = "/get_emails";
-    function loadEmails(url) {
-	    var url = load_url+"?callback=JSON_CALLBACK";
-	    load_url = "/get_recent_emails";
-	    var contactsCount = 0;
-	    $http.jsonp(url).success(function(data) {
-		  console.log("SUCCESS");
-		  for (var key in data) {
-			if(data.hasOwnProperty(key)) {
-				var email = data[key];
-				email.millis = -1 * (new Date(email.date)).getTime();
-				var day = moment(email.date, "ddd, DD MMM YYYY HH:mm:ss ZZ");
-				email.true_date = day.format('MMMM DD YYYY, h:mm:ssa');
-				
-				email.date = day.fromNow();
-				email.snippet = email.message.substr(0, 200);			
+    
+    var url = "/get_emails?callback=JSON_CALLBACK";
+    var contactsCount = 0;
+    $http.jsonp(url).success(function(data) {
+	  console.log("SUCCESS");
+	  for (var key in data) {
+		if(data.hasOwnProperty(key)) {
+			var email = data[key];
+			email.millis = -1 * (new Date(email.date)).getTime();
+			var day = moment(email.date, "ddd, DD MMM YYYY HH:mm:ss ZZ");
+			email.true_date = day.format('MMMM DD YYYY, h:mm:ssa');
+			
+			email.date = day.fromNow();
+			email.snippet = email.message.substr(0, 200);			
 
-				if(!email.archived)
-					email.archived = false;
-				
-				email.id = email.id.toString();
-				var from = email.from.replace(/"/g, "");
-				var start = from.indexOf("<");
-				var end = from.indexOf(">");
-				if (start >= 0) {
-					email.fromEmail = from.substring(start + 1, end);
-					email.fromName = "";
-					if (start != 0) email.fromName = from.substring(0, start-1);
-				}
-				else {
-					email.fromName = "";
-					email.fromEmail = from;
-				}
-				if (email.subject.indexOf("=?utf-8?Q?") > -1) {
-					email.subject = email.subject.substring(10).replace(/=/g,'%');
-					if (email.subject.indexOf("?") > -1) email.subject = email.subject.substring(0, email.subject.indexOf("?"));
-					email.subject = decodeURIComponent(email.subject);
-				}
-				if (email.fromName.indexOf("=?utf-8?Q?") > -1) {
-					email.fromName = email.fromName.substring(10).replace(/=/g,'%');
-					if (email.fromName.indexOf("?") > -1) email.fromName = email.fromName.substring(0, email.fromName.indexOf("?"));
-					email.fromName = decodeURIComponent(email.fromName);
-				}
-				var messageAllowedtags = email.message.replace(/<(?:.|\n)*?br(?:.|\n)*?>/gm, '');;
-				if (email.message.toLowerCase().indexOf("<style") >= 0) {
-					email.noHtml = messageAllowedtags.substring(0, email.message.toLowerCase().indexOf("<style")) + email.message.substring(email.message.toLowerCase().indexOf("/style>") + 7);
-					email.noHtml = email.noHtml.replace(/<(?:.|\n)*?>/gm, '');
-				}
-				else {
-					email.noHtml = messageAllowedtags.replace(/<(?:.|\n)*?>/gm, '');
-				}
-				if (messageAllowedtags == email.noHtml) {
-					email.html = false;
-					email.message = messageAllowedtags;
-				} else {
-					email.html = true;
-					email.noHtml = email.noHtml.replace(/(\r\n|\n|\r)+/gm,"");
-					email.noHtml = email.noHtml.replace(/&[a-z]*;/gm,"");
-					email.noHtml = email.noHtml.replace(/<(?:.|\n)*?>/gm, '');
-					email.snippet = email.noHtml.substr(0, 200);
-				}
-				if (!email.html) email.message = Autolinker.link(email.message, { truncate: 50 });
-				if (email.html) email.message = email.message.replace("* {", "message-body {");
-
-				email.isEmail = true;
-
-				if(! this.contacts[email.fromEmail] && contactsCount < 20) {
-					this.contacts[email.fromEmail] = [this.contacts.length, 
-											email.fromName + " " + email.fromEmail]; /*, 
-											email.fromName != "" ? email.fromName : email.fromEmail,
-											email.fromName + " <em>" + email.fromEmail + "</em>"]; */
-					contactsCount ++;
-				}
-				var to = email.to.replace(/"/g, "");
-				var start = to.indexOf("<");
-				var end = to.indexOf(">");
-				email.toEmail = to.substring(start + 1, end);
-				email.toName = "";
-				if (start != 0) email.toName = to.substring(0, start-1);
-				if (email.subject.indexOf("=?utf-8?Q?") > -1) {
-					email.subject = email.subject.substring(10).replace(/=/g,'%');
-					if (email.subject.indexOf("?") > -1) email.subject = email.subject.substring(0, email.subject.indexOf("?"));
-					email.subject = decodeURIComponent(email.subject);
-				}
-				if (email.fromName.indexOf("=?utf-8?Q?") > -1) {
-					email.fromName = email.fromName.substring(10).replace(/=/g,'%');
-					if (email.fromName.indexOf("?") > -1) email.fromName = email.fromName.substring(0, email.fromName.indexOf("?"));
-					email.fromName = decodeURIComponent(email.fromName);
-					email.fromName = email.fromName.replace(/"/g, "");
-				}
-				var noHtml = email.message.replace(/<(?:.|\n)*?>/gm, '');
-				if (email.message == noHtml) email.html = false;
-				else email.html = true;
-				if (!email.html) email.message = Autolinker.link(email.message, { truncate: 50 });
-				this.arr.unshift(email);
-				this.byId[email.id] = email;
+			if(!email.archived)
+				email.archived = false;
+			
+			email.id = email.id.toString();
+			var from = email.from.replace(/"/g, "");
+			var start = from.indexOf("<");
+			var end = from.indexOf(">");
+			if (start >= 0) {
+				email.fromEmail = from.substring(start + 1, end);
+				email.fromName = "";
+				if (start != 0) email.fromName = from.substring(0, start-1);
 			}
-		  }
-		  // dummy archive separator
-		  this.arr.unshift({archived : true, isEmail : false});
-		  var c = [];
-		  $.each(this.contacts, function(i,v) {
-		  	v[0] = c.length;
-		  	c.push(v);
-		  });
-		  this.contacts = c;
-	      this.busy = false;
-	    }.bind(this));
-	}
+			else {
+				email.fromName = "";
+				email.fromEmail = from;
+			}
+			if (email.subject.indexOf("=?utf-8?Q?") > -1) {
+				email.subject = email.subject.substring(10).replace(/=/g,'%');
+				if (email.subject.indexOf("?") > -1) email.subject = email.subject.substring(0, email.subject.indexOf("?"));
+				email.subject = decodeURIComponent(email.subject);
+			}
+			if (email.fromName.indexOf("=?utf-8?Q?") > -1) {
+				email.fromName = email.fromName.substring(10).replace(/=/g,'%');
+				if (email.fromName.indexOf("?") > -1) email.fromName = email.fromName.substring(0, email.fromName.indexOf("?"));
+				email.fromName = decodeURIComponent(email.fromName);
+			}
+			var messageAllowedtags = email.message.replace(/<(?:.|\n)*?br(?:.|\n)*?>/gm, '');;
+			if (email.message.toLowerCase().indexOf("<style") >= 0) {
+				email.noHtml = messageAllowedtags.substring(0, email.message.toLowerCase().indexOf("<style")) + email.message.substring(email.message.toLowerCase().indexOf("/style>") + 7);
+				email.noHtml = email.noHtml.replace(/<(?:.|\n)*?>/gm, '');
+			}
+			else {
+				email.noHtml = messageAllowedtags.replace(/<(?:.|\n)*?>/gm, '');
+			}
+			if (messageAllowedtags == email.noHtml) {
+				email.html = false;
+				email.message = messageAllowedtags;
+			} else {
+				email.html = true;
+				email.noHtml = email.noHtml.replace(/(\r\n|\n|\r)+/gm,"");
+				email.noHtml = email.noHtml.replace(/&[a-z]*;/gm,"");
+				email.noHtml = email.noHtml.replace(/<(?:.|\n)*?>/gm, '');
+				email.snippet = email.noHtml.substr(0, 200);
+			}
+			if (!email.html) email.message = Autolinker.link(email.message, { truncate: 50 });
+			if (email.html) email.message = email.message.replace("* {", "message-body {");
 
-	loadEmails();
-	setInterval(loadEmails, 2000000)
+			email.isEmail = true;
+
+			if(! this.contacts[email.fromEmail] && contactsCount < 20) {
+				this.contacts[email.fromEmail] = [this.contacts.length, 
+										email.fromName + " " + email.fromEmail]; /*, 
+										email.fromName != "" ? email.fromName : email.fromEmail,
+										email.fromName + " <em>" + email.fromEmail + "</em>"]; */
+				contactsCount ++;
+			}
+			var to = email.to.replace(/"/g, "");
+			var start = to.indexOf("<");
+			var end = to.indexOf(">");
+			email.toEmail = to.substring(start + 1, end);
+			email.toName = "";
+			if (start != 0) email.toName = to.substring(0, start-1);
+			if (email.subject.indexOf("=?utf-8?Q?") > -1) {
+				email.subject = email.subject.substring(10).replace(/=/g,'%');
+				if (email.subject.indexOf("?") > -1) email.subject = email.subject.substring(0, email.subject.indexOf("?"));
+				email.subject = decodeURIComponent(email.subject);
+			}
+			if (email.fromName.indexOf("=?utf-8?Q?") > -1) {
+				email.fromName = email.fromName.substring(10).replace(/=/g,'%');
+				if (email.fromName.indexOf("?") > -1) email.fromName = email.fromName.substring(0, email.fromName.indexOf("?"));
+				email.fromName = decodeURIComponent(email.fromName);
+				email.fromName = email.fromName.replace(/"/g, "");
+			}
+			var noHtml = email.message.replace(/<(?:.|\n)*?>/gm, '');
+			if (email.message == noHtml) email.html = false;
+			else email.html = true;
+			if (!email.html) email.message = Autolinker.link(email.message, { truncate: 50 });
+			this.arr.unshift(email);
+			this.byId[email.id] = email;
+		}
+	  }
+	  // dummy archive separator
+	  this.arr.unshift({archived : true, isEmail : false});
+	  var c = [];
+	  $.each(this.contacts, function(i,v) {
+	  	v[0] = c.length;
+	  	c.push(v);
+	  });
+	  this.contacts = c;
+      this.busy = false;
+    }.bind(this));
   };
 
   Emails.prototype.nextByCategory = function(category) {
