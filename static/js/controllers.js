@@ -731,6 +731,7 @@ sigmaApp.controller('EmailListCtrl', function($scope, $http, Emails) {
 	});
 
 	$(document).on("click", ".keep-unread", function(e) {
+		$scope.unreadAlert.$show();
 		var id = parseInt($(this).attr('title'));
 		var elem = {"id" : id};
 		$.map($scope.emails.arr, function(obj, index) {
@@ -1092,7 +1093,7 @@ sigmaApp.factory('Emails', function($http) {
 						  content += "<div class='col-xs-10 summary'>"
 						  content += arr[k]['summary'];
 						  content += "</div>";
-						  content += "<a class='col-xs-2 keep-unread' title='" + k + "' data-placement='top-right' data-container='body' data-duration='3' bs-alert='unreadAlert'>Keep Unread</a>"
+						  content += "<a class='col-xs-2 keep-unread' title='" + k + "'>Keep Unread</a>"
 						  content += "</div>";
 						  content += "<div class='row digest-sub-row'>"
 						  var from = arr[k]['from'];
@@ -1143,31 +1144,6 @@ sigmaApp.factory('Emails', function($http) {
 	}
   };
 
-  Emails.prototype.nextByCategory = function(category) {
-	console.log("10 emails supposed to be added");
-    /* if (this.busy) return;
-    this.busy = true;
-    var url = "http://api.reddit.com/hot?after=" + this.after + "&limit=10&jsonp=JSON_CALLBACK";
-    $http.jsonp(url).success(function(data) {
-      var items = data.data.children;
-      for (var i = 0; i < items.length; i++) {
-		items[i].data.from = items[i].data.author;
-		items[i].data.subject = items[i].data.title;
-		items[i].data.message = items[i].data.url;
-		var utcSeconds = items[i].data.created_utc;
-		var day = moment.unix(utcSeconds);
-		items[i].data.date = day.fromNow();
-		if (category == 0) items[i].data.category = Math.floor(Math.random() * 6) + 1;
-		else items[i].data.category = category;
-		items[i].data.read = Math.round(Math.random());
-		items[i].data.sigma = Math.round(Math.random());
-        this.arr.push(items[i].data);
-      }
-      this.after = "t3_" + this.arr[this.arr.length - 1].id;
-      this.busy = false;
-    }.bind(this)); */
-  };
-
   return Emails;
 })
 
@@ -1175,6 +1151,13 @@ sigmaApp.factory('Emails', function($http) {
   angular.extend($tooltipProvider.defaults, {
     html: false,
 	placement: 'right'
+  });
+})
+
+config(function($alertProvider) {
+  angular.extend($alertProvider.defaults, {
+    animation: 'am-fade-and-slide-top',
+    placement: 'top'
   });
 })
 
