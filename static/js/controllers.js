@@ -225,11 +225,20 @@ sigmaApp.controller('EmailListCtrl', function($scope, $http, Emails) {
 	}
 	
 	$scope.archive = function(email) {
+		var next = $("#" + email.id).next();
+		$scope.selected = next;
+		$scope.selectedIds = [next.attr('id')];
+		var id = parseInt(next.attr('id'));
+		$.map($scope.emails.arr, function(obj, index) {
+			if(obj.id == id) {
+			  $scope.viewingEmail = obj;
+			 }
+		  });
 		var elem = {"id" : email.id};
 		if (window.location.search != "?home") {
 			$http({
 				method: 'POST',
-				url: '/send_email',
+				url: '/mark_as_archived',
 				data: elem
 			})
 			.success(function() {console.log("Successfully archived email");location.reload();})
