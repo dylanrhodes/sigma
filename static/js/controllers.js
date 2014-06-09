@@ -230,7 +230,7 @@ sigmaApp.controller('EmailListCtrl', function($scope, $http, Emails) {
 			$http({
 				method: 'POST',
 				url: '/send_email',
-				data: data
+				data: elem
 			})
 			.success(function() {console.log("Successfully archived email");location.reload();})
 			.error(function() {console.log("Didn't successfully archive email");});
