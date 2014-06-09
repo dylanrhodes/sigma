@@ -113,7 +113,7 @@ def get_recent_email():
         pMail = json.loads(email)
         if 'archived' in pMail and not pMail['archived']:
             parsedMail[pMail['id']] = pMail
-        else if not 'archived' in pMail:
+        elif not 'archived' in pMail:
             parsedMail[pMail['id']] = pMail
     return jsonify(parsedMail)
 

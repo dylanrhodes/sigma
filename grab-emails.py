@@ -31,8 +31,6 @@ def get_email(user):
             continue
         emailUTF8 = data['RFC822'].encode('utf-8')
         msg = parser.parsestr(emailUTF8)
-        #print msg['subject']
-        #print data['FLAGS']
         body = extract_body(msg)
         msg['message'] = body
         msg['subject'] = ('NoSubj' if (msg['Subject']==None or msg['Subject'] == "")  else msg['Subject'])
