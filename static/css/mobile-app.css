@@ -457,7 +457,7 @@ input[type="text"] {
 }
 
 .textboxlist-bits {
-	border: 1px solid #d9d9d9;
+	/*border: 1px solid #d9d9d9;*/
 }
 
 textarea {
@@ -822,4 +822,8 @@ a:active.save {
 
 .viewing-padding, .compose-padding {
 	height: 45px;
+}
+
+.compose input {
+	border: none;
 }
