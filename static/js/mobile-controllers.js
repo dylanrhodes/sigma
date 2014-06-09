@@ -182,6 +182,7 @@ sigmaApp.controller('EmailListCtrl', function($scope, $http, Emails) {
 	$scope.showingEmail = function(email) {
 		
 		// first for viewing email
+		console.log($scope.viewingEmail.id, email.id);
 		if($scope.viewingEmail.id = email.id)
 			return true;
 		if($scope.viewingEmail)
