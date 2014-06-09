@@ -1149,7 +1149,7 @@ sigmaApp.factory('Emails', function($http) {
   });
 })
 
-config(function($alertProvider) {
+.config(function($alertProvider) {
   angular.extend($alertProvider.defaults, {
     animation: 'am-fade-and-slide-top',
     placement: 'top'
