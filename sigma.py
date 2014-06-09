@@ -248,7 +248,7 @@ def send_email():
     email = json.loads(request.data)
     username = db.get("user:%s:login" % current_user.user)
     password = db.get("user:%s:password" % current_user.user)
-    subprocess.Popen(["python", "/home/jmvldz/sigma/send-email.py", "-f", username, \
+    subprocess.Popen(["/home/jmvldz/sigma/python_env/bin/python", "/home/jmvldz/sigma/send-email.py", "-f", username, \
                       "-t", email['to'], "-m", email['body'], "-s", email['subject'], \
                       "-p", password])
     return "Success"
@@ -263,7 +263,7 @@ def train_models():
 @app.route('/get_new_mail', methods=['POST'])
 @login_required
 def get_new_mail():
-    subprocess.Popen(["python", "/home/jmvldz/sigma/grab-emails.py", "-u", current_user.user])
+    subprocess.Popen(["/home/jmvldz/sigma/python_env/bin/python", "/home/jmvldz/sigma/grab-emails.py", "-u", current_user.user])
     return "Success"
 
 # main

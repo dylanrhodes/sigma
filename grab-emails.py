@@ -62,4 +62,4 @@ else:
     users = db.smembers("user:users")
     for user in users:
         print user
-        subprocess.Popen(["python", "grab-emails.py", "-u", user])
+        subprocess.Popen(["/home/jmvldz/sigma/python_env/bin/python", "grab-emails.py", "-u", user])
