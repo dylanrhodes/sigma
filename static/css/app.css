@@ -835,6 +835,10 @@ a:active.save {
 	padding-bottom: 2px;
 }
 
+.textboxlist-autocomplete-results {
+	z-index: 99;
+}
+
 .textboxlist-autocomplete-result {
 	background: #fff;
 }

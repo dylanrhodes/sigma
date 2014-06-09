@@ -265,6 +265,7 @@ sigmaApp.controller('EmailListCtrl', function($scope, $http, Emails, $alert) {
 		var body = $("#compose-body").val();
 		var to = $.map($("#compose-to").val().split(','), $scope.tblContactsToContacts).join(',');
 		console.log(to);
+		return;
 		var cc = "";
 		var bcc = "";
 		console.log("Subject: " + subject + ", Body: " + body);
