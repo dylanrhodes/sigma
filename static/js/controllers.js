@@ -601,6 +601,7 @@ sigmaApp.controller('EmailListCtrl', function($scope, $http, Emails, $alert) {
 						if (!email.html) email.message = Autolinker.link(email.message, { truncate: 50 });
 						if (email.html) email.message = email.message.replace("* {", "message-body {");
 						$scope.emails.arr.unshift(email);
+						$scope.$apply();
 					}
 				}
 			});
