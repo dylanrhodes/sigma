@@ -233,6 +233,12 @@ sigmaApp.controller('EmailListCtrl', function($scope, $http, Emails) {
 		setTimeout('$(".textboxlist-autocomplete").width($(".textboxlist").width());', 150);
 	}
 
+	$scope.tblContactsToContacts = function(val, i) {
+		if($scope.emails.contacts[val])
+			return $scope.emails.contacts[val][4];
+		return val;
+	}
+
 	$scope.send = function() {
 		var subject = $("#compose-subject").val();
 		var body = $("#compose-body").val();
