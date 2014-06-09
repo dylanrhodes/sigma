@@ -106,7 +106,7 @@
 	    </div>
 	    <div class="viewing-padding" ng-show="viewingEmail"></div>
 
-	    <div class="menu control-bar row compose-bar" ng-show="showing = composeId">
+	    <div class="menu control-bar row compose-bar" ng-show="showing == composeId">
 			<div class="col-xs-3">
 	    		<a ng-click="inbox()">
 	    			<img src="/static/images/back-mobile.png" />
@@ -123,7 +123,7 @@
 	    		</a>
 	    	</div>
 	    </div>
-	    <div class="compose-padding" ng-show="viewingEmail"></div>
+	    <div class="compose-padding" ng-show="showing == composeId"></div>
 
 		<div class="col-xs-12 top-padding" ng-show="showing == inboxId">
 			<img src="/static/images/logo-1.png" />
