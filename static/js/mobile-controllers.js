@@ -178,7 +178,7 @@ sigmaApp.controller('EmailListCtrl', function($scope, $http, Emails) {
 		$scope.showingMenu = false;
 		$scope.read(emailId, 1);
 
-		setTimeout('$(".viewing").css("margin-top",$(".viewing-bar").height())', 150);
+		setTimeout('$(".viewing-padding").height($(".viewing-bar").height())', 150);
 
 		if (!$scope.viewingEmail.html) {
 			$('.viewing-message').html("<div class='no-html-email-view'>" + $scope.viewingEmail.message + "</div>");
