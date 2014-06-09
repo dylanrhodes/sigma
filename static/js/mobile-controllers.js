@@ -627,7 +627,7 @@ sigmaApp.factory('Emails', function($http) {
 		}
 	  }
 	  // dummy archive separator
-	  this.arr.unshift({archived : true, isEmail : false });
+	  this.arr.unshift({archived : true, isEmail : false, from : "Archive"});
 	  var c = [];
 	  $.each(this.contacts, function(i,v) {
 	  	v[0] = c.length;

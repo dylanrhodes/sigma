@@ -800,10 +800,6 @@ a:active.save {
 	font-weight: bold;
 }
 
-.archive-placeholder::before {
-	content:"Archive";
-}
-
 /* viewing menu */
 
 
