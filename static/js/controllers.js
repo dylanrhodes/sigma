@@ -228,7 +228,7 @@ sigmaApp.controller('EmailListCtrl', function($scope, $http, Emails) {
 		var next = $("#" + email.id).next();
 		$scope.selected = next;
 		$scope.selectedIds = [next.attr('id')];
-		var id = parseInt(next.attr('id'));
+		var id = next.attr('id');
 		$.map($scope.emails.arr, function(obj, index) {
 			if(obj.id == id) {
 			  $scope.viewingEmail = obj;
