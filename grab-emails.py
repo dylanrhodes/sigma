@@ -22,16 +22,17 @@ def get_email(user):
     password = db.get("user:%s:password" % user)
     server.login(username, password)
     server.select_folder('INBOX', readonly=True)
-    messages = server.search(['NOT DELETED','SINCE 25-May-2014', 'UNSEEN'])
+    messages = server.search(['NOT DELETED','SINCE 25-May-2014'])
     response = server.fetch(messages, ['RFC822', 'FLAGS'])
     for msgid, data in response.iteritems():
         # check for duplicates
-        #print data['FLAGS']
         duplicate = db.zrangebyscore("mail:%s:inbox" % user, msgid, msgid)
         if duplicate:
             continue
         emailUTF8 = data['RFC822'].encode('utf-8')
         msg = parser.parsestr(emailUTF8)
+        #print msg['subject']
+        #print data['FLAGS']
         body = extract_body(msg)
         msg['message'] = body
         msg['subject'] = ('NoSubj' if (msg['Subject']==None or msg['Subject'] == "")  else msg['Subject'])
