@@ -18,6 +18,12 @@ sigmaApp.controller('EmailListCtrl', function($scope, $http, Emails) {
 		$scope.emails.init();
 	  })
 	  .error(function() {console.log("Didn't load categories");});
+	  $http({
+			method: 'POST',
+			url: '/get_new_mail',
+		})
+		.success(function() {console.log("Successfully loaded new mail");})
+		.error(function() {console.log("Didn't successfully load new email");});
   }
   else {
 	$scope.categories = [
