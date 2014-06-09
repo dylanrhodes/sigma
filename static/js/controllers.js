@@ -241,7 +241,7 @@ sigmaApp.controller('EmailListCtrl', function($scope, $http, Emails) {
 				url: '/mark_as_archived',
 				data: elem
 			})
-			.success(function() {console.log("Successfully archived email");location.reload();})
+			.success(function() {console.log("Successfully archived email");})
 			.error(function() {console.log("Didn't successfully archive email");});
 		}
 		email.archived = 1;
