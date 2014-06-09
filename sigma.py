@@ -45,6 +45,7 @@ def load_user(userid):
 def index():
     if request.query_string == "home" or \
        current_user is not None and current_user.is_authenticated():
+        session.permanent = True
         return render_template('index.html')
     return redirect(url_for('landing'))
 
