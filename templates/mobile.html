@@ -77,9 +77,6 @@
 	    		<div class="category-bar-item category-bar-all {{focusedCategory == '' ? 'category-bar-focused' : ''}}" ng-click="categoryClick('')" id="category-all-btn" style = "{{focusedCategory == '' ? 'background-color: #000; color: #fff;' : 'color: #000;'}}">
 	    			All
 	    		</div>
-	    		<div class="category-bar-item {{focusedCategory == '' ? 'category-bar-focused' : ''}}" ng-click="categoryClick('ai')" id="category-ai-btn" style = "{{focusedCategory == 'ai' ? 'background-color: #000; color: #fff;' : 'color: #000;'}}">
-	    			Auto
-	    		</div>
 		        <div ng-repeat="category in categories" class="category-bar-item category-bar-category {{focusedCategory == category.id ? 'category-bar-focused' : ''}}" style = "{{focusedCategory == category.id ? 'background-color: '+category.color+'; color: #fff;' : 'color: '+category.color+';'}}" ng-click="categoryClick(category.id)">
 		        	{{category.name}}
 		        </div>
