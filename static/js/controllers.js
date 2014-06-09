@@ -225,6 +225,8 @@ sigmaApp.controller('EmailListCtrl', function($scope, $http, Emails) {
 	}
 	
 	$scope.archive = function(email) {
+		if (email.id == $("#" + email.id).attr('id')) console.log("Fuck this");
+		else console.log("yay");
 		var next = $("#" + email.id).next();
 		$scope.selected = next;
 		$scope.selectedIds = [next.attr('id')];
