@@ -153,7 +153,7 @@ sigmaApp.controller('EmailListCtrl', function($scope, $http, Emails) {
 		$http({
 			method: 'POST',
 			url: '/mark_as_read',
-			data: {id : email.id}
+			data: {id : emailId}
 		})
 		.success(function() {console.log("Successfully pushed read change");})
 		.error(function() {console.log("Didn't successfully push read change");});
@@ -352,6 +352,11 @@ sigmaApp.controller('EmailListCtrl', function($scope, $http, Emails) {
 			});
 		});
 		return toReturn;
+	}
+
+	$scope.inbox = function() {
+		$scope.showing = $scope.inboxId;
+		$scope.viewingEmail = false;
 	}
 
 	$scope.settings = function() {
