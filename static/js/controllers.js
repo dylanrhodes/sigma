@@ -83,11 +83,6 @@ sigmaApp.controller('EmailListCtrl', function($scope, $http, Emails) {
   $scope.sigma_img_tag = "<img src='images/sigma.png' />";
   $scope.composingEmail = false;
   $scope.markUnread = false;
-
-  $scope.unreadAlert = {
-	  "title": "Marked Unread!",
-	  "type": "info"
-	};
   
   $scope.cc = false;
 
@@ -731,7 +726,7 @@ sigmaApp.controller('EmailListCtrl', function($scope, $http, Emails) {
 	});
 
 	$(document).on("click", ".keep-unread", function(e) {
-		$scope.unreadAlert.$show();
+		var myAlert = $alert({title: 'Holy guacamole!', content: 'Best check yo self, you\'re not looking too good.', placement: 'top', type: 'info', show: true});
 		var id = parseInt($(this).attr('title'));
 		var elem = {"id" : id};
 		$.map($scope.emails.arr, function(obj, index) {
