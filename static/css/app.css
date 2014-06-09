@@ -23,7 +23,7 @@ h3.num-title {
 	text-align: center;
 }
 
-.alert {
+.alert.top {
 	bottom: 0 !important;
 	margin-bottom: 0 !important;
 	padding-bottom: 0 !important;
