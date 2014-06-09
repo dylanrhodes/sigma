@@ -602,7 +602,6 @@ sigmaApp.factory('Emails', function($http) {
 				contactsCount ++;
 			}
 			var to = email.to.replace(/"/g, "");
-			var from = email.from.replace(/"/g, "");
 			var start = to.indexOf("<");
 			var end = to.indexOf(">");
 			email.toEmail = to.substring(start + 1, end);
@@ -617,6 +616,7 @@ sigmaApp.factory('Emails', function($http) {
 				email.fromName = email.fromName.substring(10).replace(/=/g,'%');
 				if (email.fromName.indexOf("?") > -1) email.fromName = email.fromName.substring(0, email.fromName.indexOf("?"));
 				email.fromName = decodeURIComponent(email.fromName);
+				email.fromName = email.fromName.replace(/"/g, "");
 			}
 			var noHtml = email.message.replace(/<(?:.|\n)*?>/gm, '');
 			if (email.message == noHtml) email.html = false;
