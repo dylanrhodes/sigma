@@ -331,6 +331,7 @@ button.loadMore {
 
 .date {
 	/*color: #424242;*/
+	font-style: italic;
 }
 
 .emails-area::-webkit-scrollbar-track,
@@ -789,6 +790,17 @@ a:active.save {
  
 .fade-out.fade-out-active {
 	opacity: 0;
+}
+
+.archive-placeholder {
+	background: #d9d9d9;
+}
+
+.archive-text {
+	font-size: 18px;
+	text-align:center;
+	color: #ccc;
+	font-weight: bold;
 }
 
 /* viewing menu */
