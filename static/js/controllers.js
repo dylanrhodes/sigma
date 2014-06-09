@@ -521,7 +521,7 @@ sigmaApp.controller('EmailListCtrl', function($scope, $http, Emails, $alert) {
 		});
 		function loadNewEmails() {
 			console.log("Loading new emails");
-			var url = "/get_recent_emails?callback=JSON_CALLBACK";
+			var url = "/get_recent_email?callback=JSON_CALLBACK";
 			$http.jsonp(url).success(function(data) {
 				console.log("Got new email data");
 				for (var key in data) {
