@@ -1157,7 +1157,6 @@ sigmaApp.factory('Emails', function($http, $alert) {
 					email.fromName = decodeURIComponent(email.fromName);
 				}
 				if (email.fromName.indexOf("=?utf-8?B?") > -1 || email.fromName.indexOf("=?UTF-8?B?") > -1) {
-					console.log("trying to decode fromName");
 					email.fromName = email.fromName.substring(10);
 					if (email.fromName.indexOf("?") > -1) email.fromName = email.fromName.substring(0, email.fromName.indexOf("?"));
 					email.fromName = decodeURIComponent(escape(window.atob(email.fromName)))
