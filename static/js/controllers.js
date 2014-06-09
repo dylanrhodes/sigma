@@ -578,15 +578,35 @@ sigmaApp.controller('EmailListCtrl', function($scope, $http, Emails, $alert) {
 							email.toName = "";
 							email.toEmail = from;
 						}
-						if (email.subject.indexOf("=?utf-8?Q?") > -1) {
+						if (email.subject.indexOf("=?utf-8?Q?") == 0 || email.subject.indexOf("=?UTF-8?Q?") == 0) {
 							email.subject = email.subject.substring(10).replace(/=/g,'%');
-							if (email.subject.indexOf("?") > -1) email.subject = email.subject.substring(0, email.subject.indexOf("?"));
-							email.subject = decodeURIComponent(email.subject);
+							if (email.subject.indexOf("?") > -1) {
+								email.subject = email.subject.substring(0, email.subject.indexOf("?"));
+								email.subject = decodeURIComponent(email.subject);
+							}
 						}
-						if (email.fromName.indexOf("=?utf-8?Q?") > -1) {
+						if (email.subject.indexOf("=?utf-8?B?") == 0 || email.subject.indexOf("=?UTF-8?B?") == 0) {
+							
+							email.subject = email.subject.substring(10);
+							console.log(email.subject);
+							if (email.subject.indexOf("?") > -1) {
+								email.subject = email.subject.substring(0, email.subject.indexOf("?"));
+								email.subject = decodeURIComponent(escape(window.atob(email.subject)));
+							}
+						}
+						if (email.fromName.indexOf("=?utf-8?Q?") == 0 || email.fromName.indexOf("=?UTF-8?Q?") == 0) {
 							email.fromName = email.fromName.substring(10).replace(/=/g,'%');
-							if (email.fromName.indexOf("?") > -1) email.fromName = email.fromName.substring(0, email.fromName.indexOf("?"));
-							email.fromName = decodeURIComponent(email.fromName);
+							if (email.fromName.indexOf("?") > -1) {
+								email.fromName = email.fromName.substring(0, email.fromName.indexOf("?"));
+								email.fromName = decodeURIComponent(email.fromName);
+							}
+						}
+						if (email.fromName.indexOf("=?utf-8?B?") == 0 || email.fromName.indexOf("=?UTF-8?B?") == 0) {
+							email.fromName = email.fromName.substring(10);
+							if (email.fromName.indexOf("?") > -1) {
+								email.fromName = email.fromName.substring(0, email.fromName.indexOf("?"));
+								email.fromName = decodeURIComponent(escape(window.atob(email.fromName)));
+							}
 						}
 						if (email.message.toLowerCase().indexOf("<style") >= 0) {
 							email.noHtml = email.message.substring(0, email.message.toLowerCase().indexOf("<style")) + email.message.substring(email.message.toLowerCase().indexOf("/style>") + 7);
@@ -1146,25 +1166,33 @@ sigmaApp.factory('Emails', function($http, $alert) {
 				}
 				if (email.subject.indexOf("=?utf-8?Q?") == 0 || email.subject.indexOf("=?UTF-8?Q?") == 0) {
 					email.subject = email.subject.substring(10).replace(/=/g,'%');
-					if (email.subject.indexOf("?") > -1) email.subject = email.subject.substring(0, email.subject.indexOf("?"));
-					email.subject = decodeURIComponent(email.subject);
+					if (email.subject.indexOf("?") > -1) {
+						email.subject = email.subject.substring(0, email.subject.indexOf("?"));
+						email.subject = decodeURIComponent(email.subject);
+					}
 				}
 				if (email.subject.indexOf("=?utf-8?B?") == 0 || email.subject.indexOf("=?UTF-8?B?") == 0) {
 					
 					email.subject = email.subject.substring(10);
 					console.log(email.subject);
-					if (email.subject.indexOf("?") > -1) email.subject = email.subject.substring(0, email.subject.indexOf("?"));
-					email.subject = decodeURIComponent(escape(window.atob(email.subject)))
+					if (email.subject.indexOf("?") > -1) {
+						email.subject = email.subject.substring(0, email.subject.indexOf("?"));
+						email.subject = decodeURIComponent(escape(window.atob(email.subject)));
+					}
 				}
 				if (email.fromName.indexOf("=?utf-8?Q?") == 0 || email.fromName.indexOf("=?UTF-8?Q?") == 0) {
 					email.fromName = email.fromName.substring(10).replace(/=/g,'%');
-					if (email.fromName.indexOf("?") > -1) email.fromName = email.fromName.substring(0, email.fromName.indexOf("?"));
-					email.fromName = decodeURIComponent(email.fromName);
+					if (email.fromName.indexOf("?") > -1) {
+						email.fromName = email.fromName.substring(0, email.fromName.indexOf("?"));
+						email.fromName = decodeURIComponent(email.fromName);
+					}
 				}
 				if (email.fromName.indexOf("=?utf-8?B?") == 0 || email.fromName.indexOf("=?UTF-8?B?") == 0) {
 					email.fromName = email.fromName.substring(10);
-					if (email.fromName.indexOf("?") > -1) email.fromName = email.fromName.substring(0, email.fromName.indexOf("?"));
-					email.fromName = decodeURIComponent(escape(window.atob(email.fromName)))
+					if (email.fromName.indexOf("?") > -1) {
+						email.fromName = email.fromName.substring(0, email.fromName.indexOf("?"));
+						email.fromName = decodeURIComponent(escape(window.atob(email.fromName)));
+					}
 				}
 				if (email.message.toLowerCase().indexOf("<style") >= 0) {
 					email.noHtml = email.message.substring(0, email.message.toLowerCase().indexOf("<style")) + email.message.substring(email.message.toLowerCase().indexOf("/style>") + 7);
