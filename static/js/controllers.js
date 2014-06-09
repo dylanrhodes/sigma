@@ -609,7 +609,7 @@ sigmaApp.controller('EmailListCtrl', function($scope, $http, Emails, $alert) {
 		}
 		
 		setTimeout(loadNewEmails, 30000);
-		setTimeout(loadNewEmails, 90000);
+		setTimeout(loadNewEmails, 120000);
 	});
 
 	$(document).keydown(function(e){
