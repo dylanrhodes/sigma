@@ -256,7 +256,7 @@ sigmaApp.controller('EmailListCtrl', function($scope, $http, Emails, $alert) {
 
 	$scope.tblContactsToContacts = function(val, i) {
 		if($scope.emails.contacts[val])
-			return $scope.emails.contacts[val];
+			return $scope.emails.contacts[val][4];
 		return val;
 	}
 
@@ -1029,7 +1029,8 @@ sigmaApp.factory('Emails', function($http) {
 					this.contacts[email.fromEmail.toLowerCase()] = [this.contacts.length, 
 											email.fromName + " " + email.fromEmail, 
 											email.fromName != "" ? email.fromName : email.fromEmail,
-											email.fromName + " <em>" + email.fromEmail + "</em>"];
+											email.fromName + " <em>" + email.fromEmail + "</em>",
+											email.fromEmail];
 					contactsCount ++;
 				}
 				var to = email.to.replace(/"/g, "");
