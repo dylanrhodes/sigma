@@ -579,16 +579,14 @@ sigmaApp.controller('EmailListCtrl', function($scope, $http, Emails, $alert) {
 							email.toEmail = from;
 						}
 						if (email.subject.indexOf("=?utf-8?Q?") == 0 || email.subject.indexOf("=?UTF-8?Q?") == 0) {
-							if (email.subject.indexOf("%") < 0) {
-								email.subject = email.subject.substring(10).replace(/=/g,'%');
-								if (email.subject.indexOf("?") > -1) {
-									email.subject = email.subject.substring(0, email.subject.indexOf("?"));
-									email.subject = decodeURIComponent(email.subject);
-								}
+							email.subject = email.subject.replace('%','perc.');
+							email.subject = email.subject.substring(10).replace(/=/g,'%');
+							if (email.subject.indexOf("?") > -1) {
+								email.subject = email.subject.substring(0, email.subject.indexOf("?"));
+								email.subject = decodeURIComponent(email.subject);
 							}
 						}
 						if (email.subject.indexOf("=?utf-8?B?") == 0 || email.subject.indexOf("=?UTF-8?B?") == 0) {
-							
 							email.subject = email.subject.substring(10);
 							console.log(email.subject);
 							if (email.subject.indexOf("?") > -1) {
@@ -597,12 +595,11 @@ sigmaApp.controller('EmailListCtrl', function($scope, $http, Emails, $alert) {
 							}
 						}
 						if (email.fromName.indexOf("=?utf-8?Q?") == 0 || email.fromName.indexOf("=?UTF-8?Q?") == 0) {
-							if (email.subject.indexOf("%") < 0) {
-								email.fromName = email.fromName.substring(10).replace(/=/g,'%');
-								if (email.fromName.indexOf("?") > -1) {
-									email.fromName = email.fromName.substring(0, email.fromName.indexOf("?"));
-									email.fromName = decodeURIComponent(email.fromName);
-								}
+							email.subject = email.subject.replace('%','perc.');
+							email.fromName = email.fromName.substring(10).replace(/=/g,'%');
+							if (email.fromName.indexOf("?") > -1) {
+								email.fromName = email.fromName.substring(0, email.fromName.indexOf("?"));
+								email.fromName = decodeURIComponent(email.fromName);
 							}
 						}
 						if (email.fromName.indexOf("=?utf-8?B?") == 0 || email.fromName.indexOf("=?UTF-8?B?") == 0) {
