@@ -567,6 +567,7 @@ a:active.save {
 
 .viewing {
 	padding: 10px;
+	padding-top 0px;
 	word-wrap: break-word;
 }
 
@@ -592,9 +593,9 @@ a:active.save {
 }
 
 .viewing-message {
-	margin-top: 5px;
-	border-top: 1px solid #eee;
-	padding-top: 5px;
+	/*margin-top: 5px;*/
+	/*border-top: 1px solid #eee;*/
+	/*padding-top: 5px;*/
 	overflow: auto; 
 	-webkit-overflow-scrolling:touch;
 }

@@ -150,6 +150,26 @@ sigmaApp.controller('EmailListCtrl', function($scope, $http, Emails) {
 	$scope.read = function(emailId, read) {
 		$scope.emails.byId[emailId].read = read;
 		$("#" + emailId).find(".fandle-inner-image").attr("href", "/static/images/sigma-handle"+(read == 1 ? "-read" : "" ) +".png");
+		$http({
+			method: 'POST',
+			url: '/mark_as_read',
+			data: elem
+		})
+		.success(function() {console.log("Successfully pushed read change");})
+		.error(function() {console.log("Didn't successfully push read change");});
+	}
+
+	$scope.archive = function(email) {
+		if (window.location.search != "?home") {
+			$http({
+				method: 'POST',
+				url: '/mark_as_archived',
+				data: {id : email.id}
+			})
+			.success(function() {console.log("Successfully archived email");})
+			.error(function() {console.log("Didn't successfully archive email");});
+		}
+		email.archived = 1;
 	}
 
   $scope.viewing = function(emailId) {
@@ -157,15 +177,6 @@ sigmaApp.controller('EmailListCtrl', function($scope, $http, Emails) {
 		$scope.viewingEmail = $scope.emails.byId[emailId];
 		$scope.showingMenu = false;
 		$scope.read(emailId, 1);
-
-		var elem = {"id" : emailId};
-	  $http({
-			method: 'POST',
-			url: '/mark_as_read',
-			data: elem
-		})
-		.success(function() {console.log("Successfully pushed read change");})
-		.error(function() {console.log("Didn't successfully push read change");});
 
 		if (!$scope.viewingEmail.html) {
 			$('.viewing-message').html("<div class='no-html-email-view'>" + $scope.viewingEmail.message + "</div>");
