@@ -1094,13 +1094,18 @@ sigmaApp.factory('Emails', function($http) {
 						  var from = arr[k]['from'];
 						  from = from.replace(/"/g, "");
 						  var start = from.indexOf("<");
-						  var end = from.indexOf(">");
-						  var fromEmail = from.substring(start + 1, end);
-						  var fromName = "";
-						  if (start != 0) fromName = from.substring(0, start-1);
-						  var dFrom;
-						  if (fromName == "") dFrom = fromEmail;
-						  else dFrom = fromName;
+						  var dFrom = "";
+						  if (start < 0) {
+							  dFrom = from;
+						  }
+						  else {
+							  var end = from.indexOf(">");
+							  var fromEmail = from.substring(start + 1, end);
+							  var fromName = "";
+							  if (start != 0) fromName = from.substring(0, start-1);
+							  if (fromName == "") dFrom = fromEmail;
+							  else dFrom = fromName;
+						  }
 						  content += "<div class='col-xs-3 summary'>from: " + dFrom + "</div>"
 						  content += "<div class='col-xs-7 summary'>subject: "
 						  content += arr[k]['subject'];
