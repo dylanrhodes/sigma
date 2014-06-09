@@ -1,0 +1,48 @@
+<!doctype html>
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <title>Sigma: your organized inbox.</title>
+  <link rel="shortcut icon" type="image/x-icon" href="../static/favicon.ico">
+  <link rel="stylesheet" href="../static/css/libraries/bootstrap.css">
+  <link rel="stylesheet" href="../static/css/libraries/main.min.css">
+  <link rel="stylesheet" href="../static/css/libraries/bootstrap-additions.min.css">
+  <link rel="stylesheet" href="../static/css/libraries/jquery.pageslide.css">
+  <link rel="stylesheet" href="../static/css/home.css">
+  <link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
+
+  <script type="text/javascript" charset="utf-8" src="../static/js/libraries/jquery-1.11.0.min.js"></script>
+  <script src="../static/js/app.js"></script>
+  <meta name="viewport" content="width=320 initial-scale=0.9 maximum-scale=1.0 user-scalable=0" />
+</head>
+
+<body>
+
+				<div class="row main-page">
+					<div class="col-xs-8 left">
+						<img class="devices" src="../static/images/devices.gif" title="Devices" />
+					</div>
+					<div class="col-xs-4 right">
+						<img class="logo" src="../static/images/logo-1.png" title="Sigma" />
+						<h2 class="heading">Your Auto-Organized Inbox</h2>
+						<a class="signup" href="signup">Get Started</a>
+						<div class="signin"><a href="login">Sign In</a></div>
+						<script>
+						var a=document.getElementsByTagName("a");
+							for(var i=0;i<a.length;i++)
+							{
+							    a[i].onclick=function()
+							    {
+							        window.location=this.getAttribute("href");
+							        return false
+							    }
+							}
+							</script>
+					</div>
+					<div class="col-xs-12 scroll" onclick="scrollDown()";>View Demo <img src="../static/images/carrot.png" title="Carrot"/></div>
+				</div>
+	<div class="demo">
+		<iframe class="frame" src="http://sigma.jmvldz.com/?home" width="100%" height="90%"></iframe>
+	</div>
+</body>
+</html>
