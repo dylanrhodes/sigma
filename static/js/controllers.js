@@ -228,6 +228,8 @@ sigmaApp.controller('EmailListCtrl', function($scope, $http, Emails) {
 		var next = $("#" + email.id).next();
 		$scope.selected = next;
 		$scope.selectedIds = [next.attr('id')];
+		console.log($scope.selected);
+		console.log($scope.selectedIds);
 		$scope.$apply();
 		var id = next.attr('id');
 		$.map($scope.emails.arr, function(obj, index) {
@@ -236,15 +238,15 @@ sigmaApp.controller('EmailListCtrl', function($scope, $http, Emails) {
 			 }
 		  });
 		var elem = {"id" : email.id};
-		if (window.location.search != "?home") {
-			$http({
-				method: 'POST',
-				url: '/mark_as_archived',
-				data: elem
-			})
-			.success(function() {console.log("Successfully archived email");})
-			.error(function() {console.log("Didn't successfully archive email");});
-		}
+		// if (window.location.search != "?home") {
+			// $http({
+				// method: 'POST',
+				// url: '/mark_as_archived',
+				// data: elem
+			// })
+			// .success(function() {console.log("Successfully archived email");})
+			// .error(function() {console.log("Didn't successfully archive email");});
+		// }
 		email.archived = 1;
 	}
 	
