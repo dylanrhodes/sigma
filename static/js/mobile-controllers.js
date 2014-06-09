@@ -155,6 +155,7 @@ sigmaApp.controller('EmailListCtrl', function($scope, $http, Emails) {
   $scope.viewing = function(emailId) {
 		$scope.showing = $scope.viewingId;
 		$scope.viewingEmail = $scope.emails.byId[emailId];
+		$scope.showingMenu = false;
 		$scope.read(emailId, 1);
 
 		var elem = {"id" : emailId};
@@ -179,6 +180,13 @@ sigmaApp.controller('EmailListCtrl', function($scope, $http, Emails) {
 	}
 
 	$scope.showingEmail = function(email) {
+		
+		// first for viewing email
+		if($scope.viewingEmail.id = email.id)
+			return true;
+		if($scope.viewingEmail)
+			return false;
+
 		var search = $("#search").val();
 		var showingSearch = search == "" || email.message.indexOf(search) >= 0 || email.subject.indexOf(search) >= 0
 							|| email.fromName.indexOf(search) >= 0 || email.fromEmail.indexOf(search) >= 0;
