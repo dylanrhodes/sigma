@@ -432,6 +432,8 @@ input[type="text"], input[type="email"] textarea, .textboxlist-bits, .textboxlis
 .textboxlist-bit {
 	margin: 0px;
 	margin-right: 3px;
+	margin-top: 1px;
+	margin-bottom: 1px;	
 }
 
 .textboxlist-bit-editable {
