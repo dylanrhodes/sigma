@@ -179,15 +179,13 @@ sigmaApp.controller('EmailListCtrl', function($scope, $http, Emails) {
 		  }
 	}
 
-	$scope.showingEmail = function(email) {
-		
+	$scope.showingEmail = function(email) {		
 		// first for viewing email
-		console.log($scope.viewingEmail.id, email.id);
-		if($scope.viewingEmail.id = email.id)
-			return true;
-		if($scope.viewingEmail)
+		if($scope.viewingEmail) {
+			if($scope.viewingEmail.id == email.id)
+				return true;
 			return false;
-		console.log("a");
+		}
 
 		var search = $("#search").val();
 		var showingSearch = search == "" || email.message.indexOf(search) >= 0 || email.subject.indexOf(search) >= 0
