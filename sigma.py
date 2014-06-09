@@ -117,7 +117,8 @@ def get_emails():
 @jsonp
 @login_required
 def get_recent_email():
-    mail = db.zrevrangebyscore("mail:%s:inbox" % current_user.user, "+inf", session['recent_id'])
+    recentID = int(session['recent_id']) + 1
+    mail = db.zrevrangebyscore("mail:%s:inbox" % current_user.user, "+inf", recentID)
     parsedMail = {}
     session['recent_id'] = json.loads(mail[0])['id']
     for email in mail:
