@@ -168,30 +168,21 @@
 			</div>
 			<div class="compose" ng-show="showing == composeId">
 				<div class="compose-section">
-					<div class="col-xs-1">
-						To
+					<!--
+					<div class="compose-contacts-loading">
+						Contacts loading...
 					</div>
-					<div class="col-xs-11">
-						<input id="compose-to" type="email"  placeholder="To" />
-					</div>
+					-->
+					<!-- id="compose-to" -->
+					<input id="compose-to" type="email"  placeholder="To" />
 				</div>
-				<div class="compose-section row" ng-show="showcc">
-					<div class="col-xs-1">
-						CC
-					</div>
-					<div class="col-xs-11">
-						<input id="compose-cc" type="email"  placeholder="CC" />
-					</div>
+				<div class="compose-section" ng-show="showcc">
+					<input id="compose-cc" type="email"  placeholder="CC" />
 				</div>
-				<div class="compose-section row" ng-show="showcc">
-					<div class="col-xs-1">
-						BCC
-					</div>
-					<div class="col-xs-11">
-						<input id="compose-bcc" type="email"  placeholder="CC" />
-					</div>
+				<div class="compose-section" ng-show="showcc">
+					<input id="compose-bcc" type="email"  placeholder="CC" />
 				</div>
-				<div class="compose-section row">
+				<div class="compose-section">
 					<input type="text" id="compose-subject" placeholder="Subject" />
 				</div>
 				<div class="compose-section compose-body-section">
