@@ -4,6 +4,11 @@
 	<link rel="stylesheet" href="{{ url_for('static', filename='css/login.css') }}">
 	<link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
 	<link rel="stylesheet" href="{{ url_for('static', filename='css/libraries/bootstrap.css') }}">
+  <script type="text/javascript" charset="utf-8" src="{{ url_for('static', filename='js/libraries/jquery-1.11.0.min.js') }}"></script>
+
+	<link rel="stylesheet" href="{{ url_for('static', filename='css/app.css') }}">
+	
+	<meta name="viewport" content="width=320 initial-scale=0.9 maximum-scale=1.0 user-scalable=0" />
 </head>
 <body>
 {% block content %}
@@ -18,6 +23,17 @@
     {{form.new_account(checked="checked",class="hidden")}}
     <p><input class="submit" type="submit" value="Sign Up"></p>
 </form>
+<div class="notice" style="margin-top:20px;">
+	Sign-up is pursuant to our <a href="#" onclick="$('.terms').show()">Terms of Use</a>.
+</div>
+<div class="terms" style="display:none;">
+	<h3>Terms of Use</h3>
+	<p>
+		You recognize that this is only a senior project for Stanford's CS 194 class and
+		that using this client is at your own risk. We promise not to sell, read, inspect,
+		take a peek at, laugh at, mock, distribute, or SnapChat your email. Don't sue us.
+	</p>
+</div>
 </div>
 </div>
 </div>
