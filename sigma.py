@@ -5,7 +5,7 @@ import json, subprocess
 from functools import wraps
 
 from flask import Flask, render_template, jsonify, url_for, redirect
-from flask import request, current_app, make_response
+from flask import request, current_app, make_response, session
 from flask.ext.login import LoginManager, login_user, current_user, login_required, logout_user
 
 from app.db import db
@@ -103,18 +103,25 @@ def logout():
 @app.route('/get_emails')
 @jsonp
 @login_required
-def get_recent_email():
-    # get emails from database
-    #mail = db.zrevrangebyscore("mail:%s:inbox" % current_user.user, "+inf", "-inf", 0, 10)
+def get_emails():
     mail = db.zrevrangebyscore("mail:%s:inbox" % current_user.user, "+inf", "-inf")
-    #print mail
     parsedMail = {}
+    session['recent_id'] = mail[0]['id']
     for email in mail:
         pMail = json.loads(email)
-        if 'archived' in pMail and not pMail['archived']:
-            parsedMail[pMail['id']] = pMail
-        elif not 'archived' in pMail:
-            parsedMail[pMail['id']] = pMail
+        parsedMail[pMail['id']] = pMail
+    return jsonify(parsedMail)
+
+@app.route('/get_recent_email')
+@jsonp
+@login_required
+def get_recent_email():
+    mail = db.zrevrangebyscore("mail:%s:inbox" % current_user.user, "+inf", session['recent_id'])
+    parsedMail = {}
+    session['recent_id'] = mail[0]['id']
+    for email in mail:
+        pMail = json.loads(email)
+        parsedMail[pMail['id']] = pMail
     return jsonify(parsedMail)
 
 @app.route('/get_category_unread')
