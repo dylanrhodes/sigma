@@ -839,3 +839,8 @@ a:active.save {
 .inbox-bar {
 	padding-bottom: 0px;
 }
+
+.offset-item {
+	position: relative;
+	top: -4px;
+}
