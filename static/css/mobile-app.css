@@ -794,13 +794,14 @@ a:active.save {
 
 .archive-placeholder {
 	background: #d9d9d9;
-}
-
-.archive-text {
 	font-size: 18px;
 	text-align:center;
 	color: #ccc;
 	font-weight: bold;
+}
+
+.archive-placeholder::before {
+	content:"Archive";
 }
 
 /* viewing menu */
