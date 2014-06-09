@@ -573,11 +573,11 @@ sigmaApp.factory('Emails', function($http) {
 			}
 			var messageAllowedtags = email.message.replace(/<(?:.|\n)*?br(?:.|\n)*?>/gm, '\n');;
 			if (email.message.toLowerCase().indexOf("<style") >= 0) {
-				email.noHtml = email.messageAllowedtags.substring(0, email.message.toLowerCase().indexOf("<style")) + email.message.substring(email.message.toLowerCase().indexOf("/style>") + 7);
+				email.noHtml = messageAllowedtags.substring(0, email.message.toLowerCase().indexOf("<style")) + email.message.substring(email.message.toLowerCase().indexOf("/style>") + 7);
 				email.noHtml = email.noHtml.replace(/<(?:.|\n)*?>/gm, '');
 			}
 			else {
-				email.noHtml = email.messageAllowedtags.replace(/<(?:.|\n)*?>/gm, '');
+				email.noHtml = messageAllowedtags.replace(/<(?:.|\n)*?>/gm, '');
 			}
 			if (messageAllowedtags == email.noHtml) {
 				email.html = false;
