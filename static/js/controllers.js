@@ -397,9 +397,7 @@ sigmaApp.controller('EmailListCtrl', function($scope, $http, Emails, $alert) {
   		$scope.focusedCategory = '';
   	else {
 	  	$scope.focusedCategory = categoryId;
-	  	if(categoryId && categoryId != ''){
-	  		$scope.emails.nextByCategory(categoryId);
-	  	}
+	  	
 	}
   }
 
