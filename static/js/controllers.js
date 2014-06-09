@@ -246,7 +246,7 @@ sigmaApp.controller('EmailListCtrl', function($scope, $http, Emails) {
 			// .success(function() {console.log("Successfully archived email");})
 			// .error(function() {console.log("Didn't successfully archive email");});
 		// }
-		//email.archived = 1;
+		email.archived = 1;
 	}
 	
 	$scope.send = function() {
@@ -707,6 +707,10 @@ sigmaApp.controller('EmailListCtrl', function($scope, $http, Emails) {
 			"title": "Digest Already Read",
 			"content": "<div class='summary'>Refresh to Update Digest</div>"
 		};
+	});
+	
+	$(document).on("click", "#archive-button", function(e) {
+		e.stopPropagation();
 	});
 	
 	$(document).on("click", ".close", function(e) {
