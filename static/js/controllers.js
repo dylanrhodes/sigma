@@ -84,7 +84,11 @@ sigmaApp.controller('EmailListCtrl', function($scope, $http, Emails) {
   $scope.composingEmail = false;
   $scope.markUnread = false;
 
-  $scope.user = { email : "skywalker@sigma.com" }
+  $scope.unreadAlert = {
+	  "title": "Marked Unread!",
+	  "type": "info"
+	};
+  
   $scope.cc = false;
 
   // $scope.viewingId = -1;
@@ -1088,7 +1092,7 @@ sigmaApp.factory('Emails', function($http) {
 						  content += "<div class='col-xs-10 summary'>"
 						  content += arr[k]['summary'];
 						  content += "</div>";
-						  content += "<a class='col-xs-2 keep-unread' title='" + k + "'>Keep Unread</a>"
+						  content += "<a class='col-xs-2 keep-unread' title='" + k + "' data-placement='top-right' data-container='body' data-duration='3' bs-alert='unreadAlert'>Keep Unread</a>"
 						  content += "</div>";
 						  content += "<div class='row digest-sub-row'>"
 						  var from = arr[k]['from'];
