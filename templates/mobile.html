@@ -48,12 +48,12 @@
 <body ng-controller="EmailListCtrl">
   <div class="wrapper container-fluid">
   	<div class="mobile-app-area row">
-		<div class="menu-btn" ng-click="toggleMenu()" ng-show="!viewingEmail">
+		<div class="menu-btn" ng-click="toggleMenu()" ng-show="!viewingEmail && showing != composeId">
 			<img src="/static/images/down-mobile.png" ng-show="!showingMenu" />
 			<img src="/static/images/up-mobile.png" ng-show="showingMenu" />
 		</div>
 		{% raw %}
-  		<div class="menu {{showingMenu ? 'menu-shown' : 'menu-hidden'}}" ng-animate="{show: 'fade-in', hide: 'fade-out'}" ng-show="!viewingEmail">
+  		<div class="menu {{showingMenu ? 'menu-shown' : 'menu-hidden'}}" ng-animate="{show: 'fade-in', hide: 'fade-out'}" ng-show="!viewingEmail && showing != composeId">
   			<div class="control-bar row"  ng-show="!viewingEmail">
 			  <!-- <div class="control-bar-item col-xs-1"><!-- menu button placeholder --</div> -->
 			  
@@ -99,12 +99,32 @@
 	    		</a>
 	    	</div>
 	    	<div class="col-xs-3">
-	    		<a ng-click="send()">
+	    		<a ng-click="compose(viewingEmail)">
 	    			<img src="/static/images/reply-mobile.png" />
 	    		</a>
 	    	</div>
 	    </div>
 	    <div class="viewing-padding" ng-show="viewingEmail"></div>
+
+	    <div class="menu control-bar row compose-bar" ng-show="showing = composeId">
+			<div class="col-xs-3">
+	    		<a ng-click="inbox()">
+	    			<img src="/static/images/back-mobile.png" />
+	    		</a>
+	    	</div>
+	    	<div class="col-xs-6">
+	    		<a ng-click="showcc = true">
+	    			CC
+	    		</a>
+	    	</div>
+	    	<div class="col-xs-3">
+	    		<a ng-click="send()">
+	    			<img src="/static/images/send-mobile.png" />
+	    		</a>
+	    	</div>
+	    </div>
+	    <div class="compose-padding" ng-show="viewingEmail"></div>
+
 		<div class="col-xs-12 top-padding" ng-show="showing == inboxId">
 			<img src="/static/images/logo-1.png" />
 		</div>

@@ -811,11 +811,11 @@ a:active.save {
 /* viewing menu */
 
 
-.viewing-bar {
+.viewing-bar, .compose-bar {
 	margin-left: 0px;
 	font-size: 12px;
 }
 
-.viewing-padding {
+.viewing-padding, .compose-padding {
 	height: 45px;
 }
