@@ -24,8 +24,11 @@ h3.num-title {
 }
 
 .alert-absolute {
-	position: absolute;
-	top: 0;
+	position: fixed;
+	left: 0px;
+	top: 0px;
+	width: 100%;
+	height: 100%;
 }
 
 .question-mark {
