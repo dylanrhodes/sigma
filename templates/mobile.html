@@ -100,7 +100,7 @@
 	    	</div>
 	    	<div class="col-xs-3">
 	    		<a ng-click="send()">
-	    			<img src="/static/images/send-mobile.png" />
+	    			<img src="/static/images/reply-mobile.png" />
 	    		</a>
 	    	</div>
 	    </div>
@@ -124,7 +124,7 @@
 	            </div>
 			</div>
 			<div class="viewing" ng-show="showing == viewingId">
-				<div class="viewing-message-top">
+				<!-- <div class="viewing-message-top">
 					<div class="row nopadding-atall">
 						<div class="col-xs-5 nopadding-atall viewing-category" style="color:{{categories[viewingEmail.category - 1].color}}">
 							<b>{{categories[viewingEmail.category - 1].name}}</b>
@@ -138,7 +138,7 @@
 					<div class="viewing-from">{{viewingEmail.fromName}} <em>{{viewingEmail.fromEmail}}</em></div>
 					<div class="viewing-subject">{{viewingEmail.subject}}</div>
 					<div clas="viewing-date">{{viewingEmail.date}}</div>
-				</div>
+				</div> -->
 				<div class="viewing-message"></div>
 			</div>
 			<div class="compose" ng-show="showing == composeId">
