@@ -520,8 +520,10 @@ sigmaApp.controller('EmailListCtrl', function($scope, $http, Emails, $alert) {
 			$scope.init();
 		});
 		function loadNewEmails() {
+			console.log("Loading new emails");
 			var url = "/get_recent_emails?callback=JSON_CALLBACK";
 			$http.jsonp(url).success(function(data) {
+				console.log("Got new email data");
 				for (var key in data) {
 					if(data.hasOwnProperty(key)) {
 						var email = data[key];
@@ -602,6 +604,7 @@ sigmaApp.controller('EmailListCtrl', function($scope, $http, Emails, $alert) {
 					}
 				}
 			});
+			console.log("Done loading new emails");
 		}
 		
 		setTimeout(loadNewEmails, 30000);
