@@ -246,8 +246,7 @@ sigmaApp.controller('EmailListCtrl', function($scope, $http, Emails) {
 			// .success(function() {console.log("Successfully archived email");})
 			// .error(function() {console.log("Didn't successfully archive email");});
 		// }
-		email.archived = 1;
-		$scope.$apply();
+		//email.archived = 1;
 	}
 	
 	$scope.send = function() {
