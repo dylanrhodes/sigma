@@ -82,8 +82,23 @@
 		        </div>
 			</div>
 		</div>
-		<div class="control-bar row viewing-bar" ng-show="viewingEmail">
-	    	<div class="control-bar-item" ng-click="send()">
+		<div class="menu control-bar row viewing-bar" ng-show="viewingEmail">
+			<div class="col-xs-3">
+	    		<a ng-click="showing = inboxId">
+	    			Back
+	    		</a>
+	    	</div>
+	    	<div class="col-xs-3">
+	    		<a ng-click="archive(viewingEmail);showing = inboxId">
+	    			<img src="/static/images/archive-mobile.png" />
+	    		</a>
+	    	</div>
+	    	<div class="col-xs-3">
+	    		<a ng-click="viewingEmail.read = 0">
+	    			<img src="/static/images/unread-mobile.png" />
+	    		</a>
+	    	</div>
+	    	<div class="col-xs-3">
 	    		<a ng-click="send()">
 	    			<img src="/static/images/send-mobile.png" />
 	    		</a>
