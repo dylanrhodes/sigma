@@ -524,6 +524,7 @@ sigmaApp.controller('EmailListCtrl', function($scope, $http, Emails, $alert) {
 			var url = "/get_recent_email?callback=JSON_CALLBACK";
 			$http.jsonp(url).success(function(data) {
 				console.log("Got new email data");
+				var contactsCount = 0;
 				for (var key in data) {
 					if(data.hasOwnProperty(key)) {
 						var email = data[key];
