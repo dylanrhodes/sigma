@@ -1151,12 +1151,12 @@ sigmaApp.factory('Emails', function($http, $alert) {
 					if (email.subject.indexOf("?") > -1) email.subject = email.subject.substring(0, email.subject.indexOf("?"));
 					email.subject = decodeURIComponent(escape(window.atob(email.subject)))
 				}
-				if (email.fromName.indexOf("=?utf-8?Q?") > -1 || email.subject.indexOf("=?UTF-8?Q?") > -1) {
+				if (email.fromName.indexOf("=?utf-8?Q?") > -1 || email.fromName.indexOf("=?UTF-8?Q?") > -1) {
 					email.fromName = email.fromName.substring(10).replace(/=/g,'%');
 					if (email.fromName.indexOf("?") > -1) email.fromName = email.fromName.substring(0, email.fromName.indexOf("?"));
 					email.fromName = decodeURIComponent(email.fromName);
 				}
-				if (email.fromName.indexOf("=?utf-8?B?") > -1 || email.subject.indexOf("=?UTF-8?B?") > -1) {
+				if (email.fromName.indexOf("=?utf-8?B?") > -1 || email.fromName.indexOf("=?UTF-8?B?") > -1) {
 					console.log("trying to decode fromName");
 					email.fromName = email.fromName.substring(10);
 					if (email.fromName.indexOf("?") > -1) email.fromName = email.fromName.substring(0, email.fromName.indexOf("?"));
