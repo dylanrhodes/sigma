@@ -1238,6 +1238,9 @@ sigmaApp.factory('Emails', function($http) {
 		  });
 		  this.contacts = c;
 		  this.busy = false;
+		  if (this.arr.length == 0) {
+			var welcome = $alert({title: 'Welcome to Sigma!', content: "Thanks for signing up! We are currently attempting to download your emails from gmail. It may take a minute or to. Please check your email to see if Gmail requires you to authorize us to access your account!", placement: 'top', type: 'info', show: true});
+		  }
 		}.bind(this));
 	}
   };
