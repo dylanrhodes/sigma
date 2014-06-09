@@ -1080,6 +1080,7 @@ sigmaApp.factory('Emails', function($http, $alert) {
 				email.snippet = email.message.substr(0, 200);
 				email.id = num.toString();
 				email.read = Math.round(Math.random());
+				email.archived = false;
 				var from = email.from.replace(/"/g, "");
 				var start = from.indexOf("<");
 				var end = from.indexOf(">");
