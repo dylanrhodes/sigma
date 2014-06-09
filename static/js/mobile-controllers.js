@@ -152,7 +152,7 @@ sigmaApp.controller('EmailListCtrl', function($scope, $http, Emails) {
 		$("#" + emailId).find(".fandle-inner-image").attr("href", "/static/images/sigma-handle"+(read == 1 ? "-read" : "" ) +".png");
 		$http({
 			method: 'POST',
-			url: '/mark_as_read',
+			url: (read == 0 ? '/mark_as_unread' : '/mark_as_read'),
 			data: {id : emailId}
 		})
 		.success(function() {console.log("Successfully pushed read change");})
@@ -160,16 +160,17 @@ sigmaApp.controller('EmailListCtrl', function($scope, $http, Emails) {
 	}
 
 	$scope.archive 	= function(email) {
+		var archived = arguments.length > 1 ? arguments[2] : 1;
 		if (window.location.search != "?home") {
 			$http({
 				method: 'POST',
 				url: '/mark_as_archived',
-				data: {id : email.id}
+				data: {id : email.id, archived : archived}
 			})
 			.success(function() {console.log("Successfully archived email");})
 			.error(function() {console.log("Didn't successfully archive email");});
 		}
-		email.archived = 1;
+		email.archived = 0;
 	}
 
   $scope.viewing = function(emailId) {
