@@ -1107,7 +1107,7 @@ sigmaApp.factory('Emails', function($http) {
 							  else dFrom = fromName;
 						  }
 						  content += "<div class='col-xs-3 summary'>from: " + dFrom + "</div>"
-						  content += "<div class='col-xs-7 summary'>subject: "
+						  content += "<div class='col-xs-7 summary' style='padding-left:0;'>subject: "
 						  content += arr[k]['subject'];
 						  content += "</div>"
 						  content += "</div>"
