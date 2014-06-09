@@ -203,6 +203,10 @@ sigmaApp.controller('EmailListCtrl', function($scope, $http, Emails) {
 			return false;
 		}
 
+		console.log(email);
+		// if($scope.focusedCategory == 'ai')
+		// 	return 
+
 		if(!email.isEmail)
 			return true;
 
