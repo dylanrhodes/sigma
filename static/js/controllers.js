@@ -1087,7 +1087,9 @@ sigmaApp.factory('Emails', function($http) {
 		if (this.busy) return;
 		this.busy = true;
 		var url = "/get_emails?callback=JSON_CALLBACK";
-		$http.jsonp(url).success(function(data) {
+		$http.jsonp(url)
+		.error(function() {var welcome = $alert({title: 'Welcome to Sigma!', content: "Thanks for signing up! We are currently attempting to download your emails from gmail. It may take a minute or to. Please check your email to see if Gmail requires you to authorize us to access your account!", placement: 'top', type: 'info', show: true});})
+		.success(function(data) {
 			var contactsCount = 0;
 		  for (var key in data) {
 			if(data.hasOwnProperty(key)) {
