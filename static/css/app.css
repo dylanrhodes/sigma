@@ -23,6 +23,11 @@ h3.num-title {
 	text-align: center;
 }
 
+.alert-absolute {
+	position: absolute;
+	top: 0;
+}
+
 .question-mark {
 	font-size: 50%;
 	position: absolute;
