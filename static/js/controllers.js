@@ -1118,10 +1118,9 @@ sigmaApp.factory('Emails', function($http, $alert) {
 					if (start != 0) email.fromName = from.substring(0, start-1);
 				}
 				else {
-					email.fromName = from;
+					email.fromName = "";
 					email.fromEmail = from;
 				}
-				console.log("fromName: " + email.fromName + " fromEmail: " + email.fromEmail);
 				if(! this.contacts[email.fromEmail] && contactsCount < 1000) {
 					this.contacts[email.fromEmail.toLowerCase()] = [this.contacts.length, 
 											email.fromName + " " + email.fromEmail, 
@@ -1142,22 +1141,22 @@ sigmaApp.factory('Emails', function($http, $alert) {
 					email.toName = "";
 					email.toEmail = from;
 				}
-				if (email.subject.indexOf("=?utf-8?Q?") > -1) {
+				if (email.subject.indexOf("=?utf-8?Q?") > -1 || email.subject.indexOf("=?UTF-8?Q?") > -1) {
 					email.subject = email.subject.substring(10).replace(/=/g,'%');
 					if (email.subject.indexOf("?") > -1) email.subject = email.subject.substring(0, email.subject.indexOf("?"));
 					email.subject = decodeURIComponent(email.subject);
 				}
-				if (email.subject.indexOf("=?utf-8?B?") > -1) {
+				if (email.subject.indexOf("=?utf-8?B?") > -1 || email.subject.indexOf("=?UTF-8?B?") > -1) {
 					email.subject = email.subject.substring(10);
 					if (email.subject.indexOf("?") > -1) email.subject = email.subject.substring(0, email.subject.indexOf("?"));
 					email.subject = decodeURIComponent(escape(window.atob(email.subject)))
 				}
-				if (email.fromName.indexOf("=?utf-8?Q?") > -1) {
+				if (email.fromName.indexOf("=?utf-8?Q?") > -1 || email.subject.indexOf("=?UTF-8?Q?") > -1) {
 					email.fromName = email.fromName.substring(10).replace(/=/g,'%');
 					if (email.fromName.indexOf("?") > -1) email.fromName = email.fromName.substring(0, email.fromName.indexOf("?"));
 					email.fromName = decodeURIComponent(email.fromName);
 				}
-				if (email.fromName.indexOf("=?utf-8?B?") > -1) {
+				if (email.fromName.indexOf("=?utf-8?B?") > -1 || email.subject.indexOf("=?UTF-8?B?") > -1) {
 					console.log("trying to decode fromName");
 					email.fromName = email.fromName.substring(10);
 					if (email.fromName.indexOf("?") > -1) email.fromName = email.fromName.substring(0, email.fromName.indexOf("?"));
