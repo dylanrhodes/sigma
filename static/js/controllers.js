@@ -268,13 +268,14 @@ sigmaApp.controller('EmailListCtrl', function($scope, $http, Emails, $alert) {
 		var bcc = $.map($("#compose-bcc").val().split(','), $scope.tblContactsToContacts).join(',');
 		console.log(to);
 		var data = {'body': body, 'subject': subject, 'to': to, 'cc' : cc, 'bcc' : bcc};
+		console.log(data);
 		if (window.location.search != "?home") {
 			$http({
 				method: 'POST',
 				url: '/send_email',
 				data: data
 			})
-			.success(function() {console.log("Successfully sent email");/* location.reload(); */})
+			.success(function() {console.log("Successfully sent email");/*location.reload();*/})
 			.error(function() {console.log("Didn't successfully send email");});
 		}
 	}
